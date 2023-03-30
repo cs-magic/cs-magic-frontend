@@ -4,18 +4,22 @@ import { CompSidebar } from '@/components/shared/CompSidebar'
 import { IConversation } from '@/ds/conversation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import api from '@/lib/api'
+
+export const genNewConversation = async (client_id: string): Promise<string> => {
+	// post with query, ref: https://stackoverflow.com/a/53501339
+	const res = await api.post('/v1/openai/chatgpt/reverse/new', null, {
+		params: {
+			client_id,
+		},
+	})
+	return res.data
+}
 
 export const ChatLayout = ({ conversations, children }: {
 	conversations: IConversation[],
 	children: ReactNode
 }) => {
-	
-	const refMessage = useRef<HTMLTextAreaElement | null>(null)
-	
-	const onSubmit = () => {
-		console.log('sending message:', refMessage.current!.value)
-		refMessage.current!.value = ''
-	}
 	
 	return (
 		<RootLayout>
@@ -23,14 +27,7 @@ export const ChatLayout = ({ conversations, children }: {
 				<CompSidebar conversations={conversations}/>
 				
 				<div className={'flex-1 flex flex-col p-2'}>
-					<div className={'w-full flex-1'}>
-						{children}
-					</div>
-					
-					<div className="grid w-full gap-2">
-						<Textarea ref={refMessage} placeholder="Type your message here."/>
-						<Button type={'button'} onClick={onSubmit}>Send</Button>
-					</div>
+					{children}
 				</div>
 			</div>
 		</RootLayout>
