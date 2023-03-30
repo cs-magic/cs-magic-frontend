@@ -3,7 +3,6 @@ import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { IMessage } from '@/ds/conversation'
 
-
 export const ConversationPage: NextPage = ({ conversationList, conversationMessages }: {
 	conversationList: string[]
 	conversationMessages: IMessage[]
