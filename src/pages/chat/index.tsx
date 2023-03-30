@@ -31,7 +31,7 @@ export default ConversationPage
 export const getServerSideProps: GetServerSideProps = async () => {
 	return {
 		props: {
-			conversationList: [],
+			conversations: [],
 			conversationMessages: [],
 		},
 	}

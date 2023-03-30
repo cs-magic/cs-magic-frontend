@@ -21,11 +21,13 @@ export const conversationsSlice = createSlice({
 	reducers: {
 		setConversations: (state, action: PayloadAction<IConversation[]>) => {
 			state.list = action.payload
-			state.
-		}
+		},
+		setCurConversation: (state, action: PayloadAction<ID | null>) => {
+			state.cur = action.payload
+		},
 	},
 })
 
-export const { setConversations } = conversationsSlice.actions
+export const { setConversations, setCurConversation } = conversationsSlice.actions
 
 export default conversationsSlice
