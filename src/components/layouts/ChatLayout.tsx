@@ -8,7 +8,7 @@ import api from '@/lib/api'
 
 export const genNewConversation = async (client_id: string): Promise<string> => {
 	// post with query, ref: https://stackoverflow.com/a/53501339
-	const res = await api.post('/v1/openai/chatgpt/reverse/new', null, {
+	const res = await api.post('/openai/chatgpt/reverse/new', null, {
 		params: {
 			client_id,
 		},

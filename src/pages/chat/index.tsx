@@ -1,12 +1,12 @@
 import { ChatLayout } from '@/components/layouts/ChatLayout'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { IMessage } from '@/ds/conversation'
-
-export const ConversationPage: NextPage = ({ conversationList, conversationMessages }: {
-	conversationList: string[]
+import { IConversation, IMessage } from '@/ds/conversation'
+export const ConversationPage = ({ conversationList, conversationMessages }: {
+	conversationList: IConversation[]
 	conversationMessages: IMessage[]
 }) => {
+	
 	
 	const router = useRouter()
 	const id = router.query.conversation_id

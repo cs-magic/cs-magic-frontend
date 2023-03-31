@@ -1,39 +1,55 @@
 import { ChatLayout } from '@/components/layouts/ChatLayout'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { IConversation, IMessage } from '@/ds/conversation'
+import { IConversation, IMessage, RoleType } from '@/ds/conversation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { useRef } from 'react'
 import api from '@/lib/api'
 import { ID } from '@/ds/general'
+import { useAppDispatch } from '@/states/hooks'
+import { addMessage, selectMessages } from '@/states/features/messages'
+import { useSelector } from 'react-redux'
+import { v4 } from 'uuid'
 
 
-export const ConversationPage = ({ conversations, conversationMessages }: {
+export const ConversationPage = ({ conversations }: {
 	conversations: IConversation[]
-	conversationMessages: IMessage[]
 }) => {
 	
 	const router = useRouter()
-	const { conversation_id } = router.query
+	const conversation_id = router.query.conversation_id as string
+	const messages = useSelector(selectMessages)
+		.filter((msg) => msg.conversation_id === conversation_id)
+	console.log({ conversation_id, conversations, messages })
 	
-	console.log({ conversation_id })
+	const dispatch = useAppDispatch()
 	
 	const refMessage = useRef<HTMLTextAreaElement | null>(null)
 	
+	const genMessage = (content: string, role: RoleType): IMessage => ({
+		id: v4(),
+		conversation_id,
+		time: Date.now(),
+		role,
+		content,
+	})
 	
 	const onSubmit = async () => {
-		const message = refMessage.current!.value
-		console.log('sending message:', message)
+		const sendingMessage = refMessage.current!.value
+		refMessage.current!.value = ''
+		console.log('sending message:', sendingMessage)
 		
-		const res = await api.post('/v1/openai/chatgpt/reverse/chat', {
+		dispatch(addMessage(genMessage(sendingMessage, RoleType.user)))
+		
+		const res = await api.post('/openai/chatgpt/reverse/chat', {
 			client_id: 'test001',
 			conversation_id,
-			message,
+			message: sendingMessage,
 		})
-		console.log('received response: ', res.data)
-		
-		refMessage.current!.value = ''
+		const receivedMessage = res.data
+		console.log('received response: ', receivedMessage)
+		dispatch(addMessage(genMessage(receivedMessage, RoleType.assistant)))
 	}
 	
 	return (
@@ -42,8 +58,8 @@ export const ConversationPage = ({ conversations, conversationMessages }: {
 			<div className={'w-full flex-1'}>
 				<div>Messages</div>
 				{
-					conversationMessages.map((msg) => (
-						<div key={msg.id}>{msg.content}</div>
+					messages.map((msg, index) => (
+						<div key={index}>{msg.content}</div>
 					))
 				}
 			</div>
@@ -60,24 +76,26 @@ export default ConversationPage
 
 
 export const getConversations = async (client_id: ID): Promise<IConversation[]> => {
-	const res = await api.get('/v1/openai/chatgpt/reverse/conversations', {
+	const res = await api.get('/openai/chatgpt/reverse/conversations', {
 		params: {
-			client_id
-		}
+			client_id,
+		},
 	})
 	const conversations = res.data as string[]
-	console.log({conversations})
+	console.log({ conversations })
 	// todo: title
 	return conversations.map((conversation) => ({ id: conversation, title: conversation }))
 }
 
-
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const conversations = await getConversations('test001')
+	// todo: dynamically
+	const client_id = 'test001'
+	const { conversation_id } = ctx.query as { conversation_id: string }
+	const conversations = await getConversations(client_id)
+	
 	return {
 		props: {
 			conversations,
-			conversationMessages: [],
 		},
 	}
 }
