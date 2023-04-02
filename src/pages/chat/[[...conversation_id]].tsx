@@ -37,11 +37,15 @@ export const ConversationPage = () => {
 	
 	const onSubmit = async () => {
 		const content = refMessage.current!.value
+		if(!content.trim()) {
+			toast({variant: 'destructive', title: '输入不能为空', duration: 2000})
+			return
+		}
 		refMessage.current!.value = ''
 		const res = await dispatch(sendChat({ user_id, conversation_id, model, content }))
 		console.log('res:', res)
 		if (res.meta.requestStatus === 'rejected') {
-			toast({ variant: 'destructive', title: res.payload as string })
+			toast({ variant: 'destructive', title: res.payload as string, duration: 3000 })
 		}
 	}
 	
