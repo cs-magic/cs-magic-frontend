@@ -36,12 +36,12 @@ export const ConversationPage = () => {
 	const { toast } = useToast()
 	
 	const onSubmit = async () => {
-		refMessage.current!.value = ''
 		const res = await dispatch(sendChat({ user_id, conversation_id, model, content: refMessage.current!.value }))
 		console.log('res:', res)
 		if (res.meta.requestStatus === 'rejected') {
 			toast({ variant: 'destructive', title: res.payload as string })
 		}
+		refMessage.current!.value = ''
 	}
 	
 	useEffect(() => {
