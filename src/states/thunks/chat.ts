@@ -5,6 +5,9 @@ import { addMessage, setMessages } from '@/states/features/messages'
 import api from '@/lib/api'
 import { ID } from '@/ds/general'
 import { setConversations } from '@/states/features/conversations'
+import instance from '@/lib/api'
+import { instanceOf } from 'prop-types'
+import { AxiosError } from 'axios'
 
 
 export const fetchConversations = createAsyncThunk('chat/conversations', async (user_id: ID, { dispatch }) => {
@@ -27,7 +30,7 @@ export const fetchMessages = createAsyncThunk('chat/conversation', async (data: 
 })
 
 
-export const sendChat = createAsyncThunk('chat/send', async (data: IChatModelReq, { dispatch }) => {
+export const sendChat = createAsyncThunk('chat/send', async (data: IChatModelReq, { dispatch, rejectWithValue }) => {
 	const { conversation_id } = data
 	await dispatch(addMessage({
 		id: v4(),
@@ -38,17 +41,22 @@ export const sendChat = createAsyncThunk('chat/send', async (data: IChatModelReq
 	}))
 	
 	console.log('sending:', data)
-	const res = await api.post('/chatgpt/chat', data)
-	const receivedMessage = res.data as IChatModelRes
-	console.log('received response:', receivedMessage)
-	await dispatch(addMessage({
-		id: v4(),
-		conversation_id,
-		time: Date.now(),
-		role: RoleType.assistant,
-		content: receivedMessage.choices[0].message.content,
-	}))
+	try {
+		const res = await api.post('/chatgpt/chat', data)
+		const receivedMessage = res.data as IChatModelRes
+		console.log('received response:', receivedMessage)
+		await dispatch(addMessage({
+			id: v4(),
+			conversation_id,
+			time: Date.now(),
+			role: RoleType.assistant,
+			content: receivedMessage.choices[0].message.content,
+		}))
+	} catch (e) {
+		if (e instanceof AxiosError) {
+			return rejectWithValue(e.response!.data.detail)
+		}
+	}
 	
-	// todo: minus usage
-	const usage = receivedMessage.usage
+	
 })

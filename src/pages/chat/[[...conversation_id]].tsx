@@ -14,6 +14,7 @@ import { clsx } from 'clsx'
 import { CompOpenaiLogo } from '@/components/svg/CompOpenaiLogo'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useToast } from '@/hooks/use-toast'
 
 
 export const ConversationPage = () => {
@@ -32,9 +33,15 @@ export const ConversationPage = () => {
 	
 	const refMessage = useRef<HTMLTextAreaElement | null>(null)
 	
+	const { toast } = useToast()
+	
 	const onSubmit = async () => {
-		dispatch(sendChat({ user_id, conversation_id, model, content: refMessage.current!.value }))
 		refMessage.current!.value = ''
+		const res = await dispatch(sendChat({ user_id, conversation_id, model, content: refMessage.current!.value }))
+		console.log('res:', res)
+		if (res.meta.requestStatus === 'rejected') {
+			toast({ variant: 'destructive', title: res.payload as string })
+		}
 	}
 	
 	useEffect(() => {
@@ -82,6 +89,7 @@ export const ConversationPage = () => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
 									onSubmit()
+									event.preventDefault() // prevent enter go down
 								}
 							}
 						}}
