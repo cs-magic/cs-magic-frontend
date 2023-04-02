@@ -29,21 +29,21 @@ export const ConversationPage = ({ conversationsSSR, messagesSSR }: {
 	conversationsSSR: IChatbotConversation[],
 	messagesSSR: IMessage[]
 }) => {
+	const router = useRouter()
+	let conversation_id = router.query.conversation_id
+	if (Array.isArray(conversation_id)) conversation_id = conversation_id.join('-')
+	
 	
 	const dispatch = useAppDispatch()
 	
 	useEffect(() => {
 		dispatch(setConversations(conversationsSSR))
 		dispatch(setMessages(messagesSSR))
-	}, [])
+	}, [conversation_id])
 	
 	const conversations = useAppSelector(selectConversations)
 	const messages = useAppSelector(selectMessages)
 	
-	const router = useRouter()
-	
-	// todo: string|string[]|undefined --> string|undefined
-	let conversation_id = router.query.conversation_id as string | undefined
 	
 	const [model, setModel] = useState<ChatgptModelType>('gpt-3.5-turbo')
 	console.log({ conversation_id, conversations, messages, model })
@@ -56,7 +56,7 @@ export const ConversationPage = ({ conversationsSSR, messagesSSR }: {
 				<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
 				{
 					messages.map((msg, index) => (
-						<div key={index}>{msg.content}</div>
+						<div className={'p-4'} key={index}>{msg.content}</div>
 					))
 				}
 			</div>
@@ -81,7 +81,7 @@ export const fetchConversations = async (user_id: ID): Promise<IChatbotConversat
 	return conversations
 }
 
-export const fetchMessages = async (user_id: ID, conversation_id: ID): Promise<IMessage[]> => {
+export const fetchMessages = async (user_id: ID, conversation_id?: ID): Promise<IMessage[]> => {
 	if (!conversation_id) return []
 	const res = await api.get('/chatgpt/conversation', {
 		params: {
@@ -97,7 +97,9 @@ export const fetchMessages = async (user_id: ID, conversation_id: ID): Promise<I
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	// todo: dynamically
 	const user_id = 'test-user-001'
-	const { conversation_id } = ctx.query as { conversation_id: string }
+	let conversation_id = ctx.query.conversation_id
+	if (Array.isArray(conversation_id)) conversation_id = conversation_id.join('-')
+	console.log({ conversation_id })
 	const conversationsSSR = await fetchConversations(user_id)
 	const messagesSSR = await fetchMessages(user_id, conversation_id)
 	

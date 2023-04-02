@@ -3,6 +3,7 @@ import { useAppSelector } from '@/states/hooks'
 import { selectConversations } from '@/states/features/conversations'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { IconMessageCircle, IconPlus } from '@tabler/icons-react'
+import Link from 'next/link'
 
 export const CompConversations = ({}) => {
 	const conversations = useAppSelector(selectConversations)
@@ -15,10 +16,10 @@ export const CompConversations = ({}) => {
 			<ScrollArea>
 				{
 					conversations.map((conversation) => (
-						<div key={conversation.id} className={'truncate inline-flex items-center gap-2 h-8'}>
+						<Link href={`/chat/${conversation.id}`} key={conversation.id} className={'truncate inline-flex items-center gap-2 h-8'}>
 							<IconMessageCircle size={16}/>
 							{conversation.name || conversation.id}
-						</div>
+						</Link>
 					))
 				}
 			</ScrollArea>
