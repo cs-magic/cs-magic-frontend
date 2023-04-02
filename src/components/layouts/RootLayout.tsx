@@ -2,22 +2,29 @@ import Head from 'next/head'
 import { ReactNode, useEffect } from 'react'
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
 import { CompNavBar } from '@/components/shared/CompNavBar'
-import { useAppDispatch } from '@/states/hooks'
+import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { setUserID } from '@/states/features/user'
 import { initUser } from '@/states/thunks/user'
+import { selectNotifications, setTopNotification } from '@/states/features/notificationsSlice'
 
 export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	children: ReactNode
 	title?: string
 }) => {
 	const dispatch = useAppDispatch()
-	const { data: visitorData } = useVisitorData()
+	const { data: visitorData, error } = useVisitorData()
+	const notifications = useAppSelector(selectNotifications)
 	
 	useEffect(() => {
 		if (visitorData?.visitorId) {
 			dispatch(initUser(visitorData.visitorId))
 		}
-	}, [visitorData?.visitorId])
+		if (error) {
+			if (error.name === 'FPJSAgentError') {
+				dispatch(setTopNotification('本网站目前不支持当前浏览器，推荐更换使用Google或者Firefox浏览器'))
+			}
+		}
+	}, [visitorData?.visitorId, error])
 	
 	return (
 		<>
@@ -29,6 +36,12 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 			</Head>
 			
 			<main className={'w-screen h-screen flex flex-col'}>
+				
+				{notifications.top && (
+					<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
+						{notifications.top}
+					</div>
+				)}
 				
 				<CompNavBar title={title}/>
 				

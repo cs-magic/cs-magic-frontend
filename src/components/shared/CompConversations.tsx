@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectConversations } from '@/states/features/conversations'
+import { selectConversations } from '@/states/features/conversationsSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import * as allIcons from '@tabler/icons-react'
 import { IconLogout, IconMessageCircle, IconPlus } from '@tabler/icons-react'

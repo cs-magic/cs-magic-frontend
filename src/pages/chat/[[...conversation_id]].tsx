@@ -4,16 +4,14 @@ import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, RoleType } from '@/ds/chatgpt
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectMessages } from '@/states/features/messages'
-import { selectConversations } from '@/states/features/conversations'
+import { selectMessages } from '@/states/features/messagesSlice'
+import { selectConversations } from '@/states/features/conversationsSlice'
 import { IconBrandOpenai, IconBrandTelegram } from '@tabler/icons-react'
 import { selectUserID } from '@/states/features/user'
 import { fetchMessages, sendChat } from '@/states/thunks/chat'
 import { ensureSole } from '@/lib/utils'
 import { clsx } from 'clsx'
-import { CompOpenaiLogo } from '@/components/svg/CompOpenaiLogo'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { useToast } from '@/hooks/use-toast'
 
 
@@ -21,8 +19,8 @@ export const ConversationPage = () => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
 	
-	// should exist user id now
-	const user_id = useAppSelector(selectUserID)!
+	// should exist user id now (except if fpjs error)
+	const user_id = useAppSelector(selectUserID)
 	let conversation_id = ensureSole(router.query.conversation_id)
 	
 	const conversations = useAppSelector(selectConversations)
@@ -36,9 +34,13 @@ export const ConversationPage = () => {
 	const { toast } = useToast()
 	
 	const onSubmit = async () => {
+		if (!user_id) {
+			return
+		}
+		
 		const content = refMessage.current!.value
-		if(!content.trim()) {
-			toast({variant: 'destructive', title: '输入不能为空', duration: 2000})
+		if (!content.trim()) {
+			toast({ variant: 'destructive', title: '输入不能为空', duration: 2000 })
 			return
 		}
 		refMessage.current!.value = ''
@@ -50,7 +52,9 @@ export const ConversationPage = () => {
 	}
 	
 	useEffect(() => {
-		dispatch(fetchMessages({ user_id, conversation_id }))
+		if (user_id) {
+			dispatch(fetchMessages({ user_id, conversation_id }))
+		}
 	}, [conversation_id])
 	
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto'
@@ -74,7 +78,7 @@ export const ConversationPage = () => {
 										: (
 											<Avatar className={'w-6 h-6 shrink-0'}>
 												<AvatarFallback>
-													{user_id[0]}
+													{user_id ? user_id[0] : 'U'}
 												</AvatarFallback>
 											</Avatar>
 										)
