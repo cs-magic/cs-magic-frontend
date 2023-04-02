@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IChatbotConversation, IMessage } from '@/ds/conversation'
+import { IChatbotConversation, IMessage } from '@/ds/chatgpt'
 import { ID } from '@/ds/general'
 import { RootState } from '@/states/store'
 

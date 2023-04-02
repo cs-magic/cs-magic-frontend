@@ -3,16 +3,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/states/store'
 
 export interface UserState {
-	id: ID
+	id: ID | null
 	alive: boolean
+	name: string
+	balance: number
 }
 
 
 export const initialState: UserState = {
 	// todo: dynamic
-	id: 'test-user-001',
+	id: null,
 	alive: false,
+	name: 'Unnamed',
+	balance: 0,
 }
+
 
 export const userSlice = createSlice({
 	name: 'user',
@@ -24,10 +29,16 @@ export const userSlice = createSlice({
 		setUserAliveStatus: (state, action: PayloadAction<boolean>) => {
 			state.alive = action.payload
 		},
+		setUserBalance: (state, action: PayloadAction<number>) => {
+			state.balance = action.payload
+		},
+		setUserName: (state, action: PayloadAction<string>) => {
+			state.name = action.payload
+		}
 	},
 })
 
-export const { setUserID, setUserAliveStatus } = userSlice.actions
+export const { setUserID, setUserAliveStatus, setUserBalance, setUserName } = userSlice.actions
 
 
 export const selectUserID = (state: RootState) => state.user.id

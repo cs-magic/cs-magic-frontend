@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IChatbotConversation } from '@/ds/conversation'
+import { IChatbotConversation, IChatbotConversationBase } from '@/ds/chatgpt'
 import { ID } from '@/ds/general'
 import { RootState } from '@/states/store'
 
 
 export type ConversationsState = {
-	list: IChatbotConversation[]
+	list: IChatbotConversationBase[]
 	cur: ID | null
 }
 
@@ -20,7 +20,7 @@ export const conversationsSlice = createSlice({
 	name: 'conversations',
 	initialState,
 	reducers: {
-		setConversations: (state, action: PayloadAction<IChatbotConversation[]>) => {
+		setConversations: (state, action: PayloadAction<IChatbotConversationBase[]>) => {
 			state.list = action.payload
 		},
 		setCurConversation: (state, action: PayloadAction<ID | null>) => {

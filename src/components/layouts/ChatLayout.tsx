@@ -1,7 +1,7 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { ReactNode, useEffect, useRef } from 'react'
 import { CompConversations } from '@/components/shared/CompConversations'
-import { IChatbotConversation } from '@/ds/conversation'
+import { IChatbotConversation } from '@/ds/chatgpt'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import api from '@/lib/api'
@@ -18,8 +18,7 @@ export const genNewConversation = async (client_id: string): Promise<string> => 
 	return res.data
 }
 
-export const ChatLayout = ({ conversations, children }: {
-	conversations: IChatbotConversation[],
+export const ChatLayout = ({ children }: {
 	children: ReactNode
 }) => {
 	

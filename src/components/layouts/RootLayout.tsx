@@ -1,21 +1,23 @@
 import Head from 'next/head'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { CompNavBar } from '@/components/shared/CompNavBar'
+import { useAppDispatch } from '@/states/hooks'
+import { setUserID } from '@/states/features/user'
+import { initUser } from '@/states/thunks/user'
 
 export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	children: ReactNode
 	title?: string
 }) => {
+	const dispatch = useAppDispatch()
+	const { data: visitorData } = useVisitorData()
 	
-	const {
-		isLoading,
-		error,
-		data,
-	} = useVisitorData()
-	
-	// console.log({ isLoading, error, data })
+	useEffect(() => {
+		if (visitorData?.visitorId) {
+			dispatch(initUser(visitorData.visitorId))
+		}
+	}, [visitorData?.visitorId])
 	
 	return (
 		<>
