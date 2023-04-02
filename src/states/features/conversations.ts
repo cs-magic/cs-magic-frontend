@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IChatbotConversation } from '@/ds/conversation'
 import { ID } from '@/ds/general'
+import { RootState } from '@/states/store'
 
 
 export type ConversationsState = {
@@ -29,5 +30,7 @@ export const conversationsSlice = createSlice({
 })
 
 export const { setConversations, setCurConversation } = conversationsSlice.actions
+
+export const selectConversations = (state: RootState) => state.conversations.list
 
 export default conversationsSlice

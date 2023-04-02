@@ -12,7 +12,7 @@ export const CompSidebar = ({ conversations }: {
 			{
 				conversations.map((conversation) => (
 					<div key={conversation.id} className={'truncate'}>
-						{conversation.title || conversation.id}
+						{conversation.name || conversation.id}
 					</div>
 				))
 			}

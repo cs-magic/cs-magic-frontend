@@ -9,7 +9,7 @@ export enum RoleType {
 
 export interface IMessage {
 	id: ID
-	conversation_id: ID
+	conversation_id?: ID
 	time: number
 	
 	role: RoleType

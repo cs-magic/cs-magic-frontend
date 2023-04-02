@@ -1,10 +1,12 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
-import { ReactNode, useRef } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 import { CompSidebar } from '@/components/shared/CompSidebar'
 import { IChatbotConversation } from '@/ds/conversation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import api from '@/lib/api'
+import { useAppSelector } from '@/states/hooks'
+import { selectUserID } from '@/states/features/user'
 
 export const genNewConversation = async (client_id: string): Promise<string> => {
 	// post with query, ref: https://stackoverflow.com/a/53501339
