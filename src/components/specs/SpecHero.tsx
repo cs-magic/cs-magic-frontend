@@ -1,4 +1,6 @@
 import { schemaCN } from '@/i18n/langs/cn'
+import Link from 'next/link'
+import { projects } from '@/config'
 
 export const SpecHero = () => {
 	const i18nSchema = schemaCN
@@ -10,7 +12,10 @@ export const SpecHero = () => {
 				<div className="max-w-md">
 					<h1 className="mb-5 text-5xl font-bold">{i18nSchema.hero.title}</h1>
 					<p className="mb-5">{i18nSchema.hero.subtitle}</p>
-					<button className="btn btn-primary">{i18nSchema.hero.entrance}</button>
+					
+					<Link href={projects[0].targetUrl}>
+						<button className="btn btn-primary">{i18nSchema.hero.entrance}</button>
+					</Link>
 				</div>
 			</div>
 		</div>
