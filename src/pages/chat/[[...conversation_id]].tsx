@@ -19,8 +19,7 @@ export const ConversationPage = () => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
 	
-	// should exist user id now (except if fpjs error)
-	const user_id = useAppSelector(selectUserID)
+	const user_id = useAppSelector(selectUserID) // should exist user id now (except if fpjs error)
 	let conversation_id = ensureSole(router.query.conversation_id)
 	
 	const conversations = useAppSelector(selectConversations)
@@ -62,7 +61,8 @@ export const ConversationPage = () => {
 	return (
 		<ChatLayout>
 			<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
-			<div className={'overflow-auto'}>
+			
+			<div className={'grow overflow-auto'}>
 				{
 					messages.map((msg, index) => (
 						<div key={index} className={clsx(

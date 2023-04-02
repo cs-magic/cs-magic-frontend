@@ -13,13 +13,15 @@ import { useSelector } from 'react-redux'
 import { selectUser, selectUserID } from '@/states/features/user'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { CompUserAccount } from '@/components/shared/CompUserAccount'
+import { useToast } from '@/hooks/use-toast'
+import { HtmlAttributes } from 'csstype'
 
-const CompLine = ({ icon, children }: { icon: string, children: ReactNode }) => {
+const CompLine = ({ icon, children, onClick }: { icon: string, children: ReactNode, onClick?: any }) => {
 	// ref: https://stackoverflow.com/a/73846364
 	// @ts-ignore
 	const Icon = allIcons[icon]
 	return (
-		<div className={'w-full p-3 truncate inline-flex items-center gap-2 hover:bg-[#2A2B32]'}>
+		<div className={'w-full p-3 truncate inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer'} onClick={onClick}>
 			<Icon size={16}/>
 			{children}
 		</div>
@@ -36,24 +38,27 @@ export const CompConversations = ({}) => {
 		if (user.id) dispatch(fetchConversations(user.id))
 	}, [user.id])
 	
+	const { toast } = useToast()
 	
 	const conversations = useAppSelector(selectConversations)
 	
 	return (
 		<div className={'dark hidden bg-gray-900 text-gray-100 md:flex md:w-[260px] md:flex-col'}>
 			
-			<Button className={'w-full inline-flex items-center gap-2'} variant={'subtle'}>
+			<Button className={'w-full inline-flex items-center gap-2'} variant={'subtle'} onClick={() => {
+				toast({ title: 'todo', variant: 'destructive' })
+			}}>
 				<IconPlus size={16}/>New Chat
 			</Button>
 			
 			<ScrollArea className={'flex-1'}>
 				{
 					conversations.map((conversation) => (
-						<CompLine icon={'IconMessageCircle'} key={conversation.id}>
-							<Link href={`/chat/${conversation.id}`}>
+						<Link href={`/chat/${conversation.id}`} key={conversation.id}>
+							<CompLine icon={'IconMessageCircle'}>
 								{conversation.name || conversation.id}
-							</Link>
-						</CompLine>
+							</CompLine>
+						</Link>
 					))
 				}
 			</ScrollArea>
@@ -70,7 +75,9 @@ export const CompConversations = ({}) => {
 				</DialogContent>
 			</Dialog>
 			
-			<CompLine icon={'IconLogout'}>Log Out</CompLine>
+			<CompLine icon={'IconLogout'} onClick={() => {
+				toast({ title: 'todo', variant: 'destructive' })
+			}}>Log Out</CompLine>
 		</div>
 	)
 }
