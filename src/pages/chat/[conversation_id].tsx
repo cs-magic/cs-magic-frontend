@@ -27,18 +27,18 @@ export const ConversationPage = ({ conversations }: {
 	
 	const refMessage = useRef<HTMLTextAreaElement | null>(null)
 	
-	const genMessage = (content: string, role: RoleType): IMessage => ({
-		id: v4(),
-		conversation_id,
-		time: Date.now(),
-		role,
-		content,
-	})
-	
 	const onSubmit = async () => {
 		const sendingMessage = refMessage.current!.value
 		refMessage.current!.value = ''
 		console.log('sending message:', sendingMessage)
+		
+		const genMessage = (content: string, role: RoleType): IMessage => ({
+			id: v4(),
+			conversation_id,
+			time: Date.now(),
+			role,
+			content,
+		})
 		
 		dispatch(addMessage(genMessage(sendingMessage, RoleType.user)))
 		
