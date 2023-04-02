@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IMessage, RoleType } from '@/ds/conversation'
+import { IChatModel, IMessage, RoleType } from '@/ds/conversation'
 import { v4 } from 'uuid'
 import { addMessage } from '@/states/features/messages'
 import api from '@/lib/api'
-import { IChatModel } from '@/components/shared/CompChatBox'
 
 
 export const sendChat = createAsyncThunk('chat/send', async (data: IChatModel, { dispatch }) => {

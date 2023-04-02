@@ -29,7 +29,7 @@ export const ChatLayout = ({ conversations, children }: {
 				<CompConversations/>
 				
 				<div className={'flex-1 flex flex-col'}>
-					{children}
+						{children}
 				</div>
 			</div>
 		</RootLayout>

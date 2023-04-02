@@ -1,5 +1,4 @@
 import { ID } from '@/ds/general'
-import { IUser } from '@/ds/user'
 
 export enum RoleType {
 	system = 'system',
@@ -27,4 +26,11 @@ export interface IChatbotConversation extends IChatbotConversationBase {
 	model: string
 	messages: IMessage[]
 	start: number
+}
+
+export interface IChatModel {
+	user_id: ID
+	conversation_id?: ID
+	model: string
+	content: string
 }
