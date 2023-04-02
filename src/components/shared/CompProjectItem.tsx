@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 export interface IProjectItem {
 	name: string
@@ -21,9 +22,9 @@ export const CompProjectItem = (
 	return (
 		<div className="card w-96 bg-base-100 shadow-xl">
 			
-			<figure>
-				<Image src={coverUrl} alt={name} width={320} height={240}/>
-			</figure>
+			<AspectRatio ratio={16 / 9}>
+				<Image fill className="rounded-md object-cover" src={coverUrl} alt={name}/>
+			</AspectRatio>
 			
 			<div className="card-body">
 				<h2 className="card-title">
