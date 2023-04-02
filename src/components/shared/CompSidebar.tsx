@@ -1,9 +1,9 @@
-import { IConversation, IMessage } from '@/ds/conversation'
-import conversation_id from '@/pages/chat/[conversation_id]'
+import { IChatbotConversation, IMessage } from '@/ds/conversation'
+import conversation_id from '@/pages/chat/[[...conversation_id]]'
 import { Button } from '@/components/ui/button'
 
 export const CompSidebar = ({ conversations }: {
-	conversations: IConversation[]
+	conversations: IChatbotConversation[]
 }) => {
 	return (
 		<div className={'hidden md:block w-[240px] bg-bg-shade flex flex-col p-2 gap-2'}>

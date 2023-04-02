@@ -15,7 +15,7 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 		data,
 	} = useVisitorData()
 	
-	console.log({ isLoading, error, data })
+	// console.log({ isLoading, error, data })
 	
 	return (
 		<>

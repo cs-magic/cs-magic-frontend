@@ -17,7 +17,14 @@ export interface IMessage {
 }
 
 
-export interface IConversation {
+export interface IChatbotConversationBase {
 	id: ID
-	title?: string
+	name: string
+}
+
+export interface IChatbotConversation extends IChatbotConversationBase {
+	user_id: ID
+	model: string
+	messages: IMessage[]
+	start: number
 }
