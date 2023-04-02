@@ -6,13 +6,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectMessages } from '@/states/features/messages'
 import { selectConversations } from '@/states/features/conversations'
-import { IconBrandTelegram } from '@tabler/icons-react'
+import { IconBrandOpenai, IconBrandTelegram } from '@tabler/icons-react'
 import { selectUserID } from '@/states/features/user'
 import { fetchMessages, sendChat } from '@/states/thunks/chat'
 import { ensureSole } from '@/lib/utils'
 import { clsx } from 'clsx'
 import { CompOpenaiLogo } from '@/components/svg/CompOpenaiLogo'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 
 export const ConversationPage = () => {
@@ -44,9 +45,8 @@ export const ConversationPage = () => {
 	
 	return (
 		<ChatLayout>
-			
 			<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
-			<div className={'flex-1'}>
+			<div className={'overflow-auto'}>
 				{
 					messages.map((msg, index) => (
 						<div key={index} className={clsx(
@@ -55,12 +55,17 @@ export const ConversationPage = () => {
 						)}>
 							{/*// 这里直接copy的chatgpt居中的css*/}
 							<div className={clsx(c)}>
+								
 								{
-									msg.role === RoleType.assistant ? <CompOpenaiLogo/> : (
-										<Avatar className={'w-6 h-6'}>
-											<AvatarFallback>{user_id[0]}</AvatarFallback>
-										</Avatar>
-									)
+									msg.role === RoleType.assistant
+										? <IconBrandOpenai size={24} className={'shrink-0'}/>
+										: (
+											<Avatar className={'w-6 h-6 shrink-0'}>
+												<AvatarFallback>
+													{user_id[0]}
+												</AvatarFallback>
+											</Avatar>
+										)
 								}
 								
 								{msg.content}
@@ -87,7 +92,6 @@ export const ConversationPage = () => {
 					<IconBrandTelegram className={'absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
 			</div>
-		
 		</ChatLayout>
 	)
 }

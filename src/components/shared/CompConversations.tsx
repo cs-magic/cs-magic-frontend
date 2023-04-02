@@ -12,6 +12,7 @@ import { fetchConversations } from '@/states/thunks/chat'
 import { useSelector } from 'react-redux'
 import { selectUser, selectUserID } from '@/states/features/user'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { CompUserAccount } from '@/components/shared/CompUserAccount'
 
 const CompLine = ({ icon, children }: { icon: string, children: ReactNode }) => {
 	// ref: https://stackoverflow.com/a/73846364
@@ -65,12 +66,7 @@ export const CompConversations = ({}) => {
 				</DialogTrigger>
 				
 				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>Your Account</DialogTitle>
-						<DialogDescription>
-							current balance: {user.balance}
-						</DialogDescription>
-					</DialogHeader>
+					<CompUserAccount/>
 				</DialogContent>
 			</Dialog>
 			

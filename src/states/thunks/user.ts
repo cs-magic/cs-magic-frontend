@@ -10,9 +10,14 @@ export interface IUserBasic {
 	balance: number
 }
 
+export const updateUser = createAsyncThunk('user/update', async (user_id: ID, {dispatch}) => {
+	const userData: IUserBasic = (await api.get('/chatgpt/user_basic', {params: {user_id}})).data
+	await dispatch(setUserName(userData.name))
+	await dispatch(setUserBalance(userData.balance))
+})
+
+
 export const initUser = createAsyncThunk('user/init', async (user_id: ID, {dispatch}) => {
 	dispatch(setUserID(user_id))
-	const userData: IUserBasic = (await api.get('/chatgpt/user_basic', {params: {user_id}})).data
-	dispatch(setUserName(userData.name))
-	dispatch(setUserBalance(userData.balance))
+	dispatch(updateUser(user_id))
 })

@@ -24,10 +24,10 @@ export const ChatLayout = ({ children }: {
 	
 	return (
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
-			<div className={'flex w-full flex-1'}>
+			<div className={'flex w-full grow overflow-auto'}>
 				<CompConversations/>
 				
-				<div className={'flex-1 flex flex-col'}>
+				<div className={'flex-1 flex flex-col h-full'}>
 						{children}
 				</div>
 			</div>
