@@ -26,7 +26,7 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 				<link rel="icon" href="/favicon.ico"/>
 			</Head>
 			
-			<main className={'w-screen h-screen p-2'}>
+			<main className={'w-screen h-screen flex flex-col'}>
 				
 				<CompNavBar title={title}/>
 				

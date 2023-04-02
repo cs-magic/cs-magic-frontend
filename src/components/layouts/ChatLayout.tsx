@@ -23,10 +23,10 @@ export const ChatLayout = ({ conversations, children }: {
 	
 	return (
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
-			<div className={'flex w-full h-full'}>
+			<div className={'flex w-full flex-1'}>
 				<CompSidebar conversations={conversations}/>
 				
-				<div className={'flex-1 flex flex-col p-2'}>
+				<div className={'flex-1 flex flex-col'}>
 					{children}
 				</div>
 			</div>
