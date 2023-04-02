@@ -19,7 +19,7 @@ export const CompNavBar = ({ title }: { title: string }) => {
 					
 					<DropdownMenuContent>
 						<DropdownMenuItem asChild><Link href={'/'} className={'cursor-pointer'}>HomePage</Link></DropdownMenuItem>
-						<DropdownMenuItem>About</DropdownMenuItem>
+						{/*<DropdownMenuItem>About</DropdownMenuItem>*/}
 					</DropdownMenuContent>
 				
 				</DropdownMenu>
