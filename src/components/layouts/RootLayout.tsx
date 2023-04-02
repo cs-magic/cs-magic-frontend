@@ -1,9 +1,22 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
+import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { CompNavBar } from '@/components/shared/CompNavBar'
 
-export const RootLayout = ({children}: {
+export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	children: ReactNode
+	title?: string
 }) => {
+	
+	const {
+		isLoading,
+		error,
+		data,
+	} = useVisitorData()
+	
+	console.log({ isLoading, error, data })
+	
 	return (
 		<>
 			<Head>
@@ -13,7 +26,10 @@ export const RootLayout = ({children}: {
 				<link rel="icon" href="/favicon.ico"/>
 			</Head>
 			
-			<main className={'w-screen h-screen'}>
+			<main className={'w-screen h-screen p-2'}>
+				
+				<CompNavBar title={title}/>
+				
 				{children}
 			</main>
 		</>

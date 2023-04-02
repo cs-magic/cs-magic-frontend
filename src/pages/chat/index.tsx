@@ -2,9 +2,9 @@ import { ChatLayout } from '@/components/layouts/ChatLayout'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { IConversation, IMessage } from '@/ds/conversation'
-export const ConversationPage = ({ conversationList, conversationMessages }: {
-	conversationList: IConversation[]
-	conversationMessages: IMessage[]
+export const ConversationPage = ({ conversations, messages }: {
+	conversations: IConversation[]
+	messages: IMessage[]
 }) => {
 	
 	
@@ -14,10 +14,10 @@ export const ConversationPage = ({ conversationList, conversationMessages }: {
 	console.log({id})
 	
 	return (
-		<ChatLayout conversations={conversationList}>
+		<ChatLayout conversations={conversations}>
 			<div>Messages</div>
 			{
-				conversationMessages.map((msg) => (
+				messages.map((msg) => (
 					<div key={msg.id}>{msg.content}</div>
 				))
 			}
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	return {
 		props: {
 			conversations: [],
-			conversationMessages: [],
+			messages: [],
 		},
 	}
 }

@@ -22,7 +22,7 @@ export const ChatLayout = ({ conversations, children }: {
 }) => {
 	
 	return (
-		<RootLayout>
+		<RootLayout title={'免翻 ChatGPT PLUS'}>
 			<div className={'flex w-full h-full'}>
 				<CompSidebar conversations={conversations}/>
 				
