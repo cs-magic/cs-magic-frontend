@@ -41,6 +41,7 @@ export const userSlice = createSlice({
 export const { setUserID, setUserAliveStatus, setUserBalance, setUserName } = userSlice.actions
 
 
+export const selectUser = (state: RootState) => state.user
 export const selectUserID = (state: RootState) => state.user.id
 export const selectUserAliveStatus = (state: RootState) => state.user.alive
 
