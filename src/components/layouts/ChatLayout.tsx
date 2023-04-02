@@ -1,6 +1,6 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { ReactNode, useEffect, useRef } from 'react'
-import { CompSidebar } from '@/components/shared/CompSidebar'
+import { CompConversations } from '@/components/shared/CompConversations'
 import { IChatbotConversation } from '@/ds/conversation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -26,7 +26,7 @@ export const ChatLayout = ({ conversations, children }: {
 	return (
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
 			<div className={'flex w-full flex-1'}>
-				<CompSidebar conversations={conversations}/>
+				<CompConversations/>
 				
 				<div className={'flex-1 flex flex-col'}>
 					{children}
