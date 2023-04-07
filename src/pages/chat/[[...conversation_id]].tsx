@@ -1,4 +1,3 @@
-import { ChatLayout } from '@/components/layouts/ChatLayout'
 import { useRouter } from 'next/router'
 import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, RoleType } from '@/ds/chatgpt'
 import { Textarea } from '@/components/ui/textarea'
@@ -13,6 +12,8 @@ import { ensureSole } from '@/lib/utils'
 import { clsx } from 'clsx'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useToast } from '@/hooks/use-toast'
+import { RootLayout } from '@/components/layouts/RootLayout'
+import { CompConversations } from '@/components/shared/CompConversations'
 
 
 export const ConversationPage = () => {
@@ -59,57 +60,66 @@ export const ConversationPage = () => {
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto'
 	
 	return (
-		<ChatLayout>
-			<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
-			
-			<div className={'grow overflow-auto'}>
-				{
-					messages.map((msg, index) => (
-						<div key={index} className={clsx(
-							'w-full',
-							msg.role === RoleType.assistant ? 'bg-gray-50 dark:bg-[#444654]' : 'dark:bg-gray-800',
-						)}>
-							{/*// 这里直接copy的chatgpt居中的css*/}
-							<div className={clsx(c)}>
-								
-								{
-									msg.role === RoleType.assistant
-										? <IconBrandOpenai size={24} className={'shrink-0'}/>
-										: (
-											<Avatar className={'w-6 h-6 shrink-0'}>
-												<AvatarFallback>
-													{user_id ? user_id[0] : 'U'}
-												</AvatarFallback>
-											</Avatar>
-										)
-								}
-								
-								{msg.content}
-							</div>
+		<RootLayout title={'免翻 ChatGPT PLUS'}>
+			<div className={'flex w-full grow overflow-auto'}>
+				
+				{/* left: conversations */}
+				<CompConversations/>
+				
+				{/* right: current conversation */}
+				<div className={'flex-1 flex flex-col h-full'}>
+					<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
+					
+					<div className={'grow overflow-auto'}>
+						{
+							messages.map((msg, index) => (
+								<div key={index} className={clsx(
+									'w-full',
+									msg.role === RoleType.assistant ? 'bg-gray-50 dark:bg-[#444654]' : 'dark:bg-gray-800',
+								)}>
+									{/*// 这里直接copy的chatgpt居中的css*/}
+									<div className={clsx(c)}>
+										
+										{
+											msg.role === RoleType.assistant
+												? <IconBrandOpenai size={24} className={'shrink-0'}/>
+												: (
+													<Avatar className={'w-6 h-6 shrink-0'}>
+														<AvatarFallback>
+															{user_id ? user_id[0] : 'U'}
+														</AvatarFallback>
+													</Avatar>
+												)
+										}
+										
+										{msg.content}
+									</div>
+								</div>
+							))
+						}
+					</div>
+					
+					<div className={'w-full'}>
+						<div className={clsx(c, 'relative')}>
+							<Textarea
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') {
+										if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
+											onSubmit()
+											event.preventDefault() // prevent enter go down
+										}
+									}
+								}}
+								className={'w-full shadow-xl'}
+								ref={refMessage}
+								placeholder="Type your message here."
+							/>
+							<IconBrandTelegram className={'absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 						</div>
-					))
-				}
-			</div>
-			
-			<div className={'w-full'}>
-				<div className={clsx(c, 'relative')}>
-					<Textarea
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
-								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
-									onSubmit()
-									event.preventDefault() // prevent enter go down
-								}
-							}
-						}}
-						className={'w-full shadow-xl'}
-						ref={refMessage}
-						placeholder="Type your message here."
-					/>
-					<IconBrandTelegram className={'absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
+					</div>
 				</div>
 			</div>
-		</ChatLayout>
+		</RootLayout>
 	)
 }
 
