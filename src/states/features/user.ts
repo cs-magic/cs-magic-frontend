@@ -2,11 +2,22 @@ import { ID } from '@/ds/general'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/states/store'
 
+export enum UserType {
+	guest = 'guest',
+	register = 'register',
+	vip = 'vip',
+	vipGolden = 'vipGolden',
+	vipPlatinum = 'vipPlatinum',
+	vipDiamond = 'vipDiamond'
+}
+
 export interface UserState {
 	id: ID | null
 	alive: boolean
 	name: string
-	balance: number
+	balance: number,
+	type: UserType,
+	
 }
 
 
@@ -16,6 +27,7 @@ export const initialState: UserState = {
 	alive: false,
 	name: 'Unnamed',
 	balance: 0,
+	type: UserType.guest,
 }
 
 
@@ -34,11 +46,14 @@ export const userSlice = createSlice({
 		},
 		setUserName: (state, action: PayloadAction<string>) => {
 			state.name = action.payload
-		}
+		},
+		setUserType: (state, action: PayloadAction<UserType>) => {
+			state.type = action.payload
+		},
 	},
 })
 
-export const { setUserID, setUserAliveStatus, setUserBalance, setUserName } = userSlice.actions
+export const { setUserID, setUserAliveStatus, setUserBalance, setUserName, setUserType } = userSlice.actions
 
 
 export const selectUser = (state: RootState) => state.user

@@ -22,12 +22,14 @@ export const CompNavbarAvatar = () => {
 					<DialogTitle>Your Profile</DialogTitle>
 				</DialogHeader>
 				
-				<div>user_id: <span className={'text-blue-500 cursor-pointer'} onClick={() => {
+				<div>id: <span className={'text-blue-500 cursor-pointer'} onClick={() => {
 					if (user.id) {
 						navigator.clipboard.writeText(user.id)
 						toast({ title: 'copied your user_id' })
 					}
 				}}>{user.id}</span></div>
+				
+				<div>type: {user.type}</div>
 			</DialogContent>
 		
 		</Dialog>
