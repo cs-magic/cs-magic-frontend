@@ -3,6 +3,7 @@ import { useAppSelector } from '@/states/hooks'
 import { selectUser } from '@/states/features/user'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useToast } from '@/hooks/use-toast'
+import { CompUserPlanning } from '@/components/shared/CompUserPlanning'
 
 export const CompNavbarAvatar = () => {
 	const user = useAppSelector(selectUser)
@@ -29,7 +30,10 @@ export const CompNavbarAvatar = () => {
 					}
 				}}>{user.id}</span></div>
 				
-				<div>type: {user.type}</div>
+				<div className={'flex justify-between items-center'}>
+					planning: {user.planning}
+					<CompUserPlanning/>
+				</div>
 			</DialogContent>
 		
 		</Dialog>
