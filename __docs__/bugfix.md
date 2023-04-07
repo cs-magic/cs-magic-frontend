@@ -8,3 +8,8 @@
 
 匪夷所思的是之前的项目都不用装这个。。。
 
+
+## next-auth email sending: `Mail command failed: 501 Mail from address must be same as authorization user.`
+
+`EMAIL_SERVER` 与 `EMAIL_FROM` 的账户要对应，不能乱写，比如写成 `noreply@cs-magic.com`，然而却使用个人账户登录。
+

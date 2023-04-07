@@ -1,21 +1,18 @@
-import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
 import { Button } from '@/components/ui/button'
-import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { signIn, useSession, signOut } from 'next-auth/react'
 
 export const CompUserRegister = () => {
+	const { data: session } = useSession()
+	
 	return (
-		<Dialog>
-			<DialogTrigger asChild>
-				<Button variant={'destructive'}>Register</Button>
-			</DialogTrigger>
-			
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Register Your Account</DialogTitle>
-				</DialogHeader>
-				
-				<p>register</p>
-			</DialogContent>
-		</Dialog>
+		<>
+			{
+				session ? (
+					<Button variant={'destructive'} onClick={() => signOut()}>Sign Out</Button>
+				) : (
+					<Button variant={'destructive'} onClick={() => signIn()}>Sign In</Button>
+				)
+			}
+		</>
 	)
 }
