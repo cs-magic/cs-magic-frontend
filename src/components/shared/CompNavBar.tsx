@@ -1,13 +1,8 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { useAppSelector } from '@/states/hooks'
-import { selectUser } from '@/states/features/user'
-import { useToast } from '@/hooks/use-toast'
+import { CompNavbarAvatar } from '@/components/shared/CompNavbarAvatar'
 
 export const CompNavBar = ({ title }: { title: string }) => {
-	const user = useAppSelector(selectUser)
-	const { toast } = useToast()
 	
 	return (
 		<div className="navbar bg-base-100">
@@ -37,13 +32,7 @@ export const CompNavBar = ({ title }: { title: string }) => {
 			</div>
 			
 			<div className={'navbar-end'}>
-				<Avatar
-					className={'cursor-pointer'}
-					onClick={() => {
-						toast({ title: 'todo', variant: 'destructive' })
-					}}>
-					<AvatarFallback>{user.name ? user.name[0] : 'U'}</AvatarFallback>
-				</Avatar>
+				<CompNavbarAvatar/>
 			</div>
 		</div>
 	)
