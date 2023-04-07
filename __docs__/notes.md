@@ -1,5 +1,15 @@
 # notes
 
+## secret
+
+generate secret keys:
+
+```shell
+openssl rand -hex 32
+```
+
+ref: https://www.tecmint.com/generate-pre-shared-key-in-linux/
+
 ## 消息体设计
 
 由于后端的 conversation 其实是不完整的（token超过的时候，会被 truncate），并且只有 role, content 两个字段，达不到前端显示信息完备度的要求，因此消息体选择全部由前端自行存储，后端只存储chatbot的一些内部信息。
