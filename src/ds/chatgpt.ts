@@ -1,36 +1,18 @@
 import { ID } from '@/ds/general'
-
-export enum RoleType {
-	system = 'system',
-	user = 'user',
-	assistant = 'assistant'
-}
-
-export interface IMessage {
-	id: ID
-	conversation_id?: ID
-	time: number
-	
-	role: RoleType
-	content: string
-}
+import { ChatgptRoleType } from '@/ds/chatgpt_v2'
 
 
-export interface IChatbotConversationBase {
-	id: ID
-	name: string
-}
-
-export interface IChatbotConversation extends IChatbotConversationBase {
+export interface IUserConversation {
 	user_id: ID
+	conversation_id: ID
 	model: string
-	messages: IMessage[]
-	start: number
 }
+
+export type IGetMessagesReq = IUserConversation
 
 export interface IChatModelReq {
 	user_id: ID
-	conversation_id?: ID
+	conversation_id: ID
 	model: string
 	content: string
 }
@@ -40,15 +22,15 @@ interface IChatModelResChoice {
 	index: number
 	message: {
 		content: string
-		role: RoleType
+		role: ChatgptRoleType
 	}
 }
 
 export interface IChatModelResUsage {
-		completion_tokens: number
-		prompt_tokens: number
-		total_tokens: number
-	}
+	completion_tokens: number
+	prompt_tokens: number
+	total_tokens: number
+}
 
 export interface IChatModelRes {
 	choices: IChatModelResChoice[]
@@ -59,12 +41,8 @@ export interface IChatModelRes {
 	usage: IChatModelResUsage
 }
 
-export interface IUserConversation {
-	user_id: ID
-	conversation_id?: ID
-}
-
 export const CHATGPT_MODEL_35_TURBO = 'gpt-3.5-turbo'
 export const CHATGPT_MODEL_4 = 'gpt-4'
 export const chatgptModelTypes = [CHATGPT_MODEL_4, CHATGPT_MODEL_35_TURBO]
 export type ChatgptModelType = typeof chatgptModelTypes[number]
+

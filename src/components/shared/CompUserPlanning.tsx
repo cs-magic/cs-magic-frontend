@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/states/hooks'
-import { selectUser, selectUserID } from '@/states/features/user'
+import { selectUserBasic, selectUserChatgpt } from '@/states/features/userSlice'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
 import Image from 'next/image'
@@ -14,7 +14,7 @@ export enum UserPlanningCharge {
 }
 
 export const CompUserPlanning = () => {
-	const user = useAppSelector(selectUser)!
+	const user = useAppSelector(selectUserBasic)!
 	
 	return (
 		<Dialog>

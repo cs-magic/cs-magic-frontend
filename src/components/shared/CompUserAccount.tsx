@@ -1,17 +1,18 @@
 import { DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useSelector } from 'react-redux'
-import { selectUser } from '@/states/features/user'
+import { selectUserChatgpt, selectUserId } from '@/states/features/userSlice'
 import { useEffect } from 'react'
 import { useAppDispatch } from '@/states/hooks'
-import { updateUser } from '@/states/thunks/user'
+import { updateChatgptUser } from '@/states/thunks/user'
 
 export const CompUserAccount = () => {
 	const dispatch = useAppDispatch()
 	
-	const user = useSelector(selectUser)
+	const userId = useSelector(selectUserId)
+	const userChatgpt = useSelector(selectUserChatgpt)
 	
 	useEffect(() => {
-		dispatch(updateUser(user.id!))
+		dispatch(updateChatgptUser(userId))
 	}, [])
 	
 	return (
@@ -19,7 +20,7 @@ export const CompUserAccount = () => {
 			<DialogHeader>
 				<DialogTitle>Your Account</DialogTitle>
 				<DialogDescription>
-					current balance: {user.balance}
+					current balance: {userChatgpt.balance}
 				</DialogDescription>
 			</DialogHeader>
 		</>

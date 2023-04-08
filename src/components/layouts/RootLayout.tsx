@@ -3,9 +3,8 @@ import { ReactNode, useEffect } from 'react'
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
 import { CompNavBar } from '@/components/shared/CompNavBar'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { setUserID } from '@/states/features/user'
 import { initUser } from '@/states/thunks/user'
-import { selectNotifications, setTopNotification } from '@/states/features/notificationsSlice'
+import { selectNotifications, setTopNotification } from '@/states/features/notificationSlice'
 
 export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	children: ReactNode

@@ -1,20 +1,21 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useAppSelector } from '@/states/hooks'
-import { selectUser, UserPlanning } from '@/states/features/user'
+import { selectUserBasic } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useToast } from '@/hooks/use-toast'
 import { CompUserPlanning } from '@/components/shared/CompUserPlanning'
 import { CompUserRegister } from '@/components/shared/CompUserRegister'
+import { UserPlanning } from '@/ds/user'
 
 export const CompNavbarAvatar = () => {
-	const user = useAppSelector(selectUser)
+	const userBasic = useAppSelector(selectUserBasic)
 	const { toast } = useToast()
 	
 	return (
 		<Dialog>
 			<DialogTrigger>
 				<Avatar>
-					<AvatarFallback>{user.name ? user.name[0] : 'U'}</AvatarFallback>
+					<AvatarFallback>{userBasic.name ? userBasic.name[0] : 'U'}</AvatarFallback>
 				</Avatar>
 			</DialogTrigger>
 			
@@ -25,18 +26,18 @@ export const CompNavbarAvatar = () => {
 				</DialogHeader>
 				
 				<div>id: <span className={'text-blue-500 cursor-pointer'} onClick={() => {
-					if (user.id) {
-						navigator.clipboard.writeText(user.id)
+					if (userBasic.id) {
+						navigator.clipboard.writeText(userBasic.id)
 						toast({ title: 'copied your user_id' })
 					}
 				}}>
-					{user.id}
+					{userBasic.id}
 				</span></div>
 				
 				<div className={'flex justify-between items-center'}>
-					planning: {user.planning}
+					planning: {userBasic.planning}
 					
-					{user.planning === UserPlanning.guest ? (
+					{userBasic.planning === UserPlanning.guest ? (
 							<CompUserRegister/>
 						)
 						: (

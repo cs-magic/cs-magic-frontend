@@ -1,20 +1,18 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectConversations } from '@/states/features/conversationsSlice'
+import { selectConversations } from '@/states/features/conversationSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import * as allIcons from '@tabler/icons-react'
-import { IconLogout, IconMessageCircle, IconPlus } from '@tabler/icons-react'
+import { IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { ReactNode, useEffect } from 'react'
 import { Separator } from '../ui/separator'
-import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
-import { fetchConversations } from '@/states/thunks/chat'
 import { useSelector } from 'react-redux'
-import { selectUser, selectUserID } from '@/states/features/user'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { selectUserBasic, selectUserId } from '@/states/features/userSlice'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { CompUserAccount } from '@/components/shared/CompUserAccount'
 import { useToast } from '@/hooks/use-toast'
-import { HtmlAttributes } from 'csstype'
+import { initConversations } from '@/states/thunks/chatgpt'
 
 const CompLine = ({ icon, children, onClick }: { icon: string, children: ReactNode, onClick?: any }) => {
 	// ref: https://stackoverflow.com/a/73846364
@@ -30,13 +28,13 @@ const CompLine = ({ icon, children, onClick }: { icon: string, children: ReactNo
 
 export const CompConversations = ({}) => {
 	
-	const user = useSelector(selectUser)
+	const userId = useSelector(selectUserId)
 	
 	const dispatch = useAppDispatch()
 	
 	useEffect(() => {
-		if (user.id) dispatch(fetchConversations(user.id))
-	}, [user.id])
+		if (userId) dispatch(initConversations(userId))
+	}, [userId])
 	
 	const { toast } = useToast()
 	
@@ -56,7 +54,7 @@ export const CompConversations = ({}) => {
 					conversations.map((conversation) => (
 						<Link href={`/chat/${conversation.id}`} key={conversation.id}>
 							<CompLine icon={'IconMessageCircle'}>
-								{conversation.name || conversation.id}
+								{conversation.id}
 							</CompLine>
 						</Link>
 					))

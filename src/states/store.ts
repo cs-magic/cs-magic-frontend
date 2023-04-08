@@ -1,17 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-import conversationsSlice from '@/states/features/conversationsSlice'
-import { messagesSlice } from '@/states/features/messagesSlice'
-import userSlice from '@/states/features/user'
+import conversationSlice from '@/states/features/conversationSlice'
+import { messageSlice } from '@/states/features/messageSlice'
+import userSlice from '@/states/features/userSlice'
 import logger from 'redux-logger'
-import notificationsSlice from '@/states/features/notificationsSlice'
+import notificationSlice from '@/states/features/notificationSlice'
 
 
 const store = configureStore({
 	reducer: {
 		user: userSlice.reducer,
-		conversations: conversationsSlice.reducer,
-		messages: messagesSlice.reducer,
-		notifications: notificationsSlice.reducer,
+		conversation: conversationSlice.reducer,
+		messages: messageSlice.reducer,
+		notification: notificationSlice.reducer,
 	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 	.concat([

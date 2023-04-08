@@ -10,8 +10,8 @@ const initialState: NotificationsState = {
 	top: null,
 }
 
-export const notificationsSlice = createSlice({
-	name: 'notifications',
+export const notificationSlice = createSlice({
+	name: 'notification',
 	initialState,
 	reducers: {
 		setTopNotification: (state, action: PayloadAction<string | null>) => {
@@ -21,8 +21,8 @@ export const notificationsSlice = createSlice({
 })
 
 
-export const  {setTopNotification} = notificationsSlice.actions
+export const  {setTopNotification} = notificationSlice.actions
 
-export const selectNotifications = (state: RootState) => state.notifications
+export const selectNotifications = (state: RootState) => state.notification
 
-export default notificationsSlice
+export default notificationSlice

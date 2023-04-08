@@ -1,32 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IChatbotConversation, IMessage } from '@/ds/chatgpt'
-import { ID } from '@/ds/general'
 import { RootState } from '@/states/store'
+import { IChatgptMessage } from '@/ds/chatgpt_v2'
 
 
 export type MessagesState = {
-	list: IMessage[]
+	list: IChatgptMessage[]
 }
 
 const initialState: MessagesState = {
 	list: [],
 }
 
-export const messagesSlice = createSlice({
+export const messageSlice = createSlice({
 	name: 'messages',
 	initialState,
 	reducers: {
-		setMessages: (state, action: PayloadAction<IMessage[]>) => {
+		setMessages: (state, action: PayloadAction<IChatgptMessage[]>) => {
 			state.list = action.payload
 		},
-		addMessage: (state, action: PayloadAction<IMessage>) => {
+		addMessage: (state, action: PayloadAction<IChatgptMessage>) => {
 			state.list.push(action.payload)
-		}
+		},
 	},
 })
 
-export const { setMessages, addMessage } = messagesSlice.actions
+export const { setMessages, addMessage } = messageSlice.actions
 
 export const selectMessages = (state: RootState) => state.messages.list
 
-export default messagesSlice
+export default messageSlice

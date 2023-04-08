@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const ensureSole = (s: string | string[] | undefined): string | undefined =>
+export const ensureSole = (s: string | string[] | null): string | null =>
 	Array.isArray(s) ? s[0] : s
