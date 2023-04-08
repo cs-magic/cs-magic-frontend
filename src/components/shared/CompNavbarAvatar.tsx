@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useAppSelector } from '@/states/hooks'
-import { selectUserBasic } from '@/states/features/userSlice'
+import { selectUserBasic, selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useToast } from '@/hooks/use-toast'
 import { CompUserPlanning } from '@/components/shared/CompUserPlanning'
@@ -8,6 +8,7 @@ import { CompUserRegister } from '@/components/shared/CompUserRegister'
 import { UserPlanning } from '@/ds/user'
 
 export const CompNavbarAvatar = () => {
+	const userId = useAppSelector(selectUserId)
 	const userBasic = useAppSelector(selectUserBasic)
 	const { toast } = useToast()
 	
@@ -26,12 +27,12 @@ export const CompNavbarAvatar = () => {
 				</DialogHeader>
 				
 				<div>id: <span className={'text-blue-500 cursor-pointer'} onClick={() => {
-					if (userBasic.id) {
-						navigator.clipboard.writeText(userBasic.id)
+					if (userId) {
+						navigator.clipboard.writeText(userId)
 						toast({ title: 'copied your user_id' })
 					}
 				}}>
-					{userBasic.id}
+					{userId}
 				</span></div>
 				
 				<div className={'flex justify-between items-center'}>
