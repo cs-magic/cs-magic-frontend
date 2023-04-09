@@ -46,7 +46,7 @@ export const ConversationComp = () => {
 			<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
 			
 			<div className={clsx(
-				'grow overflow-auto flex flex-col justify-end'
+				'grow overflow-auto flex flex-col justify-end md:justify-start'
 			)}>
 				{
 					messages.map((msg, index) => (
@@ -104,7 +104,7 @@ export const ConversationComp = () => {
 					/>
 					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
-					<Button className={'md:hidden w-full mt-2'} size={'sm'} onClick={onSubmit}>Send</Button>
+					<Button className={'md:hidden w-full mt-2 rounded-0'} size={'sm'} onClick={onSubmit}>Send</Button>
 			</div>
 		</div>
 	)

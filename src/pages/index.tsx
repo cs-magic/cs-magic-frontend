@@ -9,11 +9,11 @@ export default function Home() {
 	return (
 		<RootLayout>
 			
-			<div className={'flex flex-col gap-4'}>
+			<div className={'flex-1 flex flex-col gap-4'}>
 				
 				<HeroView/>
 				
-				<div className={'w-full flex flex-wrap justify-center gap-2'}>
+				<div className={'hidden md:flex w-full flex-wrap justify-center gap-2'}>
 					{projects.map((project) => (
 						<ProjectItemComp key={project.name} {...project}/>
 					))}

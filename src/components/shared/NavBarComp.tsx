@@ -25,9 +25,8 @@ export const NavBarComp = ({ title }: { title: string }) => {
 			</DropdownMenu>
 			
 			<div className="btn btn-ghost normal-case text-xl flex-1 truncate">
-				<p className={'w-full truncate inline-flex justify-center items-center'}>
-					<span className={'hidden md:block'}>CS魔法社 |&nbsp;</span>
-					<span>{title}</span>
+				<p className={'w-full truncate'}>
+					{title}
 				</p>
 			</div>
 			
