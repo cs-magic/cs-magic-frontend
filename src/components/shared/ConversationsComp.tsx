@@ -3,28 +3,18 @@ import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectConversations } from '@/states/features/conversationSlice'
 import { IconPlus, IconSquareRoundedX } from '@tabler/icons-react'
 import Link from 'next/link'
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Separator } from '../ui/separator'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { CompUserAccount } from '@/components/shared/CompUserAccount'
+import { UserAccountComp } from '@/components/shared/UserAccountComp'
 import { useToast } from '@/hooks/use-toast'
 import { initConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
-import { CompDynamicIcon } from '@/components/shared/CompDynamicIcon'
+import { CompLine } from '@/components/views/IconLineView'
 
-const CompLine = ({ icon, children, onClick, extra }: { icon: string, children: ReactNode, onClick?: any, extra?: ReactNode }) => {
-	return (
-		<div className={'group w-full p-3 inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer'} onClick={onClick}>
-			<CompDynamicIcon id={icon}/>
-			<p className={'truncate'}>{children}</p>
-			{extra}
-		</div>
-	)
-}
-
-export const CompConversations = ({}) => {
+export const ConversationsComp = ({}) => {
 	
 	const userId = useSelector(selectUserId)
 	
@@ -74,7 +64,7 @@ export const CompConversations = ({}) => {
 				</DialogTrigger>
 				
 				<DialogContent>
-					<CompUserAccount/>
+					<UserAccountComp/>
 				</DialogContent>
 			</Dialog>
 			

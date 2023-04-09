@@ -1,6 +1,6 @@
 import * as allIcons from '@tabler/icons-react'
 
-export const CompDynamicIcon = ({ id, size = 16 }: {
+export const DynamicIconView = ({ id, size = 16 }: {
 	id: string
 	size?: number
 }) => {

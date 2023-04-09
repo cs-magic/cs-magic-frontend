@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { signIn, useSession, signOut } from 'next-auth/react'
 
-export const CompUserRegister = () => {
+export const UserRegisterComp = () => {
 	const { data: session } = useSession()
 	
 	return (

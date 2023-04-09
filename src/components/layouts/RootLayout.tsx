@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { ReactNode, useEffect } from 'react'
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
-import { CompNavBar } from '@/components/shared/CompNavBar'
+import { NavBarComp } from '@/components/shared/NavBarComp'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { initUser } from '@/states/thunks/user'
 import { selectNotifications, setTopNotification } from '@/states/features/notificationSlice'
@@ -42,7 +42,7 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 					</div>
 				)}
 				
-				<CompNavBar title={title}/>
+				<NavBarComp title={title}/>
 				
 				{children}
 			</main>

@@ -11,7 +11,7 @@ export interface IProjectItem {
 }
 
 
-export const CompProjectItem = (
+export const ProjectItemComp = (
 	{
 		name,
 		desc,

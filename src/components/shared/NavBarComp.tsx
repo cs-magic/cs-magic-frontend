@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { CompNavbarAvatar } from '@/components/shared/CompNavbarAvatar'
+import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
 
-export const CompNavBar = ({ title }: { title: string }) => {
+export const NavBarComp = ({ title }: { title: string }) => {
 	
 	return (
 		<div className="navbar bg-base-100">
@@ -32,7 +32,7 @@ export const CompNavBar = ({ title }: { title: string }) => {
 			</div>
 			
 			<div className={'navbar-end'}>
-				<CompNavbarAvatar/>
+				<NavbarAvatarComp/>
 			</div>
 		</div>
 	)

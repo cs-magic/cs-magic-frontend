@@ -13,7 +13,7 @@ export enum UserPlanningCharge {
 	auto = 'auto',
 }
 
-export const CompUserPlanning = () => {
+export const UserPlanningComp = () => {
 	const user = useAppSelector(selectUserBasic)!
 	
 	return (

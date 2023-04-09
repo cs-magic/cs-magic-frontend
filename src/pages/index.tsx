@@ -1,6 +1,6 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
-import { CompProjectItem } from '@/components/shared/CompProjectItem'
-import { SpecHero } from '@/components/specs/SpecHero'
+import { ProjectItemComp } from '@/components/shared/ProjectItemComp'
+import { HeroView } from '@/components/views/HeroView'
 import { projects } from '@/config'
 
 
@@ -11,11 +11,11 @@ export default function Home() {
 			
 			<div className={'flex flex-col gap-4'}>
 				
-				<SpecHero/>
+				<HeroView/>
 				
 				<div className={'w-full flex flex-wrap gap-2'}>
 					{projects.map((project) => (
-						<CompProjectItem key={project.name} {...project}/>
+						<ProjectItemComp key={project.name} {...project}/>
 					))}
 				</div>
 			</div>

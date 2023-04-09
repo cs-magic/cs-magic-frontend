@@ -1,4 +1,4 @@
-import { IProjectItem } from '@/components/shared/CompProjectItem'
+import { IProjectItem } from '@/components/shared/ProjectItemComp'
 
 export const projects: IProjectItem[] = [
 	{

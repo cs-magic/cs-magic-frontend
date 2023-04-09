@@ -3,11 +3,11 @@ import { useAppSelector } from '@/states/hooks'
 import { selectUserBasic, selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useToast } from '@/hooks/use-toast'
-import { CompUserPlanning } from '@/components/shared/CompUserPlanning'
-import { CompUserRegister } from '@/components/shared/CompUserRegister'
+import { UserPlanningComp } from '@/components/shared/UserPlanningComp'
+import { UserRegisterComp } from '@/components/shared/UserRegisterComp'
 import { UserPlanning } from '@/ds/user'
 
-export const CompNavbarAvatar = () => {
+export const NavbarAvatarComp = () => {
 	const userId = useAppSelector(selectUserId)
 	const userBasic = useAppSelector(selectUserBasic)
 	const { toast } = useToast()
@@ -39,10 +39,10 @@ export const CompNavbarAvatar = () => {
 					planning: {userBasic.planning}
 					
 					{userBasic.planning === UserPlanning.guest ? (
-							<CompUserRegister/>
+							<UserRegisterComp/>
 						)
 						: (
-							<CompUserPlanning/>
+							<UserPlanningComp/>
 						)}
 				
 				

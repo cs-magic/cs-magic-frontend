@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useAppDispatch } from '@/states/hooks'
 import { updateChatgptUser } from '@/states/thunks/user'
 
-export const CompUserAccount = () => {
+export const UserAccountComp = () => {
 	const dispatch = useAppDispatch()
 	
 	const userId = useSelector(selectUserId)

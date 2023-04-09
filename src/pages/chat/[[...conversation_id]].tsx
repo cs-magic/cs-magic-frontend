@@ -13,7 +13,7 @@ import { clsx } from 'clsx'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useToast } from '@/hooks/use-toast'
 import { RootLayout } from '@/components/layouts/RootLayout'
-import { CompConversations } from '@/components/shared/CompConversations'
+import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { ChatgptRoleType, IChatgptConversation } from '@/ds/chatgpt_v2'
 import { createChatgptConversation, listChatgptMessages } from '@/api/chatgpt'
 import { ID } from '@/ds/general'
@@ -87,7 +87,7 @@ export const ConversationPage = () => {
 			<div className={'flex w-full grow overflow-auto'}>
 				
 				{/* left: conversations */}
-				<CompConversations/>
+				<ConversationsComp/>
 				
 				{/* right: current conversation */}
 				<div className={'flex-1 flex flex-col h-full'}>

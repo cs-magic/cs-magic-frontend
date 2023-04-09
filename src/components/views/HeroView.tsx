@@ -2,7 +2,7 @@ import { schemaCN } from '@/i18n/langs/cn'
 import Link from 'next/link'
 import { projects } from '@/config'
 
-export const SpecHero = () => {
+export const HeroView = () => {
 	const i18nSchema = schemaCN
 	
 	return (
