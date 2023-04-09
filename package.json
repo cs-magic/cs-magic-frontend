@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "PORT=2002 next dev",
-    "build": "next build",
-    "start-alpha": "PORT=2002 next start",
-    "start": "PORT=2004 next start",
+    "start-alpha": "next build alpha && next start alpha -p 2002",
+    "start-prod": "next build prod && next start prod -p 2004",
     "lint": "next lint"
   },
   "dependencies": {
