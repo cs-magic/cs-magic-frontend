@@ -7,7 +7,7 @@ import { initUser } from '@/states/thunks/user'
 import { selectNotifications, setTopNotification } from '@/states/features/notificationSlice'
 import { useSession } from 'next-auth/react'
 
-export const RootLayout = ({ children, title = 'CS魔法社' }: {
+export const RootLayout = ({ children, title }: {
 	children: ReactNode
 	title?: string
 }) => {

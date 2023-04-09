@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { listUsers } from '@/api/user'
 import { IUserBasic } from '@/ds/user'
 import { RootLayout } from '@/layouts/RootLayout'
-import { CompAdminUserLine } from '@/components/shared/CompAdminUserLine'
+import { AdminUserLineComp } from '@/components/shared/AdminUserLineComp'
 
 export const AdminPage = ({ users }: {
 	users: IUserBasic[]
@@ -25,7 +25,7 @@ export const AdminPage = ({ users }: {
 				<tbody>
 				{
 					users.map((user, index) =>
-						<CompAdminUserLine user={user} index={index} key={user.id}/>)
+						<AdminUserLineComp user={user} index={index} key={user.id}/>)
 				}
 				</tbody>
 			</table>

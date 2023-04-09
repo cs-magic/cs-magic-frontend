@@ -16,7 +16,7 @@ export const CompLine = ({
 		<Button
 			variant={'ghost'}
 			className={clsx(
-				'group w-full p-3 inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
+				'group w-full p-3 inline-flex justify-start items-center gap-2 hover:bg-[#2A2B32] cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
 				highlight && 'bg-gray-200 dark:bg-gray-700',
 			)}
 			onClick={onClick}

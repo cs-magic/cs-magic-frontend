@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
 
-export const NavBarComp = ({ title }: { title: string }) => {
+export const NavBarComp = ({ title }: { title?: string }) => {
 	
 	return (
 		<div className="w-full shrink-0 inline-flex items-center px-2 gap-2">
@@ -26,7 +26,7 @@ export const NavBarComp = ({ title }: { title: string }) => {
 			
 			<div className="btn btn-ghost normal-case text-xl flex-1 truncate">
 				<p className={'w-full truncate'}>
-					{title}
+					CS魔法社{title ? ' | ' + title : ''}
 				</p>
 			</div>
 			

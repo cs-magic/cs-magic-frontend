@@ -4,7 +4,7 @@ import { IUserBasic, UserPlanning } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
-export const CompAdminUserLine = ({ user, index }: {
+export const AdminUserLineComp = ({ user, index }: {
 	user: IUserBasic
 	index: number
 }) => {
