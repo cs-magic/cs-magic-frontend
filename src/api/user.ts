@@ -6,3 +6,9 @@ export const getBasicUser = async (user_id: ID): Promise<IUserBasic> => {
 	const res = await backendApi.get('/user/basic', { params: { user_id } })
 	return res.data
 }
+
+
+export const listUsers = async (): Promise<IUserBasic> => {
+	const res = await backendApi.get('/user/list')
+	return res.data
+}
