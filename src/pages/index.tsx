@@ -13,7 +13,7 @@ export default function Home() {
 				
 				<HeroView/>
 				
-				<div className={'w-full flex flex-wrap gap-2'}>
+				<div className={'w-full flex flex-wrap justify-center gap-2'}>
 					{projects.map((project) => (
 						<ProjectItemComp key={project.name} {...project}/>
 					))}

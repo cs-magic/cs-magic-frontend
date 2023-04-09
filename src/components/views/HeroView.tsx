@@ -13,7 +13,7 @@ export const HeroView = () => {
 			<div className="hero-overlay bg-opacity-60"></div>
 			<div className="hero-content text-center text-neutral-content">
 				<div className="max-w-md">
-					<h1 className="mb-5 text-5xl font-bold">{i18nSchema.hero.title}</h1>
+					<h1 className="mb-5 text-4xl font-bold">{i18nSchema.hero.title}</h1>
 					<p className="mb-5">{i18nSchema.hero.subtitle}</p>
 					
 					<Link href={projects[0].targetUrl}>
