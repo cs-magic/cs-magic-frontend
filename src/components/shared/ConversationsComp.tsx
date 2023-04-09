@@ -47,26 +47,26 @@ export const ConversationsComp = ({}) => {
 			)}>
 				{
 					conversations.map((conversation) => (
-						<CompLine
-							key={conversation.id}
-							icon={'IconMessageCircle'}
-							highlight={conversation.id === conversation_id}
-							extra={
-								<IconSquareRoundedX
-									className={'hidden group-hover:block text-red-500'}
-									onClick={() => {
-										dispatch(asyncDelConversation(conversation.id))
-										console.log({ cur: conversation_id, deleted: conversation.id })
-										if (conversation.id === conversation_id) { // 当且仅当被删除conversation是当前conversation的时候才需要重定向
-											console.log('redirecting to chat home page')
-											router.push('/chat')
-										}
-									}}/>
-							}>
-							<Link className={'w-full truncate'} href={`/chat/${conversation.id}`} key={conversation.id}>
-								{conversation.id}
-							</Link>
-						</CompLine>
+						<Link className={'w-full'} href={`/chat/${conversation.id}`} key={conversation.id}>
+							<CompLine
+								icon={'IconMessageCircle'}
+								highlight={conversation.id === conversation_id}
+								extra={
+									<IconSquareRoundedX
+										className={'hidden group-hover:block text-red-500 z-auto'}
+										onClick={(e) => {
+											e.preventDefault()
+											dispatch(asyncDelConversation(conversation.id))
+											console.log({ cur: conversation_id, deleted: conversation.id })
+											if (conversation.id === conversation_id) { // 当且仅当被删除conversation是当前conversation的时候才需要重定向
+												console.log('redirecting to chat home page')
+												router.push('/chat')
+											}
+										}}/>
+								}>
+								<p className={'truncate'}>{conversation.id}</p>
+							</CompLine>
+						</Link>
 					))
 				}
 			</div>
