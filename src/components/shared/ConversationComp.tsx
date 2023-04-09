@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { AvatarView } from '@/components/views/AvatarView'
 import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { ConversationsComp } from '@/components/shared/ConversationsComp'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -46,7 +48,7 @@ export const ConversationComp = () => {
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</Button>
 			
 			<div className={clsx(
-				'grow overflow-auto flex flex-col justify-end md:justify-start'
+				'grow overflow-auto flex flex-col justify-end md:justify-start',
 			)}>
 				{
 					messages.map((msg, index) => (
@@ -57,7 +59,7 @@ export const ConversationComp = () => {
 							{/*// 这里直接copy的chatgpt居中的css*/}
 							<div className={clsx(
 								c,
-								'p-4'
+								'p-4',
 							)}>
 								
 								{
@@ -87,7 +89,7 @@ export const ConversationComp = () => {
 				<div ref={refMessageEnd}/>
 			</div>
 			
-			<div className={'w-full'}>
+			<div className={'w-full mt-2'}>
 				<div className={clsx(c, 'relative p-0')}>
 					<Textarea
 						className={'w-full shadow-xl resize-none'}
@@ -104,7 +106,20 @@ export const ConversationComp = () => {
 					/>
 					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
-					<Button className={'md:hidden w-full mt-2 rounded-0'} size={'sm'} onClick={onSubmit}>Send</Button>
+				
+				<div className={'md:hidden w-full grid grid-cols-2 gap-2 mt-2'}>
+					
+					<Sheet>
+						<SheetTrigger asChild>
+							<Button size={'sm'}>Conversations</Button>
+						</SheetTrigger>
+						<SheetContent className={'w-1/2 p-0'} position={'left'}>
+							<ConversationsComp/>
+						</SheetContent>
+					</Sheet>
+					
+					<Button size={'sm'} onClick={onSubmit}>Send</Button>
+				</div>
 			</div>
 		</div>
 	)

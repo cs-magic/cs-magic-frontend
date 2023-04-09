@@ -32,11 +32,13 @@ export const ConversationPage = () => {
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
 			<div className={clsx(
 				'flex w-full overflow-auto',
-				'grow'
+				'grow',
 			)}>
 				
 				{/* left: conversations */}
-				<ConversationsComp/>
+				<div className={'hidden md:block w-[260px]'}>
+					<ConversationsComp/>
+				</div>
 				
 				{/* right: current conversation */}
 				{loading ? (
