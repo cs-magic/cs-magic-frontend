@@ -2,18 +2,19 @@ import { ID } from '@/ds/general'
 import { ChatgptRoleType } from '@/ds/chatgpt_v2'
 
 
-export interface IUserConversation {
+export interface IChatgptCreateUserConversation {
 	user_id: ID
-	conversation_id: ID
 	model: string
 }
 
-export type IGetMessagesReq = IUserConversation
+export interface IChatgptUserConversation extends IChatgptCreateUserConversation {
+	conversation_id: ID
+}
+
+export type IGetMessagesReq = IChatgptUserConversation
 
 export interface IChatModelReq {
-	user_id: ID
-	conversation_id: ID
-	model: string
+	conversation: IChatgptUserConversation
 	content: string
 }
 

@@ -1,28 +1,30 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectConversations } from '@/states/features/conversationSlice'
+import { selectChatgptConversationID, selectConversations } from '@/states/features/conversationSlice'
 import { IconPlus, IconSquareRoundedX } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { Separator } from '../ui/separator'
-import { useSelector } from 'react-redux'
 import { selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { UserAccountComp } from '@/components/shared/UserAccountComp'
 import { useToast } from '@/hooks/use-toast'
-import { initConversations } from '@/states/thunks/chatgpt'
+import { asyncDelConversation, asyncSetConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { CompLine } from '@/components/views/IconLineView'
+import { useRouter } from 'next/router'
 
 export const ConversationsComp = ({}) => {
 	
-	const userId = useSelector(selectUserId)
+	const user_id = useAppSelector(selectUserId)
+	const conversation_id = useAppSelector(selectChatgptConversationID)
 	
 	const dispatch = useAppDispatch()
+	const router = useRouter()
 	
 	useEffect(() => {
-		if (userId) dispatch(initConversations(userId))
-	}, [userId])
+		if (user_id) dispatch(asyncSetConversations(user_id))
+	}, [user_id])
 	
 	const { toast } = useToast()
 	
@@ -41,17 +43,30 @@ export const ConversationsComp = ({}) => {
 			
 			<div className={clsx(
 				'flex-1 w-full overflow-y-auto',
-				'flex flex-col-reverse', // 倒序展示
+				'flex justify-end flex-col-reverse', // 倒序展示
 			)}>
 				{
 					conversations.map((conversation) => (
-						<Link className={'w-full'} href={`/chat/${conversation.id}`} key={conversation.id}>
-							<CompLine icon={'IconMessageCircle'} extra={
-								<IconSquareRoundedX className={'hidden group-hover:block text-red-500'}/>
+						<CompLine
+							key={conversation.id}
+							icon={'IconMessageCircle'}
+							highlight={conversation.id === conversation_id}
+							extra={
+								<IconSquareRoundedX
+									className={'hidden group-hover:block text-red-500'}
+									onClick={() => {
+										dispatch(asyncDelConversation(conversation.id))
+										console.log({ cur: conversation_id, deleted: conversation.id })
+										if (conversation.id === conversation_id) { // 当且仅当被删除conversation是当前conversation的时候才需要重定向
+											console.log('redirecting to chat home page')
+											router.push('/chat')
+										}
+									}}/>
 							}>
+							<Link className={'w-full truncate'} href={`/chat/${conversation.id}`} key={conversation.id}>
 								{conversation.id}
-							</CompLine>
-						</Link>
+							</Link>
+						</CompLine>
 					))
 				}
 			</div>

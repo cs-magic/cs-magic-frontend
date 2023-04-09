@@ -1,5 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
-
+const {fontFamily} = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -87,5 +86,10 @@ module.exports = {
 	plugins: [
 		require("daisyui"),
 		require("tailwindcss-animate")
-	]
+	],
+	
+	// daisyui config, ref: https://daisyui.com/docs/config/
+	daisyui: {
+		logs: false
+	}
 }

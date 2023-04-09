@@ -6,7 +6,7 @@ import { ID } from '@/ds/general'
 
 
 export interface UserState {
-	id: ID
+	id: ID | null
 	basic: IUserBasic
 	chatgpt: IUserChatgpt
 	alive: boolean
@@ -14,7 +14,7 @@ export interface UserState {
 
 
 export const initialState: UserState = {
-	id: '',
+	id: null,
 	basic: {
 		name: '',
 		email: '',
