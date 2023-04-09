@@ -19,7 +19,7 @@ export const asyncSetConversationID = createAppAsyncThunk('asyncSetConversationI
 	const user_id = getState().user.basic.id
 	const model = getState().conversation.model
 	
-	if(!user_id) return;
+	if (!user_id) return
 	
 	dispatch(setConversationID(conversation_id))
 	const messages = !conversation_id ? [] : await listChatgptMessages({ user_id, conversation_id, model })
@@ -61,6 +61,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 	let conversation_id = getState().conversation.cur
 	if (!conversation_id) {
 		conversation_id = (await createChatgptConversation({ user_id, model })).id
+		dispatch(setConversationID(conversation_id))
 		console.log(`conversation empty, auto-created to be ${conversation_id}`)
 	}
 	
