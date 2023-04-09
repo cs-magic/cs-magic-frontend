@@ -19,6 +19,8 @@ export const initialState: UserState = {
 		name: '',
 		email: '',
 		planning: UserPlanning.guest,
+		expire: '',
+		avatar: '',
 	},
 	chatgpt: {
 		balance: 0,
@@ -34,7 +36,7 @@ export const userSlice = createSlice({
 		setUserID: (state, action: PayloadAction<ID>) => {
 			state.id = action.payload
 		},
-		setBasicUser: (state, action: PayloadAction<IUserBasic>) => {
+		setUserBasic: (state, action: PayloadAction<IUserBasic>) => {
 			state.basic = action.payload
 		},
 		setChatgptUser: (state, action: PayloadAction<IUserChatgpt>) => {
@@ -46,7 +48,7 @@ export const userSlice = createSlice({
 	},
 })
 
-export const { setUserAliveStatus, setUserID, setChatgptUser, setBasicUser } = userSlice.actions
+export const { setUserAliveStatus, setUserID, setChatgptUser, setUserBasic } = userSlice.actions
 
 
 export const selectUserId = (state: RootState) => state.user.id

@@ -2,19 +2,17 @@ import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
 import { IUserBasic, UserPlanning } from '@/ds/user'
 
-export const getBasicUser = async (user_id: ID): Promise<IUserBasic> => {
-	const res = await backendApi.get('/user/basic', { params: { user_id } })
-	return res.data
-}
+export const getBasicUser = async (user_id: ID): Promise<IUserBasic> =>
+	(await backendApi.get('/user/basic', { params: { user_id } })).data
 
+export const listUsers = async (): Promise<IUserBasic> =>
+	(await backendApi.get('/user/list')).data
 
-export const listUsers = async (): Promise<IUserBasic> => {
-	const res = await backendApi.get('/user/list')
-	return res.data
-}
+export const updateUserPlanning = async (user_id: ID, planning: UserPlanning, expire: string) =>
+	(await backendApi.patch('/user/planning', null, { params: { user_id, planning, expire } })).data
 
-export const updateUserPlanning = async (user_id: ID, planning: UserPlanning, expire: string) => {
-	const res = await backendApi.patch('/user/planning', null, {params: {user_id, planning, expire}})
-	console.log(res.data)
-	return res.data
-}
+export const updateUserName = async (user_id: ID, name: string) =>
+	(await backendApi.patch('/user/rename', null, { params: { user_id, name } })).data
+
+export const updateUserAvatar = async (user_id: ID, avatar: string) =>
+	(await backendApi.patch('/user/avatar', null, { params: { user_id, avatar } })).data

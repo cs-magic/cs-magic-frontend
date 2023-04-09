@@ -19,7 +19,7 @@ export const UserPlanningComp = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant={'destructive'} size={'sm'}>Change Planning</Button>
+				<Button variant={'destructive'} size={'sm'}>Premium Planning</Button>
 			</DialogTrigger>
 			
 			<DialogContent>
