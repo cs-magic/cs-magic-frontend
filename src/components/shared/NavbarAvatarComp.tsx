@@ -11,6 +11,7 @@ import { updateUserAvatar, updateUserName } from '@/api/user'
 import { uploadFile } from '@/api/general'
 import { AvatarView } from '@/components/views/AvatarView'
 import { LabelLineView } from '@/components/views/LabelLineView'
+import { Label } from '@/components/ui/label'
 
 export const NavbarAvatarComp = () => {
 	const dispatch = useAppDispatch()
@@ -21,7 +22,7 @@ export const NavbarAvatarComp = () => {
 	return (
 		<Dialog>
 			<DialogTrigger>
-				<AvatarView user={userBasic}/>
+				<AvatarView user={userBasic} className={'w-8 h-8'}/>
 			</DialogTrigger>
 			
 			<DialogContent>
@@ -33,7 +34,8 @@ export const NavbarAvatarComp = () => {
 				<LabelLineView
 					label={'id'}
 					content={
-						<p id={'id'} className={'text-blue-500 cursor-pointer'} onClick={() => {
+						// assign tabIndex to this p, is to avoid highlighting the sign-out button
+						<p tabIndex={0} className={'text-blue-500 cursor-pointer'} onClick={() => {
 							navigator.clipboard.writeText(userId)
 							toast({ title: 'copied your user_id' })
 						}}>
@@ -59,9 +61,10 @@ export const NavbarAvatarComp = () => {
 				<LabelLineView
 					label={'avatar'}
 					content={
-					<label className={'inline-flex items-center gap-2 cursor-pointer'}>
+					<Label className={'inline-flex items-center gap-2 cursor-pointer'}>
 						<AvatarView user={userBasic}/>
 						<p className={'text-gray-500 text-sm'}> (Click to Replace)</p>
+						{/* todo: tab to access hidden input under label */}
 						<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
 							const files = event.currentTarget.files
 							if (files?.length === 1) {
@@ -72,7 +75,7 @@ export const NavbarAvatarComp = () => {
 								toast({title: 'updated'})
 							}
 						}}/>
-					</label>
+					</Label>
 				}
 				/>
 				

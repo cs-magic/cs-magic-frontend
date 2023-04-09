@@ -7,7 +7,7 @@ export const AvatarView = ({ user, ...props }: {
 } & HTMLAttributes<HTMLDivElement>
 ) => {
 	return (
-		<Avatar id={'userAvatar'} {...props}>
+		<Avatar {...props}>
 			<AvatarImage src={user.avatar}/>
 			<AvatarFallback>{(user.name || 'U')[0]}</AvatarFallback>
 		</Avatar>

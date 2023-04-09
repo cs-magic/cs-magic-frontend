@@ -47,8 +47,11 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-50 grid w-full gap-4 rounded-b-lg bg-white p-6 sm:max-w-lg sm:rounded-lg",
+        "animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-50 grid w-full gap-4 bg-white p-6 sm:max-w-lg sm:rounded-lg",
         "dark:bg-slate-900",
+        
+        'bottom-0 md:bottom-auto', // 手机版在底部
+        'md:rounded-b-lg', // 大屏时才要圆角
         className
       )}
       {...props}
