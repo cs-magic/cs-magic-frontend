@@ -90,7 +90,7 @@ export const ConversationComp = () => {
 			<div className={'w-full'}>
 				<div className={clsx(c, 'relative p-0')}>
 					<Textarea
-						className={'w-full shadow-xl'}
+						className={'w-full shadow-xl resize-none'}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {

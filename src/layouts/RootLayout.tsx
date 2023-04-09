@@ -47,7 +47,7 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 				<link rel="icon" href="/public/favicon.ico"/>
 			</Head>
 			
-			<main className={'flex flex-col'}>
+			<main>
 				
 				{notifications.top && (
 					<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
