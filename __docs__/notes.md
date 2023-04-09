@@ -1,5 +1,16 @@
 # notes
 
+## typography relative
+
+### 渲染一些公式之类
+
+不需要这些：`rehype-shiki remark-code-blocks @mapbox/rehype-highlight-code-block`
+
+只需要：
+- `react-markdown`, ref: https://www.npmjs.com/package/react-markdown
+- `rehype-highlight`, ref: https://github.com/rehypejs/rehype-highlight
+- `@tailwindcss/typography`, ref: https://tailwindcss.com/docs/typography-plugin
+
 ## flex relative
 
 ### `flex-end` 和 `scroll` 矛盾

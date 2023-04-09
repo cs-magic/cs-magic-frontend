@@ -1,18 +1,16 @@
 import { clsx } from 'clsx'
-import { ChatgptRoleType } from '@/ds/chatgpt_v2'
-import { IconBrandOpenai, IconBrandTelegram } from '@tabler/icons-react'
+import { IconBrandTelegram } from '@tabler/icons-react'
 import { Textarea } from '@/components/ui/textarea'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
-import { selectUserBasic } from '@/states/features/userSlice'
 import { asyncSendMessage } from '@/states/thunks/chatgpt'
 import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { AvatarView } from '@/components/views/AvatarView'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
+import { MessageComp } from '@/components/shared/MessageComp'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -20,7 +18,6 @@ export const ConversationComp = () => {
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	const { toast } = useToast()
 	
-	const userBasic = useAppSelector(selectUserBasic)
 	const model = useAppSelector(selectChatgptModelType)
 	const messages = useAppSelector(selectChatgptMessages)
 	
@@ -53,36 +50,14 @@ export const ConversationComp = () => {
 			<div className={clsx(
 				'w-full overflow-auto flex flex-col',
 			)}>
-				{
-					messages.map((msg, index) => (
-						<div key={index} className={clsx(
-							'w-full',
-							msg.role === ChatgptRoleType.assistant ? 'bg-gray-50 dark:bg-[#444654]' : 'dark:bg-gray-800',
-						)}>
-							{/*// 这里直接copy的chatgpt居中的css*/}
-							<div className={clsx(
-								c,
-								'p-4',
-							)}>
-								
-								{
-									msg.role === ChatgptRoleType.assistant
-										? <IconBrandOpenai size={24} className={'shrink-0'}/>
-										: <AvatarView user={userBasic} className={'w-6 h-6'}/>
-								}
-								<div className={'overflow-y-auto'}>
-									{msg.content}
-								</div>
-							</div>
-						</div>
-					))
-				}
+				{/* messages */}
+				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
 				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>
 			</div>
 			
-						{/* for stretch, since flex-end cannot combine with overflow-auto */}
+			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
 			
 			{waiting && (

@@ -85,7 +85,11 @@ module.exports = {
 	},
 	plugins: [
 		require("daisyui"),
-		require("tailwindcss-animate")
+		require("tailwindcss-animate"),
+		
+		// ref: https://tailwindcss.com/docs/typography-plugin
+		require('@tailwindcss/typography'),
+	
 	],
 	
 	// daisyui config, ref: https://daisyui.com/docs/config/
