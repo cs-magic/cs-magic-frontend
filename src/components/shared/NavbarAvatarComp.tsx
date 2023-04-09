@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from '@/hooks/use-toast'
 import { UserPlanningComp } from '@/components/shared/UserPlanningComp'
 import { UserRegisterComp } from '@/components/shared/UserRegisterComp'
-import { UserPlanning } from '@/ds/user'
 
 export const NavbarAvatarComp = () => {
 	const userId = useAppSelector(selectUserId)
@@ -26,25 +25,27 @@ export const NavbarAvatarComp = () => {
 					<DialogTitle>Your Profile</DialogTitle>
 				</DialogHeader>
 				
-				<div>id: <span className={'text-blue-500 cursor-pointer'} onClick={() => {
-					if (userId) {
-						navigator.clipboard.writeText(userId)
-						toast({ title: 'copied your user_id' })
-					}
-				}}>
-					{userId}
-				</span></div>
+				{
+					userId && (
+						<div className={'flex justify-between items-center'}>
+							<p>
+								id:
+								<span className={'text-blue-500 cursor-pointer'} onClick={() => {
+									navigator.clipboard.writeText(userId)
+									toast({ title: 'copied your user_id' })
+								}}>
+								{userId}
+							</span>
+							</p>
+							
+							<UserRegisterComp/>
+						</div>
+					)
+				}
 				
 				<div className={'flex justify-between items-center'}>
 					planning: {userBasic.planning}
-					
-					{userBasic.planning === UserPlanning.guest ? (
-							<UserRegisterComp/>
-						)
-						: (
-							<UserPlanningComp/>
-						)}
-				
+					<UserPlanningComp/>
 				
 				</div>
 			</DialogContent>

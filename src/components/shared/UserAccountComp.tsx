@@ -20,9 +20,9 @@ export const UserAccountComp = () => {
 	return (
 		<>
 			<DialogHeader>
-				<DialogTitle>Your Account</DialogTitle>
+				<DialogTitle>Your Chatgpt</DialogTitle>
 				<DialogDescription>
-					current balance: {userChatgpt.balance}
+					current token balance: {userChatgpt.balance}
 				</DialogDescription>
 			</DialogHeader>
 		</>

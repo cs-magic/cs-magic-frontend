@@ -8,9 +8,9 @@ export const UserRegisterComp = () => {
 		<>
 			{
 				session ? (
-					<Button variant={'destructive'} onClick={() => signOut()}>Sign Out</Button>
+					<Button variant={'destructive'} size={'sm'} onClick={() => signOut()}>Sign Out</Button>
 				) : (
-					<Button variant={'destructive'} onClick={() => signIn()}>Sign In</Button>
+					<Button variant={'destructive'} size={'sm'} onClick={() => signIn()}>Sign In</Button>
 				)
 			}
 		</>

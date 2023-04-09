@@ -2,7 +2,7 @@ import { ID } from '@/ds/general'
 
 export enum UserPlanning {
 	guest = 'guest',
-	normal = 'normal',
+	member = 'member',
 	vip = 'vip',
 	sVip = 'sVip',
 	blackVip = 'blackVip',

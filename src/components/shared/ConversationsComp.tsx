@@ -75,7 +75,7 @@ export const ConversationsComp = ({}) => {
 			
 			<Dialog>
 				<DialogTrigger>
-					<CompLine icon={'IconUser'}>My Account</CompLine>
+					<CompLine icon={'IconUser'}>My Chatgpt</CompLine>
 				</DialogTrigger>
 				
 				<DialogContent>
@@ -83,9 +83,9 @@ export const ConversationsComp = ({}) => {
 				</DialogContent>
 			</Dialog>
 			
-			<CompLine icon={'IconLogout'} onClick={() => {
-				toast({ title: 'todo', variant: 'destructive' })
-			}}>Log Out</CompLine>
+			{/*<CompLine icon={'IconLogout'} onClick={() => {*/}
+			{/*	toast({ title: 'todo', variant: 'destructive' })*/}
+			{/*}}>Log Out</CompLine>*/}
 		</div>
 	)
 }
