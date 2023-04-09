@@ -6,24 +6,30 @@
 
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-size: 16px;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
 
-  background-color: var(--bg-base);
-  color: var(--label-base);
+    background-color: var(--bg-base);
+    color: var(--label-base);
 
-  font-family: 'Inter', ui-sans-serif, -apple-system, Arial, Helvetica,
-  'Apple Color Emoji', sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
-  scrollbar-width: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', ui-sans-serif, -apple-system, Arial, Helvetica,
+    'Apple Color Emoji', sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+    scrollbar-width: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }

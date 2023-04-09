@@ -21,7 +21,14 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	const user_id = sessionUserId || visitorUserId
 	
 	useEffect(() => {
-		console.log(JSON.stringify({sessionUserId, visitorUserId, user_id}))
+		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+		let vh = window.innerHeight * 0.01
+// Then we set the value in the --vh custom property to the root of the document
+		document.documentElement.style.setProperty('--vh', `${vh}px`)
+	}, [])
+	
+	useEffect(() => {
+		console.log(JSON.stringify({ sessionUserId, visitorUserId, user_id }))
 		if (user_id) {
 			dispatch(initUser(user_id))
 		} else if (error) {
@@ -40,7 +47,7 @@ export const RootLayout = ({ children, title = '玩转无限可能' }: {
 				<link rel="icon" href="/public/favicon.ico"/>
 			</Head>
 			
-			<main className={'w-screen h-screen flex flex-col'}>
+			<main className={'flex flex-col'}>
 				
 				{notifications.top && (
 					<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
