@@ -8,7 +8,7 @@ import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
 import { selectUserId } from '@/states/features/userSlice'
 import { asyncSendMessage } from '@/states/thunks/chatgpt'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
 export const ConversationComp = () => {
@@ -22,14 +22,19 @@ export const ConversationComp = () => {
 	const messages = useAppSelector(selectChatgptMessages)
 	
 	const onSubmit = async () => {
-		const res = await dispatch(asyncSendMessage(refMessageSend.current!.value))
+		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
+		const res = await dispatch(asyncSendMessage(content))
 		if (res.meta.requestStatus === 'rejected') {
 			toast({ variant: 'destructive', title: res.payload as string, duration: 3000 })
 		}
 	}
 	
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto'
+	
+	useEffect(() => {
+		refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
+	}, [messages.length])
 	
 	return (
 		<div className={'flex-1 flex flex-col h-full'}>
@@ -72,7 +77,6 @@ export const ConversationComp = () => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
 									onSubmit()
-									refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
 									event.preventDefault() // prevent enter go down
 								}
 							}
