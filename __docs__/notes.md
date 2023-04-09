@@ -1,5 +1,11 @@
 # notes
 
+## tailwind-css relative
+
+### show sub-element when hovering
+
+ref: https://stackoverflow.com/a/67401616/9422455
+
 ## secret
 
 generate secret keys:

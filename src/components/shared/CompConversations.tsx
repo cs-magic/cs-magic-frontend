@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectConversations } from '@/states/features/conversationSlice'
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus, IconSquareRoundedX } from '@tabler/icons-react'
 import Link from 'next/link'
 import { ReactNode, useEffect } from 'react'
 import { Separator } from '../ui/separator'
 import { useSelector } from 'react-redux'
-import { selectUserBasic, selectUserId } from '@/states/features/userSlice'
+import { selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { CompUserAccount } from '@/components/shared/CompUserAccount'
 import { useToast } from '@/hooks/use-toast'
@@ -14,11 +14,12 @@ import { initConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { CompDynamicIcon } from '@/components/shared/CompDynamicIcon'
 
-const CompLine = ({ icon, children, onClick }: { icon: string, children: ReactNode, onClick?: any }) => {
+const CompLine = ({ icon, children, onClick, extra }: { icon: string, children: ReactNode, onClick?: any, extra?: ReactNode }) => {
 	return (
-		<div className={'w-full p-3 inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer'} onClick={onClick}>
+		<div className={'group w-full p-3 inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer'} onClick={onClick}>
 			<CompDynamicIcon id={icon}/>
 			<p className={'truncate'}>{children}</p>
+			{extra}
 		</div>
 	)
 }
@@ -55,7 +56,9 @@ export const CompConversations = ({}) => {
 				{
 					conversations.map((conversation) => (
 						<Link className={'w-full'} href={`/chat/${conversation.id}`} key={conversation.id}>
-							<CompLine icon={'IconMessageCircle'}>
+							<CompLine icon={'IconMessageCircle'} extra={
+								<IconSquareRoundedX className={'hidden group-hover:block text-red-500'}/>
+							}>
 								{conversation.id}
 							</CompLine>
 						</Link>
