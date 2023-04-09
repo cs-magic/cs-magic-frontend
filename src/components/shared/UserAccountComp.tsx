@@ -12,8 +12,10 @@ export const UserAccountComp = () => {
 	const userChatgpt = useSelector(selectUserChatgpt)
 	
 	useEffect(() => {
-		dispatch(updateChatgptUser(userId))
-	}, [])
+		if (userId) {
+			dispatch(updateChatgptUser(userId))
+		}
+	}, [userId])
 	
 	return (
 		<>
