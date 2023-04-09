@@ -28,7 +28,7 @@ export const ConversationsComp = ({}) => {
 	
 	
 	return (
-		<div className={'dark w-full h-full flex flex-col bg-gray-900 text-gray-100 '}>
+		<div className={'w-full h-full flex flex-col bg-bg-sub'}>
 			
 			<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'} onClick={() => {
 				if (!conversation_id) dispatch(asyncSetConversationID(null))

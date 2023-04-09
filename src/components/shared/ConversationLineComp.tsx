@@ -33,7 +33,7 @@ export const ConversationLineComp = ({ conversation }: {
 		<Button
 			variant={'ghost'}
 			className={clsx(
-				'group w-full p-3 flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
+				'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
 				conversation_id === conversation.id && 'bg-gray-200 dark:bg-gray-700',
 			)}
 		>
