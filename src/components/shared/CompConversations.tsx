@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectConversations } from '@/states/features/conversationSlice'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import * as allIcons from '@tabler/icons-react'
 import { IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 import { ReactNode, useEffect } from 'react'
@@ -14,14 +12,12 @@ import { CompUserAccount } from '@/components/shared/CompUserAccount'
 import { useToast } from '@/hooks/use-toast'
 import { initConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
+import { CompDynamicIcon } from '@/components/shared/CompDynamicIcon'
 
 const CompLine = ({ icon, children, onClick }: { icon: string, children: ReactNode, onClick?: any }) => {
-	// ref: https://stackoverflow.com/a/73846364
-	// @ts-ignore
-	const Icon = allIcons[icon]
 	return (
 		<div className={'w-full p-3 inline-flex items-center gap-2 hover:bg-[#2A2B32] cursor-pointer'} onClick={onClick}>
-			<Icon size={16}/>
+			<CompDynamicIcon id={icon}/>
 			<p className={'truncate'}>{children}</p>
 		</div>
 	)
