@@ -57,7 +57,7 @@ export const ConversationComp = () => {
 								{
 									msg.role === ChatgptRoleType.assistant
 										? <IconBrandOpenai size={24} className={'shrink-0'}/>
-										: <AvatarView user={userBasic}/>
+										: <AvatarView user={userBasic} className={'w-6 h-6'}/>
 								}
 								
 								{msg.content}
