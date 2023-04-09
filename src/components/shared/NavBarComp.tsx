@@ -5,7 +5,7 @@ import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
 export const NavBarComp = ({ title }: { title: string }) => {
 	
 	return (
-		<div className="inline-flex items-center w-full px-2 gap-2">
+		<div className="w-full shrink-0 inline-flex items-center px-2 gap-2">
 			
 			<DropdownMenu>
 				

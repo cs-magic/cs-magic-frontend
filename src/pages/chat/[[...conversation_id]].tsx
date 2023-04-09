@@ -30,10 +30,7 @@ export const ConversationPage = () => {
 	
 	return (
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
-			<div className={clsx(
-				'flex w-full overflow-auto',
-				'grow',
-			)}>
+			<div className={'w-full flex-1 overflow-hidden flex'}>
 				
 				{/* left: conversations */}
 				<div className={'hidden md:block w-[260px]'}>

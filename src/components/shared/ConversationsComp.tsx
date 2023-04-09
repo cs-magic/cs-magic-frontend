@@ -9,7 +9,7 @@ import { selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { UserAccountComp } from '@/components/shared/UserAccountComp'
 import { useToast } from '@/hooks/use-toast'
-import { asyncDelConversation, asyncSetConversations } from '@/states/thunks/chatgpt'
+import { asyncDelConversation, asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { CompLine } from '@/components/views/IconLineView'
 import { useRouter } from 'next/router'
@@ -18,6 +18,7 @@ export const ConversationsComp = ({}) => {
 	
 	const user_id = useAppSelector(selectUserId)
 	const conversation_id = useAppSelector(selectChatgptConversationID)
+	const conversations = useAppSelector(selectConversations)
 	
 	const dispatch = useAppDispatch()
 	const router = useRouter()
@@ -26,20 +27,17 @@ export const ConversationsComp = ({}) => {
 		if (user_id) dispatch(asyncSetConversations(user_id))
 	}, [user_id])
 	
-	const { toast } = useToast()
-	
-	const conversations = useAppSelector(selectConversations)
 	
 	return (
 		<div className={'dark w-full h-full flex flex-col bg-gray-900 text-gray-100 '}>
 			
-			<Link href={'/chat'}>
-				<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'}>
-					<IconPlus size={16}/>
-					<p>New Chat</p>
-				</Button>
-			</Link>
-			
+			<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'} onClick={() => {
+				if (!conversation_id) dispatch(asyncSetConversationID(null))
+				router.push('/chat')
+			}}>
+				<IconPlus size={16}/>
+				<p>New Chat</p>
+			</Button>
 			
 			<div className={clsx(
 				'flex-1 w-full overflow-y-auto',
@@ -74,7 +72,7 @@ export const ConversationsComp = ({}) => {
 			<Separator/>
 			
 			<Dialog>
-				<DialogTrigger>
+				<DialogTrigger asChild>
 					<CompLine icon={'IconUser'}>My Chatgpt</CompLine>
 				</DialogTrigger>
 				

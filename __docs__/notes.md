@@ -1,5 +1,15 @@
 # notes
 
+## flex relative
+
+### `flex-end` 和 `scroll` 矛盾
+
+css - Use justify-content: flex-end and to have vertical scrollbar - Stack Overflow, https://stackoverflow.com/questions/36130760/use-justify-content-flex-end-and-to-have-vertical-scrollbar
+
+可以使用额外添加一个 `grow` 解决！
+
+参考我们的代码：
+
 ## tailwind-css relative
 
 ### show sub-element when hovering

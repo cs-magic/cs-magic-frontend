@@ -37,18 +37,21 @@ export const ConversationComp = () => {
 		setWaiting(false)
 	}
 	
-	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl md:py-6 flex m-auto'
+	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl md:py-6 flex m-auto break-all'
 	
 	useEffect(() => {
 		refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
 	}, [messages.length])
 	
 	return (
-		<div className={'flex-1 flex flex-col h-full'}>
+		<div className={'flex-1 h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</Button>
 			
+			{/* for stretch, since flex-end cannot combine with overflow-auto */}
+			<div className={'grow md:hidden'}/>
+			
 			<div className={clsx(
-				'grow overflow-auto flex flex-col justify-end md:justify-start',
+				'w-full overflow-auto flex flex-col',
 			)}>
 				{
 					messages.map((msg, index) => (
@@ -67,29 +70,30 @@ export const ConversationComp = () => {
 										? <IconBrandOpenai size={24} className={'shrink-0'}/>
 										: <AvatarView user={userBasic} className={'w-6 h-6'}/>
 								}
-								
-								{msg.content}
+								<div className={'max-h-[100px] overflow-y-auto'}>
+									{msg.content}
+								</div>
 							</div>
 						</div>
 					))
 				}
 				
-				{waiting && (
-					<div className={'w-full'}>
-						<div className={c}>
-							<div className={'px-2 inline-flex items-center w-full gap-4'}>
-								<p className={'text-sm text-gray-500'}>耐心等待，最近OpenAI调用太多，平均预计需要十秒……</p>
-								<progress className="progress flex-1"></progress>
-							</div>
-						</div>
-					</div>
-				)}
-				
 				{/* for scroll */}
-				<div ref={refMessageEnd}/>
+				<div ref={refMessageEnd} className={'w-full'}/>
 			</div>
 			
-			<div className={'w-full mt-2'}>
+			{waiting && (
+				<div className={'w-full'}>
+					<div className={c}>
+						<div className={'px-2 inline-flex items-center w-full gap-4'}>
+							<p className={'text-sm text-gray-500'}>耐心等待！可能需要十秒！因为OpenAI太忙了！</p>
+							<progress className="progress flex-1"></progress>
+						</div>
+					</div>
+				</div>
+			)}
+			
+			<div className={'w-full shrink-0 mt-2'}>
 				<div className={clsx(c, 'relative p-0')}>
 					<Textarea
 						className={'w-full shadow-xl resize-none'}
