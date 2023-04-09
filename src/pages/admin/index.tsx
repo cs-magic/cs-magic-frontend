@@ -2,12 +2,13 @@ import { GetServerSideProps } from 'next'
 import { listUsers } from '@/api/user'
 import { IUserBasic } from '@/ds/user'
 import { RootLayout } from '@/components/layouts/RootLayout'
+import { CompAdminUserLine } from '@/components/shared/CompAdminUserLine'
 
 export const AdminPage = ({ users }: {
 	users: IUserBasic[]
 }) => {
 	return (
-		<RootLayout>
+		<RootLayout title={'控制台'}>
 			<table className={'table w-full'}>
 				<thead>
 				<tr>
@@ -16,20 +17,15 @@ export const AdminPage = ({ users }: {
 					<th>name</th>
 					<th>email</th>
 					<th>planning</th>
+					<th>expire</th>
+					<th>operations</th>
 				</tr>
 				</thead>
 				
 				<tbody>
 				{
-					users.map((user, index) => (
-						<tr key={user.id} className={'overflow-x-auto'}>
-							<th>{index + 1}</th>
-							<td>{user.id}</td>
-							<td>{user.name}</td>
-							<td>{user.email}</td>
-							<td>{user.planning}</td>
-						</tr>
-					))
+					users.map((user, index) =>
+						<CompAdminUserLine user={user} index={index} key={user.id}/>)
 				}
 				</tbody>
 			</table>

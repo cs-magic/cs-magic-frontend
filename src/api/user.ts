@@ -1,6 +1,6 @@
 import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
-import { IUserBasic } from '@/ds/user'
+import { IUserBasic, UserPlanning } from '@/ds/user'
 
 export const getBasicUser = async (user_id: ID): Promise<IUserBasic> => {
 	const res = await backendApi.get('/user/basic', { params: { user_id } })
@@ -10,5 +10,11 @@ export const getBasicUser = async (user_id: ID): Promise<IUserBasic> => {
 
 export const listUsers = async (): Promise<IUserBasic> => {
 	const res = await backendApi.get('/user/list')
+	return res.data
+}
+
+export const updateUserPlanning = async (user_id: ID, planning: UserPlanning, expire: string) => {
+	const res = await backendApi.patch('/user/planning', null, {params: {user_id, planning, expire}})
+	console.log(res.data)
 	return res.data
 }

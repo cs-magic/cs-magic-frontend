@@ -2,12 +2,10 @@ import { ID } from '@/ds/general'
 
 export enum UserPlanning {
 	guest = 'guest',
-	registered = 'registered',
+	normal = 'normal',
 	vip = 'vip',
-	vipGolden = 'vipGolden',
-	vipPlatinum = 'vipPlatinum',
-	vipDiamond = 'vipDiamond',
-	vipBlack = 'vipBlack',
+	sVip = 'sVip',
+	blackVip = 'blackVip',
 }
 
 export interface IUserBasic {
@@ -15,5 +13,6 @@ export interface IUserBasic {
 	name: string
 	email: string
 	planning: UserPlanning
+	expire: string
 }
 
