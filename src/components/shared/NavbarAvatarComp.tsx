@@ -52,6 +52,7 @@ export const NavbarAvatarComp = () => {
 						const name = event.currentTarget.userName.value
 						await updateUserName(userId!, name)
 						dispatch(setUserBasic({ ...userBasic, name }))
+						toast({title: 'updated'})
 					}}
 				/>
 				
@@ -68,6 +69,7 @@ export const NavbarAvatarComp = () => {
 								const avatar = await uploadFile(file)
 								await updateUserAvatar(userId, avatar)
 								dispatch(setUserBasic({ ...userBasic, avatar }))
+								toast({title: 'updated'})
 							}
 						}}/>
 					</label>

@@ -6,7 +6,10 @@ export const HeroView = () => {
 	const i18nSchema = schemaCN
 	
 	return (
-		<div className="hero h-[320px]" style={{ backgroundImage: `url("https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg")` }}>
+		<div className="hero h-[320px]" style={{
+			// source: https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg
+			backgroundImage: `url("/hero.jpg")`
+		}}>
 			<div className="hero-overlay bg-opacity-60"></div>
 			<div className="hero-content text-center text-neutral-content">
 				<div className="max-w-md">
