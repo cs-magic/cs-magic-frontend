@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "PORT=2002 next dev",
-    "start-alpha": "next build alpha && next start alpha -p 2002",
-    "start-prod": "next build prod && next start prod -p 2004",
+    "build": "next build",
+    "start-alpha": "ENV=alpha next build && ENV=alpha next start -p 2002",
+    "start-prod": "ENV=prod next build && ENV=prod next start -p 2004",
     "lint": "next lint"
   },
   "dependencies": {
