@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { listUsers } from '@/api/user'
 import { IUserBasic } from '@/ds/user'
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { CompAdminUserLine } from '@/components/shared/CompAdminUserLine'
 
 export const AdminPage = ({ users }: {

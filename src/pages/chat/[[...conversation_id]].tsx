@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { asyncSetConversationID } from '@/states/thunks/chatgpt'
 import { ensureSole } from '@/lib/utils'
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { ConversationComp } from '@/components/shared/ConversationComp'
 import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
+import { clsx } from 'clsx'
 
 
 export const ConversationPage = () => {
@@ -29,7 +30,10 @@ export const ConversationPage = () => {
 	
 	return (
 		<RootLayout title={'免翻 ChatGPT PLUS'}>
-			<div className={'flex w-full grow overflow-auto'}>
+			<div className={clsx(
+				'flex w-full overflow-auto',
+				'grow'
+			)}>
 				
 				{/* left: conversations */}
 				<ConversationsComp/>

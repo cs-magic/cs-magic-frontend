@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { ProjectItemComp } from '@/components/shared/ProjectItemComp'
 import { HeroView } from '@/components/views/HeroView'
 import { projects } from '@/config'
