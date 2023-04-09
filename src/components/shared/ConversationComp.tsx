@@ -8,7 +8,7 @@ import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
 import { selectUserId } from '@/states/features/userSlice'
 import { asyncSendMessage } from '@/states/thunks/chatgpt'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
 export const ConversationComp = () => {
@@ -21,13 +21,17 @@ export const ConversationComp = () => {
 	const model = useAppSelector(selectChatgptModelType)
 	const messages = useAppSelector(selectChatgptMessages)
 	
+	const [waiting, setWaiting] = useState(false)
+	
 	const onSubmit = async () => {
+		setWaiting(true)
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		const res = await dispatch(asyncSendMessage(content))
 		if (res.meta.requestStatus === 'rejected') {
 			toast({ variant: 'destructive', title: res.payload as string, duration: 3000 })
 		}
+		setWaiting(false)
 	}
 	
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto'
@@ -67,6 +71,19 @@ export const ConversationComp = () => {
 						</div>
 					))
 				}
+				
+				{waiting && (
+					<div className={'w-full'}>
+						<div className={c}>
+							<div className={'px-2 inline-flex items-center w-full gap-4'}>
+								<p className={'text-sm text-gray-500'}>耐心等待，最近OpenAI调用太多，平均预计需要十秒……</p>
+								<progress className="progress flex-1"></progress>
+							</div>
+						</div>
+					</div>
+				)}
+				
+				{/* for scroll */}
 				<div ref={refMessageEnd}/>
 			</div>
 			
