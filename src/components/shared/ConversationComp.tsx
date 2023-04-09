@@ -1,15 +1,15 @@
 import { clsx } from 'clsx'
 import { ChatgptRoleType } from '@/ds/chatgpt_v2'
 import { IconBrandOpenai, IconBrandTelegram } from '@tabler/icons-react'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Textarea } from '@/components/ui/textarea'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
-import { selectUserId } from '@/states/features/userSlice'
+import { selectUserBasic } from '@/states/features/userSlice'
 import { asyncSendMessage } from '@/states/thunks/chatgpt'
 import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
+import { AvatarView } from '@/components/views/AvatarView'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -17,7 +17,7 @@ export const ConversationComp = () => {
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	const { toast } = useToast()
 	
-	const user_id = useAppSelector(selectUserId)
+	const userBasic = useAppSelector(selectUserBasic)
 	const model = useAppSelector(selectChatgptModelType)
 	const messages = useAppSelector(selectChatgptMessages)
 	
@@ -57,13 +57,7 @@ export const ConversationComp = () => {
 								{
 									msg.role === ChatgptRoleType.assistant
 										? <IconBrandOpenai size={24} className={'shrink-0'}/>
-										: (
-											<Avatar className={'w-6 h-6 shrink-0'}>
-												<AvatarFallback>
-													{user_id ? user_id[0] : 'U'}
-												</AvatarFallback>
-											</Avatar>
-										)
+										: <AvatarView user={userBasic}/>
 								}
 								
 								{msg.content}

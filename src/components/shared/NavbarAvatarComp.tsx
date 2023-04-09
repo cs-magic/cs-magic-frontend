@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectUserBasic, selectUserId, setUserBasic } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
@@ -9,8 +8,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '../ui/label'
 import { Button } from '@/components/ui/button'
 import _ from 'lodash'
-import { updateUserName } from '@/api/user'
+import { updateUserAvatar, updateUserName } from '@/api/user'
 import { uploadFile } from '@/api/general'
+import { AvatarView } from '@/components/views/AvatarView'
 
 export const NavbarAvatarComp = () => {
 	const dispatch = useAppDispatch()
@@ -21,9 +21,7 @@ export const NavbarAvatarComp = () => {
 	return (
 		<Dialog>
 			<DialogTrigger>
-				<Avatar>
-					<AvatarFallback>{(userBasic.name || userId || 'U')[0]}</AvatarFallback>
-				</Avatar>
+				<AvatarView user={userBasic}/>
 			</DialogTrigger>
 			
 			<DialogContent>
@@ -61,17 +59,14 @@ export const NavbarAvatarComp = () => {
 				<div className={'inline-flex gap-2 items-center'}>
 					<Label htmlFor={'userAvatar'}>avatar</Label>
 					<label>
-						<Avatar id={'userAvatar'} className={'cursor-pointer'}>
-							<AvatarImage src={userBasic.avatar}/>
-							<AvatarFallback>{(userBasic.name || userId || 'U')[0]}</AvatarFallback>
-						</Avatar>
+						<AvatarView user={userBasic}/>
 						<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
 							const files = event.currentTarget.files
 							if (files?.length === 1) {
 								const file = files[0]
 								const avatar = await uploadFile(file)
-								console.log({avatar})
-								dispatch(setUserBasic({...userBasic, avatar}))
+								await updateUserAvatar(userId, avatar)
+								dispatch(setUserBasic({ ...userBasic, avatar }))
 							}
 						}}/>
 					</label>
