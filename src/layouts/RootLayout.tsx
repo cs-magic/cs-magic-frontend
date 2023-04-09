@@ -48,16 +48,17 @@ export const RootLayout = ({ children, title = 'CS魔法社' }: {
 			</Head>
 			
 			<main>
-				
-				{notifications.top && (
-					<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
-						{notifications.top}
-					</div>
-				)}
-				
-				<NavBarComp title={title}/>
-				
-				{children}
+				<div className={'m-auto max-w-[1080px] h-full flex flex-col'}>
+					{notifications.top && (
+						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
+							{notifications.top}
+						</div>
+					)}
+					
+					<NavBarComp title={title}/>
+					
+					{children}
+				</div>
 			</main>
 		</>
 	)

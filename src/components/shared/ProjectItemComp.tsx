@@ -20,19 +20,20 @@ export const ProjectItemComp = (
 		features = [],
 	}: IProjectItem) => {
 	return (
-		<div className="card w-96 bg-base-100 shadow-xl">
+		<div className="card card-side w-full bg-base-100 shadow-xl">
 			<AspectRatio ratio={16 / 9}>
 				<Image fill className="rounded-md object-cover" src={coverUrl} alt={name}/>
 			</AspectRatio>
 			
-			<div className="card-body">
+			<div className="card-body shrink-0">
 				<h2 className="card-title">
 					{name}
-					
-					{features.map((feature) => (
-						<div key={feature} className="badge badge-secondary">{feature}</div>
-					))}
 				</h2>
+				<div className={'inline-flex gap-2'}>
+					{features.map((feature) => (
+						<div key={feature} className="badge badge-secondary shrink-0">{feature}</div>
+					))}
+				</div>
 				<p>{desc}</p>
 				<div className="card-actions justify-end">
 					<Link href={targetUrl} className="badge badge-lg badge-accent">Try</Link>

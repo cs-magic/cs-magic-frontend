@@ -43,7 +43,7 @@ export const ConversationComp = () => {
 	
 	return (
 		<div className={'flex-1 flex flex-col h-full'}>
-			<div className={'w-full h-12 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</div>
+			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</Button>
 			
 			<div className={clsx(
 				'grow overflow-auto flex flex-col justify-end md:justify-start'

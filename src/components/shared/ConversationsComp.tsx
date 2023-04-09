@@ -34,7 +34,7 @@ export const ConversationsComp = ({}) => {
 		<div className={'dark hidden bg-gray-900 text-gray-100 md:flex md:w-[260px] md:flex-col'}>
 			
 			<Link href={'/chat'}>
-				<Button className={'w-full inline-flex items-center gap-2'} variant={'subtle'}>
+				<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'}>
 					<IconPlus size={16}/>
 					<p>New Chat</p>
 				</Button>
