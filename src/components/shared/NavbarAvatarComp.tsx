@@ -10,6 +10,7 @@ import { Label } from '../ui/label'
 import { Button } from '@/components/ui/button'
 import _ from 'lodash'
 import { updateUserName } from '@/api/user'
+import { uploadFile } from '@/api/general'
 
 export const NavbarAvatarComp = () => {
 	const dispatch = useAppDispatch()
@@ -64,7 +65,15 @@ export const NavbarAvatarComp = () => {
 							<AvatarImage src={userBasic.avatar}/>
 							<AvatarFallback>{(userBasic.name || userId || 'U')[0]}</AvatarFallback>
 						</Avatar>
-						<input hidden type={'file'} accept={'image/*'}/>
+						<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
+							const files = event.currentTarget.files
+							if (files?.length === 1) {
+								const file = files[0]
+								const avatar = await uploadFile(file)
+								console.log({avatar})
+								dispatch(setUserBasic({...userBasic, avatar}))
+							}
+						}}/>
 					</label>
 				</div>
 				
