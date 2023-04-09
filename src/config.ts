@@ -9,3 +9,5 @@ export const projects: IProjectItem[] = [
 		targetUrl: '/chat',
 	},
 ]
+
+export const platformName = 'CS魔法社'

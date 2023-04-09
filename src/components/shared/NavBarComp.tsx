@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
+import { platformName } from '@/config'
 
 export const NavBarComp = ({ title }: { title?: string }) => {
 	
@@ -25,9 +26,8 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 			</DropdownMenu>
 			
 			<div className="btn btn-ghost normal-case text-xl flex-1 truncate">
-				<p className={'w-full truncate'}>
-					CS魔法社{title ? ' | ' + title : ''}
-				</p>
+				<p className={'hidden md:block w-full truncate'}>{[platformName, title].join(' | ')}</p>
+				<p className={'md:hidden'}>{title || platformName}</p>
 			</div>
 			
 			<NavbarAvatarComp/>
