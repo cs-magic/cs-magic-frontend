@@ -5,25 +5,28 @@ import { NavBarComp } from '@/components/shared/NavBarComp'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { initUser } from '@/states/thunks/user'
 import { selectNotifications, setTopNotification } from '@/states/features/notificationSlice'
+import { useSession } from 'next-auth/react'
 
 export const RootLayout = ({ children, title = '玩转无限可能' }: {
 	children: ReactNode
 	title?: string
 }) => {
 	const dispatch = useAppDispatch()
+	const { data: session } = useSession()
 	const { data: visitorData, error } = useVisitorData()
 	const notifications = useAppSelector(selectNotifications)
 	
+	const user_id = session?.user.id || visitorData?.visitorId
+	
 	useEffect(() => {
-		if (visitorData?.visitorId) {
-			dispatch(initUser(visitorData.visitorId))
-		}
-		if (error) {
+		if (user_id) {
+			dispatch(initUser(user_id))
+		} else if (error) {
 			if (error.name === 'FPJSAgentError') {
-				dispatch(setTopNotification('本网站目前不支持当前浏览器，推荐更换使用Google或者Firefox浏览器'))
+				dispatch(setTopNotification('网络连接失败，或更换使用Google、Firefox浏览器！'))
 			}
 		}
-	}, [visitorData?.visitorId, error])
+	}, [user_id, error])
 	
 	return (
 		<>

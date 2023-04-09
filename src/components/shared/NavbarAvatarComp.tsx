@@ -16,7 +16,7 @@ export const NavbarAvatarComp = () => {
 		<Dialog>
 			<DialogTrigger>
 				<Avatar>
-					<AvatarFallback>{userBasic.name ? userBasic.name[0] : 'U'}</AvatarFallback>
+					<AvatarFallback>{(userBasic.name || userId || 'U')[0]}</AvatarFallback>
 				</Avatar>
 			</DialogTrigger>
 			

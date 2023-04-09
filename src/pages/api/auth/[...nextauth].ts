@@ -18,8 +18,15 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
+		async signIn({ user, account, profile, email, credentials }) {
+			console.log('signIn', { user, account, profile, email, credentials })
+			// store.dispatch(initUser())
+			return true
+		},
+		
 		session({ session, token, user }) {
-			console.log(session)
+			console.log('session', { session, token, user })
+			session.user.id = session.user.email
 			return session // The return type will match the one returned in `useSession()`
 		},
 	},
