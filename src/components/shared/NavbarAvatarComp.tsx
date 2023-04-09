@@ -45,9 +45,16 @@ export const NavbarAvatarComp = () => {
 					}
 					extra={
 						session ? (
-							<Button variant={'outline'} size={'sm'} onClick={() => signOut()}>Sign Out</Button>
+							<Button variant={'outline'} size={'sm'} onClick={(event) => {
+								event.preventDefault()
+								signOut()
+							}}>Sign Out</Button>
 						) : (
-							<Button variant={'destructive'} size={'sm'} onClick={() => signIn()}>Sign In</Button>
+							<Button variant={'destructive'} size={'sm'} onClick={(event) => {
+								// add the following one, o.w. catch errors on Firefox, Safari, ref: https://stackoverflow.com/a/74221510/9422455
+								event.preventDefault()
+								signIn()
+							}}>Sign In</Button>
 						)
 					}
 				/>
