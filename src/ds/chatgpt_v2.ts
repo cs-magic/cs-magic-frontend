@@ -22,6 +22,7 @@ export interface IChatgptConversation {
 	model: string
 	time: number
 	start: number
+	name: string
 }
 
 export interface IUserChatgpt {

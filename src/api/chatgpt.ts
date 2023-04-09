@@ -1,6 +1,5 @@
 import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
-import { IUserBasic } from '@/ds/user'
 import { IChatgptConversation, IChatgptMessage, IUserChatgpt } from '@/ds/chatgpt_v2'
 import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/chatgpt'
 
@@ -26,6 +25,11 @@ export const createChatgptConversation = async (data: IChatgptCreateUserConversa
 
 export const deleteChatgptConversation = async (data: IChatgptUserConversation) => {
 	const res = await backendApi.delete('/chatgpt/conversation/', { params: data })
+	return res.data
+}
+
+export const updateChatgptConversationName = async (data: IChatgptUserConversation, name: string) => {
+	const res = await backendApi.patch('/chatgpt/conversation/name', null, { params: { ...data, name } })
 	return res.data
 }
 

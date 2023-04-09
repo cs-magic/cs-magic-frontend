@@ -1,18 +1,17 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptConversationID, selectConversations } from '@/states/features/conversationSlice'
-import { IconPlus, IconSquareRoundedX } from '@tabler/icons-react'
-import Link from 'next/link'
+import { IconPlus } from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { Separator } from '../ui/separator'
 import { selectUserId } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { UserAccountComp } from '@/components/shared/UserAccountComp'
-import { useToast } from '@/hooks/use-toast'
-import { asyncDelConversation, asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
+import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { CompLine } from '@/components/views/IconLineView'
 import { useRouter } from 'next/router'
+import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
 
 export const ConversationsComp = ({}) => {
 	
@@ -40,32 +39,12 @@ export const ConversationsComp = ({}) => {
 			</Button>
 			
 			<div className={clsx(
-				'flex-1 w-full overflow-y-auto',
+				'w-full flex-1 overflow-y-auto',
 				'flex justify-end flex-col-reverse', // 倒序展示
 			)}>
 				{
-					conversations.map((conversation) => (
-						<Link className={'w-full'} href={`/chat/${conversation.id}`} key={conversation.id}>
-							<CompLine
-								icon={'IconMessageCircle'}
-								highlight={conversation.id === conversation_id}
-								extra={
-									<IconSquareRoundedX
-										className={'hidden group-hover:block text-red-500 z-auto'}
-										onClick={(e) => {
-											e.preventDefault()
-											dispatch(asyncDelConversation(conversation.id))
-											console.log({ cur: conversation_id, deleted: conversation.id })
-											if (conversation.id === conversation_id) { // 当且仅当被删除conversation是当前conversation的时候才需要重定向
-												console.log('redirecting to chat home page')
-												router.push('/chat')
-											}
-										}}/>
-								}>
-								<p className={'truncate'}>{conversation.id}</p>
-							</CompLine>
-						</Link>
-					))
+					conversations.map((conversation) =>
+						<ConversationLineComp conversation={conversation} key={conversation.id}/>)
 				}
 			</div>
 			
@@ -80,10 +59,7 @@ export const ConversationsComp = ({}) => {
 					<UserAccountComp/>
 				</DialogContent>
 			</Dialog>
-			
-			{/*<CompLine icon={'IconLogout'} onClick={() => {*/}
-			{/*	toast({ title: 'todo', variant: 'destructive' })*/}
-			{/*}}>Log Out</CompLine>*/}
+		
 		</div>
 	)
 }

@@ -14,7 +14,7 @@ export type ConversationsState = {
 const initialState: ConversationsState = {
 	list: [],
 	cur: null,
-	model: 'gpt-3.5-turbo'
+	model: 'gpt-3.5-turbo',
 }
 
 
@@ -30,11 +30,17 @@ export const conversationSlice = createSlice({
 		},
 		setChatgptModelType: (state, action: PayloadAction<ChatgptModelType>) => {
 			state.model = action.payload
-		}
+		},
+		setConversationName: (state, action: PayloadAction<{ id: ID, name: string }>) => {
+			state.list = state.list.map((item) => {
+				if (item.id === action.payload.id) return { ...item, name: action.payload.name }
+				return item
+			})
+		},
 	},
 })
 
-export const { setConversations, setConversationID, setChatgptModelType } = conversationSlice.actions
+export const { setConversations, setConversationID, setChatgptModelType, setConversationName } = conversationSlice.actions
 
 export const selectConversations = (state: RootState) => state.conversation.list
 export const selectChatgptConversationID = (state: RootState) => state.conversation.cur
