@@ -7,7 +7,9 @@ import { clsx } from 'clsx'
 
 const buttonVariants = cva(
 	clsx(
-		'rounded-md active:scale-95 inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:hover:bg-slate-800 dark:hover:text-slate-100 disabled:opacity-50 dark:focus:ring-slate-400 disabled:pointer-events-none dark:focus:ring-offset-slate-900 data-[state=open]:bg-slate-100 dark:data-[state=open]:bg-slate-800',
+		clsx('rounded-md active:scale-95 inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:hover:text-slate-100 disabled:opacity-50 dark:focus:ring-slate-400 disabled:pointer-events-none dark:focus:ring-offset-slate-900',
+		'data-[state=open]:bg-slate-100 dark:data-[state=open]:bg-slate-800 dark:hover:bg-slate-800', // bg
+		),
 		
 	),
 	{

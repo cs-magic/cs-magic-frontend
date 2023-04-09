@@ -29,7 +29,7 @@ export const ConversationPage = () => {
 	}, [user_id, router_conversation_id])
 	
 	return (
-		<RootLayout title={'免翻 ChatGPT PLUS'}>
+		<RootLayout title={'ChatGPT Plus Mirror'}>
 			<div className={'w-full flex-1 overflow-hidden flex'}>
 				
 				{/* left: conversations */}

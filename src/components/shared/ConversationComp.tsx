@@ -37,7 +37,7 @@ export const ConversationComp = () => {
 		setWaiting(false)
 	}
 	
-	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl md:py-6 flex m-auto break-all'
+	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 	
 	useEffect(() => {
 		refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
@@ -70,7 +70,7 @@ export const ConversationComp = () => {
 										? <IconBrandOpenai size={24} className={'shrink-0'}/>
 										: <AvatarView user={userBasic} className={'w-6 h-6'}/>
 								}
-								<div className={'max-h-[100px] overflow-y-auto'}>
+								<div className={'overflow-y-auto'}>
 									{msg.content}
 								</div>
 							</div>
@@ -82,19 +82,22 @@ export const ConversationComp = () => {
 				<div ref={refMessageEnd} className={'w-full'}/>
 			</div>
 			
+						{/* for stretch, since flex-end cannot combine with overflow-auto */}
+			<div className={'hidden md:block grow'}/>
+			
 			{waiting && (
 				<div className={'w-full'}>
 					<div className={c}>
 						<div className={'px-2 inline-flex items-center w-full gap-4'}>
 							<p className={'text-sm text-gray-500'}>耐心等待！可能需要十秒！因为OpenAI太忙了！</p>
-							<progress className="progress flex-1"></progress>
+							<progress className="progress progress-secondary flex-1"></progress>
 						</div>
 					</div>
 				</div>
 			)}
 			
-			<div className={'w-full shrink-0 mt-2'}>
-				<div className={clsx(c, 'relative p-0')}>
+			<div className={'w-full mt-2 '}>
+				<div className={clsx(c, 'relative py-2')}>
 					<Textarea
 						className={'w-full shadow-xl resize-none'}
 						onKeyDown={(event) => {
@@ -112,7 +115,6 @@ export const ConversationComp = () => {
 				</div>
 				
 				<div className={'md:hidden w-full grid grid-cols-2 gap-2 mt-2'}>
-					
 					<Sheet>
 						<SheetTrigger asChild>
 							<Button size={'sm'}>Conversations</Button>
@@ -121,7 +123,6 @@ export const ConversationComp = () => {
 							<ConversationsComp/>
 						</SheetContent>
 					</Sheet>
-					
 					<Button size={'sm'} onClick={onSubmit}>Send</Button>
 				</div>
 			</div>
