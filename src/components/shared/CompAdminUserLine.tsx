@@ -12,9 +12,9 @@ export const CompAdminUserLine = ({ user, index }: {
 	const [expire, setExpire] = useState(user.expire)
 	
 	return (
-		<tr key={user.id} className={'overflow-x-auto'}>
+		<tr key={index} className={'overflow-x-auto'}>
 			<th>{index + 1}</th>
-			<td>{user.id}</td>
+			<th>{user.id}</th>
 			<td>{user.name}</td>
 			<td>{user.email}</td>
 			<td>

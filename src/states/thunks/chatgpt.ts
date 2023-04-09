@@ -16,7 +16,7 @@ import { createAppAsyncThunk } from '@/states/hooks'
  *  2. send first message on default conversation page
  */
 export const asyncSetConversationID = createAppAsyncThunk('asyncSetConversationID', async (conversation_id: ID | null, { dispatch, getState }) => {
-	const user_id = getState().user.id
+	const user_id = getState().user.basic.id
 	const model = getState().conversation.model
 	
 	if(!user_id) return;
@@ -40,7 +40,7 @@ export const asyncDelConversation = createAppAsyncThunk('asyncDelConversation', 
 	if (!conversations.find((c) => c.id === conversation_id)) {
 		return rejectWithValue(`conversation id of ${conversations} not exists!`)
 	}
-	const user_id = getState().user.id! // 没有user_id一定没有conversations
+	const user_id = getState().user.basic.id // 没有user_id一定没有conversations
 	const model = getState().conversation.model
 	await deleteChatgptConversation({ user_id, conversation_id, model })
 	// local update to reduce server pressure
@@ -52,7 +52,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		return rejectWithValue('content cannot be empty')
 	}
 	
-	const user_id = getState().user.id
+	const user_id = getState().user.basic.id
 	if (!user_id) {
 		return rejectWithValue('user_id cannot be empty')
 	}

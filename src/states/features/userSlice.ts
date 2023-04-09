@@ -2,11 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/states/store'
 import { IUserBasic, UserPlanning } from '@/ds/user'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
-import { ID } from '@/ds/general'
 
 
 export interface UserState {
-	id: ID | null
 	basic: IUserBasic
 	chatgpt: IUserChatgpt
 	alive: boolean
@@ -14,8 +12,8 @@ export interface UserState {
 
 
 export const initialState: UserState = {
-	id: null,
 	basic: {
+		id: '',
 		name: '',
 		email: '',
 		planning: UserPlanning.guest,
@@ -33,9 +31,6 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUserID: (state, action: PayloadAction<ID>) => {
-			state.id = action.payload
-		},
 		setUserBasic: (state, action: PayloadAction<IUserBasic>) => {
 			state.basic = action.payload
 		},
@@ -48,10 +43,10 @@ export const userSlice = createSlice({
 	},
 })
 
-export const { setUserAliveStatus, setUserID, setChatgptUser, setUserBasic } = userSlice.actions
+export const { setUserAliveStatus, setChatgptUser, setUserBasic } = userSlice.actions
 
 
-export const selectUserId = (state: RootState) => state.user.id
+export const selectUserId = (state: RootState) => state.user.basic.id
 export const selectUserBasic = (state: RootState) => state.user.basic
 export const selectUserChatgpt = (state: RootState) => state.user.chatgpt
 export const selectUserAliveStatus = (state: RootState) => state.user.alive

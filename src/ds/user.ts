@@ -9,6 +9,7 @@ export enum UserPlanning {
 }
 
 export interface IUserBasic {
+	id: ID
 	name: string
 	email: string
 	planning: UserPlanning
