@@ -10,6 +10,7 @@ import { asyncSendMessage } from '@/states/thunks/chatgpt'
 import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { AvatarView } from '@/components/views/AvatarView'
+import { Button } from '@/components/ui/button'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -34,7 +35,7 @@ export const ConversationComp = () => {
 		setWaiting(false)
 	}
 	
-	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl p-4 md:py-6 flex lg:px-0 m-auto'
+	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl md:py-6 flex m-auto'
 	
 	useEffect(() => {
 		refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
@@ -52,7 +53,10 @@ export const ConversationComp = () => {
 							msg.role === ChatgptRoleType.assistant ? 'bg-gray-50 dark:bg-[#444654]' : 'dark:bg-gray-800',
 						)}>
 							{/*// 这里直接copy的chatgpt居中的css*/}
-							<div className={clsx(c)}>
+							<div className={clsx(
+								c,
+								'p-4'
+							)}>
 								
 								{
 									msg.role === ChatgptRoleType.assistant
@@ -82,8 +86,9 @@ export const ConversationComp = () => {
 			</div>
 			
 			<div className={'w-full'}>
-				<div className={clsx(c, 'relative')}>
+				<div className={clsx(c, 'relative p-0')}>
 					<Textarea
+						className={'w-full shadow-xl'}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
@@ -92,12 +97,12 @@ export const ConversationComp = () => {
 								}
 							}
 						}}
-						className={'w-full shadow-xl'}
 						ref={refMessageSend}
 						placeholder="Type your message here."
 					/>
-					<IconBrandTelegram className={'absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
+					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
+					<Button className={'md:hidden w-full mt-2'} size={'sm'} onClick={onSubmit}>Send</Button>
 			</div>
 		</div>
 	)
