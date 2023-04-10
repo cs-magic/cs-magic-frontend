@@ -19,6 +19,7 @@ export const initialState: UserState = {
 		planning: UserPlanningType.guest,
 		expire: '',
 		avatar: '',
+		note: '',
 	},
 	chatgpt: {
 		balance: 0,
