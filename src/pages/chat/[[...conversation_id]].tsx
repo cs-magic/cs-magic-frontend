@@ -8,7 +8,6 @@ import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { ConversationComp } from '@/components/shared/ConversationComp'
 import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
-import { clsx } from 'clsx'
 
 
 export const ConversationPage = () => {
@@ -18,9 +17,10 @@ export const ConversationPage = () => {
 	const router_conversation_id = ensureSole(router.query.conversation_id || null)
 	
 	const user_id = useAppSelector(selectUserId)
-	const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(false)
 	
 	useEffect(() => {
+		console.log({ user_id, router_conversation_id })
 		if (!user_id) return
 		// 需要有 user_id 才可以触发
 		setLoading(true)

@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { ReactNode, useEffect } from 'react'
-import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
 import { NavBarComp } from '@/components/shared/NavBarComp'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { initUser } from '@/states/thunks/user'
-import { selectNotifications, setTopNotification } from '@/states/features/notificationSlice'
+import { selectNotifications } from '@/states/features/notificationSlice'
 import { useSession } from 'next-auth/react'
 
 export const RootLayout = ({ children, title }: {
@@ -13,30 +12,22 @@ export const RootLayout = ({ children, title }: {
 }) => {
 	const dispatch = useAppDispatch()
 	const { data: session } = useSession()
-	const { data: visitorData, error } = useVisitorData()
 	const notifications = useAppSelector(selectNotifications)
 	
-	const sessionUserId = session?.user.id
-	const visitorUserId = visitorData?.visitorId
-	const user_id = sessionUserId || visitorUserId
+	const user_id = session?.user.id
 	
 	useEffect(() => {
 		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 		let vh = window.innerHeight * 0.01
-// Then we set the value in the --vh custom property to the root of the document
+		// Then we set the value in the --vh custom property to the root of the document
 		document.documentElement.style.setProperty('--vh', `${vh}px`)
 	}, [])
 	
 	useEffect(() => {
-		console.log(JSON.stringify({ sessionUserId, visitorUserId, user_id }))
 		if (user_id) {
 			dispatch(initUser(user_id))
-		} else if (error) {
-			if (error.name === 'FPJSAgentError') {
-				dispatch(setTopNotification('网络连接失败，或更换使用Google、Firefox浏览器！'))
-			}
 		}
-	}, [user_id, error])
+	}, [user_id])
 	
 	return (
 		<>

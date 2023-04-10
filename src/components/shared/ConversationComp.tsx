@@ -29,7 +29,7 @@ export const ConversationComp = () => {
 		refMessageSend.current!.value = ''
 		const res = await dispatch(asyncSendMessage(content))
 		if (res.meta.requestStatus === 'rejected') {
-			toast({ variant: 'destructive', title: res.payload as string, duration: 3000 })
+			toast({ variant: 'destructive', title: res.payload as string })
 		}
 		setWaiting(false)
 	}

@@ -26,7 +26,7 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 			</DropdownMenu>
 			
 			<div className="btn btn-ghost normal-case text-xl flex-1 truncate">
-				<p className={'hidden md:block w-full truncate'}>{[platformName, title].join(' | ')}</p>
+				<p className={'hidden md:block w-full truncate'}>{title ? [platformName, title].join(' | ') : platformName}</p>
 				<p className={'md:hidden'}>{title || platformName}</p>
 			</div>
 			
