@@ -11,11 +11,12 @@ export const UserAccountComp = () => {
 	const userId = useSelector(selectUserId)
 	const userChatgpt = useSelector(selectUserChatgpt)
 	
+	// 每次打开都更新一下信息！
 	useEffect(() => {
 		if (userId) {
 			dispatch(updateChatgptUser(userId))
 		}
-	}, [userId])
+	})
 	
 	return (
 		<>
