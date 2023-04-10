@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { updateUserPlanning } from '@/api/user'
-import { IUserBasic, UserPlanning } from '@/ds/user'
+import { IUserBasic, UserPlanningType } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
@@ -18,13 +18,13 @@ export const AdminUserLineComp = ({ user, index }: {
 			<td>{user.name}</td>
 			<td>{user.email}</td>
 			<td>
-				<Select defaultValue={planning} onValueChange={(v: UserPlanning) => setPlanning(v)}>
+				<Select defaultValue={planning} onValueChange={(v: UserPlanningType) => setPlanning(v)}>
 					<SelectTrigger>
 						<SelectValue placeholder={'planning'}/>
 					</SelectTrigger>
 					
 					<SelectContent>
-						{Object.values(UserPlanning).map((planning) => (
+						{Object.values(UserPlanningType).map((planning) => (
 							<SelectItem value={planning} key={planning}>{planning}</SelectItem>
 						))}
 					</SelectContent>

@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/states/hooks'
-import { selectUserBasic, selectUserChatgpt } from '@/states/features/userSlice'
+import { selectUserBasic } from '@/states/features/userSlice'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
 import Image from 'next/image'
@@ -19,7 +19,7 @@ export const UserPlanningComp = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant={'destructive'} size={'sm'}>Premium Planning</Button>
+				<Button variant={'destructive'} size={null} className={'ml-auto px-4 py-0.5'}>Buy</Button>
 			</DialogTrigger>
 			
 			<DialogContent>

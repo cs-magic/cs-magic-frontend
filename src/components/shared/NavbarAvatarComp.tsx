@@ -101,8 +101,9 @@ export const NavbarAvatarComp = () => {
 						label={'planning'}
 						content={
 							<p id={'planning'}>{_.upperCase(userBasic.planning)}</p>}
-						extra={<UserPlanningComp/>
-						}/>
+						extra={<Link href={'/userPlanning'}>
+							<Button variant={'destructive'} size={null} className={'px-2 py-1'}>User Planning</Button>
+						</Link>}/>
 				
 				</DialogContent>
 			</Dialog>

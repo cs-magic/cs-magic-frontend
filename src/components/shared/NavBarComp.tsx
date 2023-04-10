@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
-import {  u } from '@/config'
+import { u } from '@/config'
+import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
+import { toast } from '@/hooks/use-toast'
 
 export const NavBarComp = ({ title }: { title?: string }) => {
 	
@@ -19,8 +21,25 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 				</DropdownMenuTrigger>
 				
 				<DropdownMenuContent>
-					<DropdownMenuItem asChild><Link href={'/'} className={'cursor-pointer'}>HomePage</Link></DropdownMenuItem>
-					{/*<DropdownMenuItem>About</DropdownMenuItem>*/}
+					<DropdownMenuGroup>
+						<DropdownMenuItem asChild><Link href={'/'} className={'cursor-pointer'}>Home Page</Link></DropdownMenuItem>
+					</DropdownMenuGroup>
+					
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<DropdownMenuItem asChild><Link href={'/chat'} className={'cursor-pointer'}>Service: Chatgpt</Link></DropdownMenuItem>
+					</DropdownMenuGroup>
+					
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<DropdownMenuItem asChild><Link href={'/userPlanning'} className={'cursor-pointer'}>User Planning</Link></DropdownMenuItem>
+						<DropdownMenuItem onClick={() => {
+							toast({ title: 'TODO!' })
+						}}>About US</DropdownMenuItem>
+					</DropdownMenuGroup>
+				
 				</DropdownMenuContent>
 			
 			</DropdownMenu>

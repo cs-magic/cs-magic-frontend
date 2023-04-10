@@ -1,6 +1,6 @@
 import { ID } from '@/ds/general'
 
-export enum UserPlanning {
+export enum UserPlanningType {
 	guest = 'guest',
 	member = 'member',
 	vip = 'vip',
@@ -12,7 +12,7 @@ export interface IUserBasic {
 	id: ID
 	name: string
 	email: string
-	planning: UserPlanning
+	planning: UserPlanningType
 	expire: string
 	avatar: string
 }
