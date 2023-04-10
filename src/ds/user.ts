@@ -17,3 +17,4 @@ export interface IUserBasic {
 	avatar: string
 }
 
+
