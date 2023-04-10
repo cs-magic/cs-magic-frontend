@@ -70,3 +70,12 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 		},
 	},
 ]
+
+
+export const adminIds = [
+		'877210964@qq.com',
+		'shawninjuly@gmail.com',
+		'yyao5@gmu.edu',
+		'1282148128@qq.com',
+		'unisugar.ktrs@gmail.com',
+	]

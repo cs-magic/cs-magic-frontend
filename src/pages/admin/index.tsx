@@ -5,16 +5,16 @@ import { useEffect, useState } from 'react'
 import { useAppSelector } from '@/states/hooks'
 import { selectUserId, UserState } from '@/states/features/userSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { adminIds } from '@/config'
 
 export const AdminPage = () => {
 	const userId = useAppSelector(selectUserId)
 	const [userList, setUserList] = useState<UserState[]>([])
 	
-	const granted = ['877210964@qq.com', 'shawninjuly@gmail.com'].includes(userId)
-	
+	const isGrantedUser = adminIds.includes(userId)
 	
 	useEffect(() => {
-		if (granted) {
+		if (isGrantedUser) {
 			listUsers().then((data) => {
 				setUserList(data)
 			})
@@ -25,7 +25,7 @@ export const AdminPage = () => {
 	return (
 		<RootLayout title={'控制台'}>
 			{
-				!granted ? 'Not Granted' : (
+				!isGrantedUser ? 'Not Granted' : (
 					<ScrollArea className={'h-full w-full'}>
 						<table className={'table table-compact'}>
 							<thead>
