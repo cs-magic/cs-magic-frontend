@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptConversationID, selectConversations } from '@/states/features/conversationSlice'
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus, IconUser } from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { Separator } from '../ui/separator'
 import { selectUserId } from '@/states/features/userSlice'
@@ -9,7 +9,6 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { UserAccountComp } from '@/components/shared/UserAccountComp'
 import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
-import { CompLine } from '@/components/views/IconLineView'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
 
@@ -52,7 +51,13 @@ export const ConversationsComp = ({}) => {
 			
 			<Dialog>
 				<DialogTrigger asChild>
-					<CompLine icon={'IconUser'}>My Chatgpt</CompLine>
+					<Button
+						variant={'ghost'}
+						className="group w-full p-3 inline-flex justify-start items-center gap-2 hover:bg-[#2A2B32] cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700"
+					>
+						<IconUser/>
+						My ChatGPT
+					</Button>
 				</DialogTrigger>
 				
 				<DialogContent>
