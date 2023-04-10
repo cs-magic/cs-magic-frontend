@@ -42,9 +42,15 @@ export const listChatgptMessages = async (data: IChatgptUserConversation): Promi
 	return res.data
 }
 
-export const sendChatgptMessage = async (data: IChatgptUserConversation, content: string): Promise<string> => {
+// todo: sync
+export const asyncSendChatgptMessage = async (data: IChatgptUserConversation, content: string, stream: boolean = true) => {
 	const res = await backendApi.post('/chatgpt/message/chat', { content }, {
-		params: data,
+		params: { ...data, stream },
+		responseType: 'stream',
 	})
+	// // ref: https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams#consuming_a_fetch_using_asynchronous_iteration
+	// for await (const chunk of res.data) {
+	// 	console.log({ chunk })
+	// }
 	return res.data
 }

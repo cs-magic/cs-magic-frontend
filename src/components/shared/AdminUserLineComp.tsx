@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { UserState } from '@/states/features/userSlice'
 import { Input } from '@/components/ui/input'
+import { AvatarView } from '@/components/views/AvatarView'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: UserState
@@ -16,10 +17,13 @@ export const AdminUserLineComp = ({ user, index }: {
 	const [note, setNote] = useState(user.basic.note)
 	
 	return (
-		<tr key={index} className={'overflow-x-auto'}>
+		<tr key={index} className={'w-full'}>
 			<th>{index + 1}</th>
 			<th>{user.basic.id}</th>
 			<td>{user.basic.name}</td>
+			<td>
+				<AvatarView user={user.basic}/>
+			</td>
 			<td>{user.basic.email}</td>
 			<td>
 				<Select defaultValue={planning} onValueChange={(v: UserPlanningType) => setPlanning(v)}>
@@ -50,11 +54,11 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td className={'inline-flex items-center'}>
-				<Button onClick={async () => {
+				<Button size={'sm'} onClick={async () => {
 					await updateUser(user.basic.id, planning, expire, tokens, note)
 				}}>Confirm</Button>
 			</td>
-			
+		
 		</tr>
 	)
 }

@@ -7,6 +7,7 @@ import { selectUserBasic } from '@/states/features/userSlice'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 
+
 export const MessageComp = ({ msg }: {
 	msg: IChatgptMessage
 }) => {
@@ -28,7 +29,7 @@ export const MessageComp = ({ msg }: {
 					}
 				</div>
 				
-				<article className={'prose prose-slate'}>
+				<article className={'prose'}>
 					<ReactMarkdown
 						className={'grow'}
 						remarkPlugins={[]}

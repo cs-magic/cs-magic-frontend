@@ -1,6 +1,4 @@
 import { clsx } from 'clsx'
-import { IconBrandTelegram } from '@tabler/icons-react'
-import { Textarea } from '@/components/ui/textarea'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
@@ -8,9 +6,12 @@ import { asyncSendMessage } from '@/states/thunks/chatgpt'
 import { useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
-import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { MessageComp } from '@/components/shared/MessageComp'
+import { ChatgptRoleType } from '@/ds/chatgpt_v2'
+import { Textarea } from '@/components/ui/textarea'
+import { IconBrandTelegram } from '@tabler/icons-react'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { ConversationsComp } from './ConversationsComp'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -31,6 +32,8 @@ export const ConversationComp = () => {
 		if (res.meta.requestStatus === 'rejected') {
 			toast({ variant: 'destructive', title: res.payload as string })
 		}
+
+		// todo: update redux
 		setWaiting(false)
 	}
 	

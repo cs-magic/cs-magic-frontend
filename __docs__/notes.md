@@ -1,5 +1,13 @@
 # notes
 
+## web communication
+
+### stream response
+
+这里提供了 fetch 的办法去获取流数据：
+
+ref: Using readable streams - Web APIs | MDN, https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams#consuming_a_fetch_using_asynchronous_iteration
+
 ## typography relative
 
 ### 渲染一些公式之类

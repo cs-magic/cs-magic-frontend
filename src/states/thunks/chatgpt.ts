@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { addMessage, setMessages } from '@/states/features/messageSlice'
 import { AxiosError } from 'axios'
 import { ChatgptRoleType } from '@/ds/chatgpt_v2'
-import { createChatgptConversation, deleteChatgptConversation, listChatgptConversations, listChatgptMessages, sendChatgptMessage } from '@/api/chatgpt'
+import { asyncSendChatgptMessage, createChatgptConversation, deleteChatgptConversation, listChatgptConversations, listChatgptMessages } from '@/api/chatgpt'
 import { ID } from '@/ds/general'
-import { setConversations, setConversationID } from '@/states/features/conversationSlice'
+import { setConversationID, setConversations } from '@/states/features/conversationSlice'
 import { createAppAsyncThunk } from '@/states/hooks'
 import { u } from '@/config'
 
@@ -66,15 +66,19 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		console.log(`conversation empty, auto-created to be ${conversation_id}`)
 	}
 	
-	
 	await dispatch(addMessage({ role: ChatgptRoleType.user, content: content }))
 	console.log('sending message: ', { conversation_id, model, content })
 	
 	
 	try {
-		const resStr = await sendChatgptMessage({ user_id, conversation_id, model }, content)
-		console.log('received response string:', resStr)
-		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: resStr }))
+		// const resStr = await sendChatgptMessage({ user_id, conversation_id, model }, content, true)
+		// console.log('received response string:', resStr)
+		// await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: resStr }))
+		
+		const contentA = await asyncSendChatgptMessage({ user_id, conversation_id, model }, content, true)
+		console.log('received: ', contentA)
+		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: contentA }))
+		
 	} catch (e) {
 		if (e instanceof AxiosError) {
 			return rejectWithValue(e.response!.data.detail.toString())

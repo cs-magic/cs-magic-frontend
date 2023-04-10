@@ -33,6 +33,7 @@ export const AdminPage = () => {
 								<th></th>
 								<th>id</th>
 								<th>name</th>
+								<th>avatar</th>
 								<th>email</th>
 								<th>planning</th>
 								<th>expire</th>
@@ -45,7 +46,7 @@ export const AdminPage = () => {
 							<tbody>
 							{
 								userList.map((user, index) =>
-									<AdminUserLineComp user={user} index={index} key={user.basic.id}/>)
+									<AdminUserLineComp user={user} index={index} key={index}/>)
 							}
 							</tbody>
 						</table>
