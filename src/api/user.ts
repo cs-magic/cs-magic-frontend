@@ -11,8 +11,8 @@ export const listUsers = async (): Promise<UserState[]> => {
 	return res.data
 }
 
-export const updateUserPlanning = async (user_id: ID, planning: UserPlanningType, expire: string, tokens: number) =>
-	(await backendApi.patch('/user/planning', null, { params: { user_id, planning, expire, tokens } })).data
+export const updateUser = async (user_id: ID, planning: UserPlanningType, expire: string, tokens: number, note: string) =>
+	(await backendApi.patch('/user/planning', null, { params: { user_id, planning, expire, tokens, note } })).data
 
 export const updateUserName = async (user_id: ID, name: string) =>
 	(await backendApi.patch('/user/rename', null, { params: { user_id, name } })).data

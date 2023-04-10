@@ -27,7 +27,7 @@ export const AdminPage = () => {
 			{
 				!granted ? 'Not Granted' : (
 					<ScrollArea className={'h-full w-full'}>
-						<table className={'table w-full'}>
+						<table className={'table table-compact'}>
 							<thead>
 							<tr>
 								<th></th>
@@ -37,6 +37,7 @@ export const AdminPage = () => {
 								<th>planning</th>
 								<th>expire</th>
 								<th>chatgpt-tokens</th>
+								<th>Notes</th>
 								<th>operations</th>
 							</tr>
 							</thead>

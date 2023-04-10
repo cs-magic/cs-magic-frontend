@@ -15,6 +15,7 @@ export interface IUserBasic {
 	planning: UserPlanningType
 	expire: string
 	avatar: string
+	note: string
 }
 
 

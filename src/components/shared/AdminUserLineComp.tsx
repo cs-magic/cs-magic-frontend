@@ -1,9 +1,10 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { updateUserPlanning } from '@/api/user'
+import { updateUser } from '@/api/user'
 import { UserPlanningType } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { UserState } from '@/states/features/userSlice'
+import { Input } from '@/components/ui/input'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: UserState
@@ -12,6 +13,7 @@ export const AdminUserLineComp = ({ user, index }: {
 	const [planning, setPlanning] = useState(user.basic.planning)
 	const [expire, setExpire] = useState(user.basic.expire)
 	const [tokens, setTokens] = useState(user.chatgpt.balance)
+	const [note, setNote] = useState(user.basic.note)
 	
 	return (
 		<tr key={index} className={'overflow-x-auto'}>
@@ -43,11 +45,16 @@ export const AdminUserLineComp = ({ user, index }: {
 				       onChange={(event) => {setTokens(parseInt(event.currentTarget.value))}}/>
 			</td>
 			
+			<td>
+				<Input defaultValue={user.basic.note} onChange={(event) => setNote(event.currentTarget.value)}/>
+			</td>
+			
 			<td className={'inline-flex items-center'}>
 				<Button onClick={async () => {
-					await updateUserPlanning(user.basic.id, planning, expire, tokens)
+					await updateUser(user.basic.id, planning, expire, tokens, note)
 				}}>Confirm</Button>
 			</td>
+			
 		</tr>
 	)
 }
