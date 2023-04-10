@@ -5,7 +5,7 @@ import { IUserBasic, UserPlanningType } from '@/ds/user'
 export const getBasicUser = async (user_id: ID): Promise<IUserBasic> =>
 	(await backendApi.get('/user/basic', { params: { user_id } })).data
 
-export const listUsers = async (): Promise<IUserBasic> =>
+export const listUsers = async (): Promise<IUserBasic[]> =>
 	(await backendApi.get('/user/list')).data
 
 export const updateUserPlanning = async (user_id: ID, planning: UserPlanningType, expire: string) =>
