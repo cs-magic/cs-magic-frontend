@@ -6,6 +6,7 @@ import { createChatgptConversation, deleteChatgptConversation, listChatgptConver
 import { ID } from '@/ds/general'
 import { setConversations, setConversationID } from '@/states/features/conversationSlice'
 import { createAppAsyncThunk } from '@/states/hooks'
+import { u } from '@/config'
 
 /**
  * - 前置条件（重要）
@@ -49,12 +50,12 @@ export const asyncDelConversation = createAppAsyncThunk('asyncDelConversation', 
 
 export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (content: string, { dispatch, getState, rejectWithValue }) => {
 	if (!content) {
-		return rejectWithValue('content cannot be empty')
+		return rejectWithValue(u.notify.errorSendEmpty)
 	}
 	
 	const user_id = getState().user.basic.id
 	if (!user_id) {
-		return rejectWithValue('user_id cannot be empty')
+		return rejectWithValue(u.notify.errorUserEmpty)
 	}
 	
 	const model = getState().conversation.model

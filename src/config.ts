@@ -1,4 +1,5 @@
 import { IProjectItem } from '@/components/shared/ProjectItemComp'
+import { schemaCN } from '@/i18n/langs/cn'
 
 export const projects: IProjectItem[] = [
 	{
@@ -10,4 +11,4 @@ export const projects: IProjectItem[] = [
 	},
 ]
 
-export const platformName = 'CS魔法社'
+export const u = schemaCN
