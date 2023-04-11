@@ -6,7 +6,7 @@ import { userPlanningPurchaseList } from '@/config'
 export const UserPlanningPage = () => {
 	return (
 		<RootLayout>
-			<div className={'w-full grid grid-cols-1 md:grid-cols-3 gap-2'}>
+			<div className={'w-full h-full flex flex-wrap gap-4 justify-evenly'}>
 				{
 					userPlanningPurchaseList.map((item) => (
 						<UserPlanningPurchaseComp {...item} key={item.name}/>

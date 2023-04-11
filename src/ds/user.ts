@@ -8,11 +8,17 @@ export enum UserPlanningType {
 	blackVip = 'blackVip',
 }
 
+export enum UserRole {
+	user = 'user',
+	admin = 'admin',
+}
+
 export interface IUserBasic {
 	id: ID
 	name: string
 	email: string
 	planning: UserPlanningType
+	role: UserRole
 	expire: string
 	avatar: string
 	note: string

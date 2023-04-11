@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/states/store'
-import { IUserBasic, UserPlanningType } from '@/ds/user'
+import { IUserBasic, UserPlanningType, UserRole } from '@/ds/user'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
 
 
@@ -20,6 +20,7 @@ export const initialState: UserState = {
 		expire: '',
 		avatar: '',
 		note: '',
+		role: UserRole.user,
 	},
 	chatgpt: {
 		balance: 0,

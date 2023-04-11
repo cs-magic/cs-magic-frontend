@@ -30,7 +30,7 @@ export const ConversationPage = () => {
 	
 	return (
 		<RootLayout title={'ChatGPT Plus Mirror'}>
-			<div className={'w-full flex-1 overflow-hidden flex'}>
+			<div className={'w-full h-full flex'}>
 				
 				{/* left: conversations */}
 				<div className={'hidden md:block w-[260px]'}>

@@ -1,32 +1,43 @@
-import { listUsers } from '@/api/user'
 import { RootLayout } from '@/layouts/RootLayout'
 import { AdminUserLineComp } from '@/components/shared/AdminUserLineComp'
-import { useEffect, useState } from 'react'
-import { useAppSelector } from '@/states/hooks'
-import { selectUserId, UserState } from '@/states/features/userSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { adminIds } from '@/config'
+import { selectUserBasic, UserState } from '@/states/features/userSlice'
+import { useAppSelector } from '@/states/hooks'
+import { UserRole } from '@/ds/user'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { listUsers } from '@/api/user'
+import { IconRotate } from '@tabler/icons-react'
 
 export const AdminPage = () => {
-	const userId = useAppSelector(selectUserId)
-	const [userList, setUserList] = useState<UserState[]>([])
+	const router = useRouter()
+	const userBasic = useAppSelector(selectUserBasic)
+	const [users, setUsers] = useState<UserState[]>([])
 	
-	const isGrantedUser = adminIds.includes(userId)
+	const [isLoading, setLoading] = useState(true)
 	
 	useEffect(() => {
-		if (isGrantedUser) {
-			listUsers().then((data) => {
-				setUserList(data)
-			})
+		console.log({ userBasic })
+		// 1. 首次访问页面，是没有id的init状态
+		// 2. 接着基于 RootLayout 获得用户信息
+		// 3. 接着基于用户信息再决定是否要跳转或者加载列表内容
+		if (userBasic.id) {
+			if (userBasic.role !== UserRole.admin) {
+				router.push('/error/NotGranted')
+			} else {
+				listUsers().then(setUsers)
+					.finally(() => setLoading(false))
+			}
 		}
-	}, [userId])
+	}, [userBasic])
 	
 	
 	return (
 		<RootLayout title={'控制台'}>
 			{
-				!isGrantedUser ? 'Not Granted' : (
-					<ScrollArea className={'h-full w-full'}>
+				isLoading
+					? <IconRotate className={'animate-spin'}/>
+					: <ScrollArea className={'h-full w-full'}>
 						<table className={'table table-compact'}>
 							<thead>
 							<tr>
@@ -45,17 +56,15 @@ export const AdminPage = () => {
 							
 							<tbody>
 							{
-								userList.map((user, index) =>
+								users.map((user, index) =>
 									<AdminUserLineComp user={user} index={index} key={index}/>)
 							}
 							</tbody>
 						</table>
 					</ScrollArea>
-				)
 			}
 		</RootLayout>
 	)
 }
 
 export default AdminPage
-
