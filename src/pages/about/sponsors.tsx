@@ -1,7 +1,7 @@
-import { listUsers } from '@/api/user'
 import { UserState } from '@/states/features/userSlice'
 import { RootLayout } from '@/layouts/RootLayout'
 import { AvatarView } from '@/components/views/AvatarView'
+import { listUserStates } from '@/api/user/state'
 
 export const SponsorsPage = ({ users }: {
 	users: UserState[]
@@ -20,7 +20,7 @@ export const SponsorsPage = ({ users }: {
 export const getServerSideProps = async () => {
 	return {
 		props: {
-			users: await listUsers(),
+			users: await listUserStates(),
 		},
 	}
 }

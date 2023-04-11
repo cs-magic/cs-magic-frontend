@@ -6,8 +6,8 @@ import { useAppSelector } from '@/states/hooks'
 import { UserRole } from '@/ds/user'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { listUsers } from '@/api/user'
 import { IconRotate } from '@tabler/icons-react'
+import { listUserStates } from '@/api/user/state'
 
 export const AdminPage = () => {
 	const router = useRouter()
@@ -25,7 +25,7 @@ export const AdminPage = () => {
 			if (userBasic.role !== UserRole.admin) {
 				router.push('/error/NotGranted')
 			} else {
-				listUsers().then(setUsers)
+				listUserStates().then(setUsers)
 					.finally(() => setLoading(false))
 			}
 		}

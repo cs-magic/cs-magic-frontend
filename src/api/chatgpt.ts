@@ -2,48 +2,33 @@ import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
 import { IChatgptConversation, IChatgptMessage, IUserChatgpt } from '@/ds/chatgpt_v2'
 import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/chatgpt'
-import { IUserBasic } from '@/ds/user'
 
 //// user
 
-export const getChatgptUser = async (user_id: ID): Promise<IUserChatgpt> => {
-	const res = await backendApi.get('/chatgpt/user', { params: { user_id } })
-	return res.data
-}
+export const getChatgptUser = async (user_id: ID): Promise<IUserChatgpt> =>
+	(await backendApi.get('/chatgpt/user', { params: { user_id } })).data
 
 export const updateUserChatgpt = async (user: IUserChatgpt) =>
-	(await backendApi.patch('/chatgpt/user', null, { params: user })).data
+	(await backendApi.patch('/chatgpt/user', user)).data
 
 //// conversation
 
-export const listChatgptConversations = async (user_id: ID): Promise<IChatgptConversation[]> => {
-	const res = await backendApi.get('/chatgpt/conversation/list', { params: { user_id } })
-	return res.data
-}
+export const listChatgptConversations = async (user_id: ID): Promise<IChatgptConversation[]> =>
+	(await backendApi.get('/chatgpt/conversation/list', { params: { user_id } })).data
 
-export const createChatgptConversation = async (data: IChatgptCreateUserConversation): Promise<IChatgptConversation> => {
-	const res = await backendApi.post('/chatgpt/conversation/create', null, { params: data })
-	return res.data
-}
+export const createChatgptConversation = async (data: IChatgptCreateUserConversation): Promise<IChatgptConversation> =>
+	(await backendApi.post('/chatgpt/conversation/create', null, { params: data })).data
 
-export const deleteChatgptConversation = async (data: IChatgptUserConversation) => {
-	const res = await backendApi.delete('/chatgpt/conversation/', { params: data })
-	return res.data
-}
+export const deleteChatgptConversation = async (data: IChatgptUserConversation) =>
+(await backendApi.delete('/chatgpt/conversation/', { params: data })).data
 
-export const updateChatgptConversationName = async (data: IChatgptUserConversation, name: string) => {
-	const res = await backendApi.patch('/chatgpt/conversation/name', null, { params: { ...data, name } })
-	return res.data
-}
+export const updateChatgptConversationName = async (data: IChatgptUserConversation, name: string) =>
+	(await backendApi.patch('/chatgpt/conversation/name', null, { params: { ...data, name } })).data
 
 //// message
 
-export const listChatgptMessages = async (data: IChatgptUserConversation): Promise<IChatgptMessage[]> => {
-	const res = await backendApi.get('/chatgpt/message/list', {
-		params: data,
-	})
-	return res.data
-}
+export const listChatgptMessages = async (data: IChatgptUserConversation): Promise<IChatgptMessage[]> =>
+	(await backendApi.get('/chatgpt/message/list', { params: data, })).data
 
 // todo: sync
 export const asyncSendChatgptMessage = async (data: IChatgptUserConversation, content: string, stream: boolean = true) => {

@@ -6,4 +6,4 @@ export const getUserBasic = async (user_id: ID): Promise<IUserBasic> =>
 	(await backendApi.get('/user/basic', { params: { user_id } })).data
 
 export const updateUserBasic = async (user: IUserBasic) =>
-	(await backendApi.patch('/user/basic', null, { params: user })).data
+	(await backendApi.patch('/user/basic',  user )).data
