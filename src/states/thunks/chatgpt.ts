@@ -18,7 +18,7 @@ import { setUserChatgpt } from '@/states/features/userSlice'
 
 
 // use void, ref: https://stackoverflow.com/a/67970314/9422455
-export const asyncUpdateChatgpt = createAppAsyncThunk("asyncUpdateChatgpt", async (arg: void, {dispatch, getState}) => {
+export const asyncUpdateUserChatgpt = createAppAsyncThunk("asyncUpdateChatgpt", async (arg: void, {dispatch, getState}) => {
 	const user_id = getState().user.basic.id
 	const user_chatgpt: IUserChatgpt = await getUserChatgpt(user_id)
 	dispatch(setUserChatgpt(user_chatgpt))
@@ -94,7 +94,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		console.log('received: ', contentA)
 		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: contentA }))
 		// 在获得消息返回之后，就更新chatgpt balance
-		await dispatch(asyncUpdateChatgpt())
+		await dispatch(asyncUpdateUserChatgpt())
 		
 	} catch (e) {
 		if (e instanceof AxiosError) {

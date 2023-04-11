@@ -1,17 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptConversationID, selectConversations } from '@/states/features/conversationSlice'
-import { IconPlus, IconUser } from '@tabler/icons-react'
+import { IconPlus } from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { Separator } from '../ui/separator'
 import { selectUserId } from '@/states/features/userSlice'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { UserAccountComp } from '@/components/shared/UserAccountComp'
 import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
-import { ChatgptAccountComp } from '@/components/shared/ChatgptAccountComp'
 
 export const ConversationsComp = ({}) => {
 	
@@ -49,7 +46,7 @@ export const ConversationsComp = ({}) => {
 			</div>
 			
 			<Separator/>
-		
+			
 			{/* 暂时先不要了，因为token直接可以在header里更新 */}
 			{/*<ChatgptAccountComp/>*/}
 		
