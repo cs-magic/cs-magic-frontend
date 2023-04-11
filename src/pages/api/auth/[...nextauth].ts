@@ -6,6 +6,8 @@ import clientPromise from '@/lib/mongodb'
 
 import nodemailer from 'nodemailer'
 
+export const tokenCentre: Record<string, string> = {}
+
 export const generateAuthtoken = async (): Promise<string> =>
 	Array.from(Array(4)).map(() => Math.floor(Math.random() * 10)).join('')
 
@@ -23,39 +25,40 @@ export const authOptions: NextAuthOptions = {
 				const token = await generateAuthtoken()
 				return token
 			},
-			      sendVerificationRequest: ({
-        identifier: email,
-        url,
-        token,
-        provider,
-      }) => {
-        return new Promise((resolve, reject) => {
-          const { server, from } = provider;
-          // Strip protocol from URL and use domain as site name
-          const site = url // todo: baseUrl
-
-          nodemailer.createTransport(server).sendMail(
-            {
-              to: email,
-              from,
-              subject: `【CS魔法社】验证码：${token}`,
-	            // text: 'text template',
-	            // html: 'html template',
-              // text: text({ url, site, email, token }),
-              // html: html({ url, site, email, token }),
-            },
-            (error) => {
-              if (error) {
-                console.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
-                return reject(
-                  new Error(`SEND_VERIFICATION_EMAIL_ERROR ${error}`)
-                );
-              }
-              return resolve();
-            }
-          );
-        });
-      },
+			sendVerificationRequest: ({
+				                          identifier: email,
+				                          url,
+				                          token,
+				                          provider,
+			                          }) => {
+				return new Promise((resolve, reject) => {
+					const { server, from } = provider
+					// Strip protocol from URL and use domain as site name
+					const site = url // todo: baseUrl
+					
+					nodemailer.createTransport(server).sendMail(
+						{
+							to: email,
+							from,
+							subject: `【CS魔法社】验证码：${token}`,
+							// text: text({ url, site, email, token }),
+							// html: html({ url, site, email, token }),
+						},
+						(error) => {
+							if (error) {
+								console.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
+								return reject(
+									new Error(`SEND_VERIFICATION_EMAIL_ERROR ${error}`),
+								)
+							}
+							
+							tokenCentre[email] = token
+							console.log({tokenCentre})
+							return resolve()
+						},
+					)
+				})
+			},
 		}),
 	],
 	callbacks: {
@@ -64,12 +67,17 @@ export const authOptions: NextAuthOptions = {
 			session.user.id = session.user.email
 			return session // The return type will match the one returned in `useSession()`
 		},
-	},
+		redirect({url, baseUrl}) {
+			console.log({url, baseUrl})
+			return url
+		}
+	}
+	,
 	
 	pages: {
 		signIn: '/auth/signin',
-		error: '/auth/signin'
-	}
+		error: '/auth/signin',
+	},
 }
 
 export default NextAuth(authOptions)

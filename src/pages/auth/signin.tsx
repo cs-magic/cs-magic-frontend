@@ -8,6 +8,7 @@ import { NEXTAUTH_CALLBACK_URL } from '@/lib/env'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { AuthLayout } from '@/layouts/AuthLayout'
+import axios from 'axios'
 
 const SigninPage: NextPage = () => {
 	const { toast } = useToast()
@@ -105,14 +106,20 @@ const SigninPage: NextPage = () => {
 					<Input
 						name={'code'}
 						autoFocus
-						onKeyDown={(event) => {
+						onKeyDown={async (event) => {
 							if (event.key === 'Enter') {
 								event.preventDefault()
 								const inputToken = event.currentTarget.value
-								console.log({ inputToken })
-								router.push(
-									`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
-								)
+								const targetToken = (await axios.get('/api/auth/tokens?id=' + email)).data.toString()
+								console.log({ inputToken, targetToken })
+								// 直接前端验证！
+								if (inputToken !== targetToken) {
+									toast({ title: '验证码不对', variant: 'destructive' })
+								} else {
+									router.push(
+										`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
+									)
+								}
 							}
 						}}
 					/>
