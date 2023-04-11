@@ -11,6 +11,7 @@ import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/c
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
+import { ChatgptAccountComp } from '@/components/shared/ChatgptAccountComp'
 
 export const ConversationsComp = ({}) => {
 	
@@ -48,22 +49,9 @@ export const ConversationsComp = ({}) => {
 			</div>
 			
 			<Separator/>
-			
-			<Dialog>
-				<DialogTrigger asChild>
-					<Button
-						variant={'ghost'}
-						className="group w-full p-3 inline-flex justify-start items-center gap-2 hover:bg-[#2A2B32] cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700"
-					>
-						<IconUser/>
-						My ChatGPT
-					</Button>
-				</DialogTrigger>
-				
-				<DialogContent>
-					<UserAccountComp/>
-				</DialogContent>
-			</Dialog>
+		
+			{/* 暂时先不要了，因为token直接可以在header里更新 */}
+			{/*<ChatgptAccountComp/>*/}
 		
 		</div>
 	)

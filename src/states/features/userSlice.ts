@@ -36,7 +36,7 @@ export const userSlice = createSlice({
 		setUserBasic: (state, action: PayloadAction<IUserBasic>) => {
 			state.basic = action.payload
 		},
-		setChatgptUser: (state, action: PayloadAction<IUserChatgpt>) => {
+		setUserChatgpt: (state, action: PayloadAction<IUserChatgpt>) => {
 			state.chatgpt = action.payload
 		},
 		setUserAliveStatus: (state, action: PayloadAction<boolean>) => {
@@ -45,7 +45,7 @@ export const userSlice = createSlice({
 	},
 })
 
-export const { setUserAliveStatus, setChatgptUser, setUserBasic } = userSlice.actions
+export const { setUserAliveStatus, setUserChatgpt, setUserBasic } = userSlice.actions
 
 
 export const selectUserId = (state: RootState) => state.user.basic.id

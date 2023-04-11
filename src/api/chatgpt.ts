@@ -5,7 +5,7 @@ import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/c
 
 //// user
 
-export const getChatgptUser = async (user_id: ID): Promise<IUserChatgpt> =>
+export const getUserChatgpt = async (user_id: ID): Promise<IUserChatgpt> =>
 	(await backendApi.get('/chatgpt/user', { params: { user_id } })).data
 
 export const updateUserChatgpt = async (user: IUserChatgpt) =>
@@ -31,7 +31,7 @@ export const listChatgptMessages = async (data: IChatgptUserConversation): Promi
 	(await backendApi.get('/chatgpt/message/list', { params: data, })).data
 
 // todo: sync
-export const asyncSendChatgptMessage = async (data: IChatgptUserConversation, content: string, stream: boolean = true) => {
+export const postChatgptMessage = async (data: IChatgptUserConversation, content: string, stream: boolean = true) => {
 	const res = await backendApi.post('/chatgpt/message/chat', { content }, {
 		params: { ...data, stream },
 		responseType: 'stream',

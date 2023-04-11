@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
+import { selectUserChatgpt } from '@/states/features/userSlice'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -21,6 +22,7 @@ export const ConversationComp = () => {
 	
 	const model = useAppSelector(selectChatgptModelType)
 	const messages = useAppSelector(selectChatgptMessages)
+	const userChatgpt = useAppSelector(selectUserChatgpt)
 	
 	const [waiting, setWaiting] = useState(false)
 	
@@ -29,11 +31,7 @@ export const ConversationComp = () => {
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		const res = await dispatch(asyncSendMessage(content))
-		if (res.meta.requestStatus === 'rejected') {
-			toast({ variant: 'destructive', title: res.payload as string })
-		}
-
-		// todo: update redux
+		if (res.meta.requestStatus === 'rejected') toast({ variant: 'destructive', title: res.payload as string })
 		setWaiting(false)
 	}
 	
@@ -45,7 +43,9 @@ export const ConversationComp = () => {
 	
 	return (
 		<div className={'flex-1 h-full overflow-hidden flex flex-col'}>
-			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>Model: {model}</Button>
+			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
+				Model: {model}, Tokens: {userChatgpt.balance}
+			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'grow md:hidden'}/>

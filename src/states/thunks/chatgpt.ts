@@ -1,12 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { addMessage, setMessages } from '@/states/features/messageSlice'
 import { AxiosError } from 'axios'
-import { ChatgptRoleType } from '@/ds/chatgpt_v2'
-import { asyncSendChatgptMessage, createChatgptConversation, deleteChatgptConversation, listChatgptConversations, listChatgptMessages } from '@/api/chatgpt'
+import { ChatgptRoleType, IUserChatgpt } from '@/ds/chatgpt_v2'
+import {
+	postChatgptMessage,
+	createChatgptConversation,
+	deleteChatgptConversation,
+	listChatgptConversations,
+	listChatgptMessages,
+	getUserChatgpt,
+} from '@/api/chatgpt'
 import { ID } from '@/ds/general'
 import { setConversationID, setConversations } from '@/states/features/conversationSlice'
 import { createAppAsyncThunk } from '@/states/hooks'
 import { u } from '@/config'
+import { setUserChatgpt } from '@/states/features/userSlice'
+
+
+// use void, ref: https://stackoverflow.com/a/67970314/9422455
+export const asyncUpdateChatgpt = createAppAsyncThunk("asyncUpdateChatgpt", async (arg: void, {dispatch, getState}) => {
+	const user_id = getState().user.basic.id
+	const user_chatgpt: IUserChatgpt = await getUserChatgpt(user_id)
+	dispatch(setUserChatgpt(user_chatgpt))
+})
 
 /**
  * - 前置条件（重要）
@@ -69,15 +85,16 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 	await dispatch(addMessage({ role: ChatgptRoleType.user, content: content }))
 	console.log('sending message: ', { conversation_id, model, content })
 	
-	
 	try {
 		// const resStr = await sendChatgptMessage({ user_id, conversation_id, model }, content, true)
 		// console.log('received response string:', resStr)
 		// await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: resStr }))
 		
-		const contentA = await asyncSendChatgptMessage({ user_id, conversation_id, model }, content, true)
+		const contentA = await postChatgptMessage({ user_id, conversation_id, model }, content, true)
 		console.log('received: ', contentA)
 		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: contentA }))
+		// 在获得消息返回之后，就更新chatgpt balance
+		await dispatch(asyncUpdateChatgpt())
 		
 	} catch (e) {
 		if (e instanceof AxiosError) {
