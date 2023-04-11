@@ -2,6 +2,7 @@ import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
 import { IChatgptConversation, IChatgptMessage, IUserChatgpt } from '@/ds/chatgpt_v2'
 import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/chatgpt'
+import { IUserBasic } from '@/ds/user'
 
 //// user
 
@@ -10,6 +11,8 @@ export const getChatgptUser = async (user_id: ID): Promise<IUserChatgpt> => {
 	return res.data
 }
 
+export const updateUserChatgpt = async (user: IUserChatgpt) =>
+	(await backendApi.patch('/chatgpt/user', null, { params: user })).data
 
 //// conversation
 

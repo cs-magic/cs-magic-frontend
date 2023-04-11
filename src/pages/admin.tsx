@@ -46,6 +46,7 @@ export const AdminPage = () => {
 								<th>name</th>
 								<th>avatar</th>
 								<th>email</th>
+								<th>role</th>
 								<th>planning</th>
 								<th>expire</th>
 								<th>chatgpt-tokens</th>

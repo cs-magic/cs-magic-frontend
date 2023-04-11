@@ -1,6 +1,4 @@
-import { UserPlanningType } from '@/ds/user'
 import _ from 'lodash'
-import { IFeature } from '@/ds/general'
 import { clsx } from 'clsx'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
@@ -8,17 +6,7 @@ import { Switch } from '@/components/ui/switch'
 import { Label } from '../ui/label'
 import { useState } from 'react'
 import { UserPlanningComp } from '@/components/shared/UserPlanningComp'
-
-export interface IUserPlanningPurchaseComp {
-	name: UserPlanningType
-	cover: string
-	prices: {
-		month: number
-		year: number // m * 10
-	}
-	tags: string[]
-	features: IFeature[]
-}
+import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
 
 export const UserPlanningPurchaseComp = (

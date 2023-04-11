@@ -2,17 +2,17 @@ import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectUserBasic, selectUserId, setUserBasic } from '@/states/features/userSlice'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useToast } from '@/hooks/use-toast'
-import { UserPlanningComp } from '@/components/shared/UserPlanningComp'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import _ from 'lodash'
-import { updateUserAvatar, updateUserName } from '@/api/user'
 import { uploadFile } from '@/api/general'
 import { AvatarView } from '@/components/views/AvatarView'
 import { LabelLineView } from '@/components/views/LabelLineView'
 import { Label } from '@/components/ui/label'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { mockSession } from 'next-auth/client/__tests__/helpers/mocks'
+import { updateUserBasic } from '@/api/user/basic'
 
 export const NavbarAvatarComp = () => {
 	const dispatch = useAppDispatch()
@@ -70,8 +70,9 @@ export const NavbarAvatarComp = () => {
 						onSubmit={async (event) => {
 							event.preventDefault()
 							const name = event.currentTarget.userName.value
-							await updateUserName(userId!, name)
-							dispatch(setUserBasic({ ...userBasic, name }))
+							const newUserBasic = { ...userBasic, name }
+							await updateUserBasic(newUserBasic)
+							dispatch(setUserBasic(newUserBasic))
 							toast({ title: 'updated' })
 						}}
 					/>
@@ -88,8 +89,9 @@ export const NavbarAvatarComp = () => {
 									if (files?.length === 1) {
 										const file = files[0]
 										const avatar = await uploadFile(file)
-										await updateUserAvatar(userId, avatar)
-										dispatch(setUserBasic({ ...userBasic, avatar }))
+										const newUserBasic = { ...userBasic, avatar }
+										await updateUserBasic(newUserBasic)
+										dispatch(setUserBasic(newUserBasic))
 										toast({ title: 'updated' })
 									}
 								}}/>

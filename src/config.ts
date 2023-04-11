@@ -1,9 +1,9 @@
 import { IProjectItem } from '@/components/shared/ProjectItemComp'
 import { schemaCN } from '@/i18n/langs/cn'
-import { IUserPlanningPurchaseComp } from '@/components/shared/UserPlanningPurchaseComp'
 import { UserPlanningType } from '@/ds/user'
 import { IFeature } from '@/ds/general'
 import { INavbarItem } from '@/components/shared/NavBarComp'
+import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
 export const projects: IProjectItem[] = [
 	{
