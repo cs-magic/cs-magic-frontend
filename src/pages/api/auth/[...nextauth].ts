@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
             {
               to: email,
               from,
-              subject: `Authentication code: ${token}`,
+              subject: `【CS魔法社】验证码：${token}`,
 	            // text: 'text template',
 	            // html: 'html template',
               // text: text({ url, site, email, token }),
@@ -46,7 +46,6 @@ export const authOptions: NextAuthOptions = {
             },
             (error) => {
               if (error) {
-                // logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
                 console.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
                 return reject(
                   new Error(`SEND_VERIFICATION_EMAIL_ERROR ${error}`)
@@ -60,12 +59,6 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
-		async signIn({ user, account, profile, email, credentials }) {
-			// console.log('signIn', { user, account, profile, email, credentials })
-			// store.dispatch(initUser())
-			return true
-		},
-		
 		session({ session, token, user }) {
 			// console.log('session', { session, token, user })
 			session.user.id = session.user.email
@@ -74,7 +67,8 @@ export const authOptions: NextAuthOptions = {
 	},
 	
 	pages: {
-		signIn: '/auth/signin'
+		signIn: '/auth/signin',
+		error: '/auth/signin'
 	}
 }
 
