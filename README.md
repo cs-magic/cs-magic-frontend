@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P2, 允许密码登录
 - [ ] P1, 上传头像后加载动画并锁定
 - [ ] P2, dispatch after fetch (to avoid use thunk)
 - [ ] P2, use `react-query` to simplify conversations/messages dynamic fetch upon adding

@@ -30,6 +30,8 @@ export const authOptions: NextAuthOptions = {
 				                          url,
 				                          token,
 				                          provider,
+				theme,
+				expires
 			                          }) => {
 				return new Promise((resolve, reject) => {
 					const { server, from } = provider
