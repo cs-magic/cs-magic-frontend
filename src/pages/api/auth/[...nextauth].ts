@@ -69,12 +69,7 @@ export const authOptions: NextAuthOptions = {
 			session.user.id = session.user.email
 			return session // The return type will match the one returned in `useSession()`
 		},
-		redirect({url, baseUrl}) {
-			console.log({url, baseUrl})
-			return url
-		}
-	}
-	,
+	},
 	
 	pages: {
 		signIn: '/auth/signin',
