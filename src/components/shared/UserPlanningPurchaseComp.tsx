@@ -33,7 +33,7 @@ export const UserPlanningPurchaseComp = (
 		<div className="card w-96 bg-base-100 shadow-xl">
 			
 			<AspectRatio ratio={9 / 12}>
-				<Image src={cover} alt={name} fill/>
+				<Image src={cover} alt={name} fill priority sizes={"33vw"}/>
 			</AspectRatio>
 			
 			<div className="card-body grow">
@@ -49,7 +49,7 @@ export const UserPlanningPurchaseComp = (
 					{features.map((feature) => (
 						<label className="cursor-pointer label" key={feature.name}>
 							<span className="label-text">{feature.name}</span>
-							<input type="checkbox" checked className={clsx(
+							<input type="checkbox" checked readOnly className={clsx(
 								'checkbox checkbox-sm',
 								feature.status === 'finished' && 'checkbox-success',
 							)}/>

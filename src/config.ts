@@ -3,6 +3,7 @@ import { schemaCN } from '@/i18n/langs/cn'
 import { IUserPlanningPurchaseComp } from '@/components/shared/UserPlanningPurchaseComp'
 import { UserPlanningType } from '@/ds/user'
 import { IFeature } from '@/ds/general'
+import { INavbarItem } from '@/components/shared/NavBarComp'
 
 export const projects: IProjectItem[] = [
 	{
@@ -79,4 +80,19 @@ export const adminIds = [
 	'1282148128@qq.com', // jane
 	'unisugar.ktrs@gmail.com', // ely
 	'2499207452@qq.com', // susan
+]
+
+export const navbarItems: INavbarItem[][] = [
+	[
+		{ href: '/', name: 'Home Page' },
+	],
+	[
+		{ href: '/chat', name: 'Service: ChatGPT' },
+	],
+	[
+		{ href: '/user-planning', name: 'User Planning' },
+	],
+	[
+		{ href: '/about/us', name: 'About US' },
+	],
 ]

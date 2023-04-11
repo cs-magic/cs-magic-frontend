@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
-import { u } from '@/config'
+import { navbarItems, u } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
-import { toast } from '@/hooks/use-toast'
+import { ReactNode } from 'react'
+
+export interface INavbarItem {
+	href: string
+	name: string
+}
 
 export const NavBarComp = ({ title }: { title?: string }) => {
 	
@@ -21,24 +26,23 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 				</DropdownMenuTrigger>
 				
 				<DropdownMenuContent>
-					<DropdownMenuGroup>
-						<DropdownMenuItem asChild><Link href={'/'} className={'cursor-pointer'}>Home Page</Link></DropdownMenuItem>
-					</DropdownMenuGroup>
 					
-					<DropdownMenuSeparator/>
-					
-					<DropdownMenuGroup>
-						<DropdownMenuItem asChild><Link href={'/chat'} className={'cursor-pointer'}>Service: Chatgpt</Link></DropdownMenuItem>
-					</DropdownMenuGroup>
-					
-					<DropdownMenuSeparator/>
-					
-					<DropdownMenuGroup>
-						<DropdownMenuItem asChild><Link href={'/userPlanning'} className={'cursor-pointer'}>User Planning</Link></DropdownMenuItem>
-						<DropdownMenuItem onClick={() => {
-							toast({ title: 'TODO!' })
-						}}>About US</DropdownMenuItem>
-					</DropdownMenuGroup>
+					{
+						navbarItems
+							.map((group, groupIndex) => (
+								<DropdownMenuGroup key={groupIndex}>
+									{
+										group.map((item, itemIndex) =>
+											<Link href={item.href} key={itemIndex}>
+												<DropdownMenuItem className={'cursor-pointer'}>
+													{item.name}
+												</DropdownMenuItem>
+											</Link>)
+									}
+								</DropdownMenuGroup>
+							))
+							.reduce((prev: ReactNode[], curr) => [...prev, <DropdownMenuSeparator key={'DropdownMenuSeparator-' + prev.length}/>, curr], [])
+					}
 				
 				</DropdownMenuContent>
 			
