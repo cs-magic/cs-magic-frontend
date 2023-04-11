@@ -1,12 +1,46 @@
 # notes
 
+## email validation and verification
+
+validation 可以在 client 端完成，但是 verification 需要在 server 端，因为涉及到了 dns
+
+validation 用的最多的库是 `isemail` 或者 `mailcheck`（90,129 ），而 verification 则可以用 node 端的 `deep-email-validator`
+（12,164），第三方付费verification则可以参考：
+
+https://geekflare.com/email-verification-api/，例如 [abstractapi](https://app.abstractapi.com/api/email-validation/pricing)，这个每个月
+100 次免费额度，示例如下：
+
+```javascript
+              function httpGetAsync(url, callback) {
+                  const xmlHttp = new XMLHttpRequest();
+                  xmlHttp.onreadystatechange = function() {
+                      if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                      callback(xmlHttp.responseText);
+                  }
+                  xmlHttp.open("GET", url, true); // true for asynchronous
+                  xmlHttp.send(null);
+              }
+
+              const url = "https://emailvalidation.abstractapi.com/v1/?api_key=aa10ba0c931c4f5bb4fafcdd1d6a9f38&email=shawninjuly@gmail.com"
+
+              httpGetAsync(url)
+```
+
+## animation
+
+- https://www.npmjs.com/package/react-typist, 42377
+- https://www.npmjs.com/package/react-type-animation, 12530
+- https://www.npmjs.com/package/react-typed, 8956
+- https://www.npmjs.com/package/react-typing-effect, 2881
+
 ## web communication
 
 ### stream response
 
 这里提供了 fetch 的办法去获取流数据：
 
-ref: Using readable streams - Web APIs | MDN, https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams#consuming_a_fetch_using_asynchronous_iteration
+ref: Using readable streams - Web APIs |
+MDN, https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams#consuming_a_fetch_using_asynchronous_iteration
 
 ## typography relative
 
@@ -15,6 +49,7 @@ ref: Using readable streams - Web APIs | MDN, https://developer.mozilla.org/en-U
 不需要这些：`rehype-shiki remark-code-blocks @mapbox/rehype-highlight-code-block`
 
 只需要：
+
 - `react-markdown`, ref: https://www.npmjs.com/package/react-markdown
 - `rehype-highlight`, ref: https://github.com/rehypejs/rehype-highlight
 - `@tailwindcss/typography`, ref: https://tailwindcss.com/docs/typography-plugin
@@ -23,7 +58,8 @@ ref: Using readable streams - Web APIs | MDN, https://developer.mozilla.org/en-U
 
 ### `flex-end` 和 `scroll` 矛盾
 
-css - Use justify-content: flex-end and to have vertical scrollbar - Stack Overflow, https://stackoverflow.com/questions/36130760/use-justify-content-flex-end-and-to-have-vertical-scrollbar
+css - Use justify-content: flex-end and to have vertical scrollbar - Stack
+Overflow, https://stackoverflow.com/questions/36130760/use-justify-content-flex-end-and-to-have-vertical-scrollbar
 
 可以使用额外添加一个 `grow` 解决！
 
@@ -47,6 +83,7 @@ ref: https://www.tecmint.com/generate-pre-shared-key-in-linux/
 
 ## 消息体设计
 
-由于后端的 conversation 其实是不完整的（token超过的时候，会被 truncate），并且只有 role, content 两个字段，达不到前端显示信息完备度的要求，因此消息体选择全部由前端自行存储，后端只存储chatbot的一些内部信息。
+由于后端的 conversation 其实是不完整的（token超过的时候，会被 truncate），并且只有 role, content
+两个字段，达不到前端显示信息完备度的要求，因此消息体选择全部由前端自行存储，后端只存储chatbot的一些内部信息。
 
 具体地，前端需要手动实现 id, user, time, content 等信息，以及自行维护持久化。

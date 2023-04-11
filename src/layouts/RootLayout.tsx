@@ -48,7 +48,7 @@ export const RootLayout = ({ children, title }: {
 					
 					<NavBarComp title={title}/>
 					
-					<div className={'w-full grow flex flex-col items-center justify-center'}>
+					<div className={'w-full grow flex flex-col items-center justify-center gap-2'}>
 						{children}
 					</div>
 				</div>

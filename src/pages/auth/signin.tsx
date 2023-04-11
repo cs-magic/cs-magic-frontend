@@ -1,169 +1,134 @@
-import React, { KeyboardEvent, useCallback, useState } from 'react'
-import { NextPage } from 'next';
+import React, { useState } from 'react'
+import { NextPage } from 'next'
 import { getProviders, getSession, signIn } from 'next-auth/react'
-import { useRouter } from 'next/router';
+import { TitleLineComp } from '@/components/shared/TitleLineComp'
+import { Input } from '@/components/ui/input'
+import { validate } from 'isemail'
+import { NEXTAUTH_CALLBACK_URL } from '@/lib/env'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/router'
+import { RootLayout } from '@/layouts/RootLayout'
 
-interface Provider {
-  id: string;
-  name: string;
-  type: string;
-  [k: string]: string;
+const SigninPage: NextPage = () => {
+	const { toast } = useToast()
+	const [loading, setLoading] = useState(false)
+	const [step, setStep] = useState(1)
+	const router = useRouter()
+	const [email, setEmail] = useState('')
+	
+	
+	return (
+		<RootLayout>
+			<div className={'bg-gray-900 text-gray-100 w-full h-full flex flex-col items-center justify-center gap-2'}>
+				
+				<form className={'flex flex-col gap-2'} onSubmit={async (event) => {
+					event.preventDefault()
+					const formData = new FormData(event.currentTarget)
+					console.log(Object.fromEntries(formData))
+					const email = event.currentTarget.email.value
+					setLoading(true)
+					setEmail(email)
+					await signIn('email', {
+						email,
+						redirect: false,
+					})
+					setLoading(false)
+				}}>
+					
+					{step >= 1 && <TitleLineComp content={'Pickup your favorite name'} onTypingDone={() => step === 1 && setStep(step + 1)}/>}
+					
+					{
+						step >= 2 && (
+							<Input
+								name="username"
+								onKeyDown={(event) => {
+									if (['Enter', 'Tab'].includes(event.key)) {
+										event.preventDefault()
+										setStep(step + 1)
+									}
+								}}
+								autoFocus
+							/>
+						)
+					}
+					
+					{step >= 3 && <TitleLineComp content={'Create a password'} onTypingDone={() => step === 3 && setStep(step + 1)}/>}
+					
+					{
+						step >= 4 && (
+							<Input
+								type="password"
+								name="password"
+								onKeyDown={(event) => {
+									if (['Enter', 'Tab'].includes(event.key)) {
+										event.preventDefault()
+										setStep(step + 1)
+									}
+								}}
+								autoFocus
+							/>
+						)
+					}
+					
+					{step >= 5 && <TitleLineComp content={'Enter your email'} onTypingDone={() => step === 5 && setStep(step + 1)}/>}
+					
+					{
+						step >= 6 && (
+							<Input
+								type="email"
+								name="email"
+								autoFocus
+								onChange={() => setLoading(false)}
+								onKeyDown={(event) => {
+									if (!loading && ['Enter', 'Tab'].includes(event.key)) {
+										setLoading(true)
+										event.preventDefault() // suppress built-in validation
+										const email = event.currentTarget.value
+										if (!validate(email)) {
+											toast({ variant: 'destructive', title: 'failed to validate your email' })
+										} else {
+											setEmail(email)
+											setStep(step + 1)
+											toast({ title: 'sent magic code to ' + email })
+										}
+									}
+								}}
+							/>
+						)
+					}
+					
+					{step >= 7 && <TitleLineComp content={'Input your magic code'} onTypingDone={() => step == 7 && setStep(step + 1)}/>}
+					
+					{step >= 8 && (
+						<Input
+							name={'code'}
+							autoFocus
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									event.preventDefault()
+									const inputToken = event.currentTarget.value
+									console.log({ inputToken })
+									router.push(
+										`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
+									)
+								}
+							}}
+						/>
+					)}
+				</form>
+			</div>
+		</RootLayout>
+	)
 }
-
-interface SigninPageProps {
-  isLoggedIn: boolean;
-  providers: Array<Provider>;
-  csrfToken: string;
-}
-
-
-interface EmailInputProps {
-  provider: Provider;
-  onSuccess: (email: string) => void;
-}
-
-const EmailInput: React.FC<EmailInputProps> = ({ provider, onSuccess }) => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSignin = useCallback(async () => {
-    setLoading(true);
-    const res = await signIn('email', {
-      email: email,
-      redirect: false,
-    });
-    setLoading(false);
-    if (res?.error) {
-      if (res?.url) {
-        window.location.replace(res.url);
-      }
-    } else {
-      onSuccess(email);
-    }
-  }, [email, onSuccess]);
-
-  const onKeyPress = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        handleSignin();
-      }
-    },
-    [handleSignin]
-  );
-
-  return (
-    <div>
-      <input
-        type="email"
-        name="email"
-        placeholder="e.g. jane.doe@company.com"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-        onKeyPress={onKeyPress}
-      />
-      <button disabled={loading}>Next</button>
-    </div>
-  );
-};
-
-interface VerificationStepProps {
-  email: string;
-  callbackUrl?: string;
-}
-
-/**
- * User has inserted the email and now he can put the verification code
- */
-export const VerificationStep: React.FC<VerificationStepProps> = ({
-  email,
-  callbackUrl,
-}) => {
-  const [code, setCode] = useState('');
-
-  const onReady = useCallback(() => {
-    window.location.href = `/api/auth/callback/email?email=${encodeURIComponent(
-      email
-    )}&token=${code}${callbackUrl ? `&callbackUrl=${callbackUrl}` : ''}`;
-  }, [callbackUrl, code, email]);
-
-  const onKeyPress = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        onReady();
-      }
-    },
-    [onReady]
-  );
-
-  return (
-    <div>
-      <h2>Verify email</h2>
-      <p>Insert the magic code you received on your email</p>
-      <label>
-        Magic code:
-        <input
-          type="text"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          onKeyPress={onKeyPress}
-        />
-      </label>
-
-      <button onClick={onReady}>Go</button>
-    </div>
-  );
-};
-
-const SigninPage: NextPage<SigninPageProps> = ({ providers, isLoggedIn }) => {
-  const { query } = useRouter();
-  const { error } = query;
-  const callbackUrl = 'https://your-website.com';
-
-  const [email, setEmail] = useState('');
-  const [showVerificationStep, setShowVerificationStep] = useState(false);
-  const emailProvider = Object.values(providers).filter(
-    (provider) => provider.type === 'email'
-  );
-
-  if (showVerificationStep) {
-    return (
-      <div>
-        <VerificationStep email={email} callbackUrl={callbackUrl} />
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <div>
-        <h2>Sign in wiht your email</h2>
-
-        {emailProvider.map((provider) => (
-          <EmailInput
-            key={provider.id}
-            provider={provider}
-            onSuccess={(email) => {
-              setEmail(email);
-              setShowVerificationStep(true);
-            }}
-          />
-        ))}
-      </div>
-
-      {/* {credentials} */}
-    </div>
-  );
-};
 
 SigninPage.getInitialProps = async (context) => {
-  const { req } = context;
-  const session = await getSession({ req });
-  return {
-    isLoggedIn: session !== null,
-    providers: await getProviders(),
-  } as unknown as SigninPageProps;
-};
+	const { req } = context
+	const session = await getSession({ req })
+	// todo: detect by session
+	return {
+		isLoggedIn: session !== null,
+		providers: await getProviders(),
+	}
+}
 
-export default SigninPage;
+export default SigninPage
