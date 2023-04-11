@@ -6,10 +6,10 @@ import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/c
 //// user
 
 export const getUserChatgpt = async (user_id: ID): Promise<IUserChatgpt> =>
-	(await backendApi.get('/chatgpt/user', { params: { user_id } })).data
+	(await backendApi.get('/chatgpt/user/', { params: { user_id } })).data
 
 export const updateUserChatgpt = async (user: IUserChatgpt) =>
-	(await backendApi.patch('/chatgpt/user', user)).data
+	(await backendApi.patch('/chatgpt/user/', user)).data
 
 //// conversation
 
