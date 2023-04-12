@@ -10,8 +10,8 @@ import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
 
-const SigninPage: NextPage<{}> = () => {
-	// console.log({ baseUrl })
+const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
+	console.log({ baseUrl })
 	
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
@@ -41,7 +41,7 @@ const SigninPage: NextPage<{}> = () => {
 				email,
 				redirect: false,
 				// ref: https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
-				// callbackUrl: baseUrl,
+				callbackUrl: baseUrl,
 			})
 			setStep(step + 1)
 		}
@@ -150,21 +150,21 @@ const SigninPage: NextPage<{}> = () => {
 	)
 }
 
-// SigninPage.getInitialProps = async (context) => {
-// 	const { req } = context
-// 	const session = await getSession({ req })
-//
-// 	// ref: https://stackoverflow.com/a/70167665/9422455
-// 	const host = context.req?.headers.host || ''
-// 	// todo: detect by session
-//
-// 	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
-// 	process.env.NEXTAUTH_URL = baseUrl
-// 	return {
-// 		isLoggedIn: session !== null,
-// 		providers: await getProviders(),
-// 		baseUrl,
-// 	}
-// }
-//
+SigninPage.getInitialProps = async (context) => {
+	const { req } = context
+	const session = await getSession({ req })
+
+	// ref: https://stackoverflow.com/a/70167665/9422455
+	const host = context.req?.headers.host || ''
+	// todo: detect by session
+
+	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
+	process.env.NEXTAUTH_URL = baseUrl
+	return {
+		isLoggedIn: session !== null,
+		providers: await getProviders(),
+		baseUrl,
+	}
+}
+
 export default SigninPage
