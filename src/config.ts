@@ -84,15 +84,16 @@ export const adminIds = [
 
 export const navbarItems: INavbarItem[][] = [
 	[
-		{ href: '/', name: 'Home Page' },
+		{ href: '/', name: '主页' },
 	],
 	[
-		{ href: '/chat', name: 'Service: ChatGPT' },
+		{ href: '/chat', name: '服务：ChatGPT' },
 	],
 	[
-		{ href: '/user-planning', name: 'User Planning' },
+		{ href: '/user-planning', name: '会员计划' },
 	],
 	[
-		{ href: '/about/us', name: 'About US' },
+		{ href: '/about/versions', name: '版本历史' },
+		{ href: '/about/us', name: '关于我们' },
 	],
 ]

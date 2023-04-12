@@ -1,0 +1,18 @@
+import { RootLayout } from '@/layouts/RootLayout'
+
+
+# Versions History
+
+## V0.1.4 (2023-04-13)
+
+- [x] 支持google analysis
+- [x] [DECLINE] 支持当前会话搜索 （这个直接用网页自带的搜索功能就可以……）
+- [x] [DECLINE] 支持移动端长按会话弹窗（这个不需要，单击就会有修改、删除提示，然后再点击就可以操作了）
+- [x] [OPTIONAL] 优化移动端固定高度（这个并不一定要做，因为会导致屏幕更挤一些，但确实实现了）
+- [x] 优化登陆按钮提示（这个中午就做完了）
+- [x] 支持version history（基于 mdx 实现了，ref: [using-mdx](https://nextjs.org/docs/advanced-features/using-mdx)）
+- [ ] 支持pr list
+
+export default ({children}) => (
+	<RootLayout>{children}</RootLayout>
+)

@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs-pro-react": "^2.3.1",
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
     "@next-auth/mongodb-adapter": "^1.1.1",
+    "@next/mdx": "^13.3.0",
     "@radix-ui/react-alert-dialog": "^1.0.3",
     "@radix-ui/react-aspect-ratio": "^1.0.2",
     "@radix-ui/react-avatar": "^1.0.2",
