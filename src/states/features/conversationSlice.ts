@@ -43,7 +43,6 @@ export const conversationSlice = createSlice({
 
 export const { setConversations, setConversationID, setChatgptModelType, setConversationName } = conversationSlice.actions
 
-export const selectConversations = (state: RootState) => state.conversation.list
 export const selectChatgptConversationID = (state: RootState) => state.conversation.cur
 export const selectChatgptModelType = (state: RootState) => state.conversation.model
 

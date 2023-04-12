@@ -1,24 +1,16 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import { addMessage, setMessages } from '@/states/features/messageSlice'
 import { AxiosError } from 'axios'
 import { ChatgptRoleType, IUserChatgpt } from '@/ds/chatgpt_v2'
-import {
-	postChatgptMessage,
-	createChatgptConversation,
-	deleteChatgptConversation,
-	listChatgptConversations,
-	listChatgptMessages,
-	getUserChatgpt,
-} from '@/api/chatgpt'
+import { createChatgptConversation, getUserChatgpt, listChatgptMessages, postChatgptMessage } from '@/api/chatgpt'
 import { ID } from '@/ds/general'
-import { setConversationID, setConversations } from '@/states/features/conversationSlice'
+import { setConversationID } from '@/states/features/conversationSlice'
 import { createAppAsyncThunk } from '@/states/hooks'
 import { u } from '@/config'
 import { setUserChatgpt } from '@/states/features/userSlice'
 
 
 // use void, ref: https://stackoverflow.com/a/67970314/9422455
-export const asyncUpdateUserChatgpt = createAppAsyncThunk("asyncUpdateChatgpt", async (arg: void, {dispatch, getState}) => {
+export const asyncUpdateUserChatgpt = createAppAsyncThunk('asyncUpdateChatgpt', async (arg: void, { dispatch, getState }) => {
 	const user_id = getState().user.basic.id
 	const user_chatgpt: IUserChatgpt = await getUserChatgpt(user_id)
 	dispatch(setUserChatgpt(user_chatgpt))
@@ -41,27 +33,6 @@ export const asyncSetConversationID = createAppAsyncThunk('asyncSetConversationI
 	dispatch(setConversationID(conversation_id))
 	const messages = !conversation_id ? [] : await listChatgptMessages({ user_id, id: conversation_id, model })
 	dispatch(setMessages(messages))
-})
-
-/**
- * - 触发时机
- *  user_id changed
- */
-export const asyncSetConversations = createAsyncThunk('asyncSetConversations', async (user_id: ID, { dispatch }) => {
-	const conversations = await listChatgptConversations(user_id)
-	await dispatch(setConversations(conversations))
-})
-
-export const asyncDelConversation = createAppAsyncThunk('asyncDelConversation', async (conversation_id: ID, { dispatch, getState, rejectWithValue }) => {
-	const conversations = getState().conversation.list
-	if (!conversations.find((c) => c.id === conversation_id)) {
-		return rejectWithValue(`conversation id of ${conversations} not exists!`)
-	}
-	const user_id = getState().user.basic.id // 没有user_id一定没有conversations
-	const model = getState().conversation.model
-	await deleteChatgptConversation({ user_id, id: conversation_id, model })
-	// local update to reduce server pressure
-	await dispatch(setConversations(conversations.filter((c) => c.id !== conversation_id)))
 })
 
 export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (content: string, { dispatch, getState, rejectWithValue }) => {

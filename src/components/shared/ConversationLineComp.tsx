@@ -1,24 +1,21 @@
 import Link from 'next/link'
 import { IconMessageCircle, IconPencil, IconSquareRoundedX } from '@tabler/icons-react'
-import { asyncDelConversation } from '@/states/thunks/chatgpt'
-import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectChatgptConversationID, setConversationName } from '@/states/features/conversationSlice'
+import { useAppSelector } from '@/states/hooks'
 import { useRouter } from 'next/router'
 import { Button } from '@/components/ui/button'
 import { clsx } from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { updateChatgptConversationName } from '@/api/chatgpt'
 import { selectUserId } from '@/states/features/userSlice'
 import { IChatgptConversation } from '@/ds/chatgpt'
 import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/chatgptConversationApi'
 
-export const ConversationLineComp = ({ conversation }: {
+export const ConversationLineComp: FC<{
 	conversation: IChatgptConversation
-}) => {
+	isHighlight?: boolean
+}> = ({ conversation, isHighlight }) => {
 	const router = useRouter()
 	const user_id = useAppSelector(selectUserId)!
-	const conversation_id = useAppSelector(selectChatgptConversationID)
 	
 	const [isEditing, setEditing] = useState(false)
 	const refInput = useRef<HTMLInputElement>(null)
@@ -37,7 +34,7 @@ export const ConversationLineComp = ({ conversation }: {
 			variant={'ghost'}
 			className={clsx(
 				'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
-				conversation_id === conversation.id && 'bg-gray-200 dark:bg-gray-700',
+				isHighlight && 'bg-gray-200 dark:bg-gray-700',
 			)}
 		>
 			<IconMessageCircle size={16} className={'shrink-0'}/>
@@ -77,7 +74,7 @@ export const ConversationLineComp = ({ conversation }: {
 								deleteConversation({ user_id, id: conversation.id, model: conversation.model })
 								// dispatch(asyncDelConversation(conversation.id))
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
-								if (conversation.id === conversation_id)
+								if (isHighlight)
 									router.push('/chat')
 							}}/>
 					</div>

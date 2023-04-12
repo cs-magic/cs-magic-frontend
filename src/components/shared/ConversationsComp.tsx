@@ -1,11 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectChatgptConversationID, selectConversations } from '@/states/features/conversationSlice'
+import { selectChatgptConversationID } from '@/states/features/conversationSlice'
 import { IconPlus } from '@tabler/icons-react'
-import { useEffect } from 'react'
-import { Separator } from '../ui/separator'
 import { selectUserId } from '@/states/features/userSlice'
-import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/chatgpt'
+import { asyncSetConversationID } from '@/states/thunks/chatgpt'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
@@ -15,7 +13,7 @@ export const ConversationsComp = ({}) => {
 	
 	const user_id = useAppSelector(selectUserId)
 	const conversation_id = useAppSelector(selectChatgptConversationID)
-	const {data: conversations} = useListConversationsQuery(user_id)
+	const { data: conversations } = useListConversationsQuery(user_id)
 	
 	const dispatch = useAppDispatch()
 	const router = useRouter()
@@ -37,10 +35,10 @@ export const ConversationsComp = ({}) => {
 			)}>
 				{
 					(conversations ?? []).map((conversation) =>
-						<ConversationLineComp conversation={conversation} key={conversation.id}/>)
+						<ConversationLineComp conversation={conversation} key={conversation.id} isHighlight={conversation_id === conversation.id}/>)
 				}
 			</div>
-			
+		
 		
 		</div>
 	)
