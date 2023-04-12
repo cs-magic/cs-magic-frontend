@@ -4,7 +4,6 @@ import { getProviders, getSession, signIn } from 'next-auth/react'
 import { TitleLineComp } from '@/components/shared/TitleLineComp'
 import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
-import { NEXTAUTH_CALLBACK_URL } from '@/lib/env'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { AuthLayout } from '@/layouts/AuthLayout'
@@ -53,7 +52,7 @@ const SigninPage: NextPage = () => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=/`,
 			)
 		}
 	}
