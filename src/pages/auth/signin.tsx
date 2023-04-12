@@ -167,4 +167,4 @@ const SigninPage: NextPage<{}> = () => {
 // 	}
 // }
 //
-// export default SigninPage
+export default SigninPage
