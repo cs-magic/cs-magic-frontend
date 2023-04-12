@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { getProviders, getSession, SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import SigninPage from '@/pages/auth/signin'
+import { GoogleAnalytics } from 'nextjs-google-analytics'
 
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -16,6 +17,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 			<ThemeProvider>
 				
 				<SessionProvider session={session}>
+					
+					<GoogleAnalytics trackPageViews/>
 					
 					<Component {...pageProps} />
 					
