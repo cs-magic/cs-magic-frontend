@@ -19,6 +19,9 @@ const SigninPage: NextPage = () => {
 	const refEmailInput = useRef<HTMLInputElement>(null)
 	const refTokenInput = useRef<HTMLInputElement>(null)
 	
+	const router = useRouter()
+	const baseUrl = router.basePath
+	
 	const onConfirmEmail = async () => {
 		if (loading) {
 			toast({ title: 'duplicated send', variant: 'destructive' })
@@ -52,7 +55,7 @@ const SigninPage: NextPage = () => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}`,// + '&callbackUrl=/'
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${baseUrl}`
 			)
 		}
 	}
