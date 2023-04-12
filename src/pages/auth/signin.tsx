@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { NextPage } from 'next'
 import { getProviders, getSession, signIn } from 'next-auth/react'
 import { TitleLineComp } from '@/components/shared/TitleLineComp'
@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
+import { Button } from '@/components/ui/button'
 
 const SigninPage: NextPage = () => {
 	const { toast } = useToast()
@@ -16,20 +17,44 @@ const SigninPage: NextPage = () => {
 	const [step, setStep] = useState(5)
 	const router = useRouter()
 	const [email, setEmail] = useState('')
+	const refEmailInput = useRef<HTMLInputElement>(null)
+	const refTokenInput = useRef<HTMLInputElement>(null)
 	
-	console.log('query (with error): ', router.query)
-	
-	const onSendEmail = async (email: string) => {
-		if (!loading) {
-			setLoading(true)
-			setEmail(email)
+	const onConfirmEmail = async () => {
+		if (loading) {
+			toast({ title: 'duplicated send', variant: 'destructive' })
+			return
+		}
+		
+		const email = refEmailInput.current!.value
+		console.log({ email })
+		setLoading(true)
+		setEmail(email)
+		toast({ title: 'sending magic code to ' + email })
+		
+		if (!validate(email)) {
+			toast({ variant: 'destructive', title: 'failed to validate your email' })
+		} else {
 			await signIn('email', {
 				email,
 				redirect: false,
 			})
-			toast({ title: 'sent magic code to ' + email })
+			setStep(step + 1)
+		}
+	}
+	
+	const onConfirmToken = async () => {
+		const inputToken = refTokenInput.current!.value
+		const targetToken = (await axios.get('/api/auth/tokens?id=' + email)).data.toString()
+		// console.log({ inputToken, targetToken }) // 不能在前端打印这个
+		if (inputToken !== targetToken) {
+			// 直接前端验证！
+			toast({ title: '验证码不对或者已失效！', variant: 'destructive' })
 		} else {
-			toast({ title: 'duplicated send', variant: 'destructive' })
+			// 必须走一下这个next-auth的流程，以获得一些数据
+			router.push(
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
+			)
 		}
 	}
 	
@@ -79,52 +104,43 @@ const SigninPage: NextPage = () => {
 				{
 					step >= 6 && (
 						<Input
+							ref={refEmailInput}
 							type="email"
 							name="email"
 							autoFocus
-							onChange={() => setLoading(false)}
+							onChange={() => {
+								setLoading(false)
+								setStep(6)
+							}}
 							onKeyDown={async (event) => {
 								if (!loading && ['Enter', 'Tab'].includes(event.key)) {
-									setLoading(true)
 									event.preventDefault() // suppress built-in validation
-									const email = event.currentTarget.value
-									if (!validate(email)) {
-										toast({ variant: 'destructive', title: 'failed to validate your email' })
-									} else {
-										await onSendEmail(email)
-										setStep(step + 1)
-									}
+									onConfirmEmail()
 								}
 							}}
 						/>
 					)
 				}
+				{step == 6 && !loading && <Button className={'bg-gray-700'} onClick={onConfirmEmail}>Confirm Email</Button>}
 				
 				{step >= 7 && <TitleLineComp content={'Input your magic code'} onTypingDone={() => step == 7 && setStep(step + 1)}/>}
 				
 				{step >= 8 && (
 					<Input
+						ref={refTokenInput}
 						name={'code'}
 						autoFocus
 						onKeyDown={async (event) => {
 							if (event.key === 'Enter') {
 								event.preventDefault()
-								const inputToken = event.currentTarget.value
-								const targetToken = (await axios.get('/api/auth/tokens?id=' + email)).data.toString()
-								// console.log({ inputToken, targetToken })
-								if (inputToken !== targetToken) {
-									// 直接前端验证！
-									toast({ title: '验证码不对或者已失效！', variant: 'destructive' })
-								} else {
-									// 必须走一下这个next-auth的流程，以获得一些数据
-									router.push(
-										`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${NEXTAUTH_CALLBACK_URL}`,
-									)
-								}
+								onConfirmToken()
 							}
 						}}
 					/>
 				)}
+				
+				{step == 8 && <Button className={'bg-gray-700'} onClick={onConfirmToken}>Start Your Journey</Button>}
+			
 			</div>
 		</AuthLayout>
 	)
