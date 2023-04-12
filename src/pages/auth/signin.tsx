@@ -14,7 +14,6 @@ const SigninPage: NextPage = () => {
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
 	const [step, setStep] = useState(5)
-	const router = useRouter()
 	const [email, setEmail] = useState('')
 	const refEmailInput = useRef<HTMLInputElement>(null)
 	const refTokenInput = useRef<HTMLInputElement>(null)
@@ -55,7 +54,7 @@ const SigninPage: NextPage = () => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${baseUrl}`
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${baseUrl}`,
 			)
 		}
 	}
