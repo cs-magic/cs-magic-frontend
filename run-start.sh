@@ -1,8 +1,9 @@
+git stash && git pull -f && yarn
+
 if [ "$ENV" == "alpha" ]; then
-  git stash && git pull -f && yarn
-  yarn build && yarn start-alpha
+  yarn start-alpha
 elif [ "$ENV" == "prod" ]; then
-  yarn start-prod
+  yarn build && yarn start-prod
 else
   yarn dev
 fi
