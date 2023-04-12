@@ -1,7 +1,6 @@
-import { RootLayout } from '@/layouts/RootLayout'
+import {RootLayout} from '@/layouts/RootLayout'
+import {clsx} from "clsx"
 
-
-# Versions History
 
 ## V0.1.4 (2023-04-13)
 
@@ -14,5 +13,12 @@ import { RootLayout } from '@/layouts/RootLayout'
 - [ ] 支持pr list
 
 export default ({children}) => (
-	<RootLayout>{children}</RootLayout>
+	<RootLayout>
+		<article className={clsx(
+			'prose prose-zinc max-w-[720px] mx-auto',
+			'dark:prose-invert',
+		)}>
+			{children}
+		</article>
+	</RootLayout>
 )

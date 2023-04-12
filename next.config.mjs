@@ -1,11 +1,17 @@
+import remarkGfm from "remark-gfm";
+import createMDX from "@next/mdx";
+
+
 // mdx support, ref: https://nextjs.org/docs/advanced-features/using-mdx
-const withMDX = require('@next/mdx')({
+const withMDX = createMDX({
 	extension: /\.mdx?$/,
 	options: {
 		// If you use remark-gfm, you'll need to use next.config.mjs
 		// as the package is ESM only
 		// https://github.com/remarkjs/remark-gfm#install
-		remarkPlugins: [],
+		remarkPlugins: [
+			remarkGfm
+		],
 		rehypePlugins: [],
 		// If you use `MDXProvider`, uncomment the following line.
 		// providerImportSource: "@mdx-js/react",
@@ -23,4 +29,4 @@ const nextConfig = {
 }
 
 // Merge MDX config with Next.js config
-module.exports = withMDX(nextConfig)
+export default withMDX(nextConfig)

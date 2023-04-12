@@ -1,5 +1,11 @@
 # notes
 
+## markdown relative
+
+### add mdx support
+
+we should use `next.config.mjs` for `remark-gfm` support, ref: https://github.com/vercel/next.js/discussions/36310
+
 ## email validation and verification
 
 validation 可以在 client 端完成，但是 verification 需要在 server 端，因为涉及到了 dns
