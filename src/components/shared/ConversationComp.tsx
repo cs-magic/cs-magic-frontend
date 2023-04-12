@@ -13,6 +13,7 @@ import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { selectUserChatgpt } from '@/states/features/userSlice'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export const ConversationComp = () => {
 	const dispatch = useAppDispatch()
@@ -42,7 +43,7 @@ export const ConversationComp = () => {
 	}, [messages.length])
 	
 	return (
-		<div className={'flex-1 h-full overflow-hidden flex flex-col'}>
+		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
 				Model: {model}, Tokens: {userChatgpt.balance}
 			</Button>
@@ -50,15 +51,14 @@ export const ConversationComp = () => {
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'grow md:hidden'}/>
 			
-			<div className={clsx(
-				'w-full overflow-auto flex flex-col',
-			)}>
+			<ScrollArea className={'w-full grow overflow-hidden flex flex-col'}>
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
 				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>
-			</div>
+			</ScrollArea>
+			
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
