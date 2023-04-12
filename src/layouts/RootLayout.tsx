@@ -48,7 +48,7 @@ export const RootLayout = ({ children, title }: {
 					
 					<NavBarComp title={title}/>
 					
-					<div className={'w-full grow overflow-hidden'}>
+					<div className={'w-full grow overflow-auto'}>
 						{children}
 					</div>
 				</div>
