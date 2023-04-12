@@ -20,6 +20,7 @@ const SigninPage: NextPage = () => {
 	
 	const router = useRouter()
 	const baseUrl = router.basePath
+	console.log({baseUrl, router})
 	
 	const onConfirmEmail = async () => {
 		if (loading) {
