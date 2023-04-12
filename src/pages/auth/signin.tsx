@@ -40,6 +40,8 @@ const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
 			await signIn('email', {
 				email,
 				redirect: false,
+				// ref: https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
+				callbackUrl: baseUrl,
 			})
 			setStep(step + 1)
 		}
@@ -55,7 +57,7 @@ const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=${baseUrl}`,
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}` //&callbackUrl=${baseUrl}`,
 			)
 		}
 	}
