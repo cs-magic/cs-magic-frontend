@@ -8,7 +8,13 @@ export interface IChatgptCreateUserConversation {
 }
 
 export interface IChatgptUserConversation extends IChatgptCreateUserConversation {
-	conversation_id: ID
+	id: ID
+}
+
+export interface IChatgptConversation extends IChatgptUserConversation{
+	time: number
+	start: number
+	name: string
 }
 
 export type IGetMessagesReq = IChatgptUserConversation
@@ -46,4 +52,3 @@ export const CHATGPT_MODEL_35_TURBO = 'gpt-3.5-turbo'
 export const CHATGPT_MODEL_4 = 'gpt-4'
 export const chatgptModelTypes = [CHATGPT_MODEL_4, CHATGPT_MODEL_35_TURBO]
 export type ChatgptModelType = typeof chatgptModelTypes[number]
-

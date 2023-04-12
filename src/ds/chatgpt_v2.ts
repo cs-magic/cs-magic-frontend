@@ -1,5 +1,3 @@
-import { ID } from '@/ds/general'
-
 export enum ChatgptRoleType {
 	system = 'system',
 	user = 'user',
@@ -14,15 +12,6 @@ export interface IChatgptMessageCore {
 }
 export interface IChatgptMessage extends IChatgptMessageCore{
 	time: number
-}
-
-export interface IChatgptConversation {
-	id: ID
-	user_id: ID
-	model: string
-	time: number
-	start: number
-	name: string
 }
 
 export interface IUserChatgpt {

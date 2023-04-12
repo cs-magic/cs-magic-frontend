@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ID } from '@/ds/general'
 import { RootState } from '@/states/store'
-import { ChatgptModelType, IChatgptConversation } from '@/ds/chatgpt_v2'
+import { ChatgptModelType } from '@/ds/chatgpt_v2'
+import { IChatgptConversation } from '@/ds/chatgpt'
 
 
 export type ConversationsState = {

@@ -9,20 +9,16 @@ import { asyncSetConversationID, asyncSetConversations } from '@/states/thunks/c
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
+import { useListConversationsQuery } from '@/states/apis/chatgptConversationApi'
 
 export const ConversationsComp = ({}) => {
 	
 	const user_id = useAppSelector(selectUserId)
 	const conversation_id = useAppSelector(selectChatgptConversationID)
-	const conversations = useAppSelector(selectConversations)
+	const {data: conversations} = useListConversationsQuery(user_id)
 	
 	const dispatch = useAppDispatch()
 	const router = useRouter()
-	
-	useEffect(() => {
-		if (user_id) dispatch(asyncSetConversations(user_id))
-	}, [user_id])
-	
 	
 	return (
 		<div className={'w-full h-full flex flex-col bg-bg-sub'}>
@@ -40,15 +36,11 @@ export const ConversationsComp = ({}) => {
 				'flex justify-end flex-col-reverse', // 倒序展示
 			)}>
 				{
-					conversations.map((conversation) =>
+					(conversations ?? []).map((conversation) =>
 						<ConversationLineComp conversation={conversation} key={conversation.id}/>)
 				}
 			</div>
 			
-			<Separator/>
-			
-			{/* 暂时先不要了，因为token直接可以在header里更新 */}
-			{/*<ChatgptAccountComp/>*/}
 		
 		</div>
 	)

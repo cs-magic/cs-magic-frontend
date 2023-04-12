@@ -1,7 +1,7 @@
 import { ID } from '@/ds/general'
 import backendApi from '@/lib/api'
-import { IChatgptConversation, IChatgptMessage, IUserChatgpt } from '@/ds/chatgpt_v2'
-import { IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/chatgpt'
+import { IChatgptMessage, IUserChatgpt } from '@/ds/chatgpt_v2'
+import { IChatgptConversation, IChatgptCreateUserConversation, IChatgptUserConversation } from '@/ds/chatgpt'
 
 //// user
 

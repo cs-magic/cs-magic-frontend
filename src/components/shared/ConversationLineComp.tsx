@@ -1,4 +1,3 @@
-import { IChatgptConversation } from '@/ds/chatgpt_v2'
 import Link from 'next/link'
 import { IconMessageCircle, IconPencil, IconSquareRoundedX } from '@tabler/icons-react'
 import { asyncDelConversation } from '@/states/thunks/chatgpt'
@@ -11,17 +10,22 @@ import { useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { updateChatgptConversationName } from '@/api/chatgpt'
 import { selectUserId } from '@/states/features/userSlice'
+import { IChatgptConversation } from '@/ds/chatgpt'
+import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/chatgptConversationApi'
 
 export const ConversationLineComp = ({ conversation }: {
 	conversation: IChatgptConversation
 }) => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
-	const user_id = useAppSelector(selectUserId)
+	const user_id = useAppSelector(selectUserId)!
 	const conversation_id = useAppSelector(selectChatgptConversationID)
 	
 	const [isEditing, setEditing] = useState(false)
 	const refInput = useRef<HTMLInputElement>(null)
+	
+	const [deleteConversation, {}] = useDeleteConversationMutation()
+	const [updateConversation, {}] = useUpdateConversationMutation()
 	
 	useEffect(() => {
 		if (isEditing) {
@@ -49,8 +53,9 @@ export const ConversationLineComp = ({ conversation }: {
 							if (event.key === 'Enter') {
 								setEditing(false)
 								const name = event.currentTarget.value
-								await updateChatgptConversationName({ user_id, conversation_id: conversation.id, model: conversation.model }, name)
-								await dispatch(setConversationName({ id: conversation.id, name }))
+								updateConversation({id: conversation.id, name})
+								// await updateChatgptConversationName({ user_id, id: conversation.id, model: conversation.model }, name)
+								// await dispatch(setConversationName({ id: conversation.id, name }))
 							}
 						}}
 						onBlur={() => setEditing(false)}
@@ -72,7 +77,8 @@ export const ConversationLineComp = ({ conversation }: {
 							className={'text-red-500'}
 							onClick={(e) => {
 								e.preventDefault()
-								dispatch(asyncDelConversation(conversation.id))
+								deleteConversation({user_id, id: conversation.id, model: conversation.model})
+								// dispatch(asyncDelConversation(conversation.id))
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (conversation.id === conversation_id)
 									router.push('/chat')

@@ -39,7 +39,7 @@ export const asyncSetConversationID = createAppAsyncThunk('asyncSetConversationI
 	if (!user_id) return
 	
 	dispatch(setConversationID(conversation_id))
-	const messages = !conversation_id ? [] : await listChatgptMessages({ user_id, conversation_id, model })
+	const messages = !conversation_id ? [] : await listChatgptMessages({ user_id, id: conversation_id, model })
 	dispatch(setMessages(messages))
 })
 
@@ -59,7 +59,7 @@ export const asyncDelConversation = createAppAsyncThunk('asyncDelConversation', 
 	}
 	const user_id = getState().user.basic.id // 没有user_id一定没有conversations
 	const model = getState().conversation.model
-	await deleteChatgptConversation({ user_id, conversation_id, model })
+	await deleteChatgptConversation({ user_id, id: conversation_id, model })
 	// local update to reduce server pressure
 	await dispatch(setConversations(conversations.filter((c) => c.id !== conversation_id)))
 })
@@ -90,7 +90,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		// console.log('received response string:', resStr)
 		// await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: resStr }))
 		
-		const contentA = await postChatgptMessage({ user_id, conversation_id, model }, content, true)
+		const contentA = await postChatgptMessage({ user_id, id: conversation_id, model }, content, true)
 		console.log('received: ', contentA)
 		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: contentA }))
 		// 在获得消息返回之后，就更新chatgpt balance
