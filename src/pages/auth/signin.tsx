@@ -11,6 +11,8 @@ import axios from 'axios'
 import { Button } from '@/components/ui/button'
 
 const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
+	console.log({baseUrl})
+	
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
 	const [step, setStep] = useState(5)
@@ -150,6 +152,7 @@ SigninPage.getInitialProps = async (context) => {
 	const { req } = context
 	const session = await getSession({ req })
 	
+	// ref: https://stackoverflow.com/a/70167665/9422455
 	const host = context.req?.headers.host || ''
 	// todo: detect by session
 	return {
