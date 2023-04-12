@@ -10,8 +10,8 @@ import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
 
-const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
-	console.log({baseUrl})
+const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
+	console.log({ baseUrl })
 	
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
@@ -157,10 +157,13 @@ SigninPage.getInitialProps = async (context) => {
 	// ref: https://stackoverflow.com/a/70167665/9422455
 	const host = context.req?.headers.host || ''
 	// todo: detect by session
+	
+	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
+	process.env.NEXTAUTH_URL = baseUrl
 	return {
 		isLoggedIn: session !== null,
 		providers: await getProviders(),
-		baseUrl: host.includes('magic') ? 'https://' + host : "http://" + host,
+		baseUrl,
 	}
 }
 
