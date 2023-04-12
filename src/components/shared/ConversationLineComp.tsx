@@ -17,7 +17,6 @@ export const ConversationLineComp = ({ conversation }: {
 	conversation: IChatgptConversation
 }) => {
 	const router = useRouter()
-	const dispatch = useAppDispatch()
 	const user_id = useAppSelector(selectUserId)!
 	const conversation_id = useAppSelector(selectChatgptConversationID)
 	
@@ -33,7 +32,7 @@ export const ConversationLineComp = ({ conversation }: {
 		}
 	}, [isEditing])
 	
-	return (
+	const view = (
 		<Button
 			variant={'ghost'}
 			className={clsx(
@@ -43,9 +42,7 @@ export const ConversationLineComp = ({ conversation }: {
 		>
 			<IconMessageCircle size={16} className={'shrink-0'}/>
 			{
-				!isEditing ? (
-					<Link href={`/chat/${conversation.id}`} className={'grow truncate text-left'}>{conversation.name || conversation.id}</Link>
-				) : (
+				!isEditing ? <p className={'w-full truncate text-left'}>{conversation.name || conversation.id}</p> : (
 					<Input
 						ref={refInput}
 						defaultValue={conversation.name || conversation.id}
@@ -53,7 +50,7 @@ export const ConversationLineComp = ({ conversation }: {
 							if (event.key === 'Enter') {
 								setEditing(false)
 								const name = event.currentTarget.value
-								updateConversation({id: conversation.id, name})
+								updateConversation({ id: conversation.id, name })
 								// await updateChatgptConversationName({ user_id, id: conversation.id, model: conversation.model }, name)
 								// await dispatch(setConversationName({ id: conversation.id, name }))
 							}
@@ -77,7 +74,7 @@ export const ConversationLineComp = ({ conversation }: {
 							className={'text-red-500'}
 							onClick={(e) => {
 								e.preventDefault()
-								deleteConversation({user_id, id: conversation.id, model: conversation.model})
+								deleteConversation({ user_id, id: conversation.id, model: conversation.model })
 								// dispatch(asyncDelConversation(conversation.id))
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (conversation.id === conversation_id)
@@ -88,6 +85,9 @@ export const ConversationLineComp = ({ conversation }: {
 			}
 		
 		</Button>
+	)
 	
+	return isEditing ? view : (
+		<Link href={`/chat/${conversation.id}`}>{view}</Link>
 	)
 }
