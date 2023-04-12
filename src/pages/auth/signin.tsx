@@ -52,7 +52,7 @@ const SigninPage: NextPage = () => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}&callbackUrl=/`,
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}`,// + '&callbackUrl=/'
 			)
 		}
 	}

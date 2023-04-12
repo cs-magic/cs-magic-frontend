@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P2, 解决验证码上次问题、设计问题
 - [ ] P2, 允许密码登录
 - [ ] P1, 上传头像后加载动画并锁定
 - [ ] P2, dispatch after fetch (to avoid use thunk)
