@@ -4,7 +4,7 @@ import { NavBarComp } from '@/components/shared/NavBarComp'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { initUser } from '@/states/thunks/user'
 import { selectNotifications } from '@/states/features/notificationSlice'
-import { useSession } from 'next-auth/react'
+import { getProviders, getSession, useSession } from 'next-auth/react'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -55,4 +55,21 @@ export const RootLayout = ({ children, title }: {
 			</main>
 		</>
 	)
+}
+
+RootLayout.getInitialProps = async (context: any) => {
+	const { req } = context
+	const session = await getSession({ req })
+	
+	// ref: https://stackoverflow.com/a/70167665/9422455
+	const host = context.req?.headers.host || ''
+	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
+	process.env.NEXTAUTH_URL = baseUrl
+	console.log('initial', { baseUrl })
+	
+	return {
+		isLoggedIn: session !== null,
+		providers: await getProviders(),
+		baseUrl,
+	}
 }

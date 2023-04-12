@@ -4,8 +4,9 @@ import { Provider } from 'react-redux'
 import store from '@/states/store'
 
 import { Toaster } from '@/components/ui/toaster'
-import { SessionProvider } from 'next-auth/react'
+import { getProviders, getSession, SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
+import SigninPage from '@/pages/auth/signin'
 
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
