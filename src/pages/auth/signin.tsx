@@ -10,7 +10,7 @@ import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
 
-const SigninPage: NextPage = () => {
+const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
 	const [step, setStep] = useState(5)
@@ -19,8 +19,6 @@ const SigninPage: NextPage = () => {
 	const refTokenInput = useRef<HTMLInputElement>(null)
 	
 	const router = useRouter()
-	const baseUrl = router.basePath
-	console.log({baseUrl, router})
 	
 	const onConfirmEmail = async () => {
 		if (loading) {
@@ -151,10 +149,13 @@ const SigninPage: NextPage = () => {
 SigninPage.getInitialProps = async (context) => {
 	const { req } = context
 	const session = await getSession({ req })
+	
+	const host = context.req?.headers.host || ''
 	// todo: detect by session
 	return {
 		isLoggedIn: session !== null,
 		providers: await getProviders(),
+		baseUrl: host.includes('magic') ? 'https://' + host : "http://" + host,
 	}
 }
 
