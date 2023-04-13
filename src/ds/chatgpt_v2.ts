@@ -16,4 +16,6 @@ export interface IChatgptMessage extends IChatgptMessageCore{
 
 export interface IUserChatgpt {
 	balance: number
+	consumption: number
+	cnt: number
 }

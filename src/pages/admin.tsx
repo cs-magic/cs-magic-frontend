@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { IconRotate } from '@tabler/icons-react'
 import { listUserStates } from '@/api/user/state'
 import { u } from '@/config'
+import { CentralLayout } from '@/layouts/CentralLayout'
 
 export const AdminPage = () => {
 	const router = useRouter()
@@ -32,39 +33,42 @@ export const AdminPage = () => {
 		}
 	}, [userBasic])
 	
+	if (isLoading) return (
+		<CentralLayout title={u.routes.admin.home}>
+			<IconRotate className={'animate-spin'}/>
+		</CentralLayout>
+	)
 	
 	return (
 		<RootLayout title={u.routes.admin.home}>
-			{
-				isLoading
-					? <IconRotate className={'animate-spin'}/>
-					: <ScrollArea className={'h-full w-full'}>
-						<table className={'table table-compact'}>
-							<thead>
-							<tr>
-								<th></th>
-								<th>id</th>
-								<th>name</th>
-								<th>avatar</th>
-								<th>email</th>
-								<th>role</th>
-								<th>planning</th>
-								<th>expire</th>
-								<th>chatgpt-tokens</th>
-								<th>Notes</th>
-								<th>operations</th>
-							</tr>
-							</thead>
-							
-							<tbody>
-							{
-								users.map((user, index) =>
-									<AdminUserLineComp user={user} index={index} key={index}/>)
-							}
-							</tbody>
-						</table>
-					</ScrollArea>
-			}
+			<ScrollArea className={'h-full w-full'}>
+				<table className={'table table-compact'}>
+					<thead>
+					<tr>
+						<th></th>
+						<th>id</th>
+						<th>name</th>
+						<th>avatar</th>
+						<th>email</th>
+						<th>role</th>
+						<th>planning</th>
+						<th>expire</th>
+						<th>balance</th>
+						<th>consumption</th>
+						<th>cnt</th>
+						<th>Notes</th>
+						<th>operations</th>
+					</tr>
+					</thead>
+					
+					<tbody>
+					{
+						users.map((user, index) =>
+							<AdminUserLineComp user={user} index={index} key={index}/>)
+					}
+					</tbody>
+				</table>
+			</ScrollArea>
 		</RootLayout>
 	)
 }

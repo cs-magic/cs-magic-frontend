@@ -64,6 +64,10 @@ export const AdminUserLineComp = ({ user, index }: {
 				       onChange={(event) => {setUserChatgptData({ ...userChatgptData, balance: parseInt(event.currentTarget.value) })}}/>
 			</td>
 			
+			<td>{user.chatgpt.consumption}</td>
+			
+			<td>{user.chatgpt.cnt}</td>
+			
 			<td>
 				<Input defaultValue={user.basic.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
 			</td>
