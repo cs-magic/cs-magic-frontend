@@ -92,6 +92,7 @@ export const navbarItems: INavbarItem[][] = [
 	],
 	[
 		{ href: '/user-planning', name: '会员计划' },
+		{ href: '/wall-messages', name: '留言墙！' },
 	],
 	[
 		{ href: '/about/versions', name: '版本历史' },
