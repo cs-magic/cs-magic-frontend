@@ -21,6 +21,7 @@ export const generalFeatures: IFeature[] = [
 	{ name: '支持 ChatGPT-4 模型聊天（待开发）', status: 'todo' },
 	{ name: '支持 MidJourney 图形服务（待开发）', status: 'todo' },
 	{ name: '支持 OpenAI 其他服务（待开发）', status: 'todo' },
+	{ name: '拥有产品开发建议资格', status: 'finished' },
 ]
 export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 	{
@@ -29,7 +30,6 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 		tags: ['轻量'],
 		features: [
 			...generalFeatures,
-			{ name: '拥有黄金展示墙权限', status: 'finished' },
 		],
 		prices: {
 			quantity: 10,
@@ -43,13 +43,15 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 		tags: ['尊享'],
 		features: [
 			...generalFeatures,
-			{ name: '拥有铂金展示墙权限', status: 'finished' },
-			{ name: '您的需求将会被优先考虑', status: 'finished' },
+			{ name: '拥有铂金用户展示墙', status: 'finished' },
 		],
 		prices: {
-			quantity: 20,
+			period: {
+				month: 20,
+				year: 200,
+			},
 		},
-		chatgptTokens: 50
+		chatgptTokens: 50,
 	},
 	
 	{
@@ -58,15 +60,14 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 		tags: ['限定', '邀请制'],
 		features: [
 			...generalFeatures,
-			{ name: '拥有黑金展示墙权限', status: 'finished' },
-			{ name: '您的需求将首先被考虑', status: 'finished' },
+			{ name: '拥有黑金用户展示墙', status: 'finished' },
 			{ name: '拥有隐藏应用体验权限', status: 'finished' },
 		],
 		prices: {
 			period: {
 				month: 100,
-				year: 1000
-			}
+				year: 1000,
+			},
 		},
 		chatgptTokens: 300,
 	},

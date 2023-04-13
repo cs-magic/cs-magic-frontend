@@ -2,8 +2,8 @@
 
 ## todo
 
-- [ ] P1, strict mode on typing
-- [ ] P1, add bills
+- [ ] P1, add bills history
+- [ ] P2, strict mode on typing
 - [ ] P2, 解决验证码上次问题、设计问题
 - [ ] P2, dispatch after fetch (to avoid use thunk)
 - [ ] P2, use `react-query` to simplify conversations/messages dynamic fetch upon adding
