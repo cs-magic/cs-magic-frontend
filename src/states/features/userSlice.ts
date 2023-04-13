@@ -24,6 +24,8 @@ export const initialState: UserState = {
 	},
 	chatgpt: {
 		balance: 0,
+		cnt: 0,
+		consumption: 0
 	},
 	alive: false,
 }
