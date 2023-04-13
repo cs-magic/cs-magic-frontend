@@ -76,10 +76,10 @@ export const chatgptApi = baseApi
 			}),
 			
 			askChatGPT: builder.mutation<IChatMessageRes, IChatMessageReq>({
-				query: (data) => ({
-					url: `/openai/message/chatgpt/`,
+				query: (body) => ({
+					url: `/openai/conversation/chat/chatgpt`,
 					method: 'post',
-					data,
+					body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: 'conversation', user_id: arg.user_id }],
 				// 实时聊天就不要一直重置刷新了，主要是涉及到了客户端和服务端双层的信息

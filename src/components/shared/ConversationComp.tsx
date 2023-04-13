@@ -40,7 +40,6 @@ export const ConversationComp: FC<{
 	}, [props.initMessages])
 	
 	
-	
 	const onSubmit = async () => {
 		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
 		
@@ -63,10 +62,10 @@ export const ConversationComp: FC<{
 			time: Date.now(),
 			model_platform: ModelPlatformType.chatgpt,
 		}
-		setMessages([...messages, msg])
+		setMessages((messages) => [...messages, msg])
 		
 		const res = await askChatGPT(msg).unwrap()
-		setMessages([...messages, res])
+		setMessages((messages) => [...messages, res])
 	}
 	
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'

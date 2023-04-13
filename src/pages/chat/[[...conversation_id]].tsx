@@ -18,8 +18,6 @@ export const ConversationPage = () => {
 	const { data: messages = [], isLoading: isLoadingMessages } = useListMessagesQuery(conversation_id ?? skipToken)
 	
 	
-
-	
 	return (
 		<RootLayout title={u.routes.service.chatgpt}>
 			{
