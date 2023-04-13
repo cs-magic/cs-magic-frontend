@@ -7,6 +7,7 @@ import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
+import { ConversationComp } from '@/components/shared/ConversationComp'
 
 
 export const ConversationPage = () => {
@@ -29,7 +30,7 @@ export const ConversationPage = () => {
 	
 	const conversation_id = router_conversation_id
 	
-	const conversationComp = <ConversationsComp conversation_id={conversation_id}/>
+	const conversationsComp = <ConversationsComp conversation_id={conversation_id}/>
 	
 	return (
 		<RootLayout title={'ChatGPT Plus Mirror'}>
@@ -37,11 +38,11 @@ export const ConversationPage = () => {
 				
 				{/* left: conversations */}
 				<div className={'hidden md:block w-[260px]'}>
-					{conversationComp}
+					{conversationsComp}
 				</div>
 				
 				{/* right: current conversation */}
-				{!loading ? conversationComp : (
+				{!loading ? <ConversationComp conversation_id={conversation_id}/> : (
 					<div className={'flex-1 h-full flex justify-center items-center'}>
 						<IconRotateClockwise2 className={'animate-spin'}/>
 					</div>
