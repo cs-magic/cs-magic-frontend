@@ -5,7 +5,6 @@ import { asyncSetConversationID } from '@/states/thunks/chatgpt'
 import { ensureSole } from '@/lib/utils'
 import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
-import { ConversationComp } from '@/components/shared/ConversationComp'
 import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 
@@ -28,21 +27,25 @@ export const ConversationPage = () => {
 		setLoading(false)
 	}, [user_id, router_conversation_id])
 	
+	const conversation_id = router_conversation_id
+	
+	const conversationComp = <ConversationsComp conversation_id={conversation_id}/>
+	
 	return (
 		<RootLayout title={'ChatGPT Plus Mirror'}>
 			<div className={'w-full h-full flex'}>
 				
 				{/* left: conversations */}
 				<div className={'hidden md:block w-[260px]'}>
-					<ConversationsComp/>
+					{conversationComp}
 				</div>
 				
 				{/* right: current conversation */}
-				{loading ? (
+				{!loading ? conversationComp : (
 					<div className={'flex-1 h-full flex justify-center items-center'}>
 						<IconRotateClockwise2 className={'animate-spin'}/>
 					</div>
-				) : <ConversationComp/>}
+				)}
 			
 			</div>
 		</RootLayout>

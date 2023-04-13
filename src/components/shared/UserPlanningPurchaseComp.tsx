@@ -11,7 +11,7 @@ import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
 export const UserPlanningPurchaseComp = (
 	{
-		name, prices, features, cover, tags,
+		name, prices, features, cover, tags, chatgptTokens,
 	}:
 		IUserPlanningPurchaseComp) => {
 	
@@ -21,7 +21,7 @@ export const UserPlanningPurchaseComp = (
 		<div className="card w-96 bg-base-100 shadow-xl">
 			
 			<AspectRatio ratio={9 / 12}>
-				<Image src={cover} alt={name} fill priority sizes={"33vw"}/>
+				<Image src={cover} alt={name} fill priority sizes={'33vw'}/>
 			</AspectRatio>
 			
 			<div className="card-body grow">
@@ -34,6 +34,14 @@ export const UserPlanningPurchaseComp = (
 				</h2>
 				
 				<div>
+					<label className="cursor-pointer label">
+						<span className="label-text">ChatGPT专属账号 <span className={'text-primary font-semibold text-lg'}>{chatgptTokens}w</span> token</span>
+						<input type="checkbox" checked readOnly className={clsx(
+							'checkbox checkbox-sm ',
+							'checkbox-success',
+						)}/>
+					</label>
+					
 					{features.map((feature) => (
 						<label className="cursor-pointer label" key={feature.name}>
 							<span className="label-text">{feature.name}</span>
@@ -51,11 +59,22 @@ export const UserPlanningPurchaseComp = (
 			</div>
 			
 			<div className={'w-full p-4 flex items-center justify-start gap-2'}>
-				<p>By {byYear ? 'Year' : 'Month'}</p>
-				<Switch id={'price'} onCheckedChange={(checked) => {
-					setByYear(checked)
-				}}/>
-				<Label htmlFor={'price'}>￥{(byYear ? prices.year : prices.month) || '?'}</Label>
+				{
+					prices.period ? (
+						<>
+							<p>按{byYear ? '年' : '月'}付费</p>
+							<Switch id={'price'} onCheckedChange={(checked) => {
+								setByYear(checked)
+							}}/>
+							<Label htmlFor={'price'}>￥{(byYear ? prices.period.year : prices.period.month) || '?'}</Label>
+						</>
+					) : (
+						<>
+							<p>按量付费</p>
+							<Label htmlFor={'price'}>￥{prices.quantity}</Label>
+						</>
+					)
+				}
 				
 				<UserPlanningComp/>
 			</div>

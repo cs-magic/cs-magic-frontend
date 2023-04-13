@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/states/hooks'
 import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { selectChatgptMessages } from '@/states/features/messageSlice'
 import { asyncSendMessage } from '@/states/thunks/chatgpt'
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { MessageComp } from '@/components/shared/MessageComp'
@@ -14,8 +14,11 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { selectUserChatgpt } from '@/states/features/userSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { ID } from '@/ds/general'
 
-export const ConversationComp = () => {
+export const ConversationComp: FC<{
+	conversation_id: ID |null
+}> = ({conversation_id}) => {
 	const dispatch = useAppDispatch()
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
@@ -98,7 +101,7 @@ export const ConversationComp = () => {
 							<Button size={'sm'}>Conversations</Button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
-							<ConversationsComp/>
+							<ConversationsComp conversation_id={conversation_id}/>
 						</SheetContent>
 					</Sheet>
 					<Button size={'sm'} onClick={onSubmit}>Send</Button>

@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { selectChatgptConversationID } from '@/states/features/conversationSlice'
 import { IconPlus } from '@tabler/icons-react'
 import { selectUserId } from '@/states/features/userSlice'
 import { asyncSetConversationID } from '@/states/thunks/chatgpt'
@@ -8,11 +7,14 @@ import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
 import { useListConversationsQuery } from '@/states/apis/chatgptConversationApi'
+import { FC } from 'react'
+import { ID } from '@/ds/general'
 
-export const ConversationsComp = ({}) => {
+export const ConversationsComp: FC<{
+	conversation_id: ID | null
+}> = ({ conversation_id }) => {
 	
 	const user_id = useAppSelector(selectUserId)
-	const conversation_id = useAppSelector(selectChatgptConversationID)
 	const { data: conversations } = useListConversationsQuery(user_id)
 	
 	const dispatch = useAppDispatch()

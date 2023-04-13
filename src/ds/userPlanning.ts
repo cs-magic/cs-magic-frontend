@@ -5,9 +5,13 @@ export interface IUserPlanningPurchaseComp {
 	name: UserPlanningType
 	cover: string
 	prices: {
-		month: number
-		year: number // m * 10
+		quantity?: number
+		period?: {
+			month: number
+			year?: number // m * 10
+		}
 	}
 	tags: string[]
 	features: IFeature[]
+	chatgptTokens: number
 }
