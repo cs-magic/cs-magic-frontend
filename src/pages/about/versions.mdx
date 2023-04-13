@@ -2,8 +2,21 @@ import {RootLayout} from '@/layouts/RootLayout'
 import {clsx} from "clsx"
 import {u} from "../../config"
 
+## V0.1.5 (2023-04-13)
 
-## V0.1.4 (2023-04-13)
+- [x] 升级了服务器磁盘
+- [x] 更合理的会员计划
+- [x] 修复了后端chatgpt token接口
+- [x] 修复了前端chat界面昨晚写的bug
+- [x] 研究备案（国内域名cs-magic.cn已注册通过实名验证，正在等待三天后的备案，https://beian.aliyun.com/pcContainer/formpage?page=selfBa&pageAction=init&orderType=100）
+- [x] pr list（已支持：https://cs-magic.com/wall-messages）
+- [x] implemented separate title for each page
+- [ ] 对接mid journey或dalle
+- [ ] 邮箱垃圾机制研究
+- [ ] 更好的token消耗提示
+- [ ] 调研在其他区域点击第一次会focus menu的问题
+
+## V0.1.4 (2023-04-12)
 
 - [x] 支持google analysis
 - [x] [DECLINE] 支持当前会话搜索 （这个直接用网页自带的搜索功能就可以……）
@@ -11,7 +24,7 @@ import {u} from "../../config"
 - [x] [OPTIONAL] 优化移动端固定高度（这个并不一定要做，因为会导致屏幕更挤一些，但确实实现了）
 - [x] 优化登陆按钮提示（这个中午就做完了）
 - [x] 支持version history（基于 mdx 实现了，ref: [using-mdx](https://nextjs.org/docs/advanced-features/using-mdx)）
-- [ ] 支持pr list
+- [x] ~~支持pr list4-14完成）~~
 
 export default ({children}) => (
 	<RootLayout title={u.routes.about.versions}>
