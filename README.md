@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
 - [ ] P2, strict mode on typing
 - [ ] P2, 解决验证码上次问题、设计问题

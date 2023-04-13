@@ -8,13 +8,13 @@ export const wallMessagesApi = baseApi
 	.injectEndpoints({
 		endpoints: (build) => ({
 			listWallMessages: build.query<IWallMessage[], void>({
-				query: () => `/wall-messages`,
+				query: () => `/wall-messages/`,
 				providesTags: ['wall-messages'],
 			}),
 			
 			createWallMessage: build.mutation<void, IWallMessageCreate>({
 				query: (data) => ({
-					url: '/wall-messages',
+					url: '/wall-messages/',
 					method: 'post',
 					body: data,
 				}),
@@ -23,7 +23,7 @@ export const wallMessagesApi = baseApi
 			
 			voteWallMessage: build.mutation<void, IWallMessageVote>({
 				query: (params) => ({
-					url: '/wall-messages/vote',
+					url: '/wall-messages/vote/',
 					method: 'post',
 					params,
 				}),
