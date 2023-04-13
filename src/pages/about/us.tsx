@@ -1,10 +1,10 @@
-import { RootLayout } from '@/layouts/RootLayout'
+import { CentralLayout } from '@/layouts/CentralLayout'
 
 export const AboutUsPage = () => {
 	return (
-		<RootLayout>
-			TODO !
-		</RootLayout>
+		<CentralLayout>
+			todo
+		</CentralLayout>
 	)
 }
 

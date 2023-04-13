@@ -1,26 +1,21 @@
-import { UserState } from '@/states/features/userSlice'
-import { RootLayout } from '@/layouts/RootLayout'
-import { AvatarView } from '@/components/views/AvatarView'
-import { listUserStates } from '@/api/user/state'
+import { u } from '@/config'
+import { CentralLayout } from '@/layouts/CentralLayout'
 
-export const SponsorsPage = ({ users }: {
-	users: UserState[]
-}) => {
+export const SponsorsPage = () => {
 	return (
-		<RootLayout title={'Sponsors'}>
-			<div className={'w-full flex flex-wrap justify-center'}>
-				{users.map((user) => (
-					<AvatarView className={'w-24 h-24'} user={user.basic} key={user.basic.id}/>
-				))}
-			</div>
-		</RootLayout>
+		<CentralLayout title={u.routes.about.sponsors}>
+			{/*{users.map((user) => (*/}
+			{/*	<AvatarView className={'w-24 h-24'} user={user.basic} key={user.basic.id}/>*/}
+			{/*))}*/}
+			todo
+		</CentralLayout>
 	)
 }
 
 export const getServerSideProps = async () => {
 	return {
 		props: {
-			users: await listUserStates(),
+			// users: await listUserStates(),
 		},
 	}
 }

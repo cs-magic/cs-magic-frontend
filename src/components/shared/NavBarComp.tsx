@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
-import { navbarItems, u } from '@/config'
+import { navbarItems } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
 import { ReactNode } from 'react'
+import { getTitle } from '@/lib/utils'
 
 export interface INavbarItem {
 	href: string
@@ -49,8 +50,8 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 			</DropdownMenu>
 			
 			<div className="btn btn-ghost normal-case text-xl flex-1 truncate">
-				<p className={'hidden md:block w-full truncate'}>{title ? [u.website.platformName, title].join(' | ') : u.website.platformName}</p>
-				<p className={'md:hidden'}>{title || u.website.platformName}</p>
+				<p className={'hidden md:block w-full truncate'}>{getTitle(title, true)}</p>
+				<p className={'md:hidden'}>{getTitle(title, false)}</p>
 			</div>
 			
 			<NavbarAvatarComp/>

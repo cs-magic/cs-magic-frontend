@@ -1,13 +1,13 @@
 import { RootLayout } from '@/layouts/RootLayout'
 import { ProjectItemComp } from '@/components/shared/ProjectItemComp'
 import { HeroView } from '@/components/views/HeroView'
-import { projects } from '@/config'
+import { projects, u } from '@/config'
 
 
 export default function Home() {
 	
 	return (
-		<RootLayout>
+		<RootLayout title={u.routes.home}>
 			
 			<div className={'w-full h-full flex flex-col gap-4'}>
 				

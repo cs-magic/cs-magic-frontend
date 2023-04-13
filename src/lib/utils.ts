@@ -1,5 +1,6 @@
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { u } from '@/config'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -8,3 +9,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export const ensureSole = (s: string | string[] | null): string | null =>
 	Array.isArray(s) ? s[0] : s
+
+
+export const getTitle = (s?: string, full?: boolean): string => {
+	const prefix = full ? u.website.platformName : ''
+	const suffix = s
+	if (prefix && suffix) return [prefix, suffix].join(' | ')
+	else if (suffix) return suffix
+	else return prefix
+}

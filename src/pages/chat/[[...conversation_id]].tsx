@@ -8,6 +8,7 @@ import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 import { ConversationComp } from '@/components/shared/ConversationComp'
+import { u } from '@/config'
 
 
 export const ConversationPage = () => {
@@ -33,7 +34,7 @@ export const ConversationPage = () => {
 	const conversationsComp = <ConversationsComp conversation_id={conversation_id}/>
 	
 	return (
-		<RootLayout title={'ChatGPT Plus Mirror'}>
+		<RootLayout title={u.routes.service.chatgpt}>
 			<div className={'w-full h-full flex'}>
 				
 				{/* left: conversations */}

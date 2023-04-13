@@ -10,6 +10,27 @@ export const schemaCN: II18nSchema = {
 		platformName: 'CS魔法社',
 		avatarPlaceholder: '登录',
 	},
+	routes: {
+		about: {
+			versions: '版本历史',
+			sponsors: '赞助商',
+			us: "关于我们",
+		},
+		admin: {
+			home: "控制台"
+		},
+		home: "",
+		service: {
+			chatgpt: "ChatGPT Plus Mirror"
+		},
+		user: {
+			planning: "会员计划",
+			wall: "留言墙",
+		},
+		auth: {
+			home: "用户系统",
+		}
+	},
 	notify: {
 		errorUserEmpty: "用户名不能为空！请先注册登录再使用！",
 		errorSendEmpty: '不能发送空消息！',

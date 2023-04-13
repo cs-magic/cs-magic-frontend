@@ -13,6 +13,7 @@ import { clsx } from 'clsx'
 import { toast, useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { u } from '@/config'
 
 
 export const WallMessageComp: FC<IWallMessage> = (props) => {
@@ -103,7 +104,7 @@ export const WallMessagesPage: NextPage = () => {
 	}, [isError, isLoading, isSuccess])
 	
 	return (
-		<RootLayout title={'留言墙'}>
+		<RootLayout title={u.routes.user.wall}>
 			<div className={'flex flex-col gap-2 max-w-[720px] mx-auto mt-8'}>
 				<form
 					className={'flex flex-col gap-4'}

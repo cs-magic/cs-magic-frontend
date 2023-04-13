@@ -9,8 +9,9 @@ import { useRouter } from 'next/router'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
+import { u } from '@/config'
 
-const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
+const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	console.log({ baseUrl })
 	
 	const { toast } = useToast()
@@ -57,14 +58,14 @@ const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
 		} else {
 			// 必须走一下这个next-auth的流程，以获得一些数据
 			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}` // &callbackUrl=${baseUrl}`,
+				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}`, // &callbackUrl=${baseUrl}`,
 			)
 		}
 	}
 	
 	
 	return (
-		<AuthLayout>
+		<AuthLayout title={u.routes.auth.home}>
 			
 			<div className={'flex flex-col gap-2'}>
 				
@@ -153,11 +154,11 @@ const SigninPage: NextPage<{baseUrl: string}> = ({baseUrl}) => {
 SigninPage.getInitialProps = async (context) => {
 	const { req } = context
 	const session = await getSession({ req })
-
+	
 	// ref: https://stackoverflow.com/a/70167665/9422455
 	const host = context.req?.headers.host || ''
 	// todo: detect by session
-
+	
 	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
 	process.env.NEXTAUTH_URL = baseUrl
 	return {

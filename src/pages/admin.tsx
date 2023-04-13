@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { IconRotate } from '@tabler/icons-react'
 import { listUserStates } from '@/api/user/state'
+import { u } from '@/config'
 
 export const AdminPage = () => {
 	const router = useRouter()
@@ -33,7 +34,7 @@ export const AdminPage = () => {
 	
 	
 	return (
-		<RootLayout title={'控制台'}>
+		<RootLayout title={u.routes.admin.home}>
 			{
 				isLoading
 					? <IconRotate className={'animate-spin'}/>

@@ -1,5 +1,6 @@
 import {RootLayout} from '@/layouts/RootLayout'
 import {clsx} from "clsx"
+import {u} from "../../config"
 
 
 ## V0.1.4 (2023-04-13)
@@ -13,7 +14,7 @@ import {clsx} from "clsx"
 - [ ] 支持pr list
 
 export default ({children}) => (
-	<RootLayout>
+	<RootLayout title={u.routes.about.versions}>
 		<article className={clsx(
 			'prose prose-zinc max-w-[720px] mx-auto',
 			'dark:prose-invert',

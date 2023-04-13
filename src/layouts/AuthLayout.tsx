@@ -1,11 +1,11 @@
 import { RootLayout } from '@/layouts/RootLayout'
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 
-export const AuthLayout = ({ children }: { children: ReactNode }) => {
+export const AuthLayout: FC<{ children: ReactNode, title?: string }> = (props) => {
 	return (
-		<RootLayout>
+		<RootLayout title={props.title}>
 			<div className={'bg-gray-900 text-gray-100 w-full h-full flex flex-col items-center justify-center gap-2'}>
-				{children}
+				{props.children}
 			</div>
 		</RootLayout>
 	)

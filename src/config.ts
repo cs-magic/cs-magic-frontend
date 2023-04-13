@@ -85,17 +85,18 @@ export const adminIds = [
 
 export const navbarItems: INavbarItem[][] = [
 	[
-		{ href: '/', name: '主页' },
+		{ href: '/', name: u.routes.home },
 	],
 	[
-		{ href: '/chat', name: '服务：ChatGPT' },
+		{ href: '/chat', name: u.routes.service.chatgpt },
 	],
 	[
-		{ href: '/user-planning', name: '会员计划' },
-		{ href: '/wall-messages', name: '留言墙！' },
+		{ href: '/user-planning', name: u.routes.user.planning },
+		{ href: '/wall-messages', name: u.routes.user.wall},
 	],
 	[
-		{ href: '/about/versions', name: '版本历史' },
-		{ href: '/about/us', name: '关于我们' },
+		{ href: '/about/versions', name: u.routes.about.versions },
+		{ href: '/about/sponsors', name: u.routes.about.sponsors },
+		{ href: '/about/us', name: u.routes.about.us },
 	],
 ]
