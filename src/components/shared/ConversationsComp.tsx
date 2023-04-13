@@ -3,19 +3,14 @@ import { IconPlus } from '@tabler/icons-react'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { ConversationLineComp } from '@/components/shared/ConversationLineComp'
-import { useListConversationsQuery } from '@/states/apis/openai/chatgptApi'
 import { FC } from 'react'
 import { ID } from '@/ds/general'
-import { useUserId } from '@/hooks/use-user'
-import { skipToken } from '@reduxjs/toolkit/query'
+import { IChatgptConversation } from '@/ds/chatgpt'
 
 export const ConversationsComp: FC<{
 	conversation_id: ID | null
-}> = ({ conversation_id }) => {
-	const user_id = useUserId()
-	console.log({ user_id })
-	
-	const { data: conversations } = useListConversationsQuery(user_id ?? skipToken)
+	conversations: IChatgptConversation[]
+}> = (props) => {
 	
 	const router = useRouter()
 	
@@ -34,8 +29,12 @@ export const ConversationsComp: FC<{
 				'flex justify-end flex-col-reverse', // 倒序展示
 			)}>
 				{
-					(conversations ?? []).map((conversation) =>
-						<ConversationLineComp conversation={conversation} key={conversation.id} isHighlight={conversation_id === conversation.id}/>)
+					props.conversations.map((conversation) =>
+						<ConversationLineComp
+							key={conversation.id}
+							conversation={conversation}
+							isHighlight={props.conversation_id === conversation.id}
+						/>)
 				}
 			</div>
 		

@@ -1,55 +1,50 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { asyncSetConversationID } from '@/states/thunks/chatgpt'
 import { ensureSole } from '@/lib/utils'
 import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
-import { selectUserId } from '@/states/features/userSlice'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 import { ConversationComp } from '@/components/shared/ConversationComp'
 import { u } from '@/config'
+import { useUserId } from '@/hooks/use-user'
+import { useListConversationsQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 
 export const ConversationPage = () => {
-	const dispatch = useAppDispatch()
 	
 	const router = useRouter()
-	const router_conversation_id = ensureSole(router.query.conversation_id || null)
+	const user_id = useUserId()
+	const conversation_id = ensureSole(router.query.conversation_id || null)
+	const { data: conversations = [], isLoading: isLoadingConversations } = useListConversationsQuery(user_id ?? skipToken)
+	const { data: messages = [], isLoading: isLoadingMessages } = useListMessagesQuery(conversation_id ?? skipToken)
 	
-	const user_id = useAppSelector(selectUserId)
-	const [loading, setLoading] = useState(false)
 	
-	useEffect(() => {
-		console.log({ user_id, router_conversation_id })
-		if (!user_id) return
-		// 需要有 user_id 才可以触发
-		setLoading(true)
-		dispatch(asyncSetConversationID(router_conversation_id))
-		setLoading(false)
-	}, [user_id, router_conversation_id])
-	
-	const conversation_id = router_conversation_id
-	
-	const conversationsComp = <ConversationsComp conversation_id={conversation_id}/>
+	const loadingComp = (
+		<div className={'w-full h-full flex justify-center items-center'}>
+			<IconRotateClockwise2 className={'animate-spin'}/>
+		</div>
+	)
 	
 	return (
 		<RootLayout title={u.routes.service.chatgpt}>
-			<div className={'w-full h-full flex'}>
-				
-				{/* left: conversations */}
-				<div className={'hidden md:block w-[260px]'}>
-					{conversationsComp}
-				</div>
-				
-				{/* right: current conversation */}
-				{!loading ? <ConversationComp conversation_id={conversation_id}/> : (
-					<div className={'flex-1 h-full flex justify-center items-center'}>
-						<IconRotateClockwise2 className={'animate-spin'}/>
+			{
+				!user_id || isLoadingConversations ? loadingComp : (
+					<div className={'w-full h-full flex'}>
+						
+						{/* left: conversations */}
+						<div className={'hidden md:block w-[260px]'}>
+							<ConversationsComp conversation_id={conversation_id} conversations={conversations}/>
+						</div>
+						
+						{/* right: current conversation */}
+						{
+							isLoadingMessages ? loadingComp :
+								<ConversationComp conversations={conversations} conversation_id={conversation_id} initMessages={messages}/>
+						}
+					
 					</div>
-				)}
-			
-			</div>
+				)
+			}
 		</RootLayout>
 	)
 }

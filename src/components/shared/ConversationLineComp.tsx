@@ -71,8 +71,7 @@ export const ConversationLineComp: FC<{
 							className={'text-red-500'}
 							onClick={(e) => {
 								e.preventDefault()
-								deleteConversation({ user_id, id: conversation.id, model: conversation.model })
-								// dispatch(asyncDelConversation(conversation.id))
+								deleteConversation(conversation.id)
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (isHighlight)
 									router.push('/chat')

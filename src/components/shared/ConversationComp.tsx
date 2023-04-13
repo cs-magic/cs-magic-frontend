@@ -1,6 +1,4 @@
 import { clsx } from 'clsx'
-import { useAppSelector } from '@/states/hooks'
-import { selectChatgptModelType } from '@/states/features/conversationSlice'
 import { FC, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { MessageComp } from '@/components/shared/MessageComp'
@@ -8,39 +6,44 @@ import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
-import { selectUserId } from '@/states/features/userSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { ContentType, IChatMessageReq, IChatMessageRes, ModelPlatformType } from '@/ds/message'
-import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
-import { RoleType } from '@/ds/chatgpt'
+import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery } from '@/states/apis/openai/chatgptApi'
+import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, IChatgptConversation, RoleType } from '@/ds/chatgpt'
 import { skipToken } from '@reduxjs/toolkit/query'
+import { useUserId } from '@/hooks/use-user'
+import { toast } from '@/hooks/use-toast'
 
 export const ConversationComp: FC<{
+	conversations?: IChatgptConversation[]
 	conversation_id: ID | null
-}> = ({ conversation_id }) => {
+	initMessages: IChatMessageRes[]
+}> = (props) => {
+	console.log(props.initMessages)
+	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	const user_id = useAppSelector(selectUserId)
-	const model = useAppSelector(selectChatgptModelType)
+	const user_id = useUserId()
+	const [model, setModel] = useState<ChatgptModelType>(CHATGPT_MODEL_35_TURBO)
 	
-	const [cid, setCid] = useState(conversation_id)
+	const [cid, setCid] = useState<ID | null>(props.conversation_id)
 	const [messages, setMessages] = useState<IChatMessageRes[]>([])
 	
 	const [askChatGPT, { isLoading }] = useAskChatGPTMutation()
 	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
 	const [createConversation, {}] = useCreateConversationMutation()
 	
-	const { data: messagesInit } = useListMessagesQuery(cid ?? skipToken)
-	
 	useEffect(() => {
-		if (messagesInit) {
-			setMessages(messagesInit)
-		}
-	}, [messagesInit])
+		setMessages(props.initMessages)
+	}, [props.initMessages])
+	
+	
 	
 	const onSubmit = async () => {
+		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
+		
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		
@@ -128,7 +131,7 @@ export const ConversationComp: FC<{
 							<Button size={'sm'}>Conversations</Button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
-							<ConversationsComp conversation_id={conversation_id}/>
+							<ConversationsComp conversation_id={props.conversation_id} conversations={props.conversations}/>
 						</SheetContent>
 					</Sheet>
 					<Button size={'sm'} onClick={onSubmit}>Send</Button>
