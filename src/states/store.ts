@@ -4,7 +4,7 @@ import { messageSlice } from '@/states/features/messageSlice'
 import userSlice from '@/states/features/userSlice'
 import logger from 'redux-logger'
 import notificationSlice from '@/states/features/notificationSlice'
-import chatgptConversationApi from '@/states/apis/chatgptConversationApi'
+import baseApi from '@/states/apis/baseApi'
 
 
 const store = configureStore({
@@ -13,13 +13,13 @@ const store = configureStore({
 		conversation: conversationSlice.reducer,
 		messages: messageSlice.reducer,
 		notification: notificationSlice.reducer,
-		[chatgptConversationApi.reducerPath]: chatgptConversationApi.reducer,
+		[baseApi.reducerPath]: baseApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-	.concat([
-		chatgptConversationApi.middleware,
-		logger
-	])
+		.concat([
+			baseApi.middleware,
+			logger,
+		]),
 })
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
