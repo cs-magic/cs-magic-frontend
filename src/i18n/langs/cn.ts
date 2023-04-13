@@ -19,7 +19,7 @@ export const schemaCN: II18nSchema = {
 		admin: {
 			home: "控制台"
 		},
-		home: "",
+		home: "首页",
 		service: {
 			chatgpt: "ChatGPT Plus Mirror"
 		},

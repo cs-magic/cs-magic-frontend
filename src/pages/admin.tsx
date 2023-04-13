@@ -32,7 +32,11 @@ export const AdminPage = () => {
 		}
 	}, [userBasic])
 	
-	if (isLoading) return <CentralLayout title={u.routes.admin.home}><IconRotate className={'animate-spin'}/></CentralLayout>
+	if (isLoading) return (
+		<CentralLayout title={u.routes.admin.home}>
+			<IconRotate className={'animate-spin'}/>
+		</CentralLayout>
+	)
 	
 	return (
 		<RootLayout title={u.routes.admin.home}>
