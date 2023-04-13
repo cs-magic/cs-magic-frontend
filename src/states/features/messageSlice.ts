@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@/states/store'
-import { ChatgptRoleType, IChatgptMessage, IChatgptMessageCore } from '@/ds/chatgpt_v2'
+import { IChatgptMessage, IChatgptMessageCore } from '@/ds/chatgpt_v2'
+import { RoleType } from '@/ds/chatgpt'
 
 
 export type MessagesState = {
@@ -23,8 +24,8 @@ export const messageSlice = createSlice({
 		},
 		updateStreamingMessage: (state, action: PayloadAction<string>) => {
 			const lastMessage = state.list[state.list.length - 1]
-			if (lastMessage.role !== ChatgptRoleType.assistant) {
-				state.list.push({ role: ChatgptRoleType.assistant, content: action.payload, time: Date.now() })
+			if (lastMessage.role !== RoleType.assistant) {
+				state.list.push({ role: RoleType.assistant, content: action.payload, time: Date.now() })
 			} else {
 				lastMessage.content += action.payload
 			}

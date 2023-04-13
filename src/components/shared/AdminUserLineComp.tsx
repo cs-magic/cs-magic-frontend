@@ -1,8 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { IUserBasic, UserPlanningType, UserRole } from '@/ds/user'
+import { IUserBasic, UserPlanningType, UserRole, UserState } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { UserState } from '@/states/features/userSlice'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
@@ -14,7 +13,7 @@ export const AdminUserLineComp = ({ user, index }: {
 	index: number
 }) => {
 	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic)
-	const [userChatgptData, setUserChatgptData] = useState<IUserChatgpt>(user.chatgpt)
+	const [userChatgptData, setUserChatgptData] = useState<IUserChatgpt>(user.chatGPT)
 	
 	return (
 		<tr key={index} className={'w-full'}>
@@ -60,13 +59,13 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<input type={'number'} defaultValue={user.chatgpt.balance}
+				<input type={'number'} defaultValue={user.chatGPT.balance}
 				       onChange={(event) => {setUserChatgptData({ ...userChatgptData, balance: parseInt(event.currentTarget.value) })}}/>
 			</td>
 			
-			<td>{user.chatgpt.consumption}</td>
+			<td>{user.chatGPT.consumption}</td>
 			
-			<td>{user.chatgpt.cnt}</td>
+			<td>{user.chatGPT.cnt}</td>
 			
 			<td>
 				<Input defaultValue={user.basic.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>

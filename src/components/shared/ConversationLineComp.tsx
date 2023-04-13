@@ -8,7 +8,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { selectUserId } from '@/states/features/userSlice'
 import { IChatgptConversation } from '@/ds/chatgpt'
-import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/chatgptConversationApi'
+import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/openai/chatgptApi'
 
 export const ConversationLineComp: FC<{
 	conversation: IChatgptConversation

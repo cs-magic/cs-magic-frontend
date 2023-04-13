@@ -1,5 +1,4 @@
 import { ID } from '@/ds/general'
-import { ChatgptRoleType } from '@/ds/chatgpt_v2'
 
 
 export interface IChatgptCreateUserConversation {
@@ -24,12 +23,18 @@ export interface IChatModelReq {
 	content: string
 }
 
+export enum RoleType {
+	system = 'system',
+	user = 'user',
+	assistant = 'assistant'
+}
+
 interface IChatModelResChoice {
 	finish_reason: string
 	index: number
 	message: {
 		content: string
-		role: ChatgptRoleType
+		role: RoleType
 	}
 }
 

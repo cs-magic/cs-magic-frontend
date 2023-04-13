@@ -1,42 +1,69 @@
 import { clsx } from 'clsx'
-import { useAppDispatch, useAppSelector } from '@/states/hooks'
+import { useAppSelector } from '@/states/hooks'
 import { selectChatgptModelType } from '@/states/features/conversationSlice'
-import { selectChatgptMessages } from '@/states/features/messageSlice'
-import { asyncSendMessage } from '@/states/thunks/chatgpt'
 import { FC, useEffect, useRef, useState } from 'react'
-import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import { MessageComp } from '@/components/shared/MessageComp'
-import { ChatgptRoleType } from '@/ds/chatgpt_v2'
 import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
-import { selectUserChatgpt } from '@/states/features/userSlice'
+import { selectUserId } from '@/states/features/userSlice'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
+import { ContentType, IChatMessageReq, IChatMessageRes, ModelPlatformType } from '@/ds/message'
+import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
+import { RoleType } from '@/ds/chatgpt'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 export const ConversationComp: FC<{
-	conversation_id: ID |null
-}> = ({conversation_id}) => {
-	const dispatch = useAppDispatch()
+	conversation_id: ID | null
+}> = ({ conversation_id }) => {
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
-	const { toast } = useToast()
 	
+	const user_id = useAppSelector(selectUserId)
 	const model = useAppSelector(selectChatgptModelType)
-	const messages = useAppSelector(selectChatgptMessages)
-	const userChatgpt = useAppSelector(selectUserChatgpt)
 	
-	const [waiting, setWaiting] = useState(false)
+	const [cid, setCid] = useState(conversation_id)
+	const [messages, setMessages] = useState<IChatMessageRes[]>([])
+	
+	const [askChatGPT, { isLoading }] = useAskChatGPTMutation()
+	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
+	const [createConversation, {}] = useCreateConversationMutation()
+	
+	const { data: messagesInit } = useListMessagesQuery(cid ?? skipToken)
+	
+	useEffect(() => {
+		if (messagesInit) {
+			setMessages(messagesInit)
+		}
+	}, [messagesInit])
 	
 	const onSubmit = async () => {
-		setWaiting(true)
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
-		const res = await dispatch(asyncSendMessage(content))
-		if (res.meta.requestStatus === 'rejected') toast({ variant: 'destructive', title: res.payload as string })
-		setWaiting(false)
+		
+		let conversation_id = cid
+		if (!conversation_id) {
+			const res = await createConversation({ user_id, model }).unwrap() // ref: https://stackoverflow.com/a/73194610/9422455
+			conversation_id = res.id
+			setCid(conversation_id)
+		}
+		
+		const msg: IChatMessageReq = {
+			user_id,
+			conversation_id,
+			role: RoleType.user,
+			content,
+			content_type: ContentType.text,
+			time: Date.now(),
+			model_platform: ModelPlatformType.chatgpt,
+		}
+		setMessages([...messages, msg])
+		
+		const res = await askChatGPT(msg).unwrap()
+		setMessages([...messages, res])
 	}
 	
 	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
@@ -48,7 +75,7 @@ export const ConversationComp: FC<{
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				Model: {model}, Tokens: {userChatgpt.balance}
+				Model: {model}{userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
@@ -66,7 +93,7 @@ export const ConversationComp: FC<{
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
 			
-			{waiting && (
+			{isLoading && (
 				<div className={'w-full'}>
 					<div className={c}>
 						<div className={'px-2 inline-flex items-center w-full gap-4'}>

@@ -1,13 +1,9 @@
-export enum ChatgptRoleType {
-	system = 'system',
-	user = 'user',
-	assistant = 'assistant'
-}
+import { RoleType } from '@/ds/chatgpt'
 
 export type ChatgptModelType = 'gpt-3.5-turbo' | 'gpt-4'
 
 export interface IChatgptMessageCore {
-	role: ChatgptRoleType
+	role: RoleType
 	content: string
 }
 export interface IChatgptMessage extends IChatgptMessageCore{

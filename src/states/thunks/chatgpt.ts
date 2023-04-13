@@ -1,12 +1,13 @@
 import { addMessage, setMessages } from '@/states/features/messageSlice'
 import { AxiosError } from 'axios'
-import { ChatgptRoleType, IUserChatgpt } from '@/ds/chatgpt_v2'
+import { IUserChatgpt } from '@/ds/chatgpt_v2'
 import { createChatgptConversation, getUserChatgpt, listChatgptMessages, postChatgptMessage } from '@/api/chatgpt'
 import { ID } from '@/ds/general'
 import { setConversationID } from '@/states/features/conversationSlice'
 import { createAppAsyncThunk } from '@/states/hooks'
 import { u } from '@/config'
 import { setUserChatgpt } from '@/states/features/userSlice'
+import { RoleType } from '@/ds/chatgpt'
 
 
 // use void, ref: https://stackoverflow.com/a/67970314/9422455
@@ -53,7 +54,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		console.log(`conversation empty, auto-created to be ${conversation_id}`)
 	}
 	
-	await dispatch(addMessage({ role: ChatgptRoleType.user, content: content }))
+	await dispatch(addMessage({ role: RoleType.user, content: content }))
 	console.log('sending message: ', { conversation_id, model, content })
 	
 	try {
@@ -63,7 +64,7 @@ export const asyncSendMessage = createAppAsyncThunk('asyncSendMessage', async (c
 		
 		const contentA = await postChatgptMessage({ user_id, id: conversation_id, model }, content, true)
 		console.log('received: ', contentA)
-		await dispatch(addMessage({ role: ChatgptRoleType.assistant, content: contentA }))
+		await dispatch(addMessage({ role: RoleType.assistant, content: contentA }))
 		// 在获得消息返回之后，就更新chatgpt balance
 		await dispatch(asyncUpdateUserChatgpt())
 		

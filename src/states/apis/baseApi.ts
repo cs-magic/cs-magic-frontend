@@ -7,11 +7,14 @@ export const baseApi = createApi({
 	}),
 	reducerPath: 'baseApi',
 	endpoints: (builder) => ({
-		getBrand: builder.query<void, void>({
-			query() {
+		uploadFile: builder.mutation<string, File>({
+			query: (file) => {
+				const formData = new FormData()
+				formData.append('file', file)
 				return {
-					url: '/brand',
-					credentials: 'include',
+					url: `/file`,
+					method: 'post',
+					body: formData,
 				}
 			},
 		}),
@@ -21,5 +24,5 @@ export const baseApi = createApi({
 export default baseApi
 
 export const {
-	useGetBrandQuery
+	useUploadFileMutation,
 } = baseApi

@@ -1,21 +1,17 @@
 import Head from 'next/head'
 import { ReactNode, useEffect } from 'react'
 import { NavBarComp } from '@/components/shared/NavBarComp'
-import { useAppDispatch, useAppSelector } from '@/states/hooks'
-import { initUser } from '@/states/thunks/user'
+import { useAppSelector } from '@/states/hooks'
 import { selectNotifications } from '@/states/features/notificationSlice'
-import { getProviders, getSession, useSession } from 'next-auth/react'
+import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
 	title?: string
 }) => {
-	const dispatch = useAppDispatch()
-	const { data: session } = useSession()
 	const notifications = useAppSelector(selectNotifications)
 	
-	const user_id = session?.user.id
 	
 	useEffect(() => {
 		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
@@ -24,11 +20,6 @@ export const RootLayout = ({ children, title }: {
 		document.documentElement.style.setProperty('--vh', `${vh}px`)
 	}, [])
 	
-	useEffect(() => {
-		if (user_id) {
-			dispatch(initUser(user_id))
-		}
-	}, [user_id])
 	
 	return (
 		<>
