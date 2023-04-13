@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react'
 import Typist from 'react-typist'
 
 export const TitleLineComp = ({ content, onTypingDone }: { content: string | ReactNode, onTypingDone?: any }) => {
-	console.log({ content })
 	
 	return (
 		<Typist

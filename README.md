@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P1, strict mode on typing
 - [ ] P1, add bills
 - [ ] P2, 解决验证码上次问题、设计问题
 - [ ] P2, dispatch after fetch (to avoid use thunk)
