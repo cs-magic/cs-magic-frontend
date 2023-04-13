@@ -5,24 +5,27 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
-import { updateUserChatgpt } from '@/api/chatgpt'
-import { updateUserBasic } from '@/api/user/basic'
+import { useUpdateUserChatGPTMutation } from '@/states/apis/openai/chatgptApi'
+import { useUpdateUserBasicMutation } from '@/states/apis/userApi'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: UserState
 	index: number
 }) => {
 	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic)
-	const [userChatgptData, setUserChatgptData] = useState<IUserChatgpt>(user.chatGPT)
+	const [userChatgptData, setUserChatgptData] = useState<IUserChatgpt>(user.chatgpt)
+	
+	const [updateUserBasic] = useUpdateUserBasicMutation()
+	const [updateUserChatGPT] = useUpdateUserChatGPTMutation()
+	
+	if (!user.id) console.error(user)
 	
 	return (
 		<tr key={index} className={'w-full'}>
 			<th>{index + 1}</th>
-			<th>{user.basic.id}</th>
+			<th>{user.id}</th>
 			<td>{user.basic.name}</td>
-			<td>
-				<AvatarView user={user.basic}/>
-			</td>
+			<td><AvatarView user={user.basic}/></td>
 			<td>{user.basic.email}</td>
 			
 			<td>
@@ -59,13 +62,13 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<input type={'number'} defaultValue={user.chatGPT.balance}
+				<input type={'number'} defaultValue={user.chatgpt.balance}
 				       onChange={(event) => {setUserChatgptData({ ...userChatgptData, balance: parseInt(event.currentTarget.value) })}}/>
 			</td>
 			
-			<td>{user.chatGPT.consumption}</td>
+			<td>{user.chatgpt.consumption}</td>
 			
-			<td>{user.chatGPT.cnt}</td>
+			<td>{user.chatgpt.cnt}</td>
 			
 			<td>
 				<Input defaultValue={user.basic.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
@@ -73,8 +76,8 @@ export const AdminUserLineComp = ({ user, index }: {
 			
 			<td className={'inline-flex items-center'}>
 				<Button size={'sm'} onClick={async () => {
-					await updateUserBasic(userBasicData)
-					await updateUserChatgpt(userChatgptData)
+					await updateUserBasic({ ...userBasicData, id: user.id! })
+					await updateUserChatGPT({ ...userChatgptData, id: user.id! })
 				}}>Confirm</Button>
 			</td>
 		

@@ -8,10 +8,12 @@ export const userApi = baseApi
 	})
 	.injectEndpoints({
 		endpoints: (build) => ({
+			
 			getUserBasic: build.query<IUserBasic, ID>({
 				query: (user_id) => `/user/${user_id}`,
 				providesTags: (result, error, arg, meta) => [{ type: 'user', id: arg }],
 			}),
+			
 			updateUserBasic: build.mutation<IUserBasic,
 				Partial<IUserBasic> & { id: ID } // id 一定要有的
 				>({

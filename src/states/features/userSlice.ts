@@ -22,6 +22,6 @@ export const { setUserChatgpt, setUserBasic } = userSlice.actions
 
 export const selectUserId = (state: RootState) => state.user.basic.id
 export const selectUserBasic = (state: RootState) => state.user.basic
-export const selectUserChatgpt = (state: RootState) => state.user.chatGPT
+export const selectUserChatgpt = (state: RootState) => state.user.chatgpt
 
 export default userSlice

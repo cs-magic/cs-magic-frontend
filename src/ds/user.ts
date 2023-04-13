@@ -15,7 +15,6 @@ export enum UserRole {
 }
 
 export interface IUserBasic {
-	id: ID | null
 	name: string
 	email: string
 	planning: UserPlanningType
@@ -27,13 +26,14 @@ export interface IUserBasic {
 
 
 export interface UserState {
+	id: ID | null
 	basic: IUserBasic
-	chatGPT: IUserChatgpt
+	chatgpt: IUserChatgpt
 }
 
 export const initUserState: UserState = {
+	id: null,
 	basic: {
-		id: null,
 		name: '',
 		email: '',
 		planning: UserPlanningType.guest,
@@ -42,7 +42,7 @@ export const initUserState: UserState = {
 		note: '',
 		role: UserRole.user,
 	},
-	chatGPT: {
+	chatgpt: {
 		balance: 0,
 		cnt: 0,
 		consumption: 0,

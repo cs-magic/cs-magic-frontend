@@ -3,21 +3,33 @@ import { ID } from '@/ds/general'
 import { IChatMessageReq, IChatMessageRes } from '@/ds/message'
 import { IChatgptConversation, IChatgptCreateUserConversation } from '@/ds/chatgpt'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
+import { IUserBasic } from '@/ds/user'
 
 
 export const chatgptApi = baseApi
 	// ref: https://github.com/reduxjs/redux-toolkit/issues/1510#issuecomment-1122564975
 	.enhanceEndpoints({
-		addTagTypes: ['token', 'conversations', 'conversation'],
+		addTagTypes: ['user-chatgpt', 'conversations', 'conversation'],
 	})
 	
 	.injectEndpoints({
 		endpoints: (builder) => ({
 			
-			//// token
+			//// user-chatgpt (especially token relative)
 			getUserChatGPT: builder.query<IUserChatgpt, ID>({
 				query: (user_id) => `/openai/user/${user_id}`,
-				providesTags: ['token']
+				providesTags: ['user-chatgpt'],
+			}),
+			
+			updateUserChatGPT: builder.mutation<IUserBasic,
+				Partial<IUserChatgpt> & { id: ID } // id 一定要有的
+				>({
+				query: (data) => ({
+					url: `/openai/user/`,
+					method: 'PATCH',
+					body: data,
+				}),
+				invalidatesTags: ['user-chatgpt'],
 			}),
 			
 			//// conversation
@@ -89,5 +101,7 @@ export const {
 	useListMessagesQuery,
 	
 	useGetUserChatGPTQuery,
+	useUpdateUserChatGPTMutation,
+	
 	useAskChatGPTMutation,
 } = chatgptApi

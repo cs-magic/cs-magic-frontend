@@ -2,13 +2,12 @@ import { useRouter } from 'next/router'
 import { ensureSole } from '@/lib/utils'
 import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
-import { IconRotateClockwise2 } from '@tabler/icons-react'
 import { ConversationComp } from '@/components/shared/ConversationComp'
 import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { useListConversationsQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
 import { skipToken } from '@reduxjs/toolkit/query'
-
+import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 
 export const ConversationPage = () => {
 	
@@ -19,16 +18,12 @@ export const ConversationPage = () => {
 	const { data: messages = [], isLoading: isLoadingMessages } = useListMessagesQuery(conversation_id ?? skipToken)
 	
 	
-	const loadingComp = (
-		<div className={'w-full h-full flex justify-center items-center'}>
-			<IconRotateClockwise2 className={'animate-spin'}/>
-		</div>
-	)
+
 	
 	return (
 		<RootLayout title={u.routes.service.chatgpt}>
 			{
-				!user_id || isLoadingConversations ? loadingComp : (
+				!user_id || isLoadingConversations ? <CentralLoadingComp/> : (
 					<div className={'w-full h-full flex'}>
 						
 						{/* left: conversations */}
@@ -38,7 +33,7 @@ export const ConversationPage = () => {
 						
 						{/* right: current conversation */}
 						{
-							isLoadingMessages ? loadingComp :
+							isLoadingMessages ? <CentralLoadingComp/> :
 								<ConversationComp conversations={conversations} conversation_id={conversation_id} initMessages={messages}/>
 						}
 					

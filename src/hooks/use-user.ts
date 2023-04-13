@@ -16,16 +16,18 @@ export const useUser = (): UserState => {
 	const { data: userChatGPT } = useGetUserChatGPTQuery(id ?? skipToken)
 	
 	useEffect(() => {
+		if (!id) return
 		setUser({
+			id,
 			basic: userBasic ?? user.basic,
-			chatGPT: userChatGPT ?? user.chatGPT,
+			chatgpt: userChatGPT ?? user.chatgpt,
 		})
-	}, [userBasic, userChatGPT])
+	}, [id, userBasic, userChatGPT])
 	
 	return user
 }
 
 export const useUserId = (): ID | null => {
 	const user = useUser()
-	return user.basic.id
+	return user.id
 }

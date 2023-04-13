@@ -1,4 +1,5 @@
 import { RoleType } from '@/ds/chatgpt'
+import { ID } from '@/ds/general'
 
 export type ChatgptModelType = 'gpt-3.5-turbo' | 'gpt-4'
 
