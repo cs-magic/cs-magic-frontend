@@ -2,17 +2,16 @@ import { IChatgptMessage } from '@/ds/chatgpt_v2'
 import { clsx } from 'clsx'
 import { IconBrandOpenai } from '@tabler/icons-react'
 import { AvatarView } from '@/components/views/AvatarView'
-import { useAppSelector } from '@/states/hooks'
-import { selectUserBasic } from '@/states/features/userSlice'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import { RoleType } from '@/ds/chatgpt'
+import { useUser } from '@/hooks/use-user'
 
 
 export const MessageComp = ({ msg }: {
 	msg: IChatgptMessage
 }) => {
-	const userBasic = useAppSelector(selectUserBasic)
+	const userBasic = useUser().basic
 	
 	return (
 		<div className={clsx(

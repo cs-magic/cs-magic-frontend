@@ -40,19 +40,19 @@ export const chatgptApi = baseApi
 			}),
 			
 			createConversation: builder.mutation<IChatgptConversation, IChatgptCreateUserConversation>({
-				query: (params) => ({
-					url: `/openai/conversation/create`,
+				query: (body) => ({
+					url: `/openai/conversation/`,
 					method: 'post',
-					params,
+					body,
 				}),
 				invalidatesTags: ['conversations'],
 			}),
 			
 			updateConversation: builder.mutation<IChatgptConversation, Partial<IChatgptConversation> & { id: ID }>({
-				query: (data) => ({
-					url: '/openai/conversation',
+				query: (body) => ({
+					url: '/openai/conversation/',
 					method: 'PATCH',
-					body: data,
+					body,
 				}),
 				// todo: only update the specific item with id
 				invalidatesTags: ['conversations'],

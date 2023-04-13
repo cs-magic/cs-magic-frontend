@@ -6,22 +6,14 @@ export interface IChatgptCreateUserConversation {
 	model: string
 }
 
-export interface IChatgptUserConversation extends IChatgptCreateUserConversation {
-	id: ID
-}
 
-export interface IChatgptConversation extends IChatgptUserConversation{
+export interface IChatgptConversation extends IChatgptCreateUserConversation {
+	id: ID
 	time: number
-	start: number
+	start?: number
 	name: string
 }
 
-export type IGetMessagesReq = IChatgptUserConversation
-
-export interface IChatModelReq {
-	conversation: IChatgptUserConversation
-	content: string
-}
 
 export enum RoleType {
 	system = 'system',

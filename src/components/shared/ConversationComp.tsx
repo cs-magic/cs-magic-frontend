@@ -16,7 +16,7 @@ import { useUserId } from '@/hooks/use-user'
 import { toast } from '@/hooks/use-toast'
 
 export const ConversationComp: FC<{
-	conversations?: IChatgptConversation[]
+	conversations: IChatgptConversation[]
 	conversation_id: ID | null
 	initMessages: IChatMessageRes[]
 }> = (props) => {
