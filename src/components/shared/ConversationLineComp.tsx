@@ -5,13 +5,16 @@ import { Button } from '@/components/ui/button'
 import { clsx } from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { IChatgptConversation } from '@/ds/chatgpt'
+import { IChatGPTConversation } from '@/ds/chatgpt'
 import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/openai/chatgptApi'
+import { ModelPlatformType } from '@/ds/message'
+import { getChatUrl } from '@/lib/utils'
 
 export const ConversationLineComp: FC<{
-	conversation: IChatgptConversation
+	conversation: IChatGPTConversation
 	isHighlight?: boolean
-}> = ({ conversation, isHighlight }) => {
+	model_platform: ModelPlatformType
+}> = ({ conversation, isHighlight, model_platform }) => {
 	const router = useRouter()
 	
 	const [isEditing, setEditing] = useState(false)
@@ -43,7 +46,7 @@ export const ConversationLineComp: FC<{
 						onKeyDown={async (event) => {
 							if (event.key === 'Enter') {
 								setEditing(false)
-								await updateConversation({ id: conversation.id, name: event.currentTarget.value })
+								await updateConversation({ id: conversation.id!, name: event.currentTarget.value })
 							}
 						}}
 						onBlur={() => setEditing(false)}
@@ -65,10 +68,10 @@ export const ConversationLineComp: FC<{
 							className={'text-red-500'}
 							onClick={async (e) => {
 								e.preventDefault()
-								await deleteConversation(conversation.id)
+								await deleteConversation(conversation.id!)
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (isHighlight)
-									router.push('/chat')
+									router.push(getChatUrl({ model_platform }))
 							}}/>
 					</div>
 				)
@@ -78,6 +81,6 @@ export const ConversationLineComp: FC<{
 	)
 	
 	return isEditing ? view : (
-		<Link href={`/chat/${conversation.id}`}>{view}</Link>
+		<Link href={getChatUrl({ id: conversation.id, model_platform })}>{view}</Link>
 	)
 }

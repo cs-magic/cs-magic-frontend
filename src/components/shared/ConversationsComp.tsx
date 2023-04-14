@@ -9,15 +9,19 @@ import { useListConversationsQuery } from '@/states/apis/openai/chatgptApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
+import { ModelPlatformType } from '@/ds/message'
+import { getChatUrl } from '@/lib/utils'
 
 export const ConversationsComp: FC<{
 	conversation_id: ID | null
-}> = (props) => {
+	model_platform: ModelPlatformType
+}> = ({conversation_id, model_platform}) => {
 	
 	const user_id = useUserId()
 	const router = useRouter()
 	
-	const { data: conversations = [], isLoading: isLoadingConversations } = useListConversationsQuery(user_id ?? skipToken)
+	const { data: conversations = [], isLoading: isLoadingConversations } =
+		useListConversationsQuery(user_id ? { user_id, model_platform: model_platform } : skipToken)
 	
 	
 	return (
@@ -27,7 +31,7 @@ export const ConversationsComp: FC<{
 				isLoadingConversations ? <CentralLoadingComp/> : (
 					<>
 						<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'} onClick={() => {
-							router.push('/chat')
+							router.push(getChatUrl({model_platform}))
 						}}>
 							<IconPlus size={16}/>
 							<p>New Chat</p>
@@ -42,7 +46,8 @@ export const ConversationsComp: FC<{
 									<ConversationLineComp
 										key={conversation.id}
 										conversation={conversation}
-										isHighlight={props.conversation_id === conversation.id}
+										model_platform={model_platform}
+										isHighlight={conversation_id === conversation.id}
 									/>)
 							}
 						</div>

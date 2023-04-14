@@ -14,7 +14,8 @@ export interface II18nSchema {
 		}
 		home: string
 		service: {
-			chatgpt: string
+			chatGPT: string
+			dalle: string
 		}
 		user: {
 			planning: string

@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { ContentType, IChatMessage, ModelPlatformType } from '@/ds/message'
 import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
-import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, RoleType } from '@/ds/chatgpt'
+import { RoleType } from '@/ds/chatgpt'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { toast } from '@/hooks/use-toast'
@@ -21,11 +21,11 @@ const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m
 
 export const ConversationComp: FC<{
 	conversation_id: ID | null
-}> = ({ conversation_id }) => {
+	model_platform: ModelPlatformType
+}> = ({ conversation_id, model_platform }) => {
 	
 	const user_id = useUserId()
 	
-	const [model, setModel] = useState<ChatgptModelType>(CHATGPT_MODEL_35_TURBO)
 	const [messages, setMessages] = useState<IChatMessage[]>([])
 	
 	const { data: initMessages = [], isFetching: isFetchingMessages, isSuccess } =
@@ -59,7 +59,7 @@ export const ConversationComp: FC<{
 		refMessageSend.current!.value = ''
 		
 		if (!conversation_id) {
-			conversation_id = (await createConversation({ user_id, model }).unwrap()).id
+			conversation_id = (await createConversation({ user_id, model_platform: ModelPlatformType.dalle }).unwrap()).id!
 			console.log('created conversation: ', conversation_id)
 		}
 		
@@ -70,7 +70,7 @@ export const ConversationComp: FC<{
 			content,
 			content_type: ContentType.text,
 			time: Date.now(),
-			model_platform: ModelPlatformType.chatgpt,
+			model_platform: ModelPlatformType.dalle,
 		}
 		setMessages((messages) => [...messages, msg])
 		
@@ -85,7 +85,7 @@ export const ConversationComp: FC<{
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				Model: {model}{userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
+				Model: Dalle 2 {userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
@@ -138,7 +138,7 @@ export const ConversationComp: FC<{
 							<Button size={'sm'}>Conversations</Button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
-							<ConversationsComp conversation_id={conversation_id}/>
+							<ConversationsComp conversation_id={conversation_id} model_platform={model_platform}/>
 						</SheetContent>
 					</Sheet>
 					<Button size={'sm'} onClick={onSubmit}>Send</Button>

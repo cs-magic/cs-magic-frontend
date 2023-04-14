@@ -88,11 +88,12 @@ export const navbarItems: INavbarItem[][] = [
 		{ href: '/', name: u.routes.home },
 	],
 	[
-		{ href: '/chat', name: u.routes.service.chatgpt },
+		{ href: '/apps/chatGPT', name: u.routes.service.chatGPT },
+		{ href: '/apps/dalle', name: u.routes.service.dalle },
 	],
 	[
 		{ href: '/user-planning', name: u.routes.user.planning },
-		{ href: '/wall-messages', name: u.routes.user.wall},
+		{ href: '/wall-messages', name: u.routes.user.wall },
 	],
 	[
 		{ href: '/about/versions', name: u.routes.about.versions },

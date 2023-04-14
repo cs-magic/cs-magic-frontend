@@ -1,7 +1,7 @@
 import baseApi from '@/states/apis/baseApi'
 import { ID } from '@/ds/general'
-import { IChatMessage } from '@/ds/message'
-import { IChatgptConversation, IChatgptCreateUserConversation } from '@/ds/chatgpt'
+import { ContentType, IChatMessage, ModelPlatformType } from '@/ds/message'
+import { IChatGPTConversation, ICreateChatGPTConversation, ICreateConversation } from '@/ds/chatgpt'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
 import { IUserBasic } from '@/ds/user'
 
@@ -34,12 +34,13 @@ export const chatgptApi = baseApi
 			
 			//// conversation
 			
-			listConversations: builder.query<IChatgptConversation[], ID>({
-				query: (user_id) => `/openai/conversation/?user_id=${user_id}`,
+			listConversations: builder.query<IChatGPTConversation[], { user_id: ID, model_platform: ModelPlatformType }>({
+				query: (arg) => `/openai/conversation/?user_id=${arg.user_id}&model_platform=${arg.model_platform}`,
 				providesTags: ['conversations'],
 			}),
 			
-			createConversation: builder.mutation<IChatgptConversation, IChatgptCreateUserConversation>({
+			// todo: 晚点再兼容
+			createConversation: builder.mutation<IChatGPTConversation, ICreateConversation>({
 				query: (body) => ({
 					url: `/openai/conversation/`,
 					method: 'post',
@@ -48,7 +49,7 @@ export const chatgptApi = baseApi
 				invalidatesTags: ['conversations'],
 			}),
 			
-			updateConversation: builder.mutation<IChatgptConversation, Partial<IChatgptConversation> & { id: ID }>({
+			updateConversation: builder.mutation<IChatGPTConversation, Partial<IChatGPTConversation> & { id: ID }>({
 				query: (body) => ({
 					url: '/openai/conversation/',
 					method: 'PATCH',

@@ -1,17 +1,26 @@
 import { ID } from '@/ds/general'
+import { ModelPlatformType } from '@/ds/message'
 
 
-export interface IChatgptCreateUserConversation {
+export interface ICreateConversation {
 	user_id: ID
-	model: string
+	name?: string
+	time?: string
+	id?: ID
+	model_platform?: ModelPlatformType
 }
 
 
-export interface IChatgptConversation extends IChatgptCreateUserConversation {
-	id: ID
-	time: number
+export interface ICreateChatGPTConversation extends ICreateConversation {
+	model: string
+}
+
+export interface ICreateDalleConversation extends ICreateConversation {
+
+}
+
+export interface IChatGPTConversation extends ICreateChatGPTConversation {
 	start?: number
-	name: string
 }
 
 

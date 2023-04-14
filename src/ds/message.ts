@@ -9,7 +9,7 @@ export enum ContentType {
 
 
 export enum ModelPlatformType {
-	chatgpt = 'chatgpt',
+	chatgpt = 'chatGPT',
 	dalle = 'dalle',
 }
 
