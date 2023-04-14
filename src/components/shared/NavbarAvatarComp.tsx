@@ -15,7 +15,7 @@ import { useUploadFileMutation } from '@/states/apis/baseApi'
 
 export const NavbarAvatarComp = () => {
 	const user = useUser()
-	const userId = user.basic.id
+	const userId = user.id
 	const { toast } = useToast()
 	const [updateUserBasic, { isSuccess }] = useUpdateUserBasicMutation()
 	const [uploadFile] = useUploadFileMutation()

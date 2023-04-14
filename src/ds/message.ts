@@ -14,7 +14,7 @@ export enum ModelPlatformType {
 }
 
 
-export interface IChatMessageReq {
+export interface IChatMessage {
 	time: number
 	user_id: ID // 为 update token 方便
 	conversation_id: ID
@@ -23,8 +23,4 @@ export interface IChatMessageReq {
 	role: RoleType
 	content_type: ContentType
 	model_platform: ModelPlatformType
-}
-
-
-export interface IChatMessageRes extends IChatMessageReq {
 }

@@ -1,12 +1,10 @@
 import Link from 'next/link'
 import { IconMessageCircle, IconPencil, IconSquareRoundedX } from '@tabler/icons-react'
-import { useAppSelector } from '@/states/hooks'
 import { useRouter } from 'next/router'
 import { Button } from '@/components/ui/button'
 import { clsx } from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { selectUserId } from '@/states/features/userSlice'
 import { IChatgptConversation } from '@/ds/chatgpt'
 import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/openai/chatgptApi'
 
@@ -15,13 +13,12 @@ export const ConversationLineComp: FC<{
 	isHighlight?: boolean
 }> = ({ conversation, isHighlight }) => {
 	const router = useRouter()
-	const user_id = useAppSelector(selectUserId)!
 	
 	const [isEditing, setEditing] = useState(false)
 	const refInput = useRef<HTMLInputElement>(null)
 	
-	const [deleteConversation, {}] = useDeleteConversationMutation()
-	const [updateConversation, {}] = useUpdateConversationMutation()
+	const [deleteConversation] = useDeleteConversationMutation()
+	const [updateConversation] = useUpdateConversationMutation()
 	
 	useEffect(() => {
 		if (isEditing) {
@@ -46,10 +43,7 @@ export const ConversationLineComp: FC<{
 						onKeyDown={async (event) => {
 							if (event.key === 'Enter') {
 								setEditing(false)
-								const name = event.currentTarget.value
-								updateConversation({ id: conversation.id, name })
-								// await updateChatgptConversationName({ user_id, id: conversation.id, model: conversation.model }, name)
-								// await dispatch(setConversationName({ id: conversation.id, name }))
+								await updateConversation({ id: conversation.id, name: event.currentTarget.value })
 							}
 						}}
 						onBlur={() => setEditing(false)}
@@ -69,9 +63,9 @@ export const ConversationLineComp: FC<{
 						
 						<IconSquareRoundedX
 							className={'text-red-500'}
-							onClick={(e) => {
+							onClick={async (e) => {
 								e.preventDefault()
-								deleteConversation(conversation.id)
+								await deleteConversation(conversation.id)
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (isHighlight)
 									router.push('/chat')

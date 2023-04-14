@@ -7,19 +7,18 @@ import { AvatarView } from '@/components/views/AvatarView'
 import { IconDotsVertical, IconThumbDown, IconThumbUp } from '@tabler/icons-react'
 import { IWallMessage } from '@/ds/wall-messages'
 import { useCreateWallMessageMutation, useListWallMessagesQuery, useVoteWallMessageMutation } from '@/states/apis/wallMessagesApi'
-import { useAppSelector } from '@/states/hooks'
-import { selectUserId } from '@/states/features/userSlice'
 import { clsx } from 'clsx'
 import { toast, useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { u } from '@/config'
+import { useUserId } from '@/hooks/use-user'
 
 
 export const WallMessageComp: FC<IWallMessage> = (props) => {
 	
 	const [voteWallMessage, result] = useVoteWallMessageMutation()
-	const user_id = useAppSelector(selectUserId)
+	const user_id = useUserId()
 	
 	const { toast } = useToast()
 	
@@ -47,8 +46,9 @@ export const WallMessageComp: FC<IWallMessage> = (props) => {
 					className={'inline-flex items-center gap-2'}
 					variant={'ghost'}
 					size={'sm'}
-					disabled={result.isLoading || props.voters_up.includes(user_id)}
+					disabled={result.isLoading || (user_id ? props.voters_up.includes(user_id) : false)}
 					onClick={() => {
+						if (!user_id) return toast({ title: '登录后才可以投票', variant: 'destructive' })
 						voteWallMessage({ user_id, id: props.id, value: 1 })
 					}}>
 					<IconThumbUp
@@ -61,8 +61,9 @@ export const WallMessageComp: FC<IWallMessage> = (props) => {
 					className={'inline-flex items-center gap-2'}
 					variant={'ghost'}
 					size={'sm'}
-					disabled={result.isLoading || props.voters_down.includes(user_id)}
+					disabled={result.isLoading || (user_id ? props.voters_down.includes(user_id) : false)}
 					onClick={() => {
+						if (!user_id) return toast({ title: '登录后才可以投票', variant: 'destructive' })
 						voteWallMessage({ user_id, id: props.id, value: -1 })
 					}}>
 					<IconThumbDown className={'text-gray-500'}/>
@@ -90,7 +91,7 @@ export const WallMessagesPage: NextPage = () => {
 	
 	const { data: wallMessages } = useListWallMessagesQuery()
 	const [createWallMessage, { isLoading, isError, isSuccess }] = useCreateWallMessageMutation()
-	const poster_id = useAppSelector(selectUserId)
+	const poster_id = useUserId()
 	const refTitleInput = useRef<HTMLInputElement>(null)
 	const refContentInput = useRef<HTMLTextAreaElement>(null)
 	
@@ -113,6 +114,7 @@ export const WallMessagesPage: NextPage = () => {
 						console.log({ event })
 						const title = event.currentTarget.wmTitle?.value
 						const content = event.currentTarget.wmContent?.value
+						if (!poster_id) return toast({ title: '登录后才可以提交', variant: 'destructive' })
 						if (!title) return toast({ title: '标题不能为空', variant: 'destructive' })
 						if (!content) return toast({ title: '内容不能为空', variant: 'destructive' })
 						createWallMessage({ poster_id, title, content })

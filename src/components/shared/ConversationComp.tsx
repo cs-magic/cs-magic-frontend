@@ -8,37 +8,49 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
-import { ContentType, IChatMessageReq, IChatMessageRes, ModelPlatformType } from '@/ds/message'
-import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery } from '@/states/apis/openai/chatgptApi'
-import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, IChatgptConversation, RoleType } from '@/ds/chatgpt'
+import { ContentType, IChatMessage, ModelPlatformType } from '@/ds/message'
+import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
+import { CHATGPT_MODEL_35_TURBO, ChatgptModelType, RoleType } from '@/ds/chatgpt'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { toast } from '@/hooks/use-toast'
+import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
+
+const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
+
 
 export const ConversationComp: FC<{
-	conversations: IChatgptConversation[]
 	conversation_id: ID | null
-	initMessages: IChatMessageRes[]
-}> = (props) => {
-	console.log(props.initMessages)
+}> = ({ conversation_id }) => {
+	
+	const user_id = useUserId()
+	
+	const [model, setModel] = useState<ChatgptModelType>(CHATGPT_MODEL_35_TURBO)
+	const [messages, setMessages] = useState<IChatMessage[]>([])
+	
+	const { data: initMessages = [], isFetching: isFetchingMessages, isSuccess } =
+		// ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
+		useListMessagesQuery(conversation_id ?? skipToken, { refetchOnMountOrArgChange: true })
+	const [askChatGPT, { isLoading: isLoadingResponse }] = useAskChatGPTMutation()
+	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
+	const [createConversation, {}] = useCreateConversationMutation()
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	const user_id = useUserId()
-	const [model, setModel] = useState<ChatgptModelType>(CHATGPT_MODEL_35_TURBO)
-	
-	const [cid, setCid] = useState<ID | null>(props.conversation_id)
-	const [messages, setMessages] = useState<IChatMessageRes[]>([])
-	
-	const [askChatGPT, { isLoading }] = useAskChatGPTMutation()
-	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
-	const [createConversation, {}] = useCreateConversationMutation()
 	
 	useEffect(() => {
-		setMessages(props.initMessages)
-	}, [props.initMessages])
+			console.log({ conversation_id, isSuccess, initMessages })
+			
+			if (!conversation_id) {
+				setMessages([])
+			} else {
+				setMessages(initMessages)
+			}
+		},
+		[conversation_id, initMessages])
 	
+	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
 	const onSubmit = async () => {
 		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
@@ -46,14 +58,12 @@ export const ConversationComp: FC<{
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		
-		let conversation_id = cid
 		if (!conversation_id) {
-			const res = await createConversation({ user_id, model }).unwrap() // ref: https://stackoverflow.com/a/73194610/9422455
-			conversation_id = res.id
-			setCid(conversation_id)
+			conversation_id = (await createConversation({ user_id, model }).unwrap()).id
+			console.log('created conversation: ', conversation_id)
 		}
 		
-		const msg: IChatMessageReq = {
+		const msg: IChatMessage = {
 			user_id,
 			conversation_id,
 			role: RoleType.user,
@@ -68,11 +78,9 @@ export const ConversationComp: FC<{
 		setMessages((messages) => [...messages, res])
 	}
 	
-	const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 	
-	useEffect(() => {
-		refMessageEnd.current!.scrollIntoView({ behavior: 'smooth' })
-	}, [messages.length])
+	if (isFetchingMessages) return <CentralLoadingComp/>
+	
 	
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
@@ -95,7 +103,7 @@ export const ConversationComp: FC<{
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
 			
-			{isLoading && (
+			{isLoadingResponse && (
 				<div className={'w-full'}>
 					<div className={c}>
 						<div className={'px-2 inline-flex items-center w-full gap-4'}>
@@ -130,7 +138,7 @@ export const ConversationComp: FC<{
 							<Button size={'sm'}>Conversations</Button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
-							<ConversationsComp conversation_id={props.conversation_id} conversations={props.conversations}/>
+							<ConversationsComp conversation_id={conversation_id}/>
 						</SheetContent>
 					</Sheet>
 					<Button size={'sm'} onClick={onSubmit}>Send</Button>

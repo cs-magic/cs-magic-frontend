@@ -1,11 +1,10 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '@/components/ui/button'
-import { useAppSelector } from '@/states/hooks'
-import { selectUserBasic } from '@/states/features/userSlice'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
 import Image from 'next/image'
 import { AspectRatio } from '../ui/aspect-ratio'
+import { useUser } from '@/hooks/use-user'
 
 
 export enum UserPlanningCharge {
@@ -14,7 +13,7 @@ export enum UserPlanningCharge {
 }
 
 export const UserPlanningComp = () => {
-	const user = useAppSelector(selectUserBasic)!
+	const user = useUser()
 	
 	return (
 		<Dialog>
@@ -27,7 +26,7 @@ export const UserPlanningComp = () => {
 					<DialogTitle>Change Planning</DialogTitle>
 				</DialogHeader>
 				
-				<div>current planning: {user.planning}</div>
+				<div>current planning: {user.basic.planning}</div>
 				
 				<Tabs defaultValue={UserPlanningCharge.manual}>
 					<TabsList>

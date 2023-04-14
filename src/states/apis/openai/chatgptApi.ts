@@ -1,6 +1,6 @@
 import baseApi from '@/states/apis/baseApi'
 import { ID } from '@/ds/general'
-import { IChatMessageReq, IChatMessageRes } from '@/ds/message'
+import { IChatMessage } from '@/ds/message'
 import { IChatgptConversation, IChatgptCreateUserConversation } from '@/ds/chatgpt'
 import { IUserChatgpt } from '@/ds/chatgpt_v2'
 import { IUserBasic } from '@/ds/user'
@@ -67,21 +67,21 @@ export const chatgptApi = baseApi
 			}),
 			
 			//// message
-			listMessages: builder.query<IChatMessageRes[], ID>({
+			listMessages: builder.query<IChatMessage[], ID>({
 				query: (conversation_id) => ({
 					url: `/openai/conversation/messages`,
 					params: { conversation_id },
 					method: 'get',
 				}),
+				providesTags: ['conversation'],
 			}),
 			
-			askChatGPT: builder.mutation<IChatMessageRes, IChatMessageReq>({
+			askChatGPT: builder.mutation<IChatMessage, IChatMessage>({
 				query: (body) => ({
 					url: `/openai/conversation/chat/chatgpt`,
 					method: 'post',
 					body,
 				}),
-				invalidatesTags: (result, error, arg, meta) => [{ type: 'conversation', user_id: arg.user_id }],
 				// 实时聊天就不要一直重置刷新了，主要是涉及到了客户端和服务端双层的信息
 			}),
 		}),
