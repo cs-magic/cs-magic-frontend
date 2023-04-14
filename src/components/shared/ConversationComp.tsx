@@ -13,7 +13,6 @@ import { ContentType, IChatMessage, ModelPlatformType, RoleType } from '@/ds/ope
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { toast } from '@/hooks/use-toast'
-import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -76,7 +75,8 @@ export const ConversationComp: FC<{
 	}
 	
 	
-	if (isFetchingMessages) return <CentralLoadingComp/>
+	// 这个加了会闪屏，还是不要加了，温和点
+	// if (isFetchingMessages) return <CentralLoadingComp/>
 	
 	
 	return (
