@@ -10,7 +10,7 @@ export const AvatarView = ({ user, ...props }: {
 	return (
 		<Avatar {...props}>
 			<AvatarImage src={user.avatar}/>
-			<AvatarFallback className={'text-sm'}>{(user.name || u.website.avatarPlaceholder).slice(0, 2)}</AvatarFallback>
+			<AvatarFallback className={'text-sm'}>{(user.name || user.email || u.website.avatarPlaceholder).slice(0, 2)}</AvatarFallback>
 		</Avatar>
 	)
 }
