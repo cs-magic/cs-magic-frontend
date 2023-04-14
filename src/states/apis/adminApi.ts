@@ -9,7 +9,7 @@ export const adminApi = baseApi
 		endpoints: (build) => ({
 			
 			listUserStates: build.query<UserState[], void>({
-				query: () => `/admin/users/`,
+				query: () => `/admin/users`,
 			}),
 			
 		}),
