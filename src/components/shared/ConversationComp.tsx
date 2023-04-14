@@ -44,7 +44,7 @@ export const ConversationComp: FC<{
 			
 			if (!conversation_id) {
 				setMessages([])
-			} else {
+			} else if (initMessages) { // 这里如果不加if，会直接无线循环！
 				setMessages(initMessages)
 			}
 		},
