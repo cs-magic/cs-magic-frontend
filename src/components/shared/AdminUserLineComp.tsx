@@ -7,6 +7,7 @@ import { AvatarView } from '@/components/views/AvatarView'
 import { useUpdateUserChatGPTMutation } from '@/states/apis/openai/chatgptApi'
 import { useUpdateUserBasicMutation } from '@/states/apis/userApi'
 import { IUserChatgpt } from '@/ds/openai'
+import { toast } from '@/hooks/use-toast'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: UserState
@@ -78,6 +79,7 @@ export const AdminUserLineComp = ({ user, index }: {
 				<Button size={'sm'} onClick={async () => {
 					await updateUserBasic({ ...userBasicData, id: user.id! })
 					await updateUserChatGPT({ ...userChatgptData, id: user.id! })
+					toast({title: `updated user(id=${user.id})`})
 				}}>Confirm</Button>
 			</td>
 		
