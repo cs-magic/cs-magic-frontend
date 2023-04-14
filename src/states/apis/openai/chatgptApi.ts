@@ -23,7 +23,7 @@ export const chatgptApi = baseApi
 				Partial<IUserChatgpt> & { id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
-					url: `/openai/user`,
+					url: `/openai/user/${data.id}`,
 					method: 'PATCH',
 					body: data,
 				}),

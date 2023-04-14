@@ -18,7 +18,7 @@ export const userApi = baseApi
 				Partial<IUserBasic> & { id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
-					url: `/user/`,
+					url: `/user/${data.id}`,
 					method: 'PATCH',
 					body: data,
 				}),
