@@ -99,6 +99,7 @@ export const projects: IProjectItem[] = [
 		desc: '镜像ChatGPT',
 		coverUrl: '/screenshots/chatgpt.png',
 		features: ['NEW', '稳定', '免翻'],
+		// todo: 该取消成广场了
 		targetUrl: navbarItems[1][0].href,
 	},
 ]

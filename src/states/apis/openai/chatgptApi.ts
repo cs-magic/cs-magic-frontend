@@ -23,7 +23,7 @@ export const chatgptApi = baseApi
 				Partial<IUserChatgpt> & { id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
-					url: `/openai/user/`,
+					url: `/openai/user`,
 					method: 'PATCH',
 					body: data,
 				}),
@@ -33,14 +33,14 @@ export const chatgptApi = baseApi
 			//// conversation
 			
 			listConversations: builder.query<IChatGPTConversation[], { user_id: ID, model_platform: ModelPlatformType }>({
-				query: (arg) => `/openai/conversation/?user_id=${arg.user_id}&model_platform=${arg.model_platform}`,
+				query: (arg) => `/openai/conversation?user_id=${arg.user_id}&model_platform=${arg.model_platform}`,
 				providesTags: ['conversations'],
 			}),
 			
 			// todo: 晚点再兼容
 			createConversation: builder.mutation<IChatGPTConversation, ICreateConversation>({
 				query: (body) => ({
-					url: `/openai/conversation/`,
+					url: `/openai/conversation`,
 					method: 'post',
 					body,
 				}),
@@ -49,7 +49,7 @@ export const chatgptApi = baseApi
 			
 			updateConversation: builder.mutation<IChatGPTConversation, Partial<IChatGPTConversation> & { id: ID }>({
 				query: (body) => ({
-					url: '/openai/conversation/',
+					url: '/openai/conversation',
 					method: 'PATCH',
 					body,
 				}),
