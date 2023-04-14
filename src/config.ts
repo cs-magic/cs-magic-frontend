@@ -5,16 +5,6 @@ import { IFeature } from '@/ds/general'
 import { INavbarItem } from '@/components/shared/NavBarComp'
 import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
-export const projects: IProjectItem[] = [
-	{
-		name: 'ChatGPT',
-		desc: '镜像ChatGPT',
-		coverUrl: '/screenshots/chatgpt.png',
-		features: ['NEW', '稳定', '免翻'],
-		targetUrl: '/chat',
-	},
-]
-
 export const u = schemaCN
 
 export const generalFeatures: IFeature[] = [
@@ -100,4 +90,15 @@ export const navbarItems: INavbarItem[][] = [
 		{ href: '/about/sponsors', name: u.routes.about.sponsors },
 		{ href: '/about/us', name: u.routes.about.us },
 	],
+]
+
+
+export const projects: IProjectItem[] = [
+	{
+		name: 'ChatGPT',
+		desc: '镜像ChatGPT',
+		coverUrl: '/screenshots/chatgpt.png',
+		features: ['NEW', '稳定', '免翻'],
+		targetUrl: navbarItems[1][0].href,
+	},
 ]
