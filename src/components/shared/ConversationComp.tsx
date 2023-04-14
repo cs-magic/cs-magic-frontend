@@ -55,7 +55,7 @@ export const ConversationComp: FC<{
 		refMessageSend.current!.value = ''
 		
 		if (!conversation_id) {
-			conversation_id = (await createConversation({ user_id, model_platform: ModelPlatformType.dalle }).unwrap()).id!
+			conversation_id = (await createConversation({ user_id, model_platform }).unwrap()).id!
 			console.log('created conversation: ', conversation_id)
 		}
 		
@@ -66,7 +66,7 @@ export const ConversationComp: FC<{
 			content,
 			content_type: ContentType.text,
 			time: Date.now(),
-			model_platform: ModelPlatformType.dalle,
+			model_platform,
 		}
 		setMessages((messages) => [...messages, msg])
 		
