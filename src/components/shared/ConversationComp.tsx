@@ -33,22 +33,22 @@ export const ConversationComp: FC<{
 		useListMessagesQuery(conversation_id ?? skipToken, { refetchOnMountOrArgChange: true })
 	const [askChatGPT, { isLoading: isLoadingResponse }] = useAskChatGPTMutation()
 	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
-	const [createConversation, {}] = useCreateConversationMutation()
+	const [createConversation] = useCreateConversationMutation()
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
 	
 	useEffect(() => {
-			console.log({ conversation_id, isSuccess, initMessages })
-			
-			if (!conversation_id) {
-				setMessages([])
-			} else if (initMessages) { // 这里如果不加if，会直接无线循环！
-				setMessages(initMessages)
-			}
-		},
-		[conversation_id, initMessages])
+		console.log({ isSuccess, initMessages })
+		if (isSuccess)
+			setMessages(initMessages)
+	}, [isSuccess]) // 不能用 initMessages 因为哈希是固定的，也不能用 length
+	
+	useEffect(() => {
+		console.log({ conversation_id })
+		if (!conversation_id) setMessages([])
+	}, [conversation_id])
 	
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
