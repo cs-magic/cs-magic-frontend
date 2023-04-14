@@ -24,12 +24,18 @@ export const ConversationComp: FC<{
 }> = ({ conversation_id, model_platform }) => {
 	
 	const user_id = useUserId()
-	
 	const [messages, setMessages] = useState<IChatMessage[]>([])
 	
-	const { data: initMessages = [], isFetching: isFetchingMessages, isSuccess } =
-		// ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
-		useListMessagesQuery(conversation_id ?? skipToken, { refetchOnMountOrArgChange: true })
+	const { currentData: _messages = [], isFetching: isFetchingMessages } =
+		useListMessagesQuery(conversation_id ?? skipToken, {
+			refetchOnMountOrArgChange: true, // 每次切换得获得新的数据, ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
+		})
+	
+	useEffect(() => {
+		if (_messages.length)
+			setMessages(_messages)
+	}, [_messages])
+	
 	const [askChatGPT, { isLoading: isLoadingResponse }] = useCallOpenAIMutation()
 	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
 	const [createConversation] = useCreateConversationMutation()
@@ -37,15 +43,7 @@ export const ConversationComp: FC<{
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	
 	useEffect(() => {
-		console.log({ isSuccess, initMessages })
-		if (isSuccess)
-			setMessages(initMessages)
-	}, [isSuccess]) // 不能用 initMessages 因为哈希是固定的，也不能用 length
-	
-	useEffect(() => {
-		console.log({ conversation_id })
 		if (!conversation_id) setMessages([])
 	}, [conversation_id])
 	

@@ -1,5 +1,27 @@
 # notes
 
+## rtk query relative
+
+![img.png](imgs/rkt-comparison-between-data-and-currentData.png)
+
+rtk query 真地东西好多，有data和currentData之分，这个问题竟然搞了一晚上+一下午才明白……
+
+这个问题trigger的点在于，正常的api设计，会在iSuccess后触发回调，但在rtk query里，isSuccess之时，只是代表数据请求成功，但数据还没返回（其中data会是原先的数据（留存），currentData则为空）。
+
+直到数据完全接收后，data = currentData = 收回的数据，这时候 isSuccess依旧是true。
+
+这导致如果我们在 useEffect 里 基于 isSuccess 去更新数据状态，会不符合预期。
+
+所以最好的办法，就是给这个 data 生成一个id，然后 dependencies里设置为这个id，（不能直接用data作为dependencies，因为每次都会视为不同，导致无限刷新）。
+
+终极解决方案：
+
+直接监控 currentData 因为它在数据完整获取时为有数据，获取时为空，完美匹配有效数据场景。
+
+![img_1.png](imgs/rtk-currentData-solution.png)
+
+主要参考：https://redux-toolkit.js.org/rtk-query/usage/queries#query-hook-options
+
 ## markdown relative
 
 ### add mdx support
