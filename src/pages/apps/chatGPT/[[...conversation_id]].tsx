@@ -6,7 +6,7 @@ import { ConversationComp } from '@/components/shared/ConversationComp'
 import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
-import { ModelPlatformType } from '@/ds/message'
+import { ModelPlatformType } from '@/ds/openai'
 
 export const ConversationPage = () => {
 	

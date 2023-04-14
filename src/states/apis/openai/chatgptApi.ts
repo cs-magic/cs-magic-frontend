@@ -1,8 +1,6 @@
 import baseApi from '@/states/apis/baseApi'
 import { ID } from '@/ds/general'
-import { ContentType, IChatMessage, ModelPlatformType } from '@/ds/message'
-import { IChatGPTConversation, ICreateChatGPTConversation, ICreateConversation } from '@/ds/chatgpt'
-import { IUserChatgpt } from '@/ds/chatgpt_v2'
+import { ContentType, IChatGPTConversation, IChatMessage, ICreateChatGPTConversation, ICreateConversation, IUserChatgpt, ModelPlatformType } from '@/ds/openai'
 import { IUserBasic } from '@/ds/user'
 
 
@@ -77,9 +75,10 @@ export const chatgptApi = baseApi
 				providesTags: ['conversation'],
 			}),
 			
-			askChatGPT: builder.mutation<IChatMessage, IChatMessage>({
+			// todo: unify this
+			callOpenAI: builder.mutation<IChatMessage, IChatMessage>({
 				query: (body) => ({
-					url: `/openai/conversation/chat/chatgpt`,
+					url: `/openai/conversation/chat`,
 					method: 'post',
 					body,
 				}),
@@ -104,5 +103,5 @@ export const {
 	useGetUserChatGPTQuery,
 	useUpdateUserChatGPTMutation,
 	
-	useAskChatGPTMutation,
+	useCallOpenAIMutation,
 } = chatgptApi

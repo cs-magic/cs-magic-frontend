@@ -6,7 +6,7 @@ import { ConversationComp } from '@/components/shared/ConversationComp'
 import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
-import { ModelPlatformType } from '@/ds/message'
+import { ModelPlatformType } from '@/ds/openai'
 
 export const ConversationPage = () => {
 	
@@ -15,7 +15,7 @@ export const ConversationPage = () => {
 	const conversation_id = ensureSole(router.query.conversation_id || null)
 	
 	return (
-		<RootLayout title={u.routes.service.chatGPT}>
+		<RootLayout title={u.routes.service.dalle}>
 			{
 				!user_id ? <CentralLoadingComp/> : (
 					<div className={'w-full h-full flex'}>

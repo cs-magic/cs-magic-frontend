@@ -1,15 +1,15 @@
-import { IChatgptMessage } from '@/ds/chatgpt_v2'
 import { clsx } from 'clsx'
 import { IconBrandOpenai } from '@tabler/icons-react'
 import { AvatarView } from '@/components/views/AvatarView'
+import { ContentType, IChatMessage, RoleType } from '@/ds/openai'
+import { useUser } from '@/hooks/use-user'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-import { RoleType } from '@/ds/chatgpt'
-import { useUser } from '@/hooks/use-user'
+import Image from 'next/image'
 
 
 export const MessageComp = ({ msg }: {
-	msg: IChatgptMessage
+	msg: IChatMessage
 }) => {
 	const userBasic = useUser().basic
 	
@@ -29,17 +29,23 @@ export const MessageComp = ({ msg }: {
 					}
 				</div>
 				
-				<article className={'prose'}>
-					<ReactMarkdown
-						className={'grow'}
-						remarkPlugins={[]}
-						rehypePlugins={[
-							[rehypeHighlight, { ignoreMissing: true }],
-						]}
-					>
-						{msg.content}
-					</ReactMarkdown>
-				</article>
+				{
+					msg.content_type === ContentType.text ? (
+						<article className={'prose'}>
+							<ReactMarkdown
+								className={'grow'}
+								remarkPlugins={[]}
+								rehypePlugins={[
+									[rehypeHighlight, { ignoreMissing: true }],
+								]}
+							>
+								{msg.content}
+							</ReactMarkdown>
+						</article>
+					) : (
+						<Image src={msg.content} alt={msg.content} width={256} height={256}/>
+					)
+				}
 			</div>
 		</div>
 	)

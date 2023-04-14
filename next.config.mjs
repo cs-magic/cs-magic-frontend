@@ -1,6 +1,9 @@
 import remarkGfm from "remark-gfm";
 import createMDX from "@next/mdx";
 
+const allDomains = [// ref:https://stackoverflow.com/a/73951135/9422455
+	{protocol: "http", hostname: "**"}, {protocol: "https", hostname: "**"},
+]
 
 // mdx support, ref: https://nextjs.org/docs/advanced-features/using-mdx
 const withMDX = createMDX({
@@ -26,6 +29,12 @@ const nextConfig = {
 	reactStrictMode: true,
 	
 	distDir: '.' + (process.env.ENV || 'next'),
+	
+	// ref: https://nextjs.org/docs/api-reference/next/image#remote-patterns
+	images: {
+		remotePatterns: allDomains
+	},
+	
 }
 
 // Merge MDX config with Next.js config

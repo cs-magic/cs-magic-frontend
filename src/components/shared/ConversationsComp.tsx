@@ -9,8 +9,8 @@ import { useListConversationsQuery } from '@/states/apis/openai/chatgptApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
-import { ModelPlatformType } from '@/ds/message'
 import { getChatUrl } from '@/lib/utils'
+import { ModelPlatformType } from '@/ds/openai'
 
 export const ConversationsComp: FC<{
 	conversation_id: ID | null

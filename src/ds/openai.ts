@@ -1,6 +1,34 @@
 import { ID } from '@/ds/general'
-import { ModelPlatformType } from '@/ds/message'
 
+export type ChatgptModelType = 'gpt-3.5-turbo' | 'gpt-4'
+
+export enum ContentType {
+	text = 'text',
+	image_url = 'image_url',
+	
+}
+
+export enum ModelPlatformType {
+	chatgpt = 'chatGPT',
+	dalle = 'dalle',
+}
+
+export enum RoleType {
+	system = 'system',
+	user = 'user',
+	assistant = 'assistant'
+}
+
+export interface IChatMessage {
+	time: number
+	user_id: ID // 为 update token 方便
+	conversation_id: ID
+	
+	content: string
+	role: RoleType
+	content_type: ContentType
+	model_platform: ModelPlatformType
+}
 
 export interface ICreateConversation {
 	user_id: ID
@@ -21,13 +49,6 @@ export interface ICreateDalleConversation extends ICreateConversation {
 
 export interface IChatGPTConversation extends ICreateChatGPTConversation {
 	start?: number
-}
-
-
-export enum RoleType {
-	system = 'system',
-	user = 'user',
-	assistant = 'assistant'
 }
 
 interface IChatModelResChoice {
@@ -54,7 +75,9 @@ export interface IChatModelRes {
 	usage: IChatModelResUsage
 }
 
-export const CHATGPT_MODEL_35_TURBO = 'gpt-3.5-turbo'
-export const CHATGPT_MODEL_4 = 'gpt-4'
-export const chatgptModelTypes = [CHATGPT_MODEL_4, CHATGPT_MODEL_35_TURBO]
-export type ChatgptModelType = typeof chatgptModelTypes[number]
+
+export interface IUserChatgpt {
+	balance: number
+	consumption: number
+	cnt: number
+}

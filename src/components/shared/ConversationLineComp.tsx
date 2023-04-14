@@ -5,9 +5,8 @@ import { Button } from '@/components/ui/button'
 import { clsx } from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { IChatGPTConversation } from '@/ds/chatgpt'
+import { IChatGPTConversation, ModelPlatformType } from '@/ds/openai'
 import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/openai/chatgptApi'
-import { ModelPlatformType } from '@/ds/message'
 import { getChatUrl } from '@/lib/utils'
 
 export const ConversationLineComp: FC<{

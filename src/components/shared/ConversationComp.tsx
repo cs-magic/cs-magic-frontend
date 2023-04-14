@@ -8,9 +8,8 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
-import { ContentType, IChatMessage, ModelPlatformType } from '@/ds/message'
-import { useAskChatGPTMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
-import { RoleType } from '@/ds/chatgpt'
+import { useCallOpenAIMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
+import { ContentType, IChatMessage, ModelPlatformType, RoleType } from '@/ds/openai'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { toast } from '@/hooks/use-toast'
@@ -31,7 +30,7 @@ export const ConversationComp: FC<{
 	const { data: initMessages = [], isFetching: isFetchingMessages, isSuccess } =
 		// ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
 		useListMessagesQuery(conversation_id ?? skipToken, { refetchOnMountOrArgChange: true })
-	const [askChatGPT, { isLoading: isLoadingResponse }] = useAskChatGPTMutation()
+	const [askChatGPT, { isLoading: isLoadingResponse }] = useCallOpenAIMutation()
 	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
 	const [createConversation] = useCreateConversationMutation()
 	

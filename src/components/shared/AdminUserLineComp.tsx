@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
-import { IUserChatgpt } from '@/ds/chatgpt_v2'
 import { useUpdateUserChatGPTMutation } from '@/states/apis/openai/chatgptApi'
 import { useUpdateUserBasicMutation } from '@/states/apis/userApi'
+import { IUserChatgpt } from '@/ds/openai'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: UserState

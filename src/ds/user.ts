@@ -1,5 +1,5 @@
 import { ID } from '@/ds/general'
-import { IUserChatgpt } from '@/ds/chatgpt_v2'
+import { IUserChatgpt } from '@/ds/openai'
 
 export enum UserPlanningType {
 	guest = 'guest',
