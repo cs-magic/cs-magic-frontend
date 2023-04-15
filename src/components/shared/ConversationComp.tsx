@@ -82,7 +82,7 @@ export const ConversationComp: FC<{
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				Model: Dalle 2 {userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
+				Model: {model_platform} {userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
