@@ -1,4 +1,4 @@
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 
 export const RTK_TAG_DALLE = 'RTK_TAG_DALLE'
 

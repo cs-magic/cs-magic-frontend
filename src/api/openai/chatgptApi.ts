@@ -1,4 +1,4 @@
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 import { ID } from '@/ds/general'
 import { ContentType, IChatGPTConversation, IChatMessage, ICreateChatGPTConversation, ICreateConversation, IUserChatgpt, ModelPlatformType } from '@/ds/openai'
 import { IUserBasic } from '@/ds/user'

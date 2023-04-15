@@ -1,7 +1,7 @@
 import { AdminUserLineComp } from '@/components/shared/AdminUserLineComp'
 import { u } from '@/config'
 import { RootLayout } from '@/layouts/RootLayout'
-import { useListUserStatesQuery } from '@/states/apis/adminApi'
+import { useListUserStatesQuery } from '@/api/adminApi'
 import { useUser } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 

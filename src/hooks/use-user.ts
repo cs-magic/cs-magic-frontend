@@ -1,9 +1,9 @@
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { initUserState, UserState } from '@/ds/user'
-import { useGetUserBasicQuery } from '@/states/apis/userApi'
+import { useGetUserBasicQuery } from '@/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useGetUserChatGPTQuery } from '@/states/apis/openai/chatgptApi'
+import { useGetUserChatGPTQuery } from '@/api/openai/chatgptApi'
 import { ID } from '@/ds/general'
 
 

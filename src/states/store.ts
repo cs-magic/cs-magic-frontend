@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import notificationSlice from '@/states/features/notificationSlice'
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 
 
 const store = configureStore({
@@ -15,6 +15,7 @@ const store = configureStore({
 			logger,
 		]),
 })
+
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 

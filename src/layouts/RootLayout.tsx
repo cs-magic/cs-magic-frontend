@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import { ReactNode, useEffect } from 'react'
 import { NavBarComp } from '@/components/shared/NavBarComp'
-import { useAppSelector } from '@/states/hooks'
 import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
+import { useAppSelector } from '@/hooks/use-redux'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode

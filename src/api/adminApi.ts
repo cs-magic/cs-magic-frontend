@@ -1,4 +1,4 @@
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 import { UserState } from '@/ds/user'
 
 export const adminApi = baseApi

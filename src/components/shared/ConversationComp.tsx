@@ -8,11 +8,11 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
-import { useCallOpenAIMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/states/apis/openai/chatgptApi'
+import { useCallOpenAIMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/api/openai/chatgptApi'
 import { ContentType, IChatMessage, ModelPlatformType, RoleType } from '@/ds/openai'
-import { skipToken } from '@reduxjs/toolkit/query'
+import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
-import { toast } from '@/hooks/use-toast'
+import { useToast } from '@/hooks/use-toast'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -22,6 +22,7 @@ export const ConversationComp: FC<{
 	model_platform: ModelPlatformType
 }> = ({ conversation_id, model_platform }) => {
 	
+	const { toast } = useToast()
 	const user_id = useUserId()
 	const [messages, setMessages] = useState<IChatMessage[]>([])
 	
@@ -35,7 +36,11 @@ export const ConversationComp: FC<{
 			setMessages(_messages)
 	}, [_messages])
 	
-	const [askChatGPT, { isLoading: isLoadingResponse }] = useCallOpenAIMutation()
+	const [askChatGPT, {
+		isLoading: isLoadingResponse,
+		error: openAIError,
+		data: openAIResponse,
+	}] = useCallOpenAIMutation()
 	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
 	const [createConversation] = useCreateConversationMutation()
 	
@@ -45,6 +50,18 @@ export const ConversationComp: FC<{
 	useEffect(() => {
 		if (!conversation_id) setMessages([])
 	}, [conversation_id])
+	
+	useEffect(() => {
+		if (!openAIError) return
+		console.log({openAIError})
+		toast({ title: ((openAIError as FetchBaseQueryError).data as { detail: string }).detail, variant: 'destructive' })
+	}, [openAIError])
+	
+	useEffect(() => {
+		if (!openAIResponse) return
+		console.log({openAIResponse})
+		setMessages([...messages, openAIResponse])
+	}, [openAIResponse])
 	
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
@@ -68,10 +85,10 @@ export const ConversationComp: FC<{
 			time: Date.now(),
 			model_platform,
 		}
+		
 		setMessages((messages) => [...messages, msg])
 		
-		const res = await askChatGPT(msg).unwrap()
-		setMessages((messages) => [...messages, res])
+		await askChatGPT(msg).unwrap()
 	}
 	
 	
@@ -82,7 +99,7 @@ export const ConversationComp: FC<{
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				Model: {model_platform} {userChatGPT?.balance && `, Tokens: ${userChatGPT.balance}`}
+				Model: {model_platform}, Tokens: {userChatGPT?.balance || null}
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}

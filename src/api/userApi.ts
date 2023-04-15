@@ -1,4 +1,4 @@
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 import { IUserBasic } from '@/ds/user'
 import { ID } from '@/ds/general'
 

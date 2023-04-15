@@ -9,9 +9,9 @@ import { Label } from '@/components/ui/label'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useUser } from '@/hooks/use-user'
-import { useUpdateUserBasicMutation } from '@/states/apis/userApi'
+import { useUpdateUserBasicMutation } from '@/api/userApi'
 import { useEffect } from 'react'
-import { useUploadFileMutation } from '@/states/apis/baseApi'
+import { useUploadFileMutation } from '@/api/baseApi'
 
 export const NavbarAvatarComp = () => {
 	const user = useUser()

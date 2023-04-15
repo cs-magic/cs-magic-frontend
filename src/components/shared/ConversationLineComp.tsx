@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { IChatGPTConversation, ModelPlatformType } from '@/ds/openai'
-import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/apis/openai/chatgptApi'
+import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/api/openai/chatgptApi'
 import { getChatUrl } from '@/lib/utils'
 
 export const ConversationLineComp: FC<{

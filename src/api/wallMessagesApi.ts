@@ -1,4 +1,4 @@
-import baseApi from '@/states/apis/baseApi'
+import baseApi from '@/api/baseApi'
 import { IWallMessage, IWallMessageCreate, IWallMessageVote } from '@/ds/wall-messages'
 
 export const wallMessagesApi = baseApi
