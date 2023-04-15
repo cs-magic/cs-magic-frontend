@@ -1,6 +1,6 @@
 import baseApi from '@/api/baseApi'
 import { ID } from '@/ds/general'
-import { ContentType, IChatGPTConversation, IChatMessage, ICreateChatGPTConversation, ICreateConversation, IUserOpenAI, ModelPlatformType } from '@/ds/openai'
+import { IChatGPTConversation, IChatMessage, ICreateConversation, IUserOpenAI, ModelPlatformType } from '@/ds/openai'
 import { IUserBasic } from '@/ds/user'
 
 
@@ -14,18 +14,18 @@ export const chatgptApi = baseApi
 		endpoints: (builder) => ({
 			
 			//// user-chatgpt (especially token relative)
-			getUserChatGPT: builder.query<IUserOpenAI, ID>({
+			getOpenAIUser: builder.query<IUserOpenAI, ID>({
 				query: (user_id) => `/openai/user/${user_id}`,
 				providesTags: ['user-chatgpt'],
 			}),
 			
-			updateUserChatGPT: builder.mutation<IUserBasic,
-				Partial<IUserOpenAI> & { id: ID } // id 一定要有的
+			updateOpenAIUser: builder.mutation<IUserBasic,
+				{ body: Partial<IUserOpenAI>, id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
 					url: `/openai/user/${data.id}`,
 					method: 'PATCH',
-					body: data,
+					body: data.body,
 				}),
 				invalidatesTags: ['user-chatgpt'],
 			}),
@@ -100,8 +100,8 @@ export const {
 	
 	useListMessagesQuery,
 	
-	useGetUserChatGPTQuery,
-	useUpdateUserChatGPTMutation,
+	useGetOpenAIUserQuery,
+	useUpdateOpenAIUserMutation,
 	
 	useCallOpenAIMutation,
 } = chatgptApi

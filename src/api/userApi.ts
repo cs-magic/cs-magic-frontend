@@ -20,23 +20,23 @@ export const userApi = baseApi
 			}),
 			
 			updateUserBasic: build.mutation<IUserBasic,
-				Partial<IUserBasic> & { id: ID } // id 一定要有的
+				{ body: Partial<IUserBasic>, id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
 					url: `/user/${data.id}/basic`,
-					method: 'post',
-					body: data,
+					method: 'patch',
+					body: data.body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
 			}),
 			
 			updateUserOpenAI: build.mutation<IUserOpenAI,
-				Partial<IUserOpenAI> & { id: ID } // id 一定要有的
+				{ body: Partial<IUserOpenAI>, id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
 					url: `/user/${data.id}/openai`,
 					method: 'post',
-					body: data,
+					body: data.body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
 			}),
@@ -47,7 +47,7 @@ export const userApi = baseApi
 export const {
 	useListAllUserQuery,
 	useGetUserQuery,
-	useUpdateUserBasicMutation,
+	useUpdateUserBasicMutation: useUpdateBasicUserMutation,
 	useUpdateUserOpenAIMutation,
 } = userApi
 

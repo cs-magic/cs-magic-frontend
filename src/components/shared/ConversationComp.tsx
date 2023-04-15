@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ConversationsComp } from './ConversationsComp'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
-import { useCallOpenAIMutation, useCreateConversationMutation, useGetUserChatGPTQuery, useListMessagesQuery } from '@/api/openai/chatgptApi'
+import { useCallOpenAIMutation, useCreateConversationMutation, useGetOpenAIUserQuery, useListMessagesQuery } from '@/api/openai/chatgptApi'
 import { ContentType, IChatMessage, ModelPlatformType, RoleType } from '@/ds/openai'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
@@ -41,7 +41,7 @@ export const ConversationComp: FC<{
 		error: openAIError,
 		data: openAIResponse,
 	}] = useCallOpenAIMutation()
-	const { data: userChatGPT } = useGetUserChatGPTQuery(user_id ?? skipToken)
+	const { data: userChatGPT } = useGetOpenAIUserQuery(user_id ?? skipToken)
 	const [createConversation] = useCreateConversationMutation()
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)

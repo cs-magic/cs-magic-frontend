@@ -1,11 +1,11 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { IUserBasic, UserPlanningType, UserRole, IUser } from '@/ds/user'
+import { IUser, IUserBasic, UserPlanningType, UserRole } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
-import { useUpdateUserChatGPTMutation } from '@/api/openai/chatgptApi'
-import { useUpdateUserBasicMutation } from '@/api/userApi'
+import { useUpdateOpenAIUserMutation } from '@/api/openai/chatgptApi'
+import { useUpdateBasicUserMutation } from '@/api/userApi'
 import { IUserOpenAI } from '@/ds/openai'
 import { toast } from '@/hooks/use-toast'
 
@@ -16,8 +16,8 @@ export const AdminUserLineComp = ({ user, index }: {
 	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic!)
 	const [userOpenAIData, setUserOpenAIData] = useState<IUserOpenAI>(user.openai!)
 	
-	const [updateUserBasic] = useUpdateUserBasicMutation()
-	const [updateUserChatGPT] = useUpdateUserChatGPTMutation()
+	const [updateBasicUser] = useUpdateBasicUserMutation()
+	const [updateOpenAIUser] = useUpdateOpenAIUserMutation()
 	
 	if (!user.id) console.error(user)
 	
@@ -77,9 +77,9 @@ export const AdminUserLineComp = ({ user, index }: {
 			
 			<td className={'inline-flex items-center'}>
 				<Button size={'sm'} onClick={async () => {
-					await updateUserBasic(userBasicData)
-					await updateUserChatGPT(userOpenAIData)
-					toast({title: `updated user(id=${user.id})`})
+					await updateBasicUser({ body: userBasicData, id: user.id })
+					await updateOpenAIUser({ body: userOpenAIData, id: user.id })
+					toast({ title: `updated user(id=${user.id})` })
 				}}>Confirm</Button>
 			</td>
 		
