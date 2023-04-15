@@ -14,6 +14,8 @@ export const ConversationPage = () => {
 	const user_id = useUserId()
 	const conversation_id = ensureSole(router.query.conversation_id || null)
 	
+	const model_platform: ModelPlatformType = ModelPlatformType.chatgpt
+	
 	return (
 		<RootLayout title={u.routes.service.chatGPT}>
 			{
@@ -22,11 +24,11 @@ export const ConversationPage = () => {
 						
 						{/* left: conversations */}
 						<div className={'hidden md:block w-[260px]'}>
-							<ConversationsComp conversation_id={conversation_id} model_platform={ModelPlatformType.chatgpt}/>
+							<ConversationsComp conversation_id={conversation_id} model_platform={model_platform}/>
 						</div>
 						
 						{/* right: current conversation */}
-						<ConversationComp conversation_id={conversation_id} model_platform={ModelPlatformType.chatgpt}/>
+						<ConversationComp conversation_id={conversation_id} model_platform={model_platform}/>
 					
 					</div>
 				)
