@@ -44,7 +44,8 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 				// ref: https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
 				callbackUrl: baseUrl,
 			})
-			setStep(step + 1)
+			setLoading(false)
+			if(step === 6) setStep(7)
 		}
 	}
 	
@@ -113,10 +114,6 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 							type="email"
 							name="email"
 							autoFocus
-							onChange={() => {
-								setLoading(false)
-								setStep(6)
-							}}
 							onKeyDown={async (event) => {
 								if (!loading && ['Enter', 'Tab'].includes(event.key)) {
 									event.preventDefault() // suppress built-in validation
