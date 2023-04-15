@@ -1,5 +1,5 @@
 import { ID } from '@/ds/general'
-import { IUserChatgpt } from '@/ds/openai'
+import { IUserOpenAI } from '@/ds/openai'
 
 export enum UserPlanningType {
 	guest = 'guest',
@@ -25,26 +25,11 @@ export interface IUserBasic {
 }
 
 
-export interface UserState {
-	id: ID | null
+export interface IUser {
+	id: ID
 	basic: IUserBasic
-	chatgpt: IUserChatgpt
+	openai: IUserOpenAI
 }
 
-export const initUserState: UserState = {
-	id: null,
-	basic: {
-		name: '',
-		email: '',
-		planning: UserPlanningType.guest,
-		expire: '',
-		avatar: '',
-		note: '',
-		role: UserRole.user,
-	},
-	chatgpt: {
-		balance: 0,
-		cnt: 0,
-		consumption: 0,
-	},
-}
+export type User = IUser | null
+

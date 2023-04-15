@@ -1,6 +1,7 @@
 import baseApi from '@/api/baseApi'
-import { IUserBasic } from '@/ds/user'
+import { IUser, IUserBasic } from '@/ds/user'
 import { ID } from '@/ds/general'
+import { IUserOpenAI } from '@/ds/openai'
 
 export const userApi = baseApi
 	.enhanceEndpoints({
@@ -9,7 +10,11 @@ export const userApi = baseApi
 	.injectEndpoints({
 		endpoints: (build) => ({
 			
-			getUserBasic: build.query<IUserBasic, ID>({
+			listAllUser: build.query<IUser[], void>({
+				query: () => `/user`,
+			}),
+			
+			getUser: build.query<IUser, ID>({
 				query: (user_id) => `/user/${user_id}`,
 				providesTags: (result, error, arg, meta) => [{ type: 'user', id: arg }],
 			}),
@@ -18,20 +23,32 @@ export const userApi = baseApi
 				Partial<IUserBasic> & { id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
-					url: `/user/${data.id}`,
-					method: 'PATCH',
+					url: `/user/${data.id}/basic`,
+					method: 'post',
 					body: data,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
 			}),
 			
+			updateUserOpenAI: build.mutation<IUserOpenAI,
+				Partial<IUserOpenAI> & { id: ID } // id 一定要有的
+				>({
+				query: (data) => ({
+					url: `/user/${data.id}/openai`,
+					method: 'post',
+					body: data,
+				}),
+				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
+			}),
 		}),
 	})
 
 
 export const {
-	useGetUserBasicQuery,
+	useListAllUserQuery,
+	useGetUserQuery,
 	useUpdateUserBasicMutation,
+	useUpdateUserOpenAIMutation,
 } = userApi
 
 

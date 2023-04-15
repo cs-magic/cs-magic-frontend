@@ -1,20 +1,20 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { IUserBasic, UserPlanningType, UserRole, UserState } from '@/ds/user'
+import { IUserBasic, UserPlanningType, UserRole, IUser } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
 import { useUpdateUserChatGPTMutation } from '@/api/openai/chatgptApi'
 import { useUpdateUserBasicMutation } from '@/api/userApi'
-import { IUserChatgpt } from '@/ds/openai'
+import { IUserOpenAI } from '@/ds/openai'
 import { toast } from '@/hooks/use-toast'
 
 export const AdminUserLineComp = ({ user, index }: {
-	user: UserState
+	user: IUser
 	index: number
 }) => {
-	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic)
-	const [userChatgptData, setUserChatgptData] = useState<IUserChatgpt>(user.chatgpt)
+	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic!)
+	const [userOpenAIData, setUserOpenAIData] = useState<IUserOpenAI>(user.openai!)
 	
 	const [updateUserBasic] = useUpdateUserBasicMutation()
 	const [updateUserChatGPT] = useUpdateUserChatGPTMutation()
@@ -25,12 +25,12 @@ export const AdminUserLineComp = ({ user, index }: {
 		<tr key={index} className={'w-full'}>
 			<th>{index + 1}</th>
 			<th>{user.id}</th>
-			<td>{user.basic.name}</td>
-			<td><AvatarView user={user.basic}/></td>
-			<td>{user.basic.email}</td>
+			<td>{userBasicData.name}</td>
+			<td><AvatarView user={user}/></td>
+			<td>{userBasicData.email}</td>
 			
 			<td>
-				<Select defaultValue={user.basic.role} onValueChange={(role: UserRole) => setUserBasicData({ ...userBasicData, role })}>
+				<Select value={userBasicData.role} onValueChange={(role: UserRole) => setUserBasicData({ ...userBasicData, role })}>
 					<SelectTrigger>
 						<SelectValue placeholder={'role'}/>
 					</SelectTrigger>
@@ -44,7 +44,7 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<Select defaultValue={user.basic.planning} onValueChange={(planning: UserPlanningType) => setUserBasicData({ ...userBasicData, planning })}>
+				<Select value={userBasicData.planning} onValueChange={(planning: UserPlanningType) => setUserBasicData({ ...userBasicData, planning })}>
 					<SelectTrigger>
 						<SelectValue placeholder={'planning'}/>
 					</SelectTrigger>
@@ -58,27 +58,27 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<input type={'date'} defaultValue={user.basic.expire || new Date().toISOString().split('T')[0]} step={31}
+				<input type={'date'} value={userBasicData.expire || new Date().toISOString().split('T')[0]} step={31}
 				       onChange={(event) => {setUserBasicData({ ...userBasicData, expire: event.currentTarget.value })}}/>
 			</td>
 			
 			<td>
-				<input type={'number'} defaultValue={user.chatgpt.balance}
-				       onChange={(event) => {setUserChatgptData({ ...userChatgptData, balance: parseInt(event.currentTarget.value) })}}/>
+				<input type={'number'} value={userOpenAIData.balance}
+				       onChange={(event) => {setUserOpenAIData({ ...userOpenAIData, balance: parseInt(event.currentTarget.value) })}}/>
 			</td>
 			
-			<td>{user.chatgpt.consumption}</td>
+			<td>{userOpenAIData.consumption}</td>
 			
-			<td>{user.chatgpt.cnt}</td>
+			<td>{userOpenAIData.cnt}</td>
 			
 			<td>
-				<Input defaultValue={user.basic.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
+				<Input value={userBasicData.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
 			</td>
 			
 			<td className={'inline-flex items-center'}>
 				<Button size={'sm'} onClick={async () => {
-					await updateUserBasic({ ...userBasicData, id: user.id! })
-					await updateUserChatGPT({ ...userChatgptData, id: user.id! })
+					await updateUserBasic(userBasicData)
+					await updateUserChatGPT(userOpenAIData)
 					toast({title: `updated user(id=${user.id})`})
 				}}>Confirm</Button>
 			</td>

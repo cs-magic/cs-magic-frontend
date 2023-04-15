@@ -11,7 +11,7 @@ import Image from 'next/image'
 export const MessageComp = ({ msg }: {
 	msg: IChatMessage
 }) => {
-	const userBasic = useUser().basic
+	const user = useUser()
 	
 	return (
 		<div className={clsx(
@@ -25,7 +25,7 @@ export const MessageComp = ({ msg }: {
 					{
 						msg.role === RoleType.assistant
 							? <IconBrandOpenai size={24} className={'shrink-0 w-6 h-6'}/>
-							: <AvatarView user={userBasic} className={'shrink-0 w-6 h-6'}/>
+							: <AvatarView user={user} className={'shrink-0 w-6 h-6'}/>
 					}
 				</div>
 				

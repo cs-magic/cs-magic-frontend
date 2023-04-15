@@ -1,33 +1,27 @@
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import { initUserState, UserState } from '@/ds/user'
-import { useGetUserBasicQuery } from '@/api/userApi'
+import { User } from '@/ds/user'
+import { useGetUserQuery } from '@/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useGetUserChatGPTQuery } from '@/api/openai/chatgptApi'
 import { ID } from '@/ds/general'
 
 
-export const useUser = (): UserState => {
+export const useUser = (): User => {
 	const { data: session } = useSession()
-	const [user, setUser] = useState<UserState>(initUserState)
+	const [user, setUser] = useState<User>(null)
 	const id = session?.user.id
 	
-	const { data: userBasic } = useGetUserBasicQuery(id ?? skipToken)
-	const { data: userChatGPT } = useGetUserChatGPTQuery(id ?? skipToken)
+	const { data: userData } = useGetUserQuery(id ?? skipToken)
 	
 	useEffect(() => {
-		if (!id) return
-		setUser({
-			id,
-			basic: userBasic ?? user.basic,
-			chatgpt: userChatGPT ?? user.chatgpt,
-		})
-	}, [id, userBasic, userChatGPT])
+		if (!userData) return
+		setUser(userData)
+	}, [userData])
 	
 	return user
 }
 
 export const useUserId = (): ID | null => {
 	const user = useUser()
-	return user.id
+	return user ? user.id : null
 }

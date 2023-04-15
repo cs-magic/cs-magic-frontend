@@ -8,19 +8,21 @@ import { LabelLineView } from '@/components/views/LabelLineView'
 import { Label } from '@/components/ui/label'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { useUser } from '@/hooks/use-user'
+import { useUser, useUserId } from '@/hooks/use-user'
 import { useUpdateUserBasicMutation } from '@/api/userApi'
 import { useEffect } from 'react'
 import { useUploadFileMutation } from '@/api/baseApi'
 
 export const NavbarAvatarComp = () => {
 	const user = useUser()
-	const userId = user.id
+	const userId = useUserId()
+	console.log({user, userId})
+	
 	const { toast } = useToast()
 	const [updateUserBasic, { isSuccess }] = useUpdateUserBasicMutation()
 	const [uploadFile] = useUploadFileMutation()
 	
-	const avatarView = <AvatarView user={user.basic} className={'w-8 h-8'}/>
+	const avatarView = <AvatarView user={user} className={'w-8 h-8'}/>
 	
 	useEffect(() => {
 		if (isSuccess) {
@@ -33,6 +35,8 @@ export const NavbarAvatarComp = () => {
 			{avatarView}
 		</Link>
 	)
+	
+	if (!user) return <>{'You Shouldn\'t See This Message Since You Are Not Logged in!'}</>
 	
 	return (
 		<Dialog>
@@ -81,7 +85,7 @@ export const NavbarAvatarComp = () => {
 					label={'avatar'}
 					content={
 						<Label className={'inline-flex items-center gap-2 cursor-pointer'}>
-							<AvatarView user={user.basic}/>
+							<AvatarView user={user}/>
 							<span className={'text-gray-500 text-sm'}> (Click to Replace)</span>
 							<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
 								event.preventDefault()

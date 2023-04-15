@@ -1,16 +1,24 @@
-import { IUserBasic } from '@/ds/user'
+import { User } from '@/ds/user'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HTMLAttributes } from 'react'
 import { u } from '@/config'
 
 export const AvatarView = ({ user, ...props }: {
-	                           user: IUserBasic
+	                           user: User
                            } & HTMLAttributes<HTMLDivElement>,
 ) => {
 	return (
 		<Avatar {...props}>
-			<AvatarImage src={user.avatar}/>
-			<AvatarFallback className={'text-sm'}>{(user.name || user.email || u.website.avatarPlaceholder).slice(0, 2)}</AvatarFallback>
+			{
+				user ? (
+					<>
+						<AvatarImage src={user.basic.avatar}/>
+						<AvatarFallback className={'text-sm'}>{(user.basic.name || user.id || u.website.avatarPlaceholder)[0]}</AvatarFallback>
+					</>
+				) : (
+					<AvatarFallback className={'text-sm'}>{'登录'}</AvatarFallback>
+				)
+			}
 		</Avatar>
 	)
 }

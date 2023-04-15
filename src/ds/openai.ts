@@ -43,40 +43,13 @@ export interface ICreateChatGPTConversation extends ICreateConversation {
 	model: string
 }
 
-export interface ICreateDalleConversation extends ICreateConversation {
-
-}
 
 export interface IChatGPTConversation extends ICreateChatGPTConversation {
 	start?: number
 }
 
-interface IChatModelResChoice {
-	finish_reason: string
-	index: number
-	message: {
-		content: string
-		role: RoleType
-	}
-}
 
-export interface IChatModelResUsage {
-	completion_tokens: number
-	prompt_tokens: number
-	total_tokens: number
-}
-
-export interface IChatModelRes {
-	choices: IChatModelResChoice[]
-	created: number // 1680439050
-	id: ID
-	model: string
-	object: string
-	usage: IChatModelResUsage
-}
-
-
-export interface IUserChatgpt {
+export interface IUserOpenAI {
 	balance: number
 	consumption: number
 	cnt: number
