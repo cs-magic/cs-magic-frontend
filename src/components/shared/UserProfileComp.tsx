@@ -73,7 +73,7 @@ export const UserProfileComp = () => {
 				
 				<LabelLineView
 					label={'name'}
-					content={<Input name={'userName'} placeholder={'Unknown'} defaultValue={user.basic.name}/>}
+					content={<Input name={'userName'} placeholder={'你怎么连个名字都没有！'} defaultValue={user.basic.name || undefined}/>}
 					extra={<Button variant={'outline'} size={'sm'} type={'submit'}>Rename</Button>}
 					onSubmit={async (event) => {
 						event.preventDefault()
@@ -101,7 +101,7 @@ export const UserProfileComp = () => {
 				<LabelLineView
 					label={'planning'}
 					content={
-						<p id={'planning'}>{_.upperCase(user.basic.planning)}</p>}
+						<p id={'planning'}>{_.upperCase(user.basic.membership.planning)}</p>}
 					extra={<Link href={routers.userPlanning.href}>
 						<Button variant={'destructive'} size={null} className={'px-2 py-1'}>User Planning</Button>
 					</Link>}/>
