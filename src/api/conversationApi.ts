@@ -19,9 +19,9 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 					listConversations: builder.query<IConversation<T>[], { user_id: ID, platform_type: T }>({
 						query: (arg) => ({
 							url: `/${arg.platform_type}`,
-							params: arg
+							params: arg,
 						}),
-						providesTags: (result, error, arg) => [{ type: TAG_CONVERSATION, id: arg.user_id }],
+						providesTags: (result, error, arg) => (result ?? []).map((item) => ({ type: TAG_CONVERSATION, id: item.id })),
 					}),
 					
 					createConversation: builder.mutation<ID, ICreateConversation<T>>({
@@ -33,9 +33,12 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 						invalidatesTags: [TAG_CONVERSATION],
 					}),
 					
+					/**
+					 * todo: 其实有时候更新一下conversation并不需要触发listConversation的刷新（可以client端直接更新）
+					 */
 					updateConversation: builder.mutation<ID, Partial<IConversation<T>> & { id: ID, platform_type: T }>({
 						query: (arg) => ({
-							url: `/${arg.platform_type}/${arg.id}`,
+							url: `/${arg.platform_type}`,
 							method: 'PATCH',
 							body: arg,
 						}),
