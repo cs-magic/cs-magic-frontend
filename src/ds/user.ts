@@ -14,13 +14,15 @@ export enum UserRole {
 }
 
 export interface IUserBasic {
-	name: string
-	email: string
-	planning: UserPlanningType
+	name: string | null
+	email: string | null
+	membership: {
+		planning: UserPlanningType
+		expire: string | null
+	}
 	role: UserRole
-	expire: string
-	avatar: string
-	note: string
+	avatar: string | null
+	note: string | null
 }
 
 

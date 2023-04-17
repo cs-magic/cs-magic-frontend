@@ -6,13 +6,14 @@ import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
 import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/api/userApi'
 import { toast } from '@/hooks/use-toast'
+import _ from 'lodash'
 
 export const AdminUserLineComp = ({ user, index }: {
 	user: IUser
 	index: number
 }) => {
-	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic!)
-	const [userOpenAIData, setUserOpenAIData] = useState<IUserOpenAI>(user.openai!)
+	const [userBasicData, setUserBasicData] = useState<IUserBasic>(user.basic)
+	const [userOpenAIData, setUserOpenAIData] = useState<IUserOpenAI>(user.openai)
 	
 	const [updateBasicUser] = useUpdateBasicUserMutation()
 	const [updateOpenAIUser] = useUpdateOpenAIUserMutation()
@@ -42,7 +43,11 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<Select value={userBasicData.planning} onValueChange={(planning: UserPlanningType) => setUserBasicData({ ...userBasicData, planning })}>
+				<Select value={userBasicData.membership.planning} onValueChange={(planning: UserPlanningType) => {
+					const newUserBasic = _.merge({}, user.basic, {membership: {planning}})
+					console.log({newUserBasic})
+					setUserBasicData(newUserBasic)
+				}}>
 					<SelectTrigger>
 						<SelectValue placeholder={'planning'}/>
 					</SelectTrigger>
@@ -56,13 +61,17 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td>
-				<input type={'date'} value={userBasicData.expire || new Date().toISOString().split('T')[0]} step={31}
-				       onChange={(event) => {setUserBasicData({ ...userBasicData, expire: event.currentTarget.value })}}/>
+				<input type={'date'} value={userBasicData.membership.expire || new Date().toISOString().split('T')[0]} step={31}
+				       onChange={(event) => {
+								 const newUserBasic = _.merge({}, user.basic, {membership:{expire: event.currentTarget.value}})
+					       console.log({newUserBasic})
+								 setUserBasicData(newUserBasic)
+							 }}/>
 			</td>
 			
 			<td>
 				<input type={'number'} value={userOpenAIData.balance}
-				       onChange={(event) => {setUserOpenAIData({ ...userOpenAIData, balance: parseInt(event.currentTarget.value) })}}/>
+				       onChange={(event) => {setUserOpenAIData({ ...userOpenAIData, balance: parseInt(event.currentTarget.value) || 0 })}}/>
 			</td>
 			
 			<td>{userOpenAIData.consumption}</td>
@@ -70,7 +79,7 @@ export const AdminUserLineComp = ({ user, index }: {
 			<td>{userOpenAIData.cnt}</td>
 			
 			<td>
-				<Input value={userBasicData.note} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
+				<Input value={userBasicData.note || ''} onChange={(event) => setUserBasicData({ ...userBasicData, note: event.currentTarget.value })}/>
 			</td>
 			
 			<td className={'inline-flex items-center'}>

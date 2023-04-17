@@ -14,7 +14,7 @@ export const AdminPage = () => {
 		<RootLayout title={u.routes.admin.home}>
 			{
 				isLoading ? <CentralLoadingComp/> : (
-					<table className={'table table-compact w-full h-full overflow-auto'}>
+					<table className={'table table-compact w-full max-h-full overflow-auto'}>
 						<thead>
 						<tr>
 							<th></th>
