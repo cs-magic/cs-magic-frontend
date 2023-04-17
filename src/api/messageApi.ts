@@ -20,19 +20,11 @@ export const injectOpenAIMessages = <T extends PlatformType>() => baseApi
 			}),
 			
 			sendMessage: builder.mutation<IMessage<T>, IMessage<T>>({
-				query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat`, method: 'post', body: arg, }),
+				query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat`, method: 'post', body: arg }),
 			}),
 		}),
-		overrideExisting: false, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
+		overrideExisting: true, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
 	})
 
-
-/**
- * 尽管我们已经写成了Generic形式，但是我们还是得分别写其派生的代码，而不能基于变量动态地确定函数……简直鸡肋！
- */
-const {
-	useListMessagesQuery,
-	useSendMessageMutation,
-} = injectOpenAIMessages()
 
 

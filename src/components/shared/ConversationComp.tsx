@@ -9,12 +9,11 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useUser } from '@/hooks/use-user'
-import { useToast } from '@/hooks/use-toast'
-import { MessageRoleType, DalleDimensionType, IMessage, IMessageParams, MessageType } from '@/ds/openai/message'
+import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
-import { ChatgptModelType, IChatGPTConversationParams, IConversationParams, ICreateConversation, IDalleConversationParams } from '@/ds/openai/conversation'
+import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -39,33 +38,43 @@ export const ConversationComp = <T extends PlatformType>(
 		useSendMessageMutation,
 	} = injectOpenAIMessages<T>()
 	
-	const { toast } = useToast()
 	const user = useUser()
 	const user_id = user?.id
 	const [messages, setMessages] = useState<IMessage<T>[]>([])
 	const [conversation_id, setConversationId] = useState(cid)
 	
 	const [createConversation] = useCreateConversationMutation()
-	const { currentData: _messages = [] } = useListMessagesQuery(conversation_id ? { conversation_id, platform_type } : skipToken)
+	const { currentData: _messages = [] } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
 	const [sendMessage, { isLoading: isLoadingResponse, error: openAIError, data: openAIResponse }] = useSendMessageMutation()
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(platform_type === PlatformType.chatGPT ? ({
-		model: ChatgptModelType.gpt35,
-		selected: [],
-	} as IConversationParams<PlatformType.chatGPT> as IConversationParams<T>) : ({} as IConversationParams<PlatformType.dalle> as IConversationParams<T>))
+	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(platform_type === PlatformType.chatGPT
+		? ({
+			model: ChatgptModelType.gpt35,
+			selected: [],
+		} as IConversationParams<PlatformType.chatGPT> as IConversationParams<T>)
+		: ({} as IConversationParams<PlatformType.dalle> as IConversationParams<T>),
+	)
 	
-	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(platform_type === PlatformType.chatGPT ? ({
-		role: MessageRoleType.user,
-	} as IMessageParams<PlatformType.chatGPT> as IMessageParams<T>) : ({
-		role: MessageRoleType.user,
-		dimension: DalleDimensionType.sm,
-	} as IMessageParams<PlatformType.dalle> as IMessageParams<T>))
+	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(platform_type === PlatformType.chatGPT
+		? ({
+			role: MessageRoleType.user,
+		} as IMessageParams<PlatformType.chatGPT> as IMessageParams<T>)
+		: ({
+			role: MessageRoleType.user,
+			dimension: DalleDimensionType.sm,
+		} as IMessageParams<PlatformType.dalle> as IMessageParams<T>),
+	)
+	
+	const pushMessage = (message: IMessage<T>) => {
+		setMessages((messages) => [...messages, message])
+	}
 	
 	// update conversation id upon prop changes
 	useEffect(() => {
+		console.log({ cid })
 		setConversationId(cid)
 	}, [cid])
 	
@@ -76,39 +85,53 @@ export const ConversationComp = <T extends PlatformType>(
 	useEffect(() => {
 		if (!openAIResponse) return
 		console.log({ openAIResponse })
-		setMessages([...messages, openAIResponse])
+		pushMessage(openAIResponse)
 	}, [openAIResponse])
 	
 	// toast errors
 	useEffect(() => {
 		if (!openAIError) return
 		console.log({ openAIError })
-		toast({ title: ((openAIError as FetchBaseQueryError).data as { detail: string }).detail, variant: 'destructive' })
+		const msg: IMessage<T> = {
+			status: 'ERROR',
+			content: ((openAIError as FetchBaseQueryError).data as { detail: string }).detail,
+			conversation_id: conversation_id!,
+			type: MessageType.text,
+			platform_type,
+			platform_params: { ...messageParams, role: MessageRoleType.assistant },
+		}
+		pushMessage(msg)
 	}, [openAIError])
 	
 	// auto scroll
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
 	const onSubmit = async () => {
-		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
-		if (messages.length % 2) return toast({ title: '请耐心等待回复完成', variant: 'destructive' })
-		
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		
-		const send = async (conversation_id: string) => {
-			const msg: IMessage<T> = {
-				conversation_id,
-				content,
-				type: MessageType.text,
-				platform_type,
-				platform_params: messageParams,
-			}
-			setMessages((messages) => [...messages, msg])
-			await sendMessage(msg).unwrap()
+		let success = true, detail = ''
+		if (!user_id) {
+			success = false
+			detail = '聊天功能需要先登录再使用！'
+		} else if (messages.length % 2) {
+			success = false
+			detail = '请耐心等待回复完成'
 		}
 		
-		if (conversation_id) return await send(conversation_id)
+		let msg: IMessage<T> = {
+			conversation_id: conversation_id || '',
+			content,
+			type: MessageType.text,
+			platform_type,
+			platform_params: messageParams,
+		}
+		pushMessage(msg)
+		
+		// 直接处理 client 端错误
+		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail })
+		
+		if (conversation_id) return await sendMessage(msg)
 		
 		const _createConversation = async () => {
 			//// 1.
@@ -123,17 +146,7 @@ export const ConversationComp = <T extends PlatformType>(
 			// const conversationModel: ICreateConversation<T> = initCreateConversationModel(user_id)
 			
 			//// 2.
-			const createConversationModel = {
-				user_id,
-				platform_type,
-				platform_params: platform_type === PlatformType.chatGPT ? {
-					model: ChatgptModelType.gpt35,
-					selected: [],
-				} as IChatGPTConversationParams : {
-					dimension: '256x256',
-				} as IDalleConversationParams,
-			} as ICreateConversation<T>
-			
+			const createConversationModel: ICreateConversation<T> = { user_id: user_id!, platform_type, platform_params: conversationParams }
 			
 			//// 3.
 			//  failed: Type 'PlatformType.dalle' is not assignable to type 'PlatformType.chatGPT'.
@@ -150,8 +163,8 @@ export const ConversationComp = <T extends PlatformType>(
 		}
 		
 		const newConversationID = await _createConversation()
-		await send(newConversationID)
 		setConversationId(newConversationID)
+		await sendMessage({ ...msg, conversation_id: newConversationID })
 	}
 	
 	

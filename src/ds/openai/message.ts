@@ -40,11 +40,14 @@ export type IMessageParams<T extends PlatformType> =
 
 export interface IMessage<T extends PlatformType> {
 	conversation_id: ID
-	
-	sender?: ID // todo: 未来做群聊需要这个
 	content: string
+	
 	type: MessageType
 	platform_type: T
 	platform_params: IMessageParams<T>
+	
+	sender?: ID // todo: 未来做群聊需要这个
 	time?: number
+	
+	status?: 'OK' | 'ERROR'
 }

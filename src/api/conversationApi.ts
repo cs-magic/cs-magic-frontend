@@ -48,7 +48,7 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 					}),
 				})
 			},
-			overrideExisting: false, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
+			overrideExisting: true, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
 			
 		})
 	

@@ -1,7 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+
 import notificationSlice from '@/states/features/notificationSlice'
 import { baseApi } from '@/api/baseApi'
+import { createLogger } from 'redux-logger'
+
+
+const logger = createLogger({
+	// 消除 RTK Query 框架层面的一些 logger
+	predicate: (getState, action, logEntry) => ![
+		'config',
+		// 'executeQuery',
+		'internalSubscriptions',
+	].find((s) => action.type.includes(s)),
+})
 
 
 const store = configureStore({

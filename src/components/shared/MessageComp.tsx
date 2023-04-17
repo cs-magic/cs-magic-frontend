@@ -5,7 +5,7 @@ import { useUser } from '@/hooks/use-user'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import Image from 'next/image'
-import { MessageRoleType, IMessage, MessageType } from '@/ds/openai/message'
+import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 
 
@@ -17,7 +17,11 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 	return (
 		<div className={clsx(
 			'w-full',
-			msg.platform_params.role === MessageRoleType.assistant ? 'bg-gray-50 dark:bg-[#444654]' : 'dark:bg-gray-800',
+			msg.status === 'ERROR'
+				? 'bg-red-300 dark:bg-red-700'
+				: msg.platform_params.role === MessageRoleType.assistant
+					? 'bg-gray-50 dark:bg-[#444654]'
+					: 'dark:bg-gray-800',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
 			<div className="py-1 px-2 text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all">
