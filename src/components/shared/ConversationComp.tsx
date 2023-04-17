@@ -63,7 +63,7 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	const [conversation_id, setConversationId] = useState(cid)
 	const [messages, setMessages] = useState<IMessage<T>[]>([])
-	const { currentData: initedMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken, { refetchOnMountOrArgChange: true })
+	const { currentData: initedMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
 	
 	const [createConversation] = useCreateConversationMutation()
 	const [sendMessage, { isLoading: isLoadingResponse, error: openAIError, data: openAIResponse }] = useSendMessageMutation()
@@ -78,7 +78,11 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	
 	// update conversation id upon prop changes
-	useEffect(() => setConversationId(cid), [cid])
+	useEffect(() => {
+		console.log({ cid })
+		setConversationId(cid)
+		if (!cid) setMessages([])
+	}, [cid])
 	
 	/**
 	 * update messages upon inited messages changed

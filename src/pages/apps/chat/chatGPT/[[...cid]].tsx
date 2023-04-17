@@ -17,7 +17,7 @@ export const ConversationPage = () => {
 	// preserve
 	const router = useRouter()
 	const user_id = useUserId()
-	const cid = ensureSole(router.query.conversation_id) // router id or null
+	const cid = ensureSole(router.query.cid) // router id or null
 	
 	const conversationsComp = <ConversationsComp
 		cid={cid}
