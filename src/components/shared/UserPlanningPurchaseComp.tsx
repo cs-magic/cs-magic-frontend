@@ -20,9 +20,19 @@ export const UserPlanningPurchaseComp = (
 	return (
 		<div className="card w-96 bg-base-100 shadow-xl">
 			
-			<AspectRatio ratio={9 / 12}>
-				<Image src={cover} alt={name} fill priority sizes={'33vw'}/>
-			</AspectRatio>
+			
+			<div className={'md:hidden'}>
+				<AspectRatio ratio={5 / 3}>
+					<Image src={cover} alt={name} fill priority sizes={'33vw'} className={'object-contain'}/>
+				</AspectRatio>
+			</div>
+			
+						<div className={'hidden md:block'}>
+				<AspectRatio ratio={9 / 12}>
+					<Image src={cover} alt={name} fill priority sizes={'33vw'} className={'object-cover'}/>
+				</AspectRatio>
+			</div>
+			
 			
 			<div className="card-body grow">
 				
