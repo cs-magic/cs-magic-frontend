@@ -6,7 +6,7 @@ export const HeroView = () => {
 	const i18nSchema = schemaCN
 	
 	return (
-		<div className="hero w-full h-full md:h-[320px]" style={{
+		<div className="hero w-full h-[320px] md:[h-480px]" style={{
 			// source: https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg
 			backgroundImage: `url("/hero.jpg")`
 		}}>
@@ -16,9 +16,9 @@ export const HeroView = () => {
 					<h1 className="mb-5 text-4xl font-bold">{i18nSchema.hero.title}</h1>
 					<p className="mb-5">{i18nSchema.hero.subtitle}</p>
 					
-					<Link href={projects[0].targetUrl}>
-						<button className="btn btn-primary">{i18nSchema.hero.entrance}</button>
-					</Link>
+					{/*<Link href={projects[0].targetUrl}>*/}
+					{/*	<button className="btn btn-primary">{i18nSchema.hero.entrance}</button>*/}
+					{/*</Link>*/}
 				</div>
 			</div>
 		</div>

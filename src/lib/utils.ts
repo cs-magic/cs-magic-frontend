@@ -2,15 +2,15 @@ import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { u } from '@/config'
 import { ID } from '@/ds/general'
-import { ModelPlatformType } from '@/ds/openai'
+import { PlatformType } from '@/ds/openai/general'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
 
-export const ensureSole = (s: string | string[] | null): string | null =>
-	Array.isArray(s) ? s[0] : s
+export const ensureSole = (s: string | string[] | undefined): string | null =>
+	Array.isArray(s) ? s[0] : s || null
 
 
 export const getTitle = (s?: string, full?: boolean): string => {
@@ -21,7 +21,7 @@ export const getTitle = (s?: string, full?: boolean): string => {
 	else return prefix
 }
 
-export const getChatUrl = (data: { id?: ID, model_platform: ModelPlatformType }): string => {
-	const baseUrl = `/apps/${data.model_platform}/`
+export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): string => {
+	const baseUrl = `/apps/chat/${data.platform_type}/`
 	return data.id ? baseUrl + data.id : baseUrl
 }

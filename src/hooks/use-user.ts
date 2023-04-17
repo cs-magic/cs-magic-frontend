@@ -6,7 +6,7 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { ID } from '@/ds/general'
 
 
-export const useUser = (): User => {
+export const useUser = (): User | null => {
 	const { data: session } = useSession()
 	const [user, setUser] = useState<User>(null)
 	const id = session?.user.id

@@ -4,9 +4,8 @@ import { Provider } from 'react-redux'
 import store from '@/states/store'
 
 import { Toaster } from '@/components/ui/toaster'
-import { getProviders, getSession, SessionProvider } from 'next-auth/react'
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
-import SigninPage from '@/pages/auth/signin'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 
 

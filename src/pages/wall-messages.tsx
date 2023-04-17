@@ -6,7 +6,7 @@ import { FC, useEffect, useRef } from 'react'
 import { AvatarView } from '@/components/views/AvatarView'
 import { IconDotsVertical, IconThumbDown, IconThumbUp } from '@tabler/icons-react'
 import { IWallMessage } from '@/ds/wall-messages'
-import { useCreateWallMessageMutation, useListWallMessagesQuery, useVoteWallMessageMutation } from '@/api/wallMessagesApi'
+import { useCreateWallMessageMutation, useListWallMessagesQuery, useVoteWallMessageMutation } from '@/api/wallMessageApi'
 import { clsx } from 'clsx'
 import { toast, useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
@@ -38,7 +38,7 @@ export const WallMessageComp: FC<IWallMessage> = (props) => {
 			<div className={'wm-user flex items-center gap-4'}>
 				<AvatarView user={props.poster}/>
 				<div className={'grow'}>
-					<p>{props.poster.name}</p>
+					<p>{props.poster.basic.name}</p>
 					<p className={'text-gray-500 text-sm'}>{new Date(props.time / 1000000).toLocaleString()}</p>
 				</div>
 				
@@ -95,7 +95,6 @@ export const WallMessagesPage: NextPage = () => {
 	const refTitleInput = useRef<HTMLInputElement>(null)
 	const refContentInput = useRef<HTMLTextAreaElement>(null)
 	
-	console.log({ wallMessages })
 	
 	useEffect(() => {
 		if (isSuccess) {

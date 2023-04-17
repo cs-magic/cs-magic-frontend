@@ -63,24 +63,30 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 	},
 ]
 
-
-export const adminIds = [
-	'877210964@qq.com',
-	'shawninjuly@gmail.com',
-	'yyao5@gmu.edu', // 雨青
-	'1282148128@qq.com', // jane
-	'unisugar.ktrs@gmail.com', // ely
-	'2499207452@qq.com', // susan
+export const projects: IProjectItem[] = [
+	{
+		name: u.routes.service.chatGPT,
+		desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
+		href: '/apps/chat/chatGPT',
+		coverUrl: '/screenshots/chatgpt.png',
+		features: ['NEW', '稳定', '免翻'],
+	},
+	
+	{
+		name: u.routes.service.dalle,
+		desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+		href: '/apps/chat/dalle',
+		coverUrl: '/screenshots/dalle.png',
+		features: ['NEW', '稳定', '免翻'],
+	},
 ]
+
 
 export const navbarItems: INavbarItem[][] = [
 	[
 		{ href: '/', name: u.routes.home },
 	],
-	[
-		{ href: '/apps/chatGPT', name: u.routes.service.chatGPT },
-		{ href: '/apps/dalle', name: u.routes.service.dalle },
-	],
+	projects,
 	[
 		{ href: '/user-planning', name: u.routes.user.planning },
 		{ href: '/wall-messages', name: u.routes.user.wall },
@@ -93,13 +99,3 @@ export const navbarItems: INavbarItem[][] = [
 ]
 
 
-export const projects: IProjectItem[] = [
-	{
-		name: 'ChatGPT',
-		desc: '镜像ChatGPT',
-		coverUrl: '/screenshots/chatgpt.png',
-		features: ['NEW', '稳定', '免翻'],
-		// todo: 该取消成广场了
-		targetUrl: navbarItems[1][0].href,
-	},
-]

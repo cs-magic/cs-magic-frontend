@@ -1,25 +1,27 @@
-import baseApi from '@/api/baseApi'
-import { IUser, IUserBasic } from '@/ds/user'
+import { IUser, IUserBasic, IUserOpenAI } from '@/ds/user'
 import { ID } from '@/ds/general'
-import { IUserOpenAI } from '@/ds/openai'
+import { baseApi } from '@/api/baseApi'
+
+export const TAG_USER = 'user'
 
 export const userApi = baseApi
 	.enhanceEndpoints({
-		addTagTypes: ['user'],
+		addTagTypes: [TAG_USER],
 	})
 	.injectEndpoints({
 		endpoints: (build) => ({
 			
 			listAllUser: build.query<IUser[], void>({
 				query: () => `/user`,
+				providesTags: [TAG_USER],
 			}),
 			
 			getUser: build.query<IUser, ID>({
 				query: (user_id) => `/user/${user_id}`,
-				providesTags: (result, error, arg, meta) => [{ type: 'user', id: arg }],
+				providesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg }],
 			}),
 			
-			updateUserBasic: build.mutation<IUserBasic,
+			updateBasicUser: build.mutation<IUserBasic,
 				{ body: Partial<IUserBasic>, id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
@@ -27,10 +29,10 @@ export const userApi = baseApi
 					method: 'patch',
 					body: data.body,
 				}),
-				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
+				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),
 			
-			updateUserOpenAI: build.mutation<IUserOpenAI,
+			updateOpenAIUser: build.mutation<IUserOpenAI,
 				{ body: Partial<IUserOpenAI>, id: ID } // id 一定要有的
 				>({
 				query: (data) => ({
@@ -38,8 +40,10 @@ export const userApi = baseApi
 					method: 'post',
 					body: data.body,
 				}),
-				invalidatesTags: (result, error, arg, meta) => [{ type: 'user', id: arg.id }],
+				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),
+			
+			// 暂时不提供删除用户的api
 		}),
 	})
 
@@ -47,9 +51,6 @@ export const userApi = baseApi
 export const {
 	useListAllUserQuery,
 	useGetUserQuery,
-	useUpdateUserBasicMutation: useUpdateBasicUserMutation,
-	useUpdateUserOpenAIMutation,
+	useUpdateBasicUserMutation,
+	useUpdateOpenAIUserMutation,
 } = userApi
-
-
-export default userApi

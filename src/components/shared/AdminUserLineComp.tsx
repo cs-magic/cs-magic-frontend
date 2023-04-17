@@ -1,12 +1,10 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { IUser, IUserBasic, UserPlanningType, UserRole } from '@/ds/user'
+import { IUser, IUserBasic, IUserOpenAI, UserPlanningType, UserRole } from '@/ds/user'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AvatarView } from '@/components/views/AvatarView'
-import { useUpdateOpenAIUserMutation } from '@/api/openai/chatgptApi'
-import { useUpdateBasicUserMutation } from '@/api/userApi'
-import { IUserOpenAI } from '@/ds/openai'
+import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/api/userApi'
 import { toast } from '@/hooks/use-toast'
 
 export const AdminUserLineComp = ({ user, index }: {

@@ -1,5 +1,5 @@
 import { ID } from '@/ds/general'
-import { IUserBasic } from '@/ds/user'
+import { IUser } from '@/ds/user'
 
 export interface IWallMessageCreate {
 	poster_id: ID
@@ -15,7 +15,7 @@ export interface IWallMessageVote {
 
 export interface IWallMessage extends Omit<IWallMessageCreate, 'poster_id'> {
 	id: ID
-	poster: IUserBasic
+	poster: IUser
 	time: number
 	voters_up: ID[]
 	voters_down: ID[]

@@ -4,7 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
 import Image from 'next/image'
 import { AspectRatio } from '../ui/aspect-ratio'
-import { useUser } from '@/hooks/use-user'
 
 
 export enum UserPlanningCharge {
@@ -12,8 +11,7 @@ export enum UserPlanningCharge {
 	auto = 'auto',
 }
 
-export const UserPlanningComp = () => {
-	const user = useUser()
+export const UserPlanningView = () => {
 	
 	return (
 		<Dialog>
@@ -23,10 +21,9 @@ export const UserPlanningComp = () => {
 			
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Change Planning</DialogTitle>
+					<DialogTitle>会员计划</DialogTitle>
 				</DialogHeader>
 				
-				<div>current planning: {user.basic.planning}</div>
 				
 				<Tabs defaultValue={UserPlanningCharge.manual}>
 					<TabsList>

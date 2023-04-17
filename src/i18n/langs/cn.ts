@@ -21,8 +21,9 @@ export const schemaCN: II18nSchema = {
 		},
 		home: "首页",
 		service: {
-			chatGPT: "ChatGPT Mirror",
-			dalle: "Dalle Mirror"
+			chat: 'AI陪聊',
+			chatGPT: "ChatGPT 聊天",
+			dalle: "Dalle 作图"
 		},
 		user: {
 			planning: "会员计划",

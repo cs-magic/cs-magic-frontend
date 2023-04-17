@@ -11,12 +11,11 @@ import Link from 'next/link'
 import { useUser, useUserId } from '@/hooks/use-user'
 import { useUpdateBasicUserMutation } from '@/api/userApi'
 import { useEffect } from 'react'
-import { useUploadFileMutation } from '@/api/baseApi'
+import { useUploadFileMutation } from '@/api/fileApi'
 
 export const NavbarAvatarComp = () => {
 	const user = useUser()
 	const userId = useUserId()
-	console.log({user, userId})
 	
 	const { toast } = useToast()
 	const [updateUserBasic, { isSuccess }] = useUpdateBasicUserMutation()
@@ -77,7 +76,7 @@ export const NavbarAvatarComp = () => {
 					extra={<Button variant={'outline'} size={'sm'} type={'submit'}>Rename</Button>}
 					onSubmit={async (event) => {
 						event.preventDefault()
-						updateUserBasic({ id: userId, name: event.currentTarget.userName.value })
+						updateUserBasic({ id: userId, body: { name: event.currentTarget.userName.value } })
 					}}
 				/>
 				
@@ -92,7 +91,7 @@ export const NavbarAvatarComp = () => {
 								const files = event.currentTarget.files
 								if (files?.length !== 1) return toast({ title: '一次只能上传一个文件', variant: 'destructive' })
 								const avatar = await uploadFile(files[0]).unwrap()
-								updateUserBasic({ id: userId, avatar })
+								updateUserBasic({ id: userId, body: { avatar } })
 							}}/>
 						</Label>
 					}

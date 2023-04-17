@@ -8,7 +8,7 @@ import { useListAllUserQuery } from '@/api/userApi'
 export const AdminPage = () => {
 	
 	const user = useUser()
-	const { data: users = [], isLoading } = useListAllUserQuery(undefined, { skip: user.basic.role !== 'admin' })
+	const { data: users = [], isLoading } = useListAllUserQuery(undefined, { skip: !user || user.basic.role !== 'admin' })
 	
 	return (
 		<RootLayout title={u.routes.admin.home}>

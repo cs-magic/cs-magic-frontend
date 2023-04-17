@@ -1,5 +1,9 @@
 # notes
 
+## conversation_id null 问题
+
+直接在页面初始化的时候就自动生成一个，然后在组件里直接使用即可
+
 ## rtk query relative
 
 ![img.png](imgs/rkt-comparison-between-data-and-currentData.png)

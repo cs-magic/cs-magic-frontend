@@ -6,29 +6,41 @@ import { ConversationComp } from '@/components/shared/ConversationComp'
 import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
-import { ModelPlatformType } from '@/ds/openai'
+import { PlatformType } from '@/ds/openai/general'
 
 export const ConversationPage = () => {
 	
+	// customize
+	const platformType: PlatformType = PlatformType.chatGPT
+	const title = u.routes.service.chatGPT
+	
+	// preserve
 	const router = useRouter()
 	const user_id = useUserId()
-	const conversation_id = ensureSole(router.query.conversation_id || null)
+	const cid = ensureSole(router.query.conversation_id) // router id or null
 	
-	const model_platform: ModelPlatformType = ModelPlatformType.chatgpt
+	const conversationsComp = <ConversationsComp
+		cid={cid}
+		platform_type={platformType}
+	/>
 	
 	return (
-		<RootLayout title={u.routes.service.chatGPT}>
+		<RootLayout title={title}>
 			{
 				!user_id ? <CentralLoadingComp/> : (
 					<div className={'w-full h-full flex'}>
 						
 						{/* left: conversations */}
 						<div className={'hidden md:block w-[260px]'}>
-							<ConversationsComp conversation_id={conversation_id} model_platform={model_platform}/>
+							{conversationsComp}
 						</div>
 						
 						{/* right: current conversation */}
-						<ConversationComp conversation_id={conversation_id} model_platform={model_platform}/>
+						<ConversationComp
+							cid={cid}
+							platform_type={platformType}
+							conversationsComp={conversationsComp}
+						/>
 					
 					</div>
 				)
@@ -38,3 +50,4 @@ export const ConversationPage = () => {
 }
 
 export default ConversationPage
+

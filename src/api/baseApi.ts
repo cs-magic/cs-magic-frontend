@@ -6,23 +6,7 @@ export const baseApi = createApi({
 		baseUrl: BACKEND_ENDPOINT,
 	}),
 	reducerPath: 'baseApi',
-	endpoints: (builder) => ({
-		uploadFile: builder.mutation<string, File>({
-			query: (file) => {
-				const formData = new FormData()
-				formData.append('file', file)
-				return {
-					url: `/file`,
-					method: 'post',
-					body: formData,
-				}
-			},
-		}),
-	}),
+	endpoints: () => ({}),
 })
 
-export default baseApi
-
-export const {
-	useUploadFileMutation,
-} = baseApi
+export const {} = baseApi

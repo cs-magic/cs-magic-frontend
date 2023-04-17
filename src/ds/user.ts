@@ -1,5 +1,4 @@
 import { ID } from '@/ds/general'
-import { IUserOpenAI } from '@/ds/openai'
 
 export enum UserPlanningType {
 	guest = 'guest',
@@ -24,6 +23,12 @@ export interface IUserBasic {
 	note: string
 }
 
+
+export interface IUserOpenAI {
+	balance: number
+	consumption: number
+	cnt: number
+}
 
 export interface IUser {
 	id: ID

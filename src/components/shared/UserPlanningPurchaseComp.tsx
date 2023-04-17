@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '../ui/label'
 import { useState } from 'react'
-import { UserPlanningComp } from '@/components/shared/UserPlanningComp'
+import { UserPlanningView } from '@/components/views/UserPlanningView'
 import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
 
@@ -76,7 +76,7 @@ export const UserPlanningPurchaseComp = (
 					)
 				}
 				
-				<UserPlanningComp/>
+				<UserPlanningView/>
 			</div>
 		</div>
 	)
