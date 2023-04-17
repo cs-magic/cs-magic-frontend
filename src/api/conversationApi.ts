@@ -47,7 +47,7 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 					
 					deleteConversation: builder.mutation<void, { id: ID, platform_type: T }>({
 						query: (arg) => ({
-							url: `/${arg.platform_type}/${arg}`,
+							url: `/${arg.platform_type}/${arg.id}`,
 							method: 'delete',
 						}),
 						invalidatesTags: [TAG_CONVERSATION],

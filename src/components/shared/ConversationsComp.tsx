@@ -13,6 +13,7 @@ import { IConversation } from '@/ds/openai/conversation'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { injectOpenAIConversation } from '@/api/conversationApi'
+import { useToast } from '@/hooks/use-toast'
 
 export const ConversationsComp = <T extends PlatformType>(
 	{
@@ -47,6 +48,8 @@ export const ConversationsComp = <T extends PlatformType>(
 		const [updateConversation] = useUpdateConversationMutation()
 		const [deleteConversation] = useDeleteConversationMutation()
 		
+		const {toast} = useToast()
+		
 		// auto focus
 		useEffect(() => {if (isEditing) refInput.current!.select()}, [isEditing])
 		
@@ -70,6 +73,7 @@ export const ConversationsComp = <T extends PlatformType>(
 								if (event.key === 'Enter') {
 									setEditing(false)
 									await updateConversation({ id, name: event.currentTarget.value, platform_type })
+									toast({title: "已重命名会话"})
 								}
 							}}
 							onBlur={() => setEditing(false)}
@@ -92,6 +96,7 @@ export const ConversationsComp = <T extends PlatformType>(
 								onClick={async (e) => {
 									e.preventDefault()
 									await deleteConversation({ id, platform_type })
+									toast({title: "已删除一个会话"})
 									// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 									if (isHighlight)
 										router.push(getChatUrl({ platform_type }))
