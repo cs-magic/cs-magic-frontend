@@ -17,14 +17,17 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 				
 				return ({
 					listConversations: builder.query<IConversation<T>[], { user_id: ID, platform_type: T }>({
-						query: (arg) => `/${arg.platform_type}?user_id=${arg.user_id}&platform=${arg.platform_type}`,
+						query: (arg) => ({
+							url: `/${arg.platform_type}`,
+							params: arg
+						}),
 						providesTags: (result, error, arg) => [{ type: TAG_CONVERSATION, id: arg.user_id }],
 					}),
 					
 					createConversation: builder.mutation<ID, ICreateConversation<T>>({
 						query: (arg) => ({
 							url: `/${arg.platform_type}`,
-							method: 'PATCH',
+							method: 'post',
 							body: arg,
 						}),
 						invalidatesTags: [TAG_CONVERSATION],

@@ -17,6 +17,26 @@ import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
+const initConversationParams = <T extends PlatformType>(platform_type: T): IConversationParams<T> => (
+	platform_type === PlatformType.chatGPT
+		? {
+			model: ChatgptModelType.gpt35,
+			selected: [],
+		} as IConversationParams<PlatformType.chatGPT>
+		: {} as IConversationParams<PlatformType.dalle>
+) as IConversationParams<T>
+
+const initMessageParams = <T extends PlatformType>(platform_type: T): IMessageParams<T> => (
+	platform_type === PlatformType.chatGPT
+		? {
+			role: MessageRoleType.user,
+		} as IMessageParams<PlatformType.chatGPT>
+		: {
+			role: MessageRoleType.user,
+			dimension: DalleDimensionType.sm,
+		} as IMessageParams<PlatformType.dalle>
+) as IMessageParams<T>
+
 
 export const ConversationComp = <T extends PlatformType>(
 	{
@@ -40,46 +60,36 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	const user = useUser()
 	const user_id = user?.id
-	const [messages, setMessages] = useState<IMessage<T>[]>([])
+	
 	const [conversation_id, setConversationId] = useState(cid)
+	const [messages, setMessages] = useState<IMessage<T>[]>([])
+	const { currentData: initedMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken, { refetchOnMountOrArgChange: true })
 	
 	const [createConversation] = useCreateConversationMutation()
-	const { currentData: _messages = [] } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
 	const [sendMessage, { isLoading: isLoadingResponse, error: openAIError, data: openAIResponse }] = useSendMessageMutation()
+	
+	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(initConversationParams<T>(platform_type))
+	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(initMessageParams<T>(platform_type))
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(platform_type === PlatformType.chatGPT
-		? ({
-			model: ChatgptModelType.gpt35,
-			selected: [],
-		} as IConversationParams<PlatformType.chatGPT> as IConversationParams<T>)
-		: ({} as IConversationParams<PlatformType.dalle> as IConversationParams<T>),
-	)
+	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
 	
-	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(platform_type === PlatformType.chatGPT
-		? ({
-			role: MessageRoleType.user,
-		} as IMessageParams<PlatformType.chatGPT> as IMessageParams<T>)
-		: ({
-			role: MessageRoleType.user,
-			dimension: DalleDimensionType.sm,
-		} as IMessageParams<PlatformType.dalle> as IMessageParams<T>),
-	)
-	
-	const pushMessage = (message: IMessage<T>) => {
-		setMessages((messages) => [...messages, message])
-	}
 	
 	// update conversation id upon prop changes
-	useEffect(() => {
-		console.log({ cid })
-		setConversationId(cid)
-	}, [cid])
+	useEffect(() => setConversationId(cid), [cid])
 	
-	// update messages upon initialization
-	useEffect(() => {if (_messages.length) setMessages(_messages)}, [_messages])
+	/**
+	 * update messages upon inited messages changed
+	 *
+	 * 1. cid changed triggered by url change
+	 * 2. inited messages changed out of auto fetch messages
+	 * 3. set messages
+	 */
+	useEffect(() => {
+		if (initedMessages) setMessages((messages) => initedMessages)
+	}, [initedMessages])
 	
 	// update messages upon receiving response
 	useEffect(() => {

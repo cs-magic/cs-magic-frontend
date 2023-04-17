@@ -6,6 +6,9 @@ export const baseApi = createApi({
 		baseUrl: BACKEND_ENDPOINT,
 	}),
 	reducerPath: 'baseApi',
+	
+	// refetchOnMountOrArgChange: true, // ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
+	
 	endpoints: () => ({}),
 })
 
