@@ -76,7 +76,7 @@ export const projects: IProjectItem[] = [
 		name: u.routes.service.dalle,
 		desc: '基于OpenAI的Dalle，支持根据文本生成图片',
 		href: '/apps/chat/dalle',
-		coverUrl: '/screenshots/dalle.png',
+		coverUrl: '/screenshots/dalle2.png',
 		features: ['NEW', '稳定', '免翻'],
 	},
 ]

@@ -20,7 +20,7 @@ export const ProjectItemComp = (
 		features = [],
 	}: IProjectItem) => {
 	return (
-		<div className="card w-full bg-base-100 shadow-xl w-full md:w-[540px] h-[320px] md:h-[420px]">
+		<div className="card w-full bg-base-100 shadow-xl w-full md:w-[540px] h-fit md:h-[420px]">
 			<AspectRatio ratio={16 / 9}>
 				<Image fill className="rounded-md object-cover" src={coverUrl} alt={name}/>
 			</AspectRatio>

@@ -16,7 +16,7 @@ export enum MessageRoleType {
 export type ChatGPTMessageRoleTYpe = MessageRoleType
 
 export enum DalleDimensionType {
-	sm = '216x216',
+	sm = '256x256',
 	md = '512x512',
 	lg = '1024x1024'
 }

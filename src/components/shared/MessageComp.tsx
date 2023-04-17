@@ -48,7 +48,8 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 							</ReactMarkdown>
 						</article>
 					) : (
-						<Image src={msg.content} alt={msg.content} width={256} height={256}/>
+						// <Image src={msg.content} alt={msg.content} width={256} height={256}/>
+						<img src={msg.content} alt={msg.content} width={256} height={256}/>
 					)
 				}
 			</div>

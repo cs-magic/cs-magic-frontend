@@ -189,7 +189,8 @@ export const ConversationComp = <T extends PlatformType>(
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				Tokens: {user ? user.openai.balance : '请登录后查看！'}, Platform: {platform_type}, Detail: {JSON.stringify(conversationParams)}
+				<span>Tokens: {user ? user.openai.balance : '请登录后查看！'}, Platform: {platform_type}</span>
+				<span className={'hidden md:block'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
