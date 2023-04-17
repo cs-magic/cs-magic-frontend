@@ -17,17 +17,17 @@ export const userApi = baseApi
 			}),
 			
 			getUser: build.query<IUser, ID>({
-				query: (user_id) => `/user/${user_id}`,
+				query: (arg) => `/user/${arg}`,
 				providesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg }],
 			}),
 			
 			updateBasicUser: build.mutation<IUserBasic,
 				{ body: Partial<IUserBasic>, id: ID } // id 一定要有的
 				>({
-				query: (data) => ({
-					url: `/user/${data.id}/basic`,
-					method: 'patch',
-					body: data.body,
+				query: (arg) => ({
+					url: `/user/${arg.id}/basic`,
+					method: 'PATCH',
+					body: arg.body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),
@@ -35,10 +35,10 @@ export const userApi = baseApi
 			updateOpenAIUser: build.mutation<IUserOpenAI,
 				{ body: Partial<IUserOpenAI>, id: ID } // id 一定要有的
 				>({
-				query: (data) => ({
-					url: `/user/${data.id}/openai`,
-					method: 'post',
-					body: data.body,
+				query: (arg) => ({
+					url: `/user/${arg.id}/openai`,
+					method: 'PATCH',
+					body: arg.body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),

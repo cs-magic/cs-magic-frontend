@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import { NavbarAvatarComp } from '@/components/shared/NavbarAvatarComp'
+import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import { navbarItems } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
 import { ReactNode } from 'react'
@@ -54,7 +54,7 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 				<p className={'md:hidden'}>{getTitle(title, false)}</p>
 			</div>
 			
-			<NavbarAvatarComp/>
+			<UserProfileComp/>
 		</div>
 	)
 }

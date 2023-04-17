@@ -12,8 +12,9 @@ import { useUser, useUserId } from '@/hooks/use-user'
 import { useUpdateBasicUserMutation } from '@/api/userApi'
 import { useEffect } from 'react'
 import { useUploadFileMutation } from '@/api/fileApi'
+import { routers } from '@/config'
 
-export const NavbarAvatarComp = () => {
+export const UserProfileComp = () => {
 	const user = useUser()
 	const userId = useUserId()
 	
@@ -101,7 +102,7 @@ export const NavbarAvatarComp = () => {
 					label={'planning'}
 					content={
 						<p id={'planning'}>{_.upperCase(user.basic.planning)}</p>}
-					extra={<Link href={'/userPlanning'}>
+					extra={<Link href={routers.userPlanning.href}>
 						<Button variant={'destructive'} size={null} className={'px-2 py-1'}>User Planning</Button>
 					</Link>}/>
 			

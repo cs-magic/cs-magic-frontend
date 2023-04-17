@@ -98,4 +98,15 @@ export const navbarItems: INavbarItem[][] = [
 	],
 ]
 
+export const routers: { [key: string]: INavbarItem } = {
+	home: navbarItems[0][0],
+	appChatChatGPT: navbarItems[1][0],
+	appChatDalle: navbarItems[1][1],
+	appUserPlanning: navbarItems[2][0],
+	appWallMessages: navbarItems[2][1],
+	aboutVersions: navbarItems[3][0],
+	aboutSponsors: navbarItems[3][1],
+	aboutUS: navbarItems[3][2],
+}
+
 
