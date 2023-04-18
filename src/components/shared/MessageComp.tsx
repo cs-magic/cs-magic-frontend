@@ -1,10 +1,9 @@
 import { clsx } from 'clsx'
 import { IconBrandOpenai } from '@tabler/icons-react'
-import { AvatarView } from '@/components/views/AvatarView'
+import { UserAvatarView } from '@/components/views/UserAvatarView'
 import { useUser } from '@/hooks/use-user'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-import Image from 'next/image'
 import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 
@@ -12,7 +11,7 @@ import { PlatformType } from '@/ds/openai/general'
 export const MessageComp = <T extends PlatformType>({ msg }: {
 	msg: IMessage<T>
 }) => {
-	const user = useUser()
+	const user = useUser()!
 	
 	return (
 		<div className={clsx(
@@ -30,7 +29,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 					{
 						msg.platform_params.role === MessageRoleType.assistant
 							? <IconBrandOpenai size={24} className={'shrink-0 w-6 h-6'}/>
-							: <AvatarView user={user} className={'shrink-0 w-6 h-6'}/>
+							: <UserAvatarView user={user} className={'shrink-0 w-6 h-6'}/>
 					}
 				</div>
 				

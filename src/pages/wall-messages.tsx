@@ -2,94 +2,20 @@ import { NextPage } from 'next'
 import { RootLayout } from '@/layouts/RootLayout'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { FC, useEffect, useRef } from 'react'
-import { AvatarView } from '@/components/views/AvatarView'
-import { IconDotsVertical, IconThumbDown, IconThumbUp } from '@tabler/icons-react'
-import { IWallMessage } from '@/ds/wall-messages'
-import { useCreateWallMessageMutation, useListWallMessagesQuery, useVoteWallMessageMutation } from '@/api/wallMessageApi'
-import { clsx } from 'clsx'
-import { toast, useToast } from '@/hooks/use-toast'
+import { useEffect, useRef } from 'react'
+import { useCreateWallMessageMutation, useListWallMessagesQuery } from '@/api/wallMessageApi'
+import { toast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
+import { WallMessageComp } from '@/components/shared/WallMessageComp'
 
-
-export const WallMessageComp: FC<IWallMessage> = (props) => {
-	
-	const [voteWallMessage, result] = useVoteWallMessageMutation()
-	const user_id = useUserId()
-	
-	const { toast } = useToast()
-	
-	useEffect(() => {
-		console.log('voted result:', result)
-		if (result.isError) {
-			// @ts-ignore
-			toast({ title: result.error.data.detail, variant: 'destructive' })
-		} else if (result.isSuccess) {
-			toast({ title: '已投票' })
-		}
-	}, [result.isError, result.isSuccess])
-	
-	return (
-		<div className={'p-4 rounded-md shadow-xl border border-gray-500 w-full flex flex-col gap-2'}>
-			
-			<div className={'wm-user flex items-center gap-4'}>
-				<AvatarView user={props.poster}/>
-				<div className={'grow'}>
-					<p>{props.poster.basic.name}</p>
-					<p className={'text-gray-500 text-sm'}>{new Date(props.time / 1000000).toLocaleString()}</p>
-				</div>
-				
-				<Button
-					className={'inline-flex items-center gap-2'}
-					variant={'ghost'}
-					size={'sm'}
-					disabled={result.isLoading || (user_id ? props.voters_up.includes(user_id) : false)}
-					onClick={() => {
-						if (!user_id) return toast({ title: '登录后才可以投票', variant: 'destructive' })
-						voteWallMessage({ user_id, id: props.id, value: 1 })
-					}}>
-					<IconThumbUp
-						className={'text-green-500'}
-					/>
-					<span>{props.voters_up.length}</span>
-				</Button>
-				
-				<Button
-					className={'inline-flex items-center gap-2'}
-					variant={'ghost'}
-					size={'sm'}
-					disabled={result.isLoading || (user_id ? props.voters_down.includes(user_id) : false)}
-					onClick={() => {
-						if (!user_id) return toast({ title: '登录后才可以投票', variant: 'destructive' })
-						voteWallMessage({ user_id, id: props.id, value: -1 })
-					}}>
-					<IconThumbDown className={'text-gray-500'}/>
-					<span>{props.voters_down.length}</span>
-				</Button>
-				
-				<IconDotsVertical className={clsx(
-					'shrink-0',
-					'hidden', // todo
-				)}/>
-			</div>
-			
-			<article className={'prose dark:prose-invert w-full max-h-[120px] overflow-auto'}>
-				<h3>{props.title}</h3>
-				{props.content?.split('\n').map((p, index) => (
-					<p key={index}>{p}</p>
-				))}
-			</article>
-		
-		</div>
-	)
-}
 
 export const WallMessagesPage: NextPage = () => {
 	
 	const { data: wallMessages } = useListWallMessagesQuery()
+	console.log('wallMessages', wallMessages)
 	const [createWallMessage, { isLoading, isError, isSuccess }] = useCreateWallMessageMutation()
 	const poster_id = useUserId()
 	const refTitleInput = useRef<HTMLInputElement>(null)

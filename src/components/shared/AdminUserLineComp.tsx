@@ -3,7 +3,7 @@ import { IUser, IUserBasic, IUserOpenAI, UserPlanningType, UserRole } from '@/ds
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { AvatarView } from '@/components/views/AvatarView'
+import { UserAvatarView } from '@/components/views/UserAvatarView'
 import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/api/userApi'
 import { toast } from '@/hooks/use-toast'
 import _ from 'lodash'
@@ -25,7 +25,7 @@ export const AdminUserLineComp = ({ user, index }: {
 			<th>{index + 1}</th>
 			<th>{user.id}</th>
 			<td>{userBasicData.name}</td>
-			<td><AvatarView user={user}/></td>
+			<td><UserAvatarView user={user}/></td>
 			<td>{userBasicData.email}</td>
 			
 			<td>
