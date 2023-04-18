@@ -68,6 +68,12 @@ module.exports = {
 				sans: ["var(--font-sans)", ...fontFamily.sans],
 			},
 			keyframes: {
+				// chatGPT 3.5
+				"bounce-start": {
+					'0%': {transform: 'translateY(20px)',},
+					'75%': {transform: "translateY(5px)"},
+					'100%': {transform: 'translateY(0x)'}
+				},
 				"accordion-down": {
 					from: {height: 0},
 					to: {height: "var(--radix-accordion-content-height)"},
@@ -78,6 +84,7 @@ module.exports = {
 				},
 			},
 			animation: {
+				'bounce-start': 'bounce-start 1.5s ease-in-out',
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},

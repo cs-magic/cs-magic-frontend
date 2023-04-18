@@ -14,6 +14,7 @@ import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
+import _ from 'lodash'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -113,6 +114,7 @@ export const ConversationComp = <T extends PlatformType>(
 			type: MessageType.text,
 			platform_type,
 			platform_params: { ...messageParams, role: MessageRoleType.assistant },
+			sender: user_id || 'Unknown',
 		}
 		pushMessage(msg)
 	}, [openAIError])
@@ -139,7 +141,7 @@ export const ConversationComp = <T extends PlatformType>(
 			type: MessageType.text,
 			platform_type,
 			platform_params: messageParams,
-			sender: user_id,
+			sender: user_id || 'Unknown',
 		}
 		pushMessage(msg)
 		
@@ -190,8 +192,10 @@ export const ConversationComp = <T extends PlatformType>(
 	return (
 		<div className={'grow h-full overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
-				<span>Tokens: {user ? user.openai.balance : '请登录后查看！'}, Platform: {platform_type}</span>
-				<span className={'hidden md:block'}>, Detail: {JSON.stringify(conversationParams)}</span>
+				<span className={'inline-flex items-center'}>Tokens:
+					<p className={clsx('text-lg font-bold text-primary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
+					, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></span>
+				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</Button>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
