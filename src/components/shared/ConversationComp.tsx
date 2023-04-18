@@ -139,6 +139,7 @@ export const ConversationComp = <T extends PlatformType>(
 			type: MessageType.text,
 			platform_type,
 			platform_params: messageParams,
+			sender: user_id,
 		}
 		pushMessage(msg)
 		

@@ -46,7 +46,7 @@ export interface IMessage<T extends PlatformType> {
 	platform_type: T
 	platform_params: IMessageParams<T>
 	
-	sender?: ID // todo: 未来做群聊需要这个
+	sender: ID // todo: 未来做群聊需要这个
 	time?: number
 	
 	status?: 'OK' | 'ERROR'
