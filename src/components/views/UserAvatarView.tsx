@@ -1,8 +1,9 @@
 import { IUserBasic, User } from '@/ds/user'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HTMLAttributes } from 'react'
-import { u } from '@/config'
 import { ID } from '@/ds/general'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 
 export const BasicUserAvatarView = (
@@ -13,6 +14,8 @@ export const BasicUserAvatarView = (
 		user: IUserBasic
 	} & HTMLAttributes<HTMLDivElement>,
 ) => {
+	const u = useAppSelector(selectU)
+	
 	return (
 		<Avatar {...props}>
 			<AvatarImage src={user.avatar || undefined}/>

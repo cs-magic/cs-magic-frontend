@@ -9,10 +9,10 @@ import { useRouter } from 'next/router'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
-import { u } from '@/config'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
-	console.log({ baseUrl })
 	
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
@@ -22,6 +22,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	const refTokenInput = useRef<HTMLInputElement>(null)
 	
 	const router = useRouter()
+	const u = useAppSelector(selectU)
 	
 	const onConfirmEmail = async () => {
 		if (loading) {
@@ -45,7 +46,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 				callbackUrl: baseUrl,
 			})
 			setLoading(false)
-			if(step === 6) setStep(7)
+			if (step === 6) setStep(7)
 		}
 	}
 	

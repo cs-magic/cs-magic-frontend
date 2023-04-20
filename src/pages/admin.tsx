@@ -1,12 +1,13 @@
 import { AdminUserLineComp } from '@/components/shared/AdminUserLineComp'
-import { u } from '@/config'
 import { RootLayout } from '@/layouts/RootLayout'
 import { useUser } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 import { useListAllUserQuery } from '@/api/userApi'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 export const AdminPage = () => {
-	
+	const u = useAppSelector(selectU)
 	const user = useUser()
 	const { data: users = [], isLoading } = useListAllUserQuery(undefined, { skip: !user || user.basic.role !== 'admin' })
 	
