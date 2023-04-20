@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import { navbarItems } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
-import { ReactNode } from 'react'
+import { ReactNode, Ref } from 'react'
 import { getTitle } from '@/lib/utils'
 
 export interface INavbarItem {

@@ -6,6 +6,9 @@ import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { routers } from '@/config'
 
 
 export const MessageComp = <T extends PlatformType>({ msg }: {
@@ -35,7 +38,8 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 				
 				{
 					msg.type === MessageType.text ? (
-						<article className={'prose'}>
+						<article className={'w-full prose flex items-center gap-4 justify-between'}>
+							
 							<ReactMarkdown
 								className={'grow'}
 								remarkPlugins={[]}
@@ -45,6 +49,11 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 							>
 								{msg.content}
 							</ReactMarkdown>
+							
+							{
+								msg.status === 'ERROR_TOKEN_DRAIN' && <Link href={routers.userPlanning.href}><Button>升级账号</Button></Link>
+							}
+						
 						</article>
 					) : (
 						// <Image src={msg.content} alt={msg.content} width={256} height={256}/>

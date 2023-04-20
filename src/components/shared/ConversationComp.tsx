@@ -15,6 +15,7 @@ import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
+import { SerializedError } from '@reduxjs/toolkit'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -77,6 +78,7 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
 	
+	console.log('messages', messages)
 	
 	// update conversation id upon prop changes
 	useEffect(() => {
@@ -106,10 +108,13 @@ export const ConversationComp = <T extends PlatformType>(
 	// toast errors
 	useEffect(() => {
 		if (!openAIError) return
+		
 		console.log({ openAIError })
+		// @ts-ignore
+		const {message, type} = (openAIError as FetchBaseQueryError).data.detail
 		const msg: IMessage<T> = {
-			status: 'ERROR',
-			content: ((openAIError as FetchBaseQueryError).data as { detail: string }).detail,
+			status: type,
+			content: message,
 			conversation_id: conversation_id!,
 			type: MessageType.text,
 			platform_type,

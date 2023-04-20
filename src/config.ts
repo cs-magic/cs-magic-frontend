@@ -98,7 +98,9 @@ export const navbarItems: INavbarItem[][] = [
 	],
 ]
 
-export const routers: { [key: string]: INavbarItem } = {
+
+
+export const routers: Record<string, INavbarItem> = {
 	home: navbarItems[0][0],
 	appChatChatGPT: navbarItems[1][0],
 	appChatDalle: navbarItems[1][1],
