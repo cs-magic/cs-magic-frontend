@@ -2,6 +2,11 @@
 
 ## todo
 
+- [ ] fix 未登录时无限加载聊天界面
+- [ ] 增加未登录时消息返回的引导
+- [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle), like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
+- [ ] 邮箱垃圾机制研究
+- [ ] 调研 pr 点赞问题
 - [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
 - [ ] P2, trailing slash nginx 307问题
