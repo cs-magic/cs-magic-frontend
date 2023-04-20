@@ -120,7 +120,7 @@ export const ConversationsComp = <T extends PlatformType>(
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
 					<>
-						<Button className={'w-full inline-flex items-center gap-2 rounded-none mb-1'} variant={'subtle'} onClick={() => {
+						<Button variant={"subtle"} className={'w-full inline-flex items-center gap-2 rounded-none mb-1 bg-bg-contrast'} onClick={() => {
 							router.push(getChatUrl({ platform_type: platform_type }))
 						}}>
 							<IconPlus size={16}/>
