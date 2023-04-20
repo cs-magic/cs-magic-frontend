@@ -30,10 +30,10 @@ export const ConversationPage = () => {
 		<RootLayout title={title}>
 			{
 				!user_id ? <CentralLoadingComp/> : (
-					<div className={'w-full h-full flex'}>
+					<div className={'w-full grow flex'}>
 						
 						{/* left: conversations */}
-						<div className={'hidden md:block w-[260px]'}>
+						<div className={'hidden md:block w-[260px] items-stretch border'}>
 							{conversationsComp}
 						</div>
 						

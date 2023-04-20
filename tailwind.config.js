@@ -5,28 +5,53 @@ module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx,md,mdx}'],
 	darkMode: 'media',
 	theme: {
+		container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px",
+			},
+		},
 		extend: {
 			colors: {
-				bg: {
-					base: 'var(--bg-base)',
-					sub: 'var(--bg-sub)',
-					shade: 'var(--bg-shade)',
-					border: 'var(--bg-border)',
-					'border-strong': 'var(--bg-border-strong)',
-					'modal-overlay': 'var(--bg-modal-overlay)',
-					// 这样对应地就可以使用 bg-bg-tag，或者 text-bg-tag 之类的了
-					tag: 'var(--tag-base)',
-					contrast: 'var(--bg-contrast)',
-					error: 'var(--bg-error)',
-				},
-				label: {
-					title: 'var(--label-title)',
-					base: 'var(--label-base)',
-					muted: 'var(--label-muted)',
-					faint: 'var(--label-faint)',
-					link: 'var(--label-link)',
-					'link-hover': 'var(--label-link-hover)',
-				},
+				// border: "hsl(var(--border))",
+				// input: "hsl(var(--input))",
+				// ring: "hsl(var(--ring))",
+				// background: "hsl(var(--background))",
+				// foreground: "hsl(var(--foreground))",
+				// primary: {
+				// 	DEFAULT: "hsl(var(--primary))",
+				// 	foreground: "hsl(var(--primary-foreground))",
+				// },
+				// secondary: {
+				// 	DEFAULT: "hsl(var(--secondary))",
+				// 	foreground: "hsl(var(--secondary-foreground))",
+				// },
+				// destructive: {
+				// 	DEFAULT: "hsl(var(--destructive))",
+				// 	foreground: "hsl(var(--destructive-foreground))",
+				// },
+				// muted: {
+				// 	DEFAULT: "hsl(var(--muted))",
+				// 	foreground: "hsl(var(--muted-foreground))",
+				// },
+				// accent: {
+				// 	DEFAULT: "hsl(var(--accent))",
+				// 	foreground: "hsl(var(--accent-foreground))",
+				// },
+				// popover: {
+				// 	DEFAULT: "hsl(var(--popover))",
+				// 	foreground: "hsl(var(--popover-foreground))",
+				// },
+				// card: {
+				// 	DEFAULT: "hsl(var(--card))",
+				// 	foreground: "hsl(var(--card-foreground))",
+				// },
+			},
+			borderRadius: {
+				lg: `var(--radius)`,
+				md: `calc(var(--radius) - 2px)`,
+				sm: "calc(var(--radius) - 4px)",
 			},
 			
 			fontFamily: {

@@ -5,6 +5,7 @@ import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
+import { FooterView } from '@/components/views/FooterView'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -31,7 +32,7 @@ export const RootLayout = ({ children, title }: {
 			</Head>
 			
 			<main>
-				<div className={'m-auto max-w-[1400px] h-full flex flex-col'}>
+				<div className={'m-auto max-w-[1400px] min-h-screen flex flex-col'}>
 					{notifications.top && (
 						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
 							{notifications.top}
@@ -40,9 +41,11 @@ export const RootLayout = ({ children, title }: {
 					
 					<NavBarComp title={title}/>
 					
-					<div className={'w-full grow overflow-auto'}>
+					<div className={'w-full grow flex flex-col overflow-auto border'}>
 						{children}
 					</div>
+					
+					<FooterView/>
 				</div>
 			</main>
 		</>

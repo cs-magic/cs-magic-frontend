@@ -196,10 +196,10 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	
 	return (
-		<div className={'grow h-full overflow-hidden flex flex-col'}>
+		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
 				<span className={'inline-flex items-center'}>Tokens:
-					<p className={clsx('text-lg font-bold text-primary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
+					<p className={clsx('text-lg font-bold text-secondary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
 					, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></span>
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</Button>
@@ -230,7 +230,7 @@ export const ConversationComp = <T extends PlatformType>(
 				</div>
 			)}
 			
-			<div className={'w-full mt-2 '}>
+			<div className={'w-full my-2'}>
 				<div className={clsx(c, 'relative py-2')}>
 					<Textarea
 						className={'w-full shadow-xl resize-none'}

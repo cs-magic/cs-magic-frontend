@@ -19,8 +19,8 @@ body {
     margin: 0;
     font-size: 16px;
 
-    background-color: var(--bg-base);
-    color: var(--label-base);
+    /*background-color: var(--bg-base);*/
+    /*color: var(--label-base);*/
 
     font-family: 'Inter', ui-sans-serif, -apple-system, Arial, Helvetica,
     'Apple Color Emoji', sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';

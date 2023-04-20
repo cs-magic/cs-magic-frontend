@@ -58,7 +58,7 @@ export const ConversationsComp = <T extends PlatformType>(
 		const view = (
 			<div
 				className={clsx(
-					'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-bg-border',
+					'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b',
 					'hover:bg-bg-base',
 					isHighlight && 'bg-bg-border-strong',
 				)}
@@ -115,7 +115,7 @@ export const ConversationsComp = <T extends PlatformType>(
 	
 	
 	return (
-		<div className={'w-full h-full flex flex-col bg-bg-sub'}>
+		<div className={'w-full h-full flex flex-col bg-bg-sub border'}>
 			
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
