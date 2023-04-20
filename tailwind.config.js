@@ -9,7 +9,6 @@ module.exports = {
 			colors: {
 				bg: {
 					base: 'var(--bg-base)',
-					'base-hover': 'var(--bg-base-hover)',
 					sub: 'var(--bg-sub)',
 					shade: 'var(--bg-shade)',
 					border: 'var(--bg-border)',
@@ -18,6 +17,7 @@ module.exports = {
 					// 这样对应地就可以使用 bg-bg-tag，或者 text-bg-tag 之类的了
 					tag: 'var(--tag-base)',
 					contrast: 'var(--bg-contrast)',
+					error: 'var(--bg-error)',
 				},
 				label: {
 					title: 'var(--label-title)',
@@ -26,41 +26,6 @@ module.exports = {
 					faint: 'var(--label-faint)',
 					link: 'var(--label-link)',
 					'link-hover': 'var(--label-link-hover)',
-				},
-				accent: {
-					label: 'var(--accent-label)',
-					base: 'var(--accent-base)',
-					'base-hover': 'var(--accent-base-hover)',
-					'selected-label': 'var(--accent-selected-label)',
-					'selected-bg': 'var(--accent-selected-bg)',
-					'muted-label': 'var(--accent-muted-label)',
-					'muted-bg': 'var(--accent-muted-bg)',
-				},
-				semantic: {
-					info: {
-						highlight: 'var(--semantic-info-highlight)',
-						base: 'var(--semantic-info-base)',
-						border: 'var(--semantic-info-border)',
-						bg: 'var(--semantic-info-bg)',
-					},
-					success: {
-						highlight: 'var(--semantic-success-highlight)',
-						base: 'var(--semantic-success-base)',
-						border: 'var(--semantic-success-border)',
-						bg: 'var(--semantic-success-bg)',
-					},
-					warning: {
-						highlight: 'var(--semantic-warning-highlight)',
-						base: 'var(--semantic-warning-base)',
-						border: 'var(--semantic-warning-border)',
-						bg: 'var(--semantic-warning-bg)',
-					},
-					error: {
-						highlight: 'var(--semantic-error-highlight)',
-						base: 'var(--semantic-error-base)',
-						border: 'var(--semantic-error-border)',
-						bg: 'var(--semantic-error-bg)',
-					},
 				},
 			},
 			
