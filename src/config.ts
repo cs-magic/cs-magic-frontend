@@ -8,6 +8,7 @@ import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 export const u = schemaCN
 
 export const generalFeatures: IFeature[] = [
+	{ name: '支持 Dalle 作图', status: 'finished' },
 	{ name: '支持 ChatGPT-4 模型聊天（待开发）', status: 'todo' },
 	{ name: '支持 MidJourney 图形服务（待开发）', status: 'todo' },
 	{ name: '支持 OpenAI 其他服务（待开发）', status: 'todo' },

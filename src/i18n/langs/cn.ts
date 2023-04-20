@@ -3,7 +3,7 @@ import { II18nSchema } from '@/i18n/schma'
 export const schemaCN: II18nSchema = {
 	hero: {
 		title: '欢迎来到CS魔法社',
-		subtitle: '基于计算机技术的一些研究、分享，包括大语言模型交互、轻量小游戏等',
+		subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
 		// subtitle: '一群致力于开发友好、稳健、实用、开源的计算机程序造福身边朋友的年轻人社区',
 		entrance: '开启您的新世界',
 	},

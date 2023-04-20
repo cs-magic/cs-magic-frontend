@@ -22,7 +22,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 			msg.status === 'ERROR'
 				? 'bg-red-300 dark:bg-red-700'
 				: msg.platform_params.role === MessageRoleType.assistant
-					? 'bg-gray-50 dark:bg-[#444654]'
+					? 'bg-bg-shade'
 					: 'dark:bg-gray-800',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}

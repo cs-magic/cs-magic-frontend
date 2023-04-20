@@ -56,11 +56,11 @@ export const ConversationsComp = <T extends PlatformType>(
 		const { id, name, platform_type } = conversation
 		
 		const view = (
-			<Button
-				variant={'ghost'}
+			<div
 				className={clsx(
-					'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-gray-200 dark:border-gray-700',
-					isHighlight && 'bg-gray-200 dark:bg-gray-700',
+					'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-bg-border',
+					'hover:bg-bg-base',
+					isHighlight && 'bg-bg-border-strong',
 				)}
 			>
 				<IconMessageCircle size={16} className={'shrink-0'}/>
@@ -105,7 +105,7 @@ export const ConversationsComp = <T extends PlatformType>(
 					)
 				}
 			
-			</Button>
+			</div>
 		)
 		
 		return isEditing ? view : (
