@@ -24,7 +24,7 @@ export const schemaCN: II18nSchema = {
 		service: {
 			chat: 'AI Chat',
 			chatGPT: "ChatGPT Response Generator",
-			dalle: "Dalle Imange Generator"
+			dalle: "Dalle Image Generator"
 		},
 		user: {
 			planning: "Membership Plan",
