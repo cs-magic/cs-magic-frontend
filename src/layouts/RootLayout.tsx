@@ -41,7 +41,7 @@ export const RootLayout = ({ children, title }: {
 					
 					<NavBarComp title={title}/>
 					
-					<div className={'w-full grow flex flex-col overflow-auto border'}>
+					<div className={'w-full grow flex flex-col overflow-auto border border-base-300'}>
 						{children}
 					</div>
 					

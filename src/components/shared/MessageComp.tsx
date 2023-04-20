@@ -20,10 +20,10 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 		<div className={clsx(
 			'w-full',
 			msg.status && msg.status !== 'OK'
-				? 'bg-bg-error'
+				? 'bg-error'
 				: msg.platform_params.role === MessageRoleType.assistant
-					? 'bg-bg-shade'
-					: 'bg-bg-base',
+					? 'bg-info-content'
+					: 'bg-base-200',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
 			<div className="py-1 px-2 text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all">

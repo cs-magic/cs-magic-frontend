@@ -33,7 +33,7 @@ export const ConversationPage = () => {
 					<div className={'w-full grow flex'}>
 						
 						{/* left: conversations */}
-						<div className={'hidden md:block w-[260px] items-stretch border'}>
+						<div className={'hidden md:block w-[260px] items-stretch'}>
 							{conversationsComp}
 						</div>
 						
