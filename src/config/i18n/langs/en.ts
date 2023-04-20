@@ -32,10 +32,14 @@ export const en: II18nSchema = {
 			href: '/about/us',
 			name: 'About US',
 		},
-		contact: {
-			href: '/about/contact',
-			name: 'Contact',
+		userPlanning: {
+			href: '/user-planning',
+			name: 'Premium Planning'
 		},
+		// contact: {
+		// 	href: '/about/contact',
+		// 	name: '联系我们',
+		// },
 		jobs: {
 			href: '/about/occupation',
 			name: 'Occupations',

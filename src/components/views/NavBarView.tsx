@@ -3,7 +3,7 @@ import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import { getTitle } from '@/lib/utils'
 import { FooterView } from '@/components/views/FooterView'
 
-export const NavBarComp = ({ title }: { title?: string }) => {
+export const NavBarView = ({ title }: { title?: string }) => {
 	
 	return (
 		<div className="w-full shrink-0 inline-flex items-center px-2 gap-2">

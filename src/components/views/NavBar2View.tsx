@@ -3,10 +3,9 @@ import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import Link from 'next/link'
-import { SeparatorVertical } from 'lucide-react'
-import Image from 'next/image'
+import { LogoHomeView } from '@/components/views/LogoHomeView'
 
-export const NavBar2Comp = () => {
+export const NavBar2View = () => {
 	const u = useAppSelector(selectU)
 	
 	return (
@@ -20,22 +19,25 @@ export const NavBar2Comp = () => {
 						</svg>
 					</label>
 					<ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 shadow bg-base-100 rounded-box w-[240px]">
-						
 						<FooterView/>
 					</ul>
 				</div>
 				
-				<Image src={'/logo-transparent.png'} alt={'logo'} width={36} height={36} className={'hidden md:block'}/>
-				<a className="btn btn-ghost normal-case text-xl">{u.website.platformName}</a>
+				<LogoHomeView/>
+			
 			</div>
 			
 			<div className="navbar-center hidden lg:flex">
 				<ul className="menu menu-horizontal px-1">
 					{Object.values(u.projects).map((project, index) => (
 						<li key={index}>
-							<Link href={project.href} >{project.name}</Link>
+							<Link href={project.href} className={'font-semibold'}>{project.name}</Link>
 						</li>
 					))}
+					
+					<li>
+						<Link href={u.abouts.userPlanning.href} className={'text-accent font-semibold'}>{u.abouts.userPlanning.name}</Link>
+					</li>
 				</ul>
 			</div>
 			

@@ -10,6 +10,7 @@ import { useTheme } from 'next-themes'
 import { Label } from '../ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Switch } from '../ui/switch'
+import { ContactView } from '@/components/views/ContactView'
 
 
 export const FooterView = () => {
@@ -136,7 +137,7 @@ export const FooterView = () => {
 								<TooltipTrigger className={'hidden md:block'}><IconBrandWechat size={32}/></TooltipTrigger>
 								
 								<TooltipContent>
-									<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'wechat-mark.jpeg'} width={320} height={480}/>
+									<ContactView/>
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>

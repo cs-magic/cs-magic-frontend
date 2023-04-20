@@ -33,10 +33,14 @@ export const zh: II18nSchema = {
 			href: '/about/us',
 			name: '关于我们',
 		},
-		contact: {
-			href: '/about/contact',
-			name: '联系我们',
+		userPlanning: {
+			href: '/user-planning',
+			name: '会员计划'
 		},
+		// contact: {
+		// 	href: '/about/contact',
+		// 	name: '联系我们',
+		// },
 		jobs: {
 			href: '/about/occupation',
 			name: '职业机会',

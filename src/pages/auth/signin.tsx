@@ -11,6 +11,7 @@ import axios from 'axios'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
+import { LogoHomeView } from '@/components/views/LogoHomeView'
 
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
@@ -70,6 +71,8 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 		<AuthLayout title={u.routes.auth.home}>
 			
 			<div className={'flex flex-col gap-2'}>
+				
+				<LogoHomeView/>
 				
 				{/*{step >= 1 && <TitleLineComp content={'Pickup your favorite name'} onTypingDone={() => step === 1 && setStep(step + 1)}/>}*/}
 				

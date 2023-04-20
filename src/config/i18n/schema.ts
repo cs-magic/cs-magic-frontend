@@ -25,6 +25,7 @@ export interface II18nSchema {
 	},
 	abouts: {
 		aboutUS?: ILink
+		userPlanning: ILink,
 		contact?: ILink
 		jobs?: ILink
 	},

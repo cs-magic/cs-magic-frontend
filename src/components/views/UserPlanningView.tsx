@@ -2,8 +2,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
-import Image from 'next/image'
 import { AspectRatio } from '../ui/aspect-ratio'
+import { ContactView } from '@/components/views/ContactView'
 
 
 export enum UserPlanningCharge {
@@ -37,8 +37,7 @@ export const UserPlanningView = () => {
 					<TabsContent value={UserPlanningCharge.manual}>
 						<p>Please add my wechat for the planning detail.</p>
 						<AspectRatio ratio={2 / 3}>
-							{/*<Image src={'/dynamic/cs-magic-inner-test-230407.jpeg'} alt={'cs-magic-inner-test-230407.jpeg'} fill/>*/}
-							<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'wechat-mark.jpeg'} fill/>
+							<ContactView/>
 						</AspectRatio>
 					</TabsContent>
 					
