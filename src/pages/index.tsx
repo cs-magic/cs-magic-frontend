@@ -1,9 +1,8 @@
 import { RootLayout } from '@/layouts/RootLayout'
-import { ProjectItemComp } from '@/components/shared/ProjectItemComp'
 import { HeroView } from '@/components/views/HeroView'
-import { projects } from '@/config'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
+import { ProjectView } from '@/components/views/ProjectView'
 
 
 export default function Home() {
@@ -17,8 +16,8 @@ export default function Home() {
 				<HeroView/>
 				
 				<div className={'w-full grow flex flex-wrap justify-around gap-4'}>
-					{projects.map((project) => (
-						<ProjectItemComp key={project.nameKey} {...project}/>
+					{Object.values(u.projects).map((project) => (
+						<ProjectView key={project.name} {...project}/>
 					))}
 				</div>
 			</div>

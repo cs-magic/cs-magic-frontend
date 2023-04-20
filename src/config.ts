@@ -1,4 +1,3 @@
-import { IProjectItem } from '@/components/shared/ProjectItemComp'
 import { UserPlanningType } from '@/ds/user'
 import { IFeature } from '@/ds/general'
 import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
@@ -62,29 +61,9 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 	},
 ]
 
-export const projects: IProjectItem[] = [
-	{
-		nameKey: 'routes.apps.chatGPT',
-		desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
-		href: '/apps/chat/chatGPT',
-		coverUrl: '/screenshots/chatgpt.png',
-		features: ['NEW', '稳定', '免翻'],
-	},
-	
-	{
-		nameKey: 'routes.apps.dalle',
-		desc: '基于OpenAI的Dalle，支持根据文本生成图片',
-		href: '/apps/chat/dalle',
-		coverUrl: '/screenshots/dalle2.png',
-		features: ['NEW', '稳定', '免翻'],
-	},
-]
-
 
 export const routers: Record<string, INavbarItem> = {
 	home: { href: '/', nameKey: 'routes.home' },
-	appChatChatGPT: projects[0],
-	appChatDalle: projects[1],
 	userPlanning: { href: '/user-planning', nameKey: 'routes.user.planning' },
 	wallMessages: { href: '/wall-messages', nameKey: 'routes.user.wall' },
 	aboutVersions: { href: '/about/versions', nameKey: 'routes.about.versions' },

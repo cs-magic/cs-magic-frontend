@@ -10,31 +10,78 @@ export const en: II18nSchema = {
 		platformName: 'CS Magic Community',
 		avatarPlaceholder: 'Sign In',
 	},
+	projects: {
+		chatGPT: {
+			name: 'ChatGPT Response Generator',
+			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
+			href: '/apps/chat/chatGPT',
+			tags: ['NEW', 'Stable', 'Mirror'],
+			cover: '/screenshots/chatgpt.png',
+		},
+		dalle: {
+			name: 'Dalle Image Generator',
+			desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+			href: '/apps/chat/dalle',
+			tags: ['NEW', 'Stable', 'Mirror'],
+			cover: '/screenshots/dalle2.png',
+		},
+	},
+	
+	abouts: {
+		aboutUS: {
+			href: '/about/us',
+			name: 'About US',
+		},
+		contact: {
+			href: '/about/contact',
+			name: 'Contact',
+		},
+		jobs: {
+			href: '/about/occupation',
+			name: 'Occupations',
+		},
+	},
+	
+	legals: {
+		termOfUse: {
+			href: '/legal/term-of-use',
+			name: 'Term Of Use',
+		},
+		privacyPolicy: {
+			href: '/legal/privacy-policy',
+			name: 'Privacy Policy',
+		},
+		CookiePolicy: {
+			href: '/legal/cookie-policy',
+			name: 'Cookie Policy',
+		},
+	},
+	
 	routes: {
 		about: {
 			versions: 'Version History',
 			sponsors: 'Sponsor',
-			us: "About Us",
+			us: 'About Us',
 		},
 		admin: {
-			home: "Console"
+			home: 'Console',
 		},
-		home: "Home",
+		home: 'Home',
 		apps: {
 			chat: 'AI Chat',
-			chatGPT: "ChatGPT Response Generator",
-			dalle: "Dalle Image Generator"
+			chatGPT: 'ChatGPT Response Generator',
+			dalle: 'Dalle Image Generator',
 		},
 		user: {
-			planning: "Membership Plan",
-			wall: "Messages Wall",
+			planning: 'Membership Plan',
+			wall: 'Messages Wall',
 		},
 		auth: {
-			home: "User System",
-		}
+			home: 'User System',
+		},
 	},
 	notify: {
-		errorUserEmpty: "Username cannot be empty! Please register and log in before using!",
+		errorUserEmpty: 'Username cannot be empty! Please register and log in before using!',
 		errorSendEmpty: 'Cannot send empty message!',
-	}
+	},
 }

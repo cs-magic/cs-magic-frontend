@@ -35,8 +35,8 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 					<DropdownMenuSeparator/>
 					
 					<DropdownMenuGroup>
-						<Link href={routers.appChatChatGPT.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.appChatChatGPT.nameKey)}</DropdownMenuItem></Link>
-						<Link href={routers.appChatDalle.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.appChatDalle.nameKey)}</DropdownMenuItem></Link>
+						<Link href={u.projects.chatGPT.href}><DropdownMenuItem className={'cursor-pointer'}>{u.projects.chatGPT.name}</DropdownMenuItem></Link>
+						<Link href={u.projects.dalle.href}><DropdownMenuItem className={'cursor-pointer'}>{u.projects.dalle.name}</DropdownMenuItem></Link>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator/>
 					

@@ -10,31 +10,79 @@ export const zh: II18nSchema = {
 		platformName: 'CS魔法社',
 		avatarPlaceholder: '登录',
 	},
+	
+	projects: {
+		chatGPT: {
+			name: 'ChatGPT 聊天',
+			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
+			href: '/apps/chat/chatGPT',
+			tags: ['NEW', '稳定', '免翻'],
+			cover: '/screenshots/chatgpt.png',
+		},
+		dalle: {
+			name: 'Dalle 作图',
+			desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+			href: '/apps/chat/dalle',
+			tags: ['NEW', '稳定', '免翻'],
+			cover: '/screenshots/dalle2.png',
+		},
+	},
+	
+	abouts: {
+		aboutUS: {
+			href: '/about/us',
+			name: '关于我们',
+		},
+		contact: {
+			href: '/about/contact',
+			name: '联系我们',
+		},
+		jobs: {
+			href: '/about/occupation',
+			name: '职业机会',
+		},
+	},
+	
+	legals: {
+		termOfUse: {
+			href: '/legal/term-of-use',
+			name: '适用条款',
+		},
+		privacyPolicy: {
+			href: '/legal/privacy-policy',
+			name: '隐私政策',
+		},
+		CookiePolicy: {
+			href: '/legal/cookie-policy',
+			name: 'Cookie政策',
+		},
+	},
+	
 	routes: {
 		about: {
 			versions: '版本历史',
 			sponsors: '赞助商',
-			us: "关于我们",
+			us: '关于我们',
 		},
 		admin: {
-			home: "控制台"
+			home: '控制台',
 		},
-		home: "首页",
+		home: '首页',
 		apps: {
 			chat: 'AI陪聊',
-			chatGPT: "ChatGPT 聊天",
-			dalle: "Dalle 作图"
+			chatGPT: 'ChatGPT 聊天',
+			dalle: 'Dalle 作图',
 		},
 		user: {
-			planning: "会员计划",
-			wall: "留言墙",
+			planning: '会员计划',
+			wall: '留言墙',
 		},
 		auth: {
-			home: "用户系统",
-		}
+			home: '用户系统',
+		},
 	},
 	notify: {
-		errorUserEmpty: "用户名不能为空！请先注册登录再使用！",
+		errorUserEmpty: '用户名不能为空！请先注册登录再使用！',
 		errorSendEmpty: '不能发送空消息！',
-	}
+	},
 }

@@ -1,3 +1,14 @@
+export interface ILink {
+	name: string
+	href: string
+}
+
+export interface IProjectItem extends ILink {
+	desc?: string
+	tags: string[]
+	cover: string
+}
+
 export interface II18nSchema {
 	hero: {
 		title: string
@@ -8,6 +19,20 @@ export interface II18nSchema {
 		platformName: string
 		avatarPlaceholder: string
 	},
+	projects: {
+		chatGPT: IProjectItem
+		dalle: IProjectItem
+	}
+	abouts: {
+		aboutUS: ILink
+		contact: ILink
+		jobs: ILink
+	}
+	legals: {
+		termOfUse: ILink
+		privacyPolicy: ILink
+		CookiePolicy: ILink
+	}
 	routes: {
 		admin: {
 			home: string
