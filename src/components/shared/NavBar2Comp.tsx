@@ -4,6 +4,7 @@ import { selectU } from '@/states/features/i18nSlice'
 import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import Link from 'next/link'
 import { SeparatorVertical } from 'lucide-react'
+import Image from 'next/image'
 
 export const NavBar2Comp = () => {
 	const u = useAppSelector(selectU)
@@ -23,14 +24,16 @@ export const NavBar2Comp = () => {
 						<FooterView/>
 					</ul>
 				</div>
+				
+				<Image src={'/logo-transparent.png'} alt={'logo'} width={36} height={36} className={'hidden md:block'}/>
 				<a className="btn btn-ghost normal-case text-xl">{u.website.platformName}</a>
 			</div>
 			
 			<div className="navbar-center hidden lg:flex">
 				<ul className="menu menu-horizontal px-1">
 					{Object.values(u.projects).map((project, index) => (
-						<li>
-							<Link href={project.href} key={index}>{project.name}</Link>
+						<li key={index}>
+							<Link href={project.href} >{project.name}</Link>
 						</li>
 					))}
 				</ul>

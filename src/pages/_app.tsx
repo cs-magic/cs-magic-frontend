@@ -13,7 +13,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 	return (
 		<Provider store={store}>
 			
-			<ThemeProvider forcedTheme={'dark'}>
+			<ThemeProvider defaultTheme={'darcular'}>
 				
 				<SessionProvider session={session}>
 					

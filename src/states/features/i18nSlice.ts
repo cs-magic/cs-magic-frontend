@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { II18nSchema } from '@/i18n/schema'
-import { zh } from '@/i18n/langs/zh'
-import { en } from '@/i18n/langs/en'
+import { II18nSchema } from '@/config/i18n/schema'
+import { zh } from '@/config/i18n/langs/zh'
+import { en } from '@/config/i18n/langs/en'
 import { RootState } from '@/states/store'
 
 export type LangType = 'zh' | 'en'

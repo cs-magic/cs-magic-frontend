@@ -2,7 +2,7 @@ import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
-import { II18nSchema } from '@/i18n/schema'
+import { II18nSchema } from '@/config/i18n/schema'
 import _ from 'lodash'
 
 export function cn(...inputs: ClassValue[]) {

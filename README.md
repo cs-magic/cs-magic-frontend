@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] radix \ shacdn \ daisyUI \ next-theme 之间主题的混战
 - [ ] fix 未登录时无限加载聊天界面
 - [ ] 增加未登录时消息返回的引导
 - [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle), like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)

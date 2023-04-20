@@ -1,6 +1,5 @@
 import { clsx } from 'clsx'
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { MessageComp } from '@/components/shared/MessageComp'
 import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
@@ -15,7 +14,6 @@ import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
-import { SerializedError } from '@reduxjs/toolkit'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 
@@ -115,7 +113,7 @@ export const ConversationComp = <T extends PlatformType>(
 		
 		console.log({ openAIError })
 		// @ts-ignore
-		const {message, type} = (openAIError as FetchBaseQueryError).data.detail
+		const { message, type } = (openAIError as FetchBaseQueryError).data.detail
 		const msg: IMessage<T> = {
 			status: type,
 			content: message,
@@ -139,8 +137,7 @@ export const ConversationComp = <T extends PlatformType>(
 		if (!user_id) {
 			success = false
 			detail = '聊天功能需要先登录再使用！'
-		}
-		else if (isLoadingResponse) {
+		} else if (isLoadingResponse) {
 			success = false
 			detail = '请耐心等待回复完成'
 		}
@@ -201,13 +198,13 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	return (
 		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
-			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
+			<div className={'w-full rounded-none mb-1 flex justify-center items-center font-semibold'}>
 				<span className={'inline-flex items-center'}>Tokens:
-					<p className={clsx('text-lg font-bold text-secondary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
-					<p className={'hidden'}>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
+					<p className={clsx('px-2 text-lg font-bold text-primary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
+					<p>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
 				</span>
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
-			</Button>
+			</div>
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'grow md:hidden'}/>
@@ -256,13 +253,14 @@ export const ConversationComp = <T extends PlatformType>(
 				<div className={'md:hidden w-full grid grid-cols-2 gap-2 mt-2'}>
 					<Sheet>
 						<SheetTrigger asChild>
-							<Button size={'sm'}>{u.ui.chat.btn.conversations}</Button>
+							<button className={'btn btn-sm bg-base-200 text-base-content'}>{u.ui.chat.btn.conversations}</button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
 							{conversationsComp}
 						</SheetContent>
 					</Sheet>
-					<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>
+					<button className={'btn btn-sm bg-base-200 text-base-content'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
+					{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
 				</div>
 			</div>
 		</div>

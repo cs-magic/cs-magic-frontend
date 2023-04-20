@@ -1,4 +1,4 @@
-import { IProjectItem } from '@/i18n/schema'
+import { IProjectItem } from '@/config/i18n/schema'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 import Link from 'next/link'

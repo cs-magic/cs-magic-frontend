@@ -1,4 +1,4 @@
-import { zh } from '@/i18n/langs/zh'
+import { zh } from '@/config/i18n/langs/zh'
 
 export const HeroView = () => {
 	const i18nSchema = zh

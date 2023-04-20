@@ -88,6 +88,7 @@ module.exports = {
 	
 	// daisyui config, ref: https://daisyui.com/docs/config/
 	daisyui: {
-		logs: false
+		logs: false,
+		    themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"],
 	}
 }

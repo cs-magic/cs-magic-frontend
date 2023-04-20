@@ -12,7 +12,7 @@ import { useUser } from '@/hooks/use-user'
 import { useUpdateBasicUserMutation } from '@/api/userApi'
 import { useEffect } from 'react'
 import { useUploadFileMutation } from '@/api/fileApi'
-import { routers } from '@/config'
+import { routers } from '@/config/general'
 
 export const UserProfileComp = () => {
 	const user = useUser()

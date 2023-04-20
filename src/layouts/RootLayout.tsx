@@ -32,7 +32,7 @@ export const RootLayout = ({ children, title }: {
 				<link rel="icon" href="/logo.ico"/>
 			</Head>
 			
-			<main>
+			<main className={'text-base-content bg-base-100'}>
 				<div className={'m-auto max-w-[1400px] min-h-screen flex flex-col'}>
 					{notifications.top && (
 						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>

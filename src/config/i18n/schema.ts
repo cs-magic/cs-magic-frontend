@@ -78,7 +78,11 @@ export interface II18nSchema {
 	display: {
 		navs: {
 			services: string
-			settings: string
+			settings: {
+				index: string
+				language: string
+				theme: string
+			}
 			about: string
 			legal: string
 		}

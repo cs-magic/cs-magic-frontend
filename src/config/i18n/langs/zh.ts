@@ -1,4 +1,4 @@
-import { II18nSchema } from '@/i18n/schema'
+import { II18nSchema } from '@/config/i18n/schema'
 
 export const zh: II18nSchema = {
 	hero: {
@@ -105,7 +105,11 @@ export const zh: II18nSchema = {
 	display: {
 		navs: {
 			services: '服务',
-			settings: '设置',
+			settings: {
+				index: '设置',
+				language: '语言',
+				theme: '主题'
+			},
 			about: '关于',
 			legal: '法律',
 		},

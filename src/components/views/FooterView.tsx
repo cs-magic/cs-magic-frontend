@@ -5,13 +5,19 @@ import { TooltipContent } from '@/components/ui/tooltip'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux'
 import { selectLang, selectU, setLang } from '@/states/features/i18nSlice'
-import { Button } from '@/components/ui/button'
-import { clsx } from 'clsx'
+import { themes } from '@/config/general'
+import { useTheme } from 'next-themes'
+import { Label } from '../ui/label'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+import { Switch } from '../ui/switch'
+
 
 export const FooterView = () => {
 	const dispatch = useAppDispatch()
 	const lang = useAppSelector(selectLang)
 	const u = useAppSelector(selectU)
+	
+	const { theme, setTheme } = useTheme()
 	
 	return (
 		<>
@@ -26,12 +32,57 @@ export const FooterView = () => {
 				
 				
 				<div>
-					<span className="footer-title">{u.display.navs.settings}</span>
-					<Button variant={'ghost'} onClick={() => dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))}>
-						<span className={clsx(lang === 'zh' && 'text-primary')}>中</span>
-						<span className={'px-2'}>/</span>
-						<span className={clsx(lang === 'en' && 'text-primary')}>EN</span>
-					</Button>
+					<span className="footer-title">{u.display.navs.settings.index}</span>
+					
+					<div className="flex items-center gap-4">
+						<Label className={'shrink-0'} htmlFor="language">{u.display.navs.settings.language}</Label>
+						<Switch onCheckedChange={() => dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))}/>
+					</div>
+					
+					<div className="flex items-center gap-4">
+						<Label className={'shrink-0'} htmlFor="theme">{u.display.navs.settings.theme}</Label>
+						<Select onValueChange={setTheme}>
+							<SelectTrigger id={'theme'}>
+								<SelectValue placeholder={theme}/>
+							</SelectTrigger>
+							
+							<SelectContent className={'bg-base-300'}>
+								<SelectGroup>
+									{themes.map((theme) => (
+										<SelectItem value={theme} key={theme}>{theme}</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					</div>
+					
+					
+					{/*<div className={'form-control w-[48px]'}>*/}
+					{/*	<label className="input-group cursor-pointer">*/}
+					{/*		<span>Lang</span>*/}
+					{/*		/!*<span className={clsx(lang === 'zh' && 'text-primary')}>中</span>*!/*/}
+					{/*		/!*<span className={'px-0'}>/</span>*!/*/}
+					{/*		/!*<span className={clsx(lang === 'en' && 'text-primary')}>EN</span>*!/*/}
+					{/*		<input type="checkbox" className="toggle toggle-primary" checked={lang === 'en'} onChange={(event) => {*/}
+					{/*			dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))*/}
+					{/*		}}/>*/}
+					{/*	</label>*/}
+					{/*</div>*/}
+					
+					{/*<div className={'form-control'}>*/}
+					{/*	<div className={'input-group input-group-sm'}>*/}
+					{/*		<span>Theme</span>*/}
+					{/*		<select className="h-4 select select-bordered" onChange={(event) => {*/}
+					{/*			setTheme(event.currentTarget.value)*/}
+					{/*		}}>*/}
+					{/*			<option disabled selected>{theme}</option>*/}
+					{/*			{themes.map((theme) => (*/}
+					{/*				<option key={theme}>{theme}</option>*/}
+					{/*			))}*/}
+					{/*		</select>*/}
+					{/*	</div>*/}
+					{/*</div>*/}
+				
 				</div>
 				
 				
@@ -40,19 +91,19 @@ export const FooterView = () => {
 					{Object.values(u.abouts).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
-					</div>
-					
-					<div>
-						<span className="footer-title">{u.display.navs.legal}</span>
+				</div>
+				
+				<div>
+					<span className="footer-title">{u.display.navs.legal}</span>
 					{Object.values(u.legals).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
 				</div>
 			</footer>
 			
-			<footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+			<footer className="md:hidden footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
 				<div className="items-center grid-flow-col gap-4">
-					<Image src={'/logo.png'} alt={'logo'} width={64} height={64}/>
+					<Image src={'/logo-transparent.png'} alt={'logo'} width={64} height={64}/>
 					<p>{u.website.platformName} <br/>Since 2023</p>
 				</div>
 				<div className="md:place-self-center md:justify-self-end">
@@ -82,7 +133,7 @@ export const FooterView = () => {
 						
 						<TooltipProvider>
 							<Tooltip>
-								<TooltipTrigger><IconBrandWechat size={32}/></TooltipTrigger>
+								<TooltipTrigger className={'hidden md:block'}><IconBrandWechat size={32}/></TooltipTrigger>
 								
 								<TooltipContent>
 									<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'wechat-mark.jpeg'} width={320} height={480}/>

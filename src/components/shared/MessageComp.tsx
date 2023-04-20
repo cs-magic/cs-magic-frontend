@@ -8,13 +8,15 @@ import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { routers } from '@/config'
+import { routers } from '@/config/general'
 
 
 export const MessageComp = <T extends PlatformType>({ msg }: {
 	msg: IMessage<T>
 }) => {
 	const user = useUser()!
+	
+	console.log('msg: ', msg)
 	
 	return (
 		<div className={clsx(

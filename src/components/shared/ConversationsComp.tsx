@@ -59,13 +59,13 @@ export const ConversationsComp = <T extends PlatformType>(
 			<div
 				className={clsx(
 					'group w-full p-3 flex items-center gap-2 cursor-pointer rounded-none border-b border-base-300',
-					'hover:bg-bg-base',
+					'hover:bg-bg-base text-base-content',
 					isHighlight && 'bg-bg-border-strong',
 				)}
 			>
 				<IconMessageCircle size={16} className={'shrink-0'}/>
 				{
-					!isEditing ? <p className={'w-full truncate text-left'}>{name || id}</p> : (
+					!isEditing ? <p className={'w-full truncate text-left text-base-content'}>{name || id}</p> : (
 						<Input
 							ref={refInput}
 							defaultValue={name || id}

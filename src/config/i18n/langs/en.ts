@@ -1,4 +1,4 @@
-import { II18nSchema } from '@/i18n/schema'
+import { II18nSchema } from '@/config/i18n/schema'
 
 export const en: II18nSchema = {
 	hero: {
@@ -101,10 +101,14 @@ export const en: II18nSchema = {
 		},
 	},
 	
-		display: {
+	display: {
 		navs: {
 			services: 'Services',
-			settings: 'Settings',
+			settings: {
+				index: 'Settings',
+				language: 'Language',
+				theme: 'Theme',
+			},
 			about: 'About',
 			legal: 'Legal',
 		},
