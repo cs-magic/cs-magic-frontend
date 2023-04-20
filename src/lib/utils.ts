@@ -28,8 +28,4 @@ export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): stri
 }
 
 
-export const getI18NName = (u: II18nSchema, nameKey: string): string => {
-	const result = _.get(u, nameKey)
-	console.log({ u, nameKey, result })
-	return result
-}
+export const getI18NName = (u: II18nSchema, nameKey: string): string => _.get(u, nameKey)
