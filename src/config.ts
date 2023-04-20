@@ -83,33 +83,15 @@ export const projects: IProjectItem[] = [
 ]
 
 
-export const navbarItems: INavbarItem[][] = [
-	[
-		{ href: '/', name: u.routes.home },
-	],
-	projects,
-	[
-		{ href: '/user-planning', name: u.routes.user.planning },
-		{ href: '/wall-messages', name: u.routes.user.wall },
-	],
-	[
-		{ href: '/about/versions', name: u.routes.about.versions },
-		{ href: '/about/sponsors', name: u.routes.about.sponsors },
-		{ href: '/about/us', name: u.routes.about.us },
-	],
-]
-
-
-
 export const routers: Record<string, INavbarItem> = {
-	home: navbarItems[0][0],
-	appChatChatGPT: navbarItems[1][0],
-	appChatDalle: navbarItems[1][1],
-	userPlanning: navbarItems[2][0],
-	wallMessages: navbarItems[2][1],
-	aboutVersions: navbarItems[3][0],
-	aboutSponsors: navbarItems[3][1],
-	aboutUS: navbarItems[3][2],
+	home: { href: '/', name: u.routes.home },
+	appChatChatGPT: projects[0],
+	appChatDalle: projects[1],
+	userPlanning: { href: '/user-planning', name: u.routes.user.planning },
+	wallMessages: { href: '/wall-messages', name: u.routes.user.wall },
+	aboutVersions: { href: '/about/versions', name: u.routes.about.versions },
+	aboutSponsors: { href: '/about/sponsors', name: u.routes.about.sponsors },
+	aboutUS: { href: '/about/us', name: u.routes.about.us },
 }
 
 

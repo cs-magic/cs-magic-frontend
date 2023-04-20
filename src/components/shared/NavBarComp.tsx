@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { UserProfileComp } from '@/components/shared/UserProfileComp'
-import { navbarItems } from '@/config'
+import { routers } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
-import { ReactNode, Ref } from 'react'
 import { getTitle } from '@/lib/utils'
 
 export interface INavbarItem {
@@ -28,22 +27,29 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 				
 				<DropdownMenuContent>
 					
-					{
-						navbarItems
-							.map((group, groupIndex) => (
-								<DropdownMenuGroup key={groupIndex}>
-									{
-										group.map((item, itemIndex) =>
-											<Link href={item.href} key={itemIndex}>
-												<DropdownMenuItem className={'cursor-pointer'}>
-													{item.name}
-												</DropdownMenuItem>
-											</Link>)
-									}
-								</DropdownMenuGroup>
-							))
-							.reduce((prev: ReactNode[], curr) => [...prev, <DropdownMenuSeparator key={'DropdownMenuSeparator-' + prev.length}/>, curr], [])
-					}
+					
+					<DropdownMenuGroup>
+						<Link href={routers.home.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.home.name}</DropdownMenuItem></Link>
+					</DropdownMenuGroup>
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<Link href={routers.appChatChatGPT.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.appChatChatGPT.name}</DropdownMenuItem></Link>
+						<Link href={routers.appChatDalle.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.appChatDalle.name}</DropdownMenuItem></Link>
+					</DropdownMenuGroup>
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<Link href={routers.userPlanning.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.userPlanning.name}</DropdownMenuItem></Link>
+						<Link href={routers.wallMessages.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.wallMessages.name}</DropdownMenuItem></Link>
+					</DropdownMenuGroup>
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<Link href={routers.aboutVersions.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutVersions.name}</DropdownMenuItem></Link>
+						<Link href={routers.aboutSponsors.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutSponsors.name}</DropdownMenuItem></Link>
+						<Link href={routers.aboutUS.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutUS.name}</DropdownMenuItem></Link>
+					</DropdownMenuGroup>
 				
 				</DropdownMenuContent>
 			
