@@ -4,7 +4,6 @@ export const schemaCN: II18nSchema = {
 	hero: {
 		title: 'Welcome to CS Magic Community!',
 		subtitle: 'A community of Gen Z dedicated to developing friendly, robust, practical, and open-source computer programs that benefit friends around us.',
-		// subtitle: 'Our research and sharing are based on computer technology, including interaction with large language models, lightweight mini-games, and more.',
 		entrance: 'Open up your new world!',
 	},
 	website: {
