@@ -16,6 +16,8 @@ import { injectOpenAIMessages } from '@/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
 import { SerializedError } from '@reduxjs/toolkit'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -62,6 +64,8 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	const user = useUser()
 	const user_id = user?.id
+	
+	const u = useAppSelector(selectU)
 	
 	const [conversation_id, setConversationId] = useState(cid)
 	const [messages, setMessages] = useState<IMessage<T>[]>([])
@@ -200,7 +204,8 @@ export const ConversationComp = <T extends PlatformType>(
 			<Button variant={'ghost'} className={'w-full rounded-none mb-1 flex justify-center items-center bg-bg-sub font-semibold'}>
 				<span className={'inline-flex items-center'}>Tokens:
 					<p className={clsx('text-lg font-bold text-secondary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
-					, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></span>
+					<p className={'hidden'}>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
+				</span>
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</Button>
 			
@@ -243,7 +248,7 @@ export const ConversationComp = <T extends PlatformType>(
 							}
 						}}
 						ref={refMessageSend}
-						placeholder="Type your message here."
+						placeholder={u.ui.general.textarea.placeholder}
 					/>
 					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
@@ -251,13 +256,13 @@ export const ConversationComp = <T extends PlatformType>(
 				<div className={'md:hidden w-full grid grid-cols-2 gap-2 mt-2'}>
 					<Sheet>
 						<SheetTrigger asChild>
-							<Button size={'sm'}>Conversations</Button>
+							<Button size={'sm'}>{u.ui.chat.btn.conversations}</Button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
 							{conversationsComp}
 						</SheetContent>
 					</Sheet>
-					<Button size={'sm'} onClick={onSubmit}>Send</Button>
+					<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>
 				</div>
 			</div>
 		</div>

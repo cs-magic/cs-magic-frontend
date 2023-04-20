@@ -3,10 +3,14 @@ import Image from 'next/image'
 import { Tooltip, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip'
 import { TooltipContent } from '@/components/ui/tooltip'
 import Link from 'next/link'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
+import { useAppDispatch, useAppSelector } from '@/hooks/use-redux'
+import { selectLang, selectU, setLang } from '@/states/features/i18nSlice'
+import { Button } from '@/components/ui/button'
+import { clsx } from 'clsx'
 
 export const FooterView = () => {
+	const dispatch = useAppDispatch()
+	const lang = useAppSelector(selectLang)
 	const u = useAppSelector(selectU)
 	
 	return (
@@ -14,21 +18,32 @@ export const FooterView = () => {
 			<footer className="footer p-10 bg-base-200 text-base-content">
 				
 				<div>
-					<span className="footer-title">Services</span>
+					<span className="footer-title">{u.display.navs.services}</span>
 					{Object.values(u.projects).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
 				</div>
 				
+				
 				<div>
-					<span className="footer-title">About</span>
+					<span className="footer-title">{u.display.navs.settings}</span>
+					<Button variant={'ghost'} onClick={() => dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))}>
+						<span className={clsx(lang === 'zh' && 'text-primary')}>中</span>
+						<span className={'px-2'}>/</span>
+						<span className={clsx(lang === 'en' && 'text-primary')}>EN</span>
+					</Button>
+				</div>
+				
+				
+				<div>
+					<span className="footer-title">{u.display.navs.about}</span>
 					{Object.values(u.abouts).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
-				</div>
-				
-				<div>
-					<span className="footer-title">Legal</span>
+					</div>
+					
+					<div>
+						<span className="footer-title">{u.display.navs.legal}</span>
 					{Object.values(u.legals).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}

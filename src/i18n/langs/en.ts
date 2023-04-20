@@ -84,4 +84,29 @@ export const en: II18nSchema = {
 		errorUserEmpty: 'Username cannot be empty! Please register and log in before using!',
 		errorSendEmpty: 'Cannot send empty message!',
 	},
+	
+	ui: {
+		general: {
+			btn: {
+				send: 'Send',
+			},
+			textarea: {
+				placeholder: 'Type your message here.',
+			},
+		},
+		chat: {
+			btn: {
+				conversations: 'Conversations',
+			},
+		},
+	},
+	
+		display: {
+		navs: {
+			services: 'Services',
+			settings: 'Settings',
+			about: 'About',
+			legal: 'Legal',
+		},
+	},
 }

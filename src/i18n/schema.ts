@@ -22,17 +22,17 @@ export interface II18nSchema {
 	projects: {
 		chatGPT: IProjectItem
 		dalle: IProjectItem
-	}
+	},
 	abouts: {
-		aboutUS: ILink
-		contact: ILink
-		jobs: ILink
-	}
+		aboutUS?: ILink
+		contact?: ILink
+		jobs?: ILink
+	},
 	legals: {
-		termOfUse: ILink
-		privacyPolicy: ILink
-		CookiePolicy: ILink
-	}
+		termOfUse?: ILink
+		privacyPolicy?: ILink
+		CookiePolicy?: ILink
+	},
 	routes: {
 		admin: {
 			home: string
@@ -60,4 +60,27 @@ export interface II18nSchema {
 		errorUserEmpty: string
 		errorSendEmpty: string
 	},
+	ui: {
+		general: {
+			btn: {
+				send: string
+			}
+			textarea: {
+				placeholder: string
+			}
+		}
+		chat: {
+			btn: {
+				conversations: string
+			}
+		}
+	}
+	display: {
+		navs: {
+			services: string
+			settings: string
+			about: string
+			legal: string
+		}
+	}
 }

@@ -85,4 +85,29 @@ export const zh: II18nSchema = {
 		errorUserEmpty: '用户名不能为空！请先注册登录再使用！',
 		errorSendEmpty: '不能发送空消息！',
 	},
+	
+	ui: {
+		general: {
+			btn: {
+				send: '发送',
+			},
+			textarea: {
+				placeholder: '在此处儿输入~',
+			},
+		},
+		chat: {
+			btn: {
+				conversations: '会话历史',
+			},
+		},
+	},
+	
+	display: {
+		navs: {
+			services: '服务',
+			settings: '设置',
+			about: '关于',
+			legal: '法律',
+		},
+	},
 }

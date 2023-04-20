@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useGetUserQuery } from '@/api/userApi'
+import { CentralLayout } from '@/layouts/CentralLayout'
 
 export const UserPage = () => {
 	const router = useRouter()
@@ -14,9 +15,9 @@ export const UserPage = () => {
 	console.log({userData})
 	
 	return (
-		<RootLayout>
+		<CentralLayout>
 			user page
-		</RootLayout>
+		</CentralLayout>
 	)
 }
 

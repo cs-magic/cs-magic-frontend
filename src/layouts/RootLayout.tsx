@@ -6,6 +6,7 @@ import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
 import { FooterView } from '@/components/views/FooterView'
+import { NavBar2Comp } from '@/components/shared/NavBar2Comp'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -39,13 +40,16 @@ export const RootLayout = ({ children, title }: {
 						</div>
 					)}
 					
-					<NavBarComp title={title}/>
+					{/*<NavBarComp title={title}/>*/}
+					<NavBar2Comp/>
 					
 					<div className={'w-full grow min-h-[480px] flex flex-col overflow-auto border border-base-300'}>
 						{children}
 					</div>
 					
-					<FooterView/>
+					<div className={'hidden md:block'}>
+						<FooterView/>
+					</div>
 				</div>
 			</main>
 		</>
