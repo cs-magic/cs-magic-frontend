@@ -135,7 +135,8 @@ export const ConversationComp = <T extends PlatformType>(
 		if (!user_id) {
 			success = false
 			detail = '聊天功能需要先登录再使用！'
-		} else if (messages.length % 2) {
+		}
+		else if (isLoadingResponse) {
 			success = false
 			detail = '请耐心等待回复完成'
 		}

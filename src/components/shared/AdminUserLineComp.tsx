@@ -83,7 +83,7 @@ export const AdminUserLineComp = ({ user, index }: {
 			</td>
 			
 			<td className={'inline-flex items-center'}>
-				<Button size={'sm'} onClick={async () => {
+				<Button variant={'subtle'} size={'sm'} onClick={async () => {
 					await updateBasicUser({ body: userBasicData, id: user.id })
 					await updateOpenAIUser({ body: userOpenAIData, id: user.id })
 					toast({ title: `updated user(id=${user.id})` })

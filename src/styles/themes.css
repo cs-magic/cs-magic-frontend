@@ -1,36 +1,66 @@
 :root {
-    --bg-base: #FFFFFF;
-    --bg-base-hover: #FBFBFB;
-    --bg-sub: #f5f5f5;
-    --bg-shade: #eeeeee;
-    --bg-border: #DEDEDE;
-    --bg-border-strong: #CCCCCC;
-    --bg-modal-overlay: #00000099;
-    --bg-contrast: #000000;
-    --bg-error: #FFEEEE;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-    --label-title: #000000;
-    --label-base: #2E2E2E;
-    --label-muted: #757575;
-    --label-faint: #A9A9A9;
-    --label-link: #2764D7;
-    --label-link-hover: #0C4DC8;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
 }
 
-[data-theme='dark'] {
-    --bg-base: #181818;
-    --bg-sub: #282828;
-    --bg-shade: #2B2B2B;
-    --bg-border: #363636;
-    --bg-border-strong: #4F4F4F;
-    --bg-modal-overlay: #000000CC;
-    --bg-contrast: #e8e8e8;
-    --bg-error: #461D03;
+.dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --label-base: #DEDEDE;
-    --label-muted: #9B9B9B;
-    --label-faint: #585858;
-    --label-link: #639AF8;
-    --label-link-hover: #8BB5FE;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
 }
 
