@@ -3,14 +3,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import { routers } from '@/config'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
-import { getTitle } from '@/lib/utils'
-
-export interface INavbarItem {
-	href: string
-	name: string
-}
+import { getI18NName, getTitle } from '@/lib/utils'
+import { useAppDispatch, useAppSelector } from '@/hooks/use-redux'
+import { selectLang, selectU, setLang } from '@/states/features/i18nSlice'
+import { clsx } from 'clsx'
 
 export const NavBarComp = ({ title }: { title?: string }) => {
+	const dispatch = useAppDispatch()
+	const lang = useAppSelector(selectLang)
+	const u = useAppSelector(selectU)
 	
 	return (
 		<div className="w-full shrink-0 inline-flex items-center px-2 gap-2">
@@ -29,26 +30,35 @@ export const NavBarComp = ({ title }: { title?: string }) => {
 					
 					
 					<DropdownMenuGroup>
-						<Link href={routers.home.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.home.name}</DropdownMenuItem></Link>
+						<Link href={routers.home.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.home.nameKey)}</DropdownMenuItem></Link>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator/>
 					
 					<DropdownMenuGroup>
-						<Link href={routers.appChatChatGPT.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.appChatChatGPT.name}</DropdownMenuItem></Link>
-						<Link href={routers.appChatDalle.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.appChatDalle.name}</DropdownMenuItem></Link>
+						<Link href={routers.appChatChatGPT.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.appChatChatGPT.nameKey)}</DropdownMenuItem></Link>
+						<Link href={routers.appChatDalle.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.appChatDalle.nameKey)}</DropdownMenuItem></Link>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator/>
 					
 					<DropdownMenuGroup>
-						<Link href={routers.userPlanning.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.userPlanning.name}</DropdownMenuItem></Link>
-						<Link href={routers.wallMessages.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.wallMessages.name}</DropdownMenuItem></Link>
+						<Link href={routers.userPlanning.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.userPlanning.nameKey)}</DropdownMenuItem></Link>
+						<Link href={routers.wallMessages.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.wallMessages.nameKey)}</DropdownMenuItem></Link>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator/>
 					
 					<DropdownMenuGroup>
-						<Link href={routers.aboutVersions.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutVersions.name}</DropdownMenuItem></Link>
-						<Link href={routers.aboutSponsors.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutSponsors.name}</DropdownMenuItem></Link>
-						<Link href={routers.aboutUS.href}><DropdownMenuItem className={'cursor-pointer'}>{routers.aboutUS.name}</DropdownMenuItem></Link>
+						<DropdownMenuItem className={'cursor-pointer'} onClick={() => dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))}>
+							<span className={clsx(lang === 'zh' && 'text-primary')}>中</span>
+							<span className={'px-2'}>/</span>
+							<span className={clsx(lang === 'en' && 'text-primary')}>EN</span>
+						</DropdownMenuItem>
+					</DropdownMenuGroup>
+					<DropdownMenuSeparator/>
+					
+					<DropdownMenuGroup>
+						<Link href={routers.aboutVersions.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.aboutVersions.nameKey)}</DropdownMenuItem></Link>
+						<Link href={routers.aboutSponsors.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.aboutSponsors.nameKey)}</DropdownMenuItem></Link>
+						<Link href={routers.aboutUS.href}><DropdownMenuItem className={'cursor-pointer'}>{getI18NName(u, routers.aboutUS.nameKey)}</DropdownMenuItem></Link>
 					</DropdownMenuGroup>
 				
 				</DropdownMenuContent>

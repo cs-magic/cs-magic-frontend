@@ -1,6 +1,6 @@
 import { II18nSchema } from '@/i18n/schema'
 
-export const schemaCN: II18nSchema = {
+export const en: II18nSchema = {
 	hero: {
 		title: 'Welcome to CS Magic Community!',
 		subtitle: 'A community of Gen Z dedicated to developing friendly, robust, practical, and open-source computer programs that benefit friends around us.',
@@ -20,7 +20,7 @@ export const schemaCN: II18nSchema = {
 			home: "Console"
 		},
 		home: "Home",
-		service: {
+		apps: {
 			chat: 'AI Chat',
 			chatGPT: "ChatGPT Response Generator",
 			dalle: "Dalle Image Generator"

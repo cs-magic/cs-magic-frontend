@@ -3,16 +3,18 @@ import { ensureSole } from '@/lib/utils'
 import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { ConversationComp } from '@/components/shared/ConversationComp'
-import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 import { PlatformType } from '@/ds/openai/general'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 export const ConversationPage = () => {
+	const u = useAppSelector(selectU)
 	
 	// customize
 	const platformType: PlatformType = PlatformType.chatGPT
-	const title = u.routes.service.chatGPT
+	const title = u.routes.apps.chatGPT
 	
 	// preserve
 	const router = useRouter()

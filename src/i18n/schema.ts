@@ -13,7 +13,7 @@ export interface II18nSchema {
 			home: string
 		}
 		home: string
-		service: {
+		apps: {
 			chat: string
 			chatGPT: string
 			dalle: string

@@ -1,6 +1,7 @@
-import {RootLayout} from '@/layouts/RootLayout'
-import {clsx} from "clsx"
-import {u} from "../../config"
+import {RootLayout} from '@/layouts/RootLayout';
+import {clsx} from "clsx";
+import {useAppSelector} from "../../hooks/use-redux";
+import {selectU} from "../../states/features/i18nSlice";
 
 ## v0.2.3 (2023-04-20)
 
@@ -56,13 +57,17 @@ import {u} from "../../config"
 - [x] 支持version history（基于 mdx 实现了，ref: [using-mdx](https://nextjs.org/docs/advanced-features/using-mdx)）
 - [x] ~~支持pr list4-14完成）~~
 
-export default ({children}) => (
-	<RootLayout title={u.routes.about.versions}>
-		<article className={clsx(
-			'prose prose-zinc max-w-[720px] mx-auto',
-			'dark:prose-invert',
-		)}>
-			{children}
-		</article>
-	</RootLayout>
-)
+export default ({children}) => {
+	const u = useAppSelector(selectU)
+
+	return (
+		<RootLayout title={u.routes.about.versions}>
+			<article className={clsx(
+				'prose prose-zinc max-w-[720px] mx-auto',
+				'dark:prose-invert',
+			)}>
+				{children}
+			</article>
+		</RootLayout>
+	)
+}

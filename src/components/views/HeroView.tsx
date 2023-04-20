@@ -1,9 +1,9 @@
-import { schemaCN } from '@/i18n/langs/cn'
+import { zh } from '@/i18n/langs/zh'
 import Link from 'next/link'
 import { projects } from '@/config'
 
 export const HeroView = () => {
-	const i18nSchema = schemaCN
+	const i18nSchema = zh
 	
 	return (
 		<div className="hero w-full h-[320px] md:[h-480px]" style={{

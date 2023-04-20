@@ -1,8 +1,9 @@
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { u } from '@/config'
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
+import { II18nSchema } from '@/i18n/schema'
+import _ from 'lodash'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -13,8 +14,8 @@ export const ensureSole = (s: string | string[] | undefined): string | null =>
 	Array.isArray(s) ? s[0] : s || null
 
 
-export const getTitle = (s?: string, full?: boolean): string => {
-	const prefix = full ? u.website.platformName : ''
+export const getTitle = (s?: string, full?: boolean, u?: II18nSchema): string => {
+	const prefix = full && u ? u.website.platformName : ''
 	const suffix = s
 	if (prefix && suffix) return [prefix, suffix].join(' | ')
 	else if (suffix) return suffix
@@ -24,4 +25,11 @@ export const getTitle = (s?: string, full?: boolean): string => {
 export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): string => {
 	const baseUrl = `/apps/chat/${data.platform_type}/`
 	return data.id ? baseUrl + data.id : baseUrl
+}
+
+
+export const getI18NName = (u: II18nSchema, nameKey: string): string => {
+	const result = _.get(u, nameKey)
+	console.log({ u, nameKey, result })
+	return result
 }

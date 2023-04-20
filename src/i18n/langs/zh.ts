@@ -1,6 +1,6 @@
 import { II18nSchema } from '@/i18n/schema'
 
-export const schemaCN: II18nSchema = {
+export const zh: II18nSchema = {
 	hero: {
 		title: '欢迎来到CS魔法社',
 		subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
@@ -20,7 +20,7 @@ export const schemaCN: II18nSchema = {
 			home: "控制台"
 		},
 		home: "首页",
-		service: {
+		apps: {
 			chat: 'AI陪聊',
 			chatGPT: "ChatGPT 聊天",
 			dalle: "Dalle 作图"

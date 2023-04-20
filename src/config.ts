@@ -1,11 +1,9 @@
 import { IProjectItem } from '@/components/shared/ProjectItemComp'
-import { schemaCN } from '@/i18n/langs/cn'
 import { UserPlanningType } from '@/ds/user'
 import { IFeature } from '@/ds/general'
-import { INavbarItem } from '@/components/shared/NavBarComp'
 import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
+import { INavbarItem } from '@/ds/navbar'
 
-export const u = schemaCN
 
 export const generalFeatures: IFeature[] = [
 	{ name: '支持 Dalle 作图', status: 'finished' },
@@ -66,7 +64,7 @@ export const userPlanningPurchaseList: IUserPlanningPurchaseComp[] = [
 
 export const projects: IProjectItem[] = [
 	{
-		name: u.routes.service.chatGPT,
+		nameKey: 'routes.apps.chatGPT',
 		desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
 		href: '/apps/chat/chatGPT',
 		coverUrl: '/screenshots/chatgpt.png',
@@ -74,7 +72,7 @@ export const projects: IProjectItem[] = [
 	},
 	
 	{
-		name: u.routes.service.dalle,
+		nameKey: 'routes.apps.dalle',
 		desc: '基于OpenAI的Dalle，支持根据文本生成图片',
 		href: '/apps/chat/dalle',
 		coverUrl: '/screenshots/dalle2.png',
@@ -84,14 +82,14 @@ export const projects: IProjectItem[] = [
 
 
 export const routers: Record<string, INavbarItem> = {
-	home: { href: '/', name: u.routes.home },
+	home: { href: '/', nameKey: 'routes.home' },
 	appChatChatGPT: projects[0],
 	appChatDalle: projects[1],
-	userPlanning: { href: '/user-planning', name: u.routes.user.planning },
-	wallMessages: { href: '/wall-messages', name: u.routes.user.wall },
-	aboutVersions: { href: '/about/versions', name: u.routes.about.versions },
-	aboutSponsors: { href: '/about/sponsors', name: u.routes.about.sponsors },
-	aboutUS: { href: '/about/us', name: u.routes.about.us },
+	userPlanning: { href: '/user-planning', nameKey: 'routes.user.planning' },
+	wallMessages: { href: '/wall-messages', nameKey: 'routes.user.wall' },
+	aboutVersions: { href: '/about/versions', nameKey: 'routes.about.versions' },
+	aboutSponsors: { href: '/about/sponsors', nameKey: 'routes.about.sponsors' },
+	aboutUS: { href: '/about/us', nameKey: 'routes.about.us' },
 }
 
 

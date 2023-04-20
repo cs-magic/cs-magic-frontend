@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import notificationSlice from '@/states/features/notificationSlice'
 import { baseApi } from '@/api/baseApi'
 import { createLogger } from 'redux-logger'
+import { i18nSlice } from '@/states/features/i18nSlice'
 
 
 const logger = createLogger({
@@ -17,6 +18,7 @@ const logger = createLogger({
 
 const store = configureStore({
 	reducer: {
+		i18n: i18nSlice.reducer,
 		notification: notificationSlice.reducer,
 		[baseApi.reducerPath]: baseApi.reducer,
 	},

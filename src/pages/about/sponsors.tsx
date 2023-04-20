@@ -1,7 +1,10 @@
-import { u } from '@/config'
 import { CentralLayout } from '@/layouts/CentralLayout'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 export const SponsorsPage = () => {
+	const u = useAppSelector(selectU)
+	
 	return (
 		<CentralLayout title={u.routes.about.sponsors}>
 			{/*{users.map((user) => (*/}

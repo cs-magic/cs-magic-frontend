@@ -7,9 +7,10 @@ import { useCreateWallMessageMutation, useListWallMessagesQuery } from '@/api/wa
 import { toast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { u } from '@/config'
 import { useUserId } from '@/hooks/use-user'
 import { WallMessageComp } from '@/components/shared/WallMessageComp'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 
 export const WallMessagesPage: NextPage = () => {
@@ -20,6 +21,7 @@ export const WallMessagesPage: NextPage = () => {
 	const poster_id = useUserId()
 	const refTitleInput = useRef<HTMLInputElement>(null)
 	const refContentInput = useRef<HTMLTextAreaElement>(null)
+	const u = useAppSelector(selectU)
 	
 	
 	useEffect(() => {
