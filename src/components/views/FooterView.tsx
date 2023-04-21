@@ -11,6 +11,7 @@ import { Label } from '../ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Switch } from '../ui/switch'
 import { ContactView } from '@/components/views/ContactView'
+import { useEffect, useState } from 'react'
 
 
 export const FooterView = () => {
@@ -18,7 +19,12 @@ export const FooterView = () => {
 	const lang = useAppSelector(selectLang)
 	const u = useAppSelector(selectU)
 	
+	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
+	
+	useEffect(() => setMounted(true), [])
+	
+	if(!mounted) return <></> // avoid hydration error, ref: https://www.npmjs.com/package/next-themes#avoid-hydration-mismatch
 	
 	return (
 		<>
