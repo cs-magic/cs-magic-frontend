@@ -18,7 +18,7 @@ export const BasicUserAvatarView = (
 	const u = useAppSelector(selectU)
 	
 	const avatarMain = (
-		<Avatar {...props} className={''}>
+		<Avatar {...props}>
 			<AvatarImage src={user.avatar || undefined}/>
 			<AvatarFallback className={'text-sm bg-bg-sub'}>{(user.name || id || u.website.avatarPlaceholder)[0]}</AvatarFallback>
 		</Avatar>

@@ -1,12 +1,14 @@
 import { FooterView } from '@/components/views/FooterView'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { UserProfileComp } from '@/components/shared/UserProfileComp'
 import Link from 'next/link'
 import { LogoHomeView } from '@/components/views/LogoHomeView'
+import { UserAvatarView } from '@/components/views/UserAvatarView'
+import { useUser } from '@/hooks/use-user'
 
 export const NavBar2View = () => {
 	const u = useAppSelector(selectU)
+	const user = useUser()
 	
 	return (
 		<div className="navbar bg-base-100">
@@ -42,8 +44,9 @@ export const NavBar2View = () => {
 			</div>
 			
 			<div className="navbar-end">
-				{/*<a className="btn">Kick Start</a>*/}
-				<UserProfileComp/>
+				<Link href={user ? `/user/${user.id}` : '/api/auth/signin'}>
+					<UserAvatarView user={user} className={'w-8 h-8'}/>
+				</Link>
 			</div>
 		
 		</div>
