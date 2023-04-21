@@ -2,14 +2,16 @@
 
 ## todo
 
-- [ ] radix \ shacdn \ daisyUI \ next-theme 之间主题的混战
-- [ ] fix 未登录时无限加载聊天界面
-- [ ] 增加未登录时消息返回的引导
+- [ ] P1, fix: `Text content did not match. Server: "" Client: "dark"`
+- [ ] p1, 关键词屏蔽机制！
+- [ ] p2, radix \ shacdn \ daisyUI \ next-theme 之间主题的混战
+- [ ] p1, fix 未登录时无限加载聊天界面
+- [ ] p1, 增加未登录时消息返回的引导
 - [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle), like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
-- [ ] 邮箱垃圾机制研究
-- [ ] 调研 pr 点赞问题
 - [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
+- [ ] p2, 邮箱垃圾机制研究
+- [ ] p2, 调研 pr 点赞问题
 - [ ] P2, trailing slash nginx 307问题
 - [ ] P2, strict mode on typing
 - [ ] P2, dispatch after fetch (to avoid use thunk)

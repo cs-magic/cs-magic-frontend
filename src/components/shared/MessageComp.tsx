@@ -16,8 +16,6 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 }) => {
 	const user = useUser()!
 	
-	console.log('msg: ', msg)
-	
 	return (
 		<div className={clsx(
 			'w-full',
@@ -40,7 +38,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 				
 				{
 					msg.type === MessageType.text ? (
-						<article className={'w-full prose flex items-center gap-4 justify-between'}>
+						<article className={'w-full prose flex items-center gap-4 justify-between text-base-contnt'}>
 							
 							<ReactMarkdown
 								className={'grow'}
