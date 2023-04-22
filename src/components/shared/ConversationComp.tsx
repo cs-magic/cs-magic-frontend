@@ -210,9 +210,6 @@ export const ConversationComp = <T extends PlatformType>(
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</div>
 			
-			{/* for stretch, since flex-end cannot combine with overflow-auto */}
-			<div className={'grow md:hidden'}/>
-			
 			<ScrollArea className={'w-full grow overflow-hidden flex flex-col'}>
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
@@ -236,10 +233,9 @@ export const ConversationComp = <T extends PlatformType>(
 				</div>
 			)}
 			
-			<div className={'w-full my-2'}>
-				<div className={clsx(c, 'relative py-2')}>
-					<Textarea
-						className={'w-full shadow-xl resize-none'}
+				<div className={clsx(c, 'w-full relative ')}>
+					<textarea
+						className={'textarea textarea-bordered mb-10 md:mb-2 w-full shadow-xl resize-none'}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
@@ -251,7 +247,7 @@ export const ConversationComp = <T extends PlatformType>(
 						ref={refMessageSend}
 						placeholder={u.ui.general.textarea.placeholder}
 					/>
-					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
+					<IconBrandTelegram className={'hidden md:block text-primary absolute right-3 bottom-6 cursor-pointer'} onClick={onSubmit}/>
 				</div>
 				
 				<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
@@ -267,7 +263,6 @@ export const ConversationComp = <T extends PlatformType>(
 					<button className={'btn btn-sm rounded-none'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
 					{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
 				</div>
-			</div>
 		</div>
 	)
 }

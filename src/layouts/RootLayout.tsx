@@ -32,7 +32,7 @@ export const RootLayout = ({ children, title }: {
 			</Head>
 			
 			<main>
-				<div className={'m-auto max-w-[1400px] flex flex-col'}>
+				<div className={'max-w-[1400px] min-h-screen m-auto flex flex-col'}>
 					{notifications.top && (
 						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
 							{notifications.top}
@@ -42,7 +42,7 @@ export const RootLayout = ({ children, title }: {
 					{/*<NavBarComp title={title}/>*/}
 					<NavBar2View/>
 					
-					<div className={'w-full min-h-[480px] flex flex-col border border-base-300'}>
+					<div className={'w-full grow flex flex-col border border-base-300'}>
 						{children}
 					</div>
 					
