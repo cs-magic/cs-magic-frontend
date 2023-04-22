@@ -20,18 +20,18 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 		<div className={clsx(
 			'w-full',
 			msg.platform_params.role === MessageRoleType.user
-				? 'bg-base-200'
-				: msg.status && msg.status === 'OK'
-					? 'bg-base-300' : 'bg-error',
+				? 'bg-base-300'
+				: msg.status && msg.status !== 'OK'
+					? 'bg-error' : 'bg-base-200'
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
-			<div className="py-1 px-2 text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all">
+			<div className="py-1 px-2 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto break-all">
 				
-				<div className={'mt-5'}>
+				<div className={'w-16 shrink-0 flex justify-center'}>
 					{
 						msg.platform_params.role === MessageRoleType.user
 							? <UserAvatarView user={user} className={'shrink-0'}/>
-							: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8'}/>
+							: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8 mt-6'}/>
 					}
 				</div>
 				

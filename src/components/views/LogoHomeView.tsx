@@ -12,7 +12,7 @@ export const LogoHomeView = () => {
 			{/*<Logo color={'red'}/>*/}
 			<Image src={Logo} alt={'logo'} width={36} height={36} className={'hidden md:block text-red bg-blue'} />
 			{/*<Image src={'/logo/logo-transparent.png'} alt={'logo'} width={36} height={36} className={'hidden md:block'}/>*/}
-			<div className="font-extrabold text-transparent text-3xl bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">{u.website.platformName}</div>
+			<div className="font-extrabold text-transparent text-2xl bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">{u.website.platformName}</div>
 		</Link>
 	)
 }

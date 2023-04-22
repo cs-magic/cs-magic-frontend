@@ -235,7 +235,7 @@ export const ConversationComp = <T extends PlatformType>(
 			
 				<div className={clsx(c, 'w-full relative ')}>
 					<textarea
-						className={'textarea textarea-bordered mb-10 md:mb-2 w-full shadow-xl resize-none'}
+						className={'textarea textarea-bordered mt-2 mb-10 md:mb-2 w-full shadow-xl resize-none'}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
 								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
