@@ -2,7 +2,7 @@ import { II18nSchema } from '@/config/i18n/schema'
 
 export const zh: II18nSchema = {
 	hero: {
-		title: '欢迎来到CS魔法社',
+		title: '欢迎来到CS魔法社！',
 		subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
 		entrance: '开启您的新世界',
 	},

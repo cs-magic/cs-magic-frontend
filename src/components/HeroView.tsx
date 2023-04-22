@@ -1,7 +1,8 @@
-import { zh } from '@/config/i18n/langs/zh'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
 export const HeroView = () => {
-	const i18nSchema = zh
+	const u = useAppSelector(selectU)
 	
 	return (
 		<div className="hero w-full h-[320px] md:[h-480px]" style={{
@@ -11,8 +12,8 @@ export const HeroView = () => {
 			<div className="hero-overlay bg-opacity-60"></div>
 			<div className="hero-content text-center text-neutral-content">
 				<div className="max-w-md">
-					<h1 className="mb-5 text-4xl font-bold">{i18nSchema.hero.title}</h1>
-					<p className="mb-5">{i18nSchema.hero.subtitle}</p>
+					<h1 className="mb-5 text-3xl font-bold">{u.hero.title}</h1>
+					<p className="mb-5">{u.hero.subtitle}</p>
 					
 					{/*<Link href={projects[0].targetUrl}>*/}
 					{/*	<button className="btn btn-primary">{i18nSchema.hero.entrance}</button>*/}
