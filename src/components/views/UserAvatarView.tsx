@@ -27,7 +27,7 @@ export const BasicUserAvatarView = (
 	return user.membership.planning !== UserPlanningType.blackVip ? avatarMain : (
 		<div className={'relative w-[72px] h-[72px] flex justify-center items-center'}>
 			{avatarMain}
-			<Image src={'/avatar-bg/badge-blackVip.png'} alt={'black vip'} fill className={'absolute left-0 top-0'}/>
+			<Image src={'/avatar-bg/badge-blackVip.png'} alt={'black vip'} fill className={'absolute left-0 top-0'} sizes={"(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"}/>
 		</div>
 	)
 }

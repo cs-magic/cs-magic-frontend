@@ -15,7 +15,7 @@ export const ProjectView = (
 	return (
 		<div className="card w-full bg-base-100 shadow-xl w-full md:w-[540px] h-fit md:h-[420px]">
 			<AspectRatio ratio={16 / 9}>
-				<Image fill className="rounded-md object-cover" src={cover} alt={cover}/>
+				<Image fill className="rounded-md object-cover" src={cover} alt={cover} sizes={"(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"}/>
 			</AspectRatio>
 			
 			<div className="card-body shrink-0">
