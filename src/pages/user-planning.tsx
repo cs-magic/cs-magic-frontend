@@ -11,7 +11,7 @@ export const UserPlanningPage = () => {
 	
 	return (
 		<RootLayout title={u.routes.user.planning}>
-			<div className={'w-full h-full flex flex-wrap gap-4 justify-evenly'}>
+			<div className={'w-full h-full flex flex-wrap gap-4 justify-evenly text-base-100'}>
 				{
 					userPlanningPurchaseList.map((item) => (
 						<UserPlanningPurchaseComp {...item} key={item.name}/>

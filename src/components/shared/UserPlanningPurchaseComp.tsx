@@ -27,7 +27,7 @@ export const UserPlanningPurchaseComp = (
 				</AspectRatio>
 			</div>
 			
-						<div className={'hidden md:block'}>
+			<div className={'hidden md:block'}>
 				<AspectRatio ratio={9 / 12}>
 					<Image src={cover} alt={name} fill priority sizes={'33vw'} className={'object-cover'}/>
 				</AspectRatio>
