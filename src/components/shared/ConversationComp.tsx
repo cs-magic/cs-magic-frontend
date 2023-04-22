@@ -254,16 +254,17 @@ export const ConversationComp = <T extends PlatformType>(
 					<IconBrandTelegram className={'hidden md:block absolute right-3 bottom-8 cursor-pointer'} onClick={onSubmit}/>
 				</div>
 				
-				<div className={'md:hidden w-full grid grid-cols-2 gap-2 mt-2'}>
+				<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
 					<Sheet>
 						<SheetTrigger asChild>
-							<button className={'btn btn-sm bg-base-200 text-base-content'}>{u.ui.chat.btn.conversations}</button>
+							<button className={'btn btn-sm rounded-none'}>{u.ui.chat.btn.conversations}</button>
 						</SheetTrigger>
 						<SheetContent className={'w-1/2 p-0'} position={'left'}>
 							{conversationsComp}
 						</SheetContent>
 					</Sheet>
-					<button className={'btn btn-sm bg-base-200 text-base-content'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
+					
+					<button className={'btn btn-sm rounded-none'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
 					{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
 				</div>
 			</div>

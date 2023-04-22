@@ -11,11 +11,11 @@ export default function Home() {
 	return (
 		<RootLayout title={u.routes.home}>
 			
-			<div className={'w-full h-full flex flex-col gap-4'}>
+			<div className={'w-full flex flex-col gap-4'}>
 				
 				<HeroView/>
 				
-				<div className={'w-full grow flex flex-wrap justify-around gap-4'}>
+				<div className={'py-2 w-full grow flex flex-wrap justify-around gap-4'}>
 					{Object.values(u.projects).map((project) => (
 						<ProjectView key={project.name} {...project}/>
 					))}

@@ -31,8 +31,8 @@ export const RootLayout = ({ children, title }: {
 				<link rel="icon" href="/logo/logo.ico"/>
 			</Head>
 			
-			<main className={'text-base-content bg-base-100'}>
-				<div className={'m-auto max-w-[1400px] min-h-screen flex flex-col'}>
+			<main>
+				<div className={'m-auto max-w-[1400px] flex flex-col'}>
 					{notifications.top && (
 						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
 							{notifications.top}
@@ -42,7 +42,7 @@ export const RootLayout = ({ children, title }: {
 					{/*<NavBarComp title={title}/>*/}
 					<NavBar2View/>
 					
-					<div className={'w-full grow min-h-[480px] flex flex-col overflow-auto border border-base-300'}>
+					<div className={'w-full min-h-[480px] flex flex-col border border-base-300'}>
 						{children}
 					</div>
 					
