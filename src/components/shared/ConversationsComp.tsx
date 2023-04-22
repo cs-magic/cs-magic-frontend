@@ -48,7 +48,7 @@ export const ConversationsComp = <T extends PlatformType>(
 		const [updateConversation] = useUpdateConversationMutation()
 		const [deleteConversation] = useDeleteConversationMutation()
 		
-		const {toast} = useToast()
+		const { toast } = useToast()
 		
 		// auto focus
 		useEffect(() => {if (isEditing) refInput.current!.select()}, [isEditing])
@@ -73,7 +73,7 @@ export const ConversationsComp = <T extends PlatformType>(
 								if (event.key === 'Enter') {
 									setEditing(false)
 									await updateConversation({ id, name: event.currentTarget.value, platform_type })
-									toast({title: "已重命名会话"})
+									toast({ title: '已重命名会话' })
 								}
 							}}
 							onBlur={() => setEditing(false)}
@@ -96,7 +96,7 @@ export const ConversationsComp = <T extends PlatformType>(
 								onClick={async (e) => {
 									e.preventDefault()
 									await deleteConversation({ id, platform_type })
-									toast({title: "已删除一个会话"})
+									toast({ title: '已删除一个会话' })
 									// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 									if (isHighlight)
 										router.push(getChatUrl({ platform_type }))
@@ -120,12 +120,12 @@ export const ConversationsComp = <T extends PlatformType>(
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
 					<>
-						<Button variant={"subtle"} className={'w-full inline-flex items-center gap-2 rounded-none mb-1 bg-bg-contrast'} onClick={() => {
-							router.push(getChatUrl({ platform_type: platform_type }))
-						}}>
-							<IconPlus size={16}/>
-							<p>New Chat</p>
-						</Button>
+						<Link href={getChatUrl({ platform_type: platform_type })}>
+							<button className={'btn btn-ghost btn-active btn-sm w-full rounded-none'}>
+								<IconPlus size={16}/>
+								<p>New Chat</p>
+							</button>
+						</Link>
 						
 						<div className={clsx(
 							'w-full flex-1 overflow-y-auto',
