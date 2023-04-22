@@ -19,26 +19,25 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 	return (
 		<div className={clsx(
 			'w-full',
-			msg.status && msg.status !== 'OK'
-				? 'bg-error'
-				: msg.platform_params.role === MessageRoleType.assistant
-					? 'bg-info-content'
-					: 'bg-base-200',
+			msg.platform_params.role === MessageRoleType.user
+				? 'bg-base-200'
+				: msg.status && msg.status === 'OK'
+					? 'bg-base-300' : 'bg-error',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
 			<div className="py-1 px-2 text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all">
 				
 				<div className={'mt-5'}>
 					{
-						msg.platform_params.role === MessageRoleType.assistant
-							? <IconBrandOpenai size={24} className={'shrink-0 w-6 h-6'}/>
-							: <UserAvatarView user={user} className={'shrink-0 w-6 h-6'}/>
+						msg.platform_params.role === MessageRoleType.user
+							? <UserAvatarView user={user} className={'shrink-0'}/>
+							: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8'}/>
 					}
 				</div>
 				
 				{
 					msg.type === MessageType.text ? (
-						<article className={'w-full prose flex items-center gap-4 justify-between text-base-contnt'}>
+						<article className={'w-full prose flex items-center gap-4 justify-between'}>
 							
 							<ReactMarkdown
 								className={'grow'}

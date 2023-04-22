@@ -16,6 +16,7 @@ import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds
 import _ from 'lodash'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
+import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -67,7 +68,7 @@ export const ConversationComp = <T extends PlatformType>(
 	
 	const [conversation_id, setConversationId] = useState(cid)
 	const [messages, setMessages] = useState<IMessage<T>[]>([])
-	const { currentData: initedMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
+	const { currentData: initedMessages, isLoading: isFetchingMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
 	
 	const [createConversation] = useCreateConversationMutation()
 	const [sendMessage, { isLoading: isLoadingResponse, error: openAIError, data: openAIResponse }] = useSendMessageMutation()
@@ -153,7 +154,7 @@ export const ConversationComp = <T extends PlatformType>(
 		pushMessage(msg)
 		
 		// 直接处理 client 端错误
-		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail })
+		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail, platform_params: {...messageParams, role: MessageRoleType.assistant} })
 		
 		if (conversation_id) return await sendMessage(msg)
 		
@@ -192,8 +193,11 @@ export const ConversationComp = <T extends PlatformType>(
 	}
 	
 	
-	// 这个加了会闪屏，还是不要加了，温和点
-	// if (isFetchingMessages) return <CentralLoadingComp/>
+	// 这个加了会闪屏
+	// 但是不加的话，在网速差的时候就存在点了没反应的问题
+	// 但转念一想，除了用于调试，谁会频繁地切换conversation呢？
+	// 所以还是加上吧！
+	if (isFetchingMessages) return <CentralLoadingComp/>
 	
 	
 	return (

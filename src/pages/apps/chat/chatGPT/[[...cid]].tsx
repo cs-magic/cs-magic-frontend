@@ -4,7 +4,6 @@ import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/shared/ConversationsComp'
 import { ConversationComp } from '@/components/shared/ConversationComp'
 import { useUserId } from '@/hooks/use-user'
-import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
 import { PlatformType } from '@/ds/openai/general'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
@@ -18,7 +17,6 @@ export const ConversationPage = () => {
 	
 	// preserve
 	const router = useRouter()
-	const user_id = useUserId()
 	const cid = ensureSole(router.query.cid) // router id or null
 	
 	const conversationsComp = <ConversationsComp
@@ -26,27 +24,24 @@ export const ConversationPage = () => {
 		platform_type={platformType}
 	/>
 	
+	
 	return (
 		<RootLayout title={title}>
-			{
-				!user_id ? <CentralLoadingComp/> : (
-					<div className={'w-full grow flex'}>
-						
-						{/* left: conversations */}
-						<div className={'hidden md:block w-[260px] items-stretch'}>
-							{conversationsComp}
-						</div>
-						
-						{/* right: current conversation */}
-						<ConversationComp
-							cid={cid}
-							platform_type={platformType}
-							conversationsComp={conversationsComp}
-						/>
-					
-					</div>
-				)
-			}
+			<div className={'w-full grow flex'}>
+				
+				{/* left: conversations */}
+				<div className={'hidden md:block w-[260px] items-stretch'}>
+					{conversationsComp}
+				</div>
+				
+				{/* right: current conversation */}
+				<ConversationComp
+					cid={cid}
+					platform_type={platformType}
+					conversationsComp={conversationsComp}
+				/>
+			
+			</div>
 		</RootLayout>
 	)
 }
