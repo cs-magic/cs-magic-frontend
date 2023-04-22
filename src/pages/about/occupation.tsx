@@ -1,4 +1,4 @@
-import { CentralLayout } from '@/layouts/CentralLayout'
+import { CentralLayout } from '@/components/layouts/CentralLayout'
 
 export const AboutUsPage = () => {
 	return (

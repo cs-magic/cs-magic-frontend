@@ -1,9 +1,9 @@
 import { clsx } from 'clsx'
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { MessageComp } from '@/components/shared/MessageComp'
+import { MessageComp } from '@/components/MessageComp'
 import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
@@ -16,7 +16,7 @@ import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds
 import _ from 'lodash'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { CentralLoadingComp } from '@/components/views/CentralLoadingComp'
+import { CentralLoadingComp } from '@/components/CentralLoadingComp'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 

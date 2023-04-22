@@ -1,12 +1,14 @@
-import { FooterView } from '@/components/views/FooterView'
+import { FooterView } from '@/components/FooterView'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import Link from 'next/link'
-import { LogoHomeView } from '@/components/views/LogoHomeView'
-import { UserAvatarView } from '@/components/views/UserAvatarView'
+import { LogoHomeView } from '@/components/LogoHomeView'
+import { UserAvatarView } from '@/components/UserAvatarView'
 import { useUser } from '@/hooks/use-user'
+import { SelectTheme } from '@/components/tooltips/SelectTheme'
+import { SelectLang } from '@/components/tooltips/SelectLang'
 
-export const NavBar2View = () => {
+export const NavBarView = () => {
 	const u = useAppSelector(selectU)
 	const user = useUser()
 	
@@ -44,6 +46,11 @@ export const NavBar2View = () => {
 			</div>
 			
 			<div className="navbar-end">
+				
+				<SelectTheme/>
+				
+				<SelectLang/>
+				
 				<Link href={user ? `/user/${user.id}` : '/api/auth/signin'}>
 					<UserAvatarView user={user} className={'w-8 h-8'}/>
 				</Link>

@@ -1,4 +1,4 @@
-import { CentralLayout } from '@/layouts/CentralLayout'
+import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 

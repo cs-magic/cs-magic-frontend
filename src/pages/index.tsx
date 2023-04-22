@@ -1,8 +1,8 @@
-import { RootLayout } from '@/layouts/RootLayout'
-import { HeroView } from '@/components/views/HeroView'
+import { RootLayout } from '@/components/layouts/RootLayout'
+import { HeroView } from '@/components/HeroView'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { ProjectView } from '@/components/views/ProjectView'
+import { ProjectView } from '@/components/ProjectView'
 
 
 export default function Home() {

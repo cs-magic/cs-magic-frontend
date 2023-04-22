@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { RootLayout } from '@/layouts/RootLayout'
+import { RootLayout } from '@/components/layouts/RootLayout'
 
 export const CentralLayout: FC<{ children: ReactNode, title?: string }> = (props) => (
 	<RootLayout title={props.title}>

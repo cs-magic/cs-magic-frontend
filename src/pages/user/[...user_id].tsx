@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
 import { useGetUserQuery, useUpdateBasicUserMutation } from '@/api/userApi'
-import { CentralLayout } from '@/layouts/CentralLayout'
+import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { useToast } from '@/hooks/use-toast'
 import { signOut } from 'next-auth/react'
-import { UserAvatarView } from '@/components/views/UserAvatarView'
+import { UserAvatarView } from '@/components/UserAvatarView'
 import { useUploadFileMutation } from '@/api/fileApi'
 import { routers } from '@/config/general'
 import _ from 'lodash'
 import { useUser } from '@/hooks/use-user'
-import { RootLayout } from '@/layouts/RootLayout'
+import { RootLayout } from '@/components/layouts/RootLayout'
 import { useRef } from 'react'
 
 export const UserPage = () => {

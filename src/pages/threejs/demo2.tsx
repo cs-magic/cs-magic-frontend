@@ -1,4 +1,4 @@
-import { RootLayout } from '@/layouts/RootLayout'
+import { RootLayout } from '@/components/layouts/RootLayout'
 
 export const Demo2 = () => {
 	return (

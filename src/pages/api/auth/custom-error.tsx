@@ -4,7 +4,7 @@
  * [Documentation](https://next-auth.js.org/configuration/options#theme) |
  * [Pages](https://next-auth.js.org/configuration/pages)
  */
-import { AuthLayout } from '@/layouts/AuthLayout'
+import { AuthLayout } from '@/components/layouts/AuthLayout'
 
 export interface Theme {
 	colorScheme?: 'auto' | 'dark' | 'light'

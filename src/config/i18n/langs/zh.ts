@@ -119,3 +119,5 @@ export const zh: II18nSchema = {
 		},
 	},
 }
+
+export default zh

@@ -118,3 +118,5 @@ export const en: II18nSchema = {
 		},
 	},
 }
+
+export default en

@@ -4,14 +4,15 @@ import { Tooltip, TooltipProvider, TooltipTrigger } from '@radix-ui/react-toolti
 import { TooltipContent } from '@/components/ui/tooltip'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/hooks/use-redux'
-import { selectLang, selectU, setLang } from '@/states/features/i18nSlice'
-import { themes } from '@/config/general'
+import { selectLang, selectU, setLangType } from '@/states/features/i18nSlice'
 import { useTheme } from 'next-themes'
-import { Label } from '../ui/label'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { Switch } from '../ui/switch'
-import { ContactView } from '@/components/views/ContactView'
+import { Label } from './ui/label'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { Switch } from './ui/switch'
+import { ContactView } from '@/components/ContactView'
 import { useEffect, useState } from 'react'
+import { SelectLang } from '@/components/tooltips/SelectLang'
+import { SelectTheme } from '@/components/tooltips/SelectTheme'
 
 
 export const FooterView = () => {
@@ -41,27 +42,30 @@ export const FooterView = () => {
 				<div>
 					<span className="footer-title">{u.display.navs.settings.index}</span>
 					
-					<div className="flex items-center gap-4">
-						<Label className={'shrink-0'} htmlFor="language">{u.display.navs.settings.language}</Label>
-						<Switch onCheckedChange={() => dispatch(setLang(lang === 'zh' ? 'en' : 'zh'))}/>
-					</div>
+					<SelectTheme withText disableIcon/>
+					<SelectLang withText disableIcon/>
 					
-					<div className="flex items-center gap-4">
-						<Label className={'shrink-0'} htmlFor="theme">{u.display.navs.settings.theme}</Label>
-						<Select onValueChange={setTheme}>
-							<SelectTrigger id={'theme'}>
-								<SelectValue placeholder={theme}/>
-							</SelectTrigger>
-							
-							<SelectContent className={'bg-base-300'}>
-								<SelectGroup>
-									{themes.map((theme) => (
-										<SelectItem value={theme} key={theme}>{theme}</SelectItem>
-									))}
-								</SelectGroup>
-							</SelectContent>
-						</Select>
-					</div>
+					{/*<div className="flex items-center gap-4">*/}
+					{/*	<Label className={'shrink-0'} htmlFor="language">{u.display.navs.settings.language}</Label>*/}
+					{/*	<Switch onCheckedChange={() => dispatch(setLangType(lang === 'zh' ? 'en' : 'zh'))}/>*/}
+					{/*</div>*/}
+					
+					{/*<div className="flex items-center gap-4">*/}
+					{/*	<Label className={'shrink-0'} htmlFor="theme">{u.display.navs.settings.theme}</Label>*/}
+					{/*	<Select onValueChange={setTheme}>*/}
+					{/*		<SelectTrigger id={'theme'}>*/}
+					{/*			<SelectValue placeholder={theme}/>*/}
+					{/*		</SelectTrigger>*/}
+					{/*		*/}
+					{/*		<SelectContent className={'bg-base-300'}>*/}
+					{/*			<SelectGroup>*/}
+					{/*				{themes.map((theme) => (*/}
+					{/*					<SelectItem value={theme} key={theme}>{theme}</SelectItem>*/}
+					{/*				))}*/}
+					{/*			</SelectGroup>*/}
+					{/*		</SelectContent>*/}
+					{/*	</Select>*/}
+					{/*</div>*/}
 					
 					
 					{/*<div className={'form-control w-[48px]'}>*/}

@@ -4,8 +4,8 @@ import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
-import { FooterView } from '@/components/views/FooterView'
-import { NavBar2View } from '@/components/views/NavBar2View'
+import { FooterView } from '@/components/FooterView'
+import { NavBarView } from '@/components/NavBarView'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -40,7 +40,7 @@ export const RootLayout = ({ children, title }: {
 					)}
 					
 					{/*<NavBarComp title={title}/>*/}
-					<NavBar2View/>
+					<NavBarView/>
 					
 					<div className={'w-full grow flex flex-col border border-base-300'}>
 						{children}

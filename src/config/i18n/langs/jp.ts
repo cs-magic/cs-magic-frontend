@@ -119,3 +119,5 @@ export const jp: II18nSchema = {
 		},
 	},
 }
+
+export default jp
