@@ -3,7 +3,7 @@ const {fontFamily} = require("tailwindcss/defaultTheme")
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{js,ts,jsx,tsx,md,mdx}'],
-	darkMode: 'media',
+	darkMode: 'class',
 	theme: {
 		container: {
 			center: true,
@@ -83,11 +83,5 @@ module.exports = {
 	plugins: [
 		require('@tailwindcss/typography'), // ref: https://tailwindcss.com/docs/typography-plugin
 		require("tailwindcss-animate"),
-		// require("daisyui"),
 	],
-	
-	// daisyui config, ref: https://daisyui.com/docs/config/
-	daisyui: {
-		logs: false,
-	}
 }

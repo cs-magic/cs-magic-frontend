@@ -14,7 +14,10 @@ export const SelectTheme = ({ withText, disableIcon}: { withText?: boolean, disa
 	if (!isMounted) return <></>
 	
 	return (
-		<Select onValueChange={setTheme}>
+		<Select onValueChange={(value) => {
+			console.log('setting new theme: ', value)
+			setTheme(value)
+		}}>
 			<SelectTrigger className={'w-fit'} disableIcon={disableIcon}>
 				<SelectValue defaultValue={theme}>
 					<div className={'inline-flex gap-2 items-center'}>

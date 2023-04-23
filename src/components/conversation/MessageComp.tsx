@@ -43,7 +43,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 							msg.type === MessageType.text ? 'w-full h-24' : 'w-[256px] h-[256px]'
 						)}/>
 						) : msg.type === MessageType.text ? (
-						<article className={'w-full prose flex items-center gap-4 justify-between'}>
+						<article className={'w-full prose dark:prose-invert flex items-center gap-4 justify-between'}>
 							
 							<ReactMarkdown
 								className={'grow'}

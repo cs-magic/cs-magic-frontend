@@ -28,7 +28,7 @@ export interface II18nSchema {
 		dalle: IProjectItem
 	},
 	abouts: {
-		contactUS?: ILink
+		contactUS: ILink
 		jobs?: ILink
 	},
 	legals: {
