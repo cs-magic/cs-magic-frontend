@@ -11,7 +11,7 @@ export const routers = {
 		wallMessages: '/user-wallMessages',
 	},
 	
-	abouts: {
+	about: {
 		versions: '/about/versions',
 		contactUS: '/about/contact',
 		jobs: '/about/occupation',
@@ -20,7 +20,6 @@ export const routers = {
 	legals: {
 		termOfUse: '/legal/term-of-use',
 		privacyPolicy: '/legal/privacy-policy',
-		CookiePolicy: '/legal/cookie-policy',
 	},
 	
 	admin: {

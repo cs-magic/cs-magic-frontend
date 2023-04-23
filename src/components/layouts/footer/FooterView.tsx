@@ -16,8 +16,8 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.user}</div>
-					{Object.values(routers.user).map((item) => (
-						<Link href={item} key={item}>{_.get(u, item)}</Link>
+					{Object.entries(routers.user).map(([key, href]) => (
+						<Link href={href} key={href}>{_.get(u, `routers.user.${key}`)}</Link>
 					))}
 				</div>
 				
@@ -39,16 +39,16 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.about}</div>
-					{Object.values(routers.abouts).map((item) => (
-						<Link href={item} key={item}>{_.get(u, item)}</Link>
+					{Object.entries(routers.about).map(([key, href]) => (
+						<Link href={href} key={href}>{_.get(u, `routers.about.${key}`)}</Link>
 					))}
 					{/*<Link href={u.abouts.contactUS.href}>{u.abouts.contactUS.name}</Link>*/}
 				</div>
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.legal}</div>
-					{Object.values(routers.legals).map((item) => (
-						<Link href={item} key={item}>{_.get(u, item)}</Link>
+					{Object.entries(routers.legals).map(([key, href]) => (
+						<Link href={href} key={href}>{_.get(u, `routers.legals.${key}`)}</Link>
 					))}
 				</div>
 			

@@ -43,9 +43,9 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 				</NavigationMenuItem>
 				
 				<NavigationMenuItem>
-					<Link href={routers.abouts.contactUS} legacyBehavior passHref>
+					<Link href={routers.about.contactUS} legacyBehavior passHref>
 						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							{u.routers.abouts.contactUS}
+							{u.routers.about.contactUS}
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>

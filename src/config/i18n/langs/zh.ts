@@ -13,14 +13,13 @@ export const zh: II18nSchema = {
 			planning: '会员计划',
 			wallMessages: '留言墙',
 		},
-		abouts: {
+		about: {
 			contactUS: '联系我们',
 			jobs: '加入我们',
 			versions: '版本历史',
 		},
 		legals: {
 			termOfUse: '条款说明',
-			CookiePolicy: 'Cookie政策',
 			privacyPolicy: '隐私政策',
 		},
 		apps: {

@@ -12,7 +12,7 @@ export const ConversationPage = () => {
 	
 	// customize
 	const platformType: PlatformType = PlatformType.dalle
-	const title = u.routers.apps.dalle
+	const title = u.routers.apps.chat.dalle
 	
 	// preserve
 	const router = useRouter()

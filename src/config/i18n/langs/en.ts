@@ -14,14 +14,13 @@ export const en: II18nSchema = {
 			planning: 'MemberShip Planning',
 			wallMessages: 'Messages Wall',
 		},
-		abouts: {
+		about: {
 			contactUS: 'Contact US',
 			jobs: 'Job Opportunities',
 			versions: 'Release Versions',
 		},
 		legals: {
 			termOfUse: 'Term Of Use',
-			CookiePolicy: 'Cookie Policy',
 			privacyPolicy: 'Privacy Policy',
 		},
 		apps: {

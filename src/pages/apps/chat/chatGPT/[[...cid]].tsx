@@ -13,7 +13,7 @@ export const ConversationPage = () => {
 	
 	// customize
 	const platformType: PlatformType = PlatformType.chatGPT
-	const title = u.routers.apps.chatGPT
+	const title = u.routers.apps.chat.chatGPT
 	
 	// preserve
 	const router = useRouter()

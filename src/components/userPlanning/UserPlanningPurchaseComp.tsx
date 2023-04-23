@@ -110,7 +110,7 @@ export const UserPlanningPurchaseComp = (
 						)
 					}
 					
-					<Link href={routers.abouts.contactUS} className={'ml-auto'}>
+					<Link href={routers.about.contactUS} className={'ml-auto'}>
 						<Button variant={'destructive'} size={null} className={'px-4 py-0'}>Buy</Button>
 					</Link>
 				</div>
