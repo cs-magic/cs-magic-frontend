@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-export const LogoComp = (props: HTMLAttributes<SVGElement>) => {
+export const LogoSVG = (props: HTMLAttributes<SVGElement>) => {
 	return (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -30,4 +30,4 @@ export const LogoComp = (props: HTMLAttributes<SVGElement>) => {
 	)
 }
 
-export default LogoComp
+export default LogoSVG
