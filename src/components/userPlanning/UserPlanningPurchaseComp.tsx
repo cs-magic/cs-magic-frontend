@@ -9,6 +9,10 @@ import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Checkbox } from '../ui/checkbox'
 import { Badge } from '../ui/badge'
+import Link from 'next/link'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
+import { Button } from '@/components/ui/button'
 
 
 export const UserPlanningPurchaseComp = (
@@ -16,6 +20,8 @@ export const UserPlanningPurchaseComp = (
 		name, prices, features, cover, tags, chatgptTokens,
 	}:
 		IUserPlanningPurchaseComp) => {
+	
+	const u = useAppSelector(selectU)
 	
 	const [byYear, setByYear] = useState(false)
 	
@@ -103,7 +109,9 @@ export const UserPlanningPurchaseComp = (
 						)
 					}
 					
-					<UserPlanningView/>
+					<Link href={u.abouts.contactUS.href} className={'ml-auto'}>
+						<Button variant={'destructive'} size={null} className={'px-4 py-0'}>Buy</Button>
+					</Link>
 				</div>
 			</CardFooter>
 		</Card>

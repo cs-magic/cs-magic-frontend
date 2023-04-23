@@ -4,12 +4,8 @@ import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 export const ContactView = () => {
 	return (
-		// <div className={'flex flex-col gap-2'}>
-		// 	<Label>联系小助手</Label>
-		// 	<Image src={'/qrcodes/wechat-clotho.png'} alt={'contact'} width={320} height={480}/>
-		// </div>
-		//
-		<Tabs defaultValue="test" className="w-[400px]">
+		<Tabs defaultValue="cmo" className="w-[400px]">
+			
 			<TabsList className={'w-full justify-around'}>
 				<TabsTrigger value="cmo">联系小助手</TabsTrigger>
 				<TabsTrigger value="test">加入内测群</TabsTrigger>
@@ -34,8 +30,7 @@ export const ContactView = () => {
 					<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'CEO'} fill style={{objectFit: 'contain'}} sizes={'320px'}/>
 				</AspectRatio>
 			</TabsContent>
-		
-		
+			
 		</Tabs>
 	
 	)
