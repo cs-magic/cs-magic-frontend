@@ -1,8 +1,3 @@
-import {RootLayout} from '@/components/layouts/RootLayout';
-import {clsx} from "clsx";
-import {useAppSelector} from "../../hooks/use-redux";
-import {selectU} from "../../states/features/i18nSlice";
-
 ## v0.4.1 (2023-04-24)
 
 - [x] 修复并升级了登录系统，弄明白了一个很艰深的bug（至此，登录系统将高可用，尽管离最佳设计还有一段路要走）
@@ -51,12 +46,11 @@ import {selectU} from "../../states/features/i18nSlice";
 - [x] 修复了头像显示问题、fallback问题
 - [x] 调研在其他区域点击第一次会focus menu的问题（未能复现）
 
-
 ## V0.1.6 (2023-04-14)
 
 - [x] 对接mid journey或dalle：
- - 聊天：cs-magic.com/apps/chatGPT
- - 画图：cs-magic.com/apps/dalle
+- 聊天：cs-magic.com/apps/chatGPT
+- 画图：cs-magic.com/apps/dalle
 
 ## V0.1.5 (2023-04-13)
 
@@ -64,7 +58,8 @@ import {selectU} from "../../states/features/i18nSlice";
 - [x] 更合理的会员计划
 - [x] 修复了后端chatgpt token接口
 - [x] 修复了前端chat界面昨晚写的bug
-- [x] 研究备案（国内域名cs-magic.cn已注册通过实名验证，正在等待三天后的 [备案](https://beian.aliyun.com/pcContainer/formpage?page=selfBa&pageAction=init&orderType=100)
+- [x] 
+  研究备案（国内域名cs-magic.cn已注册通过实名验证，正在等待三天后的 [备案](https://beian.aliyun.com/pcContainer/formpage?page=selfBa&pageAction=init&orderType=100)
 - [x] [pr list](https://cs-magic.com/wall-messages)
 - [x] implemented separate title for each page
 
@@ -77,18 +72,3 @@ import {selectU} from "../../states/features/i18nSlice";
 - [x] 优化登陆按钮提示（这个中午就做完了）
 - [x] 支持version history（基于 mdx 实现了，ref: [using-mdx](https://nextjs.org/docs/advanced-features/using-mdx)）
 - [x] ~~支持pr list4-14完成）~~
-
-export default ({children}) => {
-	const u = useAppSelector(selectU)
-
-	return (
-		<RootLayout title={u.routers.about.versions}>
-			<article className={clsx(
-				'prose prose-zinc max-w-[720px] mx-auto',
-				'dark:prose-invert',
-			)}>
-				{children}
-			</article>
-		</RootLayout>
-	)
-}
