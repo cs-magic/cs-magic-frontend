@@ -8,7 +8,7 @@ export const routers = {
 	
 	user: {
 		planning: '/user-planning',
-		wallMessages: '/user-wallMessages',
+		wallMessages: '/wall-messages',
 	},
 	
 	about: {
