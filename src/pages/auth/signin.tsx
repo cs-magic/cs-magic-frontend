@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
-import { getProviders, getSession, signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { TitleLineComp } from '@/components/general/TitleLineComp'
 import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
@@ -28,7 +28,9 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	const router = useRouter()
 	const u = useAppSelector(selectU)
 	
-	console.log({ baseUrl })
+	useEffect(() => {
+		getToken('').catch() // activate the router
+	}, [])
 	
 	const onConfirmEmail = async () => {
 		if (loading) {
@@ -45,8 +47,6 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 		setEmail(email)
 		toast({ title: 'sending magic code to ' + email })
 		
-		
-		console.log({ tokensBefore: await getToken(email) })
 		
 		const res = await signIn('email', {
 			email,
@@ -136,20 +136,16 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
  * @desc 不能使用 `SigninPage.initialProps` 这个只会在第一次访问页面时才会提供，第二次（例如url跳转）就不行
  */
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const { req } = context
-	const session = await getSession({ req })
 	
+	// todo: detect by session
 	// ref: https://stackoverflow.com/a/70167665/9422455
 	const host = context.req?.headers.host || ''
-	// todo: detect by session
 	
 	const baseUrl = host.includes('magic') ? 'https://' + host : 'http://' + host
 	console.log({ host, baseUrl })
 	process.env.NEXTAUTH_URL = baseUrl
 	return {
 		props: {
-			isLoggedIn: session !== null,
-			providers: await getProviders(),
 			baseUrl,
 		},
 	}
