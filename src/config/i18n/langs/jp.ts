@@ -37,6 +37,10 @@ export const jp: II18nSchema = {
 	},
 	
 	abouts: {
+				versions: {
+			href: '/about/versions',
+			name: "Versions",
+		},
 		contactUS: {
 			href: '/about/contact',
 			name: '開発者について',

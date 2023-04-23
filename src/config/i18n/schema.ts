@@ -29,6 +29,7 @@ export interface II18nSchema {
 	},
 	abouts: {
 		contactUS: ILink
+		versions:ILink
 		jobs?: ILink
 	},
 	legals: {

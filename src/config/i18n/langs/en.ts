@@ -36,9 +36,13 @@ export const en: II18nSchema = {
 	},
 	
 	abouts: {
+		versions: {
+			href: '/about/versions',
+			name: "Versions",
+		},
 		contactUS: {
 			href: '/about/contact',
-			name: 'contact US',
+			name: 'Contact US',
 		},
 		jobs: {
 			href: '/about/occupation',

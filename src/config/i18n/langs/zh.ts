@@ -36,6 +36,10 @@ export const zh: II18nSchema = {
 	},
 	
 	abouts: {
+		versions: {
+			href: '/about/versions',
+			name: '版本历史',
+		},
 		contactUS: {
 			href: '/about/contact',
 			name: '联系我们',
