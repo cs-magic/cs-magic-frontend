@@ -1,42 +1,18 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { IconPalette } from '@tabler/icons-react'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
+import { useLazyTheme } from '@/hooks/use-theme'
+import { useLang } from '@/hooks/use-lang'
+import { BaseSelect } from '@/components/general/BaseSelect'
 
-export const SelectTheme = ({ withText, withIconSuffix, withIconPrefix }: { withText?: boolean, withIconSuffix?: boolean, withIconPrefix?: boolean }) => {
-	const { theme, setTheme, themes } = useTheme()
-	const [isMounted, setMounted] = useState(false)
-	const u = useAppSelector(selectU)
-	
-	useEffect(() => {
-		setMounted(true)
-	}, [])
-	
-	if (!isMounted) return <></>
+
+export const SelectTheme = (props: {
+	withText?: boolean,
+	withIconSuffix?: boolean,
+	withIconPrefix?: boolean
+}) => {
+	const u = useLang()
+	const { theme, themes, setTheme } = useLazyTheme()
 	
 	return (
-		<Select onValueChange={setTheme}>
-			<SelectTrigger withIconSuffix={withIconSuffix} className={'h-fit p-0'}>
-				<SelectValue defaultValue={theme} asChild>
-					<span className={'inline-flex gap-2'}>
-						{withIconPrefix && <IconPalette/>}
-						{withText && <span>{u.display.navs.themes}</span>}
-					</span>
-				</SelectValue>
-			</SelectTrigger>
-			
-			<SelectContent className={'w-32'}>
-				<SelectGroup>
-					<SelectLabel>Themes</SelectLabel>
-					{
-						themes.map((theme) => (
-							<SelectItem className={'cursor-pointer'} value={theme} key={theme}>{theme}</SelectItem>
-						))
-					}
-				</SelectGroup>
-			</SelectContent>
-		</Select>
+		<BaseSelect label={u.display.navs.themes} v={theme} vs={themes} setV={setTheme} icon={<IconPalette/>} {...props}/>
 	)
 }

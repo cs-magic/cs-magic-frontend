@@ -6,5 +6,5 @@ export interface IFeature {
 	status: TaskStatus
 }
 
-export const langs = ['zh', 'en', 'jp'] as const
-export type LangType = typeof langs[number]
+export type LangType = 'zh' | 'en' | 'jp'
+export const langs = ['zh', 'en', 'jp'] as LangType[]
