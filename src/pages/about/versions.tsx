@@ -3,18 +3,21 @@ import { clsx } from 'clsx'
 import { GetServerSideProps } from 'next'
 import { useLang } from '@/hooks/use-lang'
 import axios from 'axios'
+import ReactMarkdown from 'react-markdown'
 
 
 export const VersionsPage = ({ content }: { content: string }) => {
 	const u = useLang()
+	console.log({ content })
 	
 	return (
 		<RootLayout title={u.routers.about.versions}>
 			<article className={clsx(
-				'prose prose-zinc max-w-[720px] mx-auto',
-				'dark:prose-invert',
+				'max-w-[720px] mx-auto prose dark:prose-invert',
 			)}>
-				{content}
+				<ReactMarkdown>
+					{content}
+				</ReactMarkdown>
 			</article>
 		</RootLayout>
 	)

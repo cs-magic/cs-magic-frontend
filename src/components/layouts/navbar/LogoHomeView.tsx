@@ -1,13 +1,12 @@
 import Link from 'next/link'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
 import { HTMLAttributes } from 'react'
 import LogoSVG from '@/components/svg/LogoSVG'
 import { clsx } from 'clsx'
+import { useLang } from '@/hooks/use-lang'
 
 
 export const LogoHomeView = ({ className, ...props }: HTMLAttributes<HTMLAnchorElement>) => {
-	const u = useAppSelector(selectU)
+	const u = useLang()
 	const website = u.display.website
 	
 	return (
