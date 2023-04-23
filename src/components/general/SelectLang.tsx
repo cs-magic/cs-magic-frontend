@@ -12,7 +12,7 @@ export const SelectLang = ({ withText, withIconSuffix, withIconPrefix }: { withT
 	
 	return (
 		<Select onValueChange={(v) => dispatch(asyncSetLang(v as LangType))}>
-			<SelectTrigger className={'h-fit py-0'} withIconSuffix={withIconSuffix}>
+			<SelectTrigger className={'h-fit p-0'} withIconSuffix={withIconSuffix}>
 				<SelectValue defaultValue={lang} asChild>
 					<span className={'inline-flex gap-2 items-center'}>
 						{withIconPrefix && <IconLanguage/>}

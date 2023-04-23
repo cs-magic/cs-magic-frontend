@@ -18,9 +18,9 @@ export const SelectTheme = ({ withText, withIconSuffix, withIconPrefix }: { with
 	
 	return (
 		<Select onValueChange={setTheme}>
-			<SelectTrigger withIconSuffix={withIconSuffix} className={'h-fit py-0'}>
+			<SelectTrigger withIconSuffix={withIconSuffix} className={'h-fit p-0'}>
 				<SelectValue defaultValue={theme} asChild>
-					<span className={'inline-flex items-center gap-2'}>
+					<span className={'inline-flex gap-2'}>
 						{withIconPrefix && <IconPalette/>}
 						{withText && <span>{u.display.navs.themes}</span>}
 					</span>

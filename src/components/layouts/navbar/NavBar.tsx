@@ -15,7 +15,6 @@ import { routers } from '@/config/routers'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
-	const user = useUser()
 	
 	return (
 		// 它不支持 vertical
