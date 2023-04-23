@@ -44,10 +44,9 @@ export const zh: II18nSchema = {
 			href: '/about/contact',
 			name: '联系我们',
 		},
-		
 		jobs: {
 			href: '/about/occupation',
-			name: '职业机会',
+			name: '加入我们',
 		},
 	},
 	
