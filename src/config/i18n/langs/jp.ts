@@ -37,9 +37,9 @@ export const jp: II18nSchema = {
 	},
 	
 	abouts: {
-				versions: {
+		versions: {
 			href: '/about/versions',
-			name: "Versions",
+			name: 'Versions',
 		},
 		contactUS: {
 			href: '/about/contact',
@@ -121,6 +121,8 @@ export const jp: II18nSchema = {
 			},
 			about: 'このサイトについて',
 			legal: '法律',
+			themes: '主题',
+			languages: '语言',
 		},
 	},
 }

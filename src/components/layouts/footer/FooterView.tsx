@@ -41,8 +41,8 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.settings.index}</div>
-					<SelectTheme withText disableIcon/>
-					<SelectLang withText disableIcon/>
+					<SelectTheme withText/>
+					<SelectLang withText/>
 				</div>
 				
 				

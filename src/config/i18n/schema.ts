@@ -90,6 +90,8 @@ export interface II18nSchema {
 			}
 			about: string
 			legal: string
+			themes: string
+			languages: string
 		}
 	}
 }

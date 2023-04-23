@@ -2,10 +2,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { IconPalette } from '@tabler/icons-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 
-export const SelectTheme = ({ withText, disableIcon }: { withText?: boolean, disableIcon?: boolean }) => {
+export const SelectTheme = ({ withText, withIconSuffix, withIconPrefix }: { withText?: boolean, withIconSuffix?: boolean, withIconPrefix?: boolean }) => {
 	const { theme, setTheme, themes } = useTheme()
 	const [isMounted, setMounted] = useState(false)
+	const u = useAppSelector(selectU)
 	
 	useEffect(() => {
 		setMounted(true)
@@ -15,11 +18,11 @@ export const SelectTheme = ({ withText, disableIcon }: { withText?: boolean, dis
 	
 	return (
 		<Select onValueChange={setTheme}>
-			<SelectTrigger disableIcon={disableIcon} className={'h-fit py-0'}>
+			<SelectTrigger withIconSuffix={withIconSuffix} className={'h-fit py-0'}>
 				<SelectValue defaultValue={theme} asChild>
 					<span className={'inline-flex items-center gap-2'}>
-						<IconPalette/>
-						<span>{withText && 'Palettes'}</span>
+						{withIconPrefix && <IconPalette/>}
+						{withText && <span>{u.display.navs.themes}</span>}
 					</span>
 				</SelectValue>
 			</SelectTrigger>

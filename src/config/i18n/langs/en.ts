@@ -38,7 +38,7 @@ export const en: II18nSchema = {
 	abouts: {
 		versions: {
 			href: '/about/versions',
-			name: "Versions",
+			name: 'Versions',
 		},
 		contactUS: {
 			href: '/about/contact',
@@ -120,6 +120,8 @@ export const en: II18nSchema = {
 			},
 			about: 'About',
 			legal: 'Legal',
+			themes: 'Themes',
+			languages: 'Languages',
 		},
 	},
 }

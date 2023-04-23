@@ -120,6 +120,8 @@ export const zh: II18nSchema = {
 			},
 			about: '关于',
 			legal: '法律',
+			themes: '主题',
+			languages: '语言',
 		},
 	},
 }
