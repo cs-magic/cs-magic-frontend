@@ -1,11 +1,10 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { IconPalette } from '@tabler/icons-react'
-import { themes } from '@/config/themes'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
 export const SelectTheme = ({ withText, disableIcon}: { withText?: boolean, disableIcon?: boolean }) => {
-	const { theme, setTheme, themes: nextThemes } = useTheme()
+	const { theme, setTheme, themes } = useTheme()
 	const [isMounted, setMounted] = useState(false)
 	
 	useEffect(() => {
@@ -29,7 +28,7 @@ export const SelectTheme = ({ withText, disableIcon}: { withText?: boolean, disa
 				<SelectGroup>
 					<SelectLabel>Themes</SelectLabel>
 					{
-						Object.keys(themes).map((theme) => (
+						themes.map((theme) => (
 							<SelectItem className={'cursor-pointer'} value={theme} key={theme}>{theme}</SelectItem>
 						))
 					}

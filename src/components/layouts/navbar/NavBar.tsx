@@ -79,7 +79,14 @@ export const NavBarResponsive = () => {
 			
 			<HorizontalMenus className={'hidden md:flex'}/>
 			
-			<UserAvatarView user={user}/>
+			{
+				user ? (
+					<Link href={`/user/${user.id}`} className={'cursor-pointer'}>
+						<UserAvatarView user={user}/>
+					</Link>
+				) : <UserAvatarView user={user}/>
+			}
+		
 		</div>
 	)
 }

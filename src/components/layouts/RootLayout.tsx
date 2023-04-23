@@ -5,8 +5,7 @@ import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
 import { FooterView } from '@/components/layouts/footer/FooterView'
-import { NavBar, NavBarResponsive } from '@/components/layouts/navbar/NavBar'
-import { NavBarPrimitiveView } from '@/components/layouts/navbar/NavBarPrimitiveView'
+import { NavBarResponsive } from '@/components/layouts/navbar/NavBar'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -40,9 +39,6 @@ export const RootLayout = ({ children, title }: {
 						</div>
 					)}
 					
-					{/*<NavBarComp title={title}/>*/}
-					{/*<NavBarView/>*/}
-					{/*<NavBarPrimitiveView/>*/}
 					<NavBarResponsive/>
 					
 					<div className={'w-full grow flex flex-col border border-base-300'}>

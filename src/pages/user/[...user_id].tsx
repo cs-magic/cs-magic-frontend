@@ -33,6 +33,18 @@ export const UserPage = () => {
 		<RootLayout>
 			<div className={'m-auto w-full md:w-[480px] flex flex-col gap-4'}>
 				
+				<div className={'inline-flex items-center gap-4'}>
+					<UserAvatarView user={targetUser}/>
+					{/* todo: admin privilege */}
+					<span className={'text-gray-500 bg-transparent text-sm'}> (Click to Replace)</span>
+					<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
+						event.preventDefault()
+						const files = event.currentTarget.files
+						if (files?.length !== 1) return toast({ title: '一次只能上传一个文件', variant: 'destructive' })
+						const avatar = await uploadFile(files[0]).unwrap()
+						updateBasicUser({ id: targetUser.id, body: { avatar } })
+					}}/>
+				</div>
 				
 				<div className={'form-control w-full'}>
 					<label className={'input-group w-ful'}>
@@ -60,23 +72,6 @@ export const UserPage = () => {
 						        type={'button'}
 						        onClick={() => updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })}>Rename
 						</button>
-					</label>
-				</div>
-				
-				
-				<div className={'form-control w-full'}>
-					<label className={'input-group w-full'}>
-						<span className={'w-24'}>Avatar</span>
-						{/* todo: grow not work here */}
-						<UserAvatarView user={targetUser} className={'grow'}/>
-						<span className={'text-gray-500 bg-transparent text-sm'}> (Click to Replace)</span>
-						<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
-							event.preventDefault()
-							const files = event.currentTarget.files
-							if (files?.length !== 1) return toast({ title: '一次只能上传一个文件', variant: 'destructive' })
-							const avatar = await uploadFile(files[0]).unwrap()
-							updateBasicUser({ id: targetUser.id, body: { avatar } })
-						}}/>
 					</label>
 				</div>
 				
