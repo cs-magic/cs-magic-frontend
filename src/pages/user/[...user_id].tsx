@@ -2,14 +2,34 @@ import { useRouter } from 'next/router'
 import { useGetUserQuery, useUpdateBasicUserMutation } from '@/api/userApi'
 import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { useToast } from '@/hooks/use-toast'
-import { signOut } from 'next-auth/react'
 import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { useUploadFileMutation } from '@/api/fileApi'
 import { routers } from '@/config/general'
 import _ from 'lodash'
 import { useUser } from '@/hooks/use-user'
 import { RootLayout } from '@/components/layouts/RootLayout'
-import { useRef } from 'react'
+import { ReactNode, useRef } from 'react'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { UserPlanningType } from '@/ds/user'
+
+
+const InputGroup = ({ label, children, extra }: {
+	label: string
+	children: ReactNode
+	extra?: ReactNode
+}) => {
+	return (
+		<div className={'w-full inline-flex items-center'}>
+			<Label className={'w-24'}>{label}</Label>
+			<div className={'grow inline-flex items-center gap-2'}>
+				{children}
+			</div>
+			{extra}
+		</div>
+	)
+}
 
 export const UserPage = () => {
 	const router = useRouter()
@@ -33,11 +53,11 @@ export const UserPage = () => {
 		<RootLayout>
 			<div className={'m-auto w-full md:w-[480px] flex flex-col gap-4'}>
 				
-				<div className={'inline-flex items-center gap-4'}>
-					<UserAvatarView user={targetUser}/>
+				<div className={'w-full inline-flex items-center gap-4'}>
+					<UserAvatarView user={targetUser} className={'w-20 h-20 '}/>
 					{/* todo: admin privilege */}
-					<span className={'text-gray-500 bg-transparent text-sm'}> (Click to Replace)</span>
-					<input hidden type={'file'} accept={'image/*'} onChange={async (event) => {
+					<Label htmlFor={'upload-avatar'} className={'text-gray-500 bg-transparent text-sm cursor-pointer'}> (Click to Replace)</Label>
+					<input id={'upload-avatar'} hidden type={'file'} accept={'image/*'} onChange={async (event) => {
 						event.preventDefault()
 						const files = event.currentTarget.files
 						if (files?.length !== 1) return toast({ title: '一次只能上传一个文件', variant: 'destructive' })
@@ -46,47 +66,33 @@ export const UserPage = () => {
 					}}/>
 				</div>
 				
-				<div className={'form-control w-full'}>
-					<label className={'input-group w-ful'}>
-						<span className={'w-24'}>ID</span>
-						<span className={'grow bg-base-200 text-primary cursor-pointer'} onClick={() => {
+				<InputGroup label={'ID'}>
+					<span
+						className={'grow bg-base-200 text-primary cursor-pointer'}
+						onClick={() => {
 							navigator.clipboard.writeText(user_id)
 							toast({ title: 'copied your user_id' })
 						}}>
 						{user_id}
 					</span>
-						
-						<button disabled={!self} className={'w-24 btn btn-sm'} onClick={(event) => {
-							event.preventDefault()
-							signOut()
-						}}>Sign Out
-						</button>
-					</label>
-				</div>
+				</InputGroup>
+
 				
-				<div className={'form-control w-full'}>
-					<label className={'input-group w-full'}>
-						<span className={'w-24'}>Name</span>
-						<input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
-						<button className={'w-24 btn btn-sm'}
-						        type={'button'}
-						        onClick={() => updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })}>Rename
-						</button>
-					</label>
-				</div>
+				<InputGroup label={'Name'}>
+					<Input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
+					<Button className={'w-24 shrink-0'} onClick={() => updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })}>
+						Rename
+					</Button>
+				</InputGroup>
 				
+				<InputGroup label={'Planning'}>
+					<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
+					
+					<Button disabled={!self || targetUser.basic.membership.planning === UserPlanningType.blackVip} className={'w-24 shrink-0'} onClick={() => router.push(routers.userPlanning.href)}>
+						Upgrade
+					</Button>
+				</InputGroup>
 				
-				<div className={'form-control w-full'}>
-					<label className={'input-group w-full'}>
-						<span className={'w-24'}>Planning</span>
-						<span id={'planning'} className={'grow bg-base-200'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
-						
-						<button disabled={!self} className={'w-24 btn btn-sm'} onClick={() => router.push(routers.userPlanning.href)}>
-							Upgrade
-						</button>
-					</label>
-				</div>
-			
 			
 			</div>
 		
