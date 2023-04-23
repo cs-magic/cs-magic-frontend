@@ -230,7 +230,7 @@ export const MessagesComp = <T extends PlatformType>(
 			<div className={'hidden md:block grow'}/>
 			<div className={clsx(c, 'w-full relative ')}>
 				<Textarea
-					className={'mt-2 mb-10 md:mb-2 w-full shadow-xl resize-none'}
+					className={'mt-2 mb-10 md:mb-2 w-full shadow-sm resize-none'}
 					onKeyDown={(event) => {
 						if (event.key === 'Enter') {
 							if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
