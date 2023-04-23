@@ -11,7 +11,7 @@ export const LogoHomeView = ({ className, ...props }: HTMLAttributes<HTMLAnchorE
 	const website = u.display.website
 	
 	return (
-		<Link href={'/'} className={clsx('cursor-pointer', 'flex justify-start items-center gap-2 text-primary', className)} {...props}>
+		<Link href={'/'} className={clsx('cursor-pointer', 'flex justify-start items-center gap-2 text-purple-500', className)} {...props}>
 			{/* website logo */}
 			<LogoSVG className={'w-8 h-8'}/>
 			

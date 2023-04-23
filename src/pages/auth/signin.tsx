@@ -107,7 +107,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 						/>
 					)
 				}
-				{step == 6 && !loading && <Button className={'bg-gray-700'} onClick={onConfirmEmail}>Confirm Email</Button>}
+				{step == 6 && !loading && <Button variant={'outline'} onClick={onConfirmEmail}>Confirm Email</Button>}
 				
 				{step >= 7 && <TitleLineComp content={'Input your magic code'} onTypingDone={() => step == 7 && setStep(step + 1)}/>}
 				
@@ -125,7 +125,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 					/>
 				)}
 				
-				{step == 8 && <Button className={'bg-gray-700'} onClick={onConfirmToken}>Start Your Journey</Button>}
+				{step == 8 && <Button variant={'outline'} onClick={onConfirmToken}>Start Your Journey</Button>}
 			
 			</div>
 		</AuthLayout>

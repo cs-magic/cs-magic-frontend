@@ -6,7 +6,7 @@ export const LogoSVG = (props: HTMLAttributes<SVGElement>) => {
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     stroke="currentColor"
-    strokeWidth={6}
+    strokeWidth={12}
     data-name="\u56FE\u5C42 1"
     viewBox="0 0 800 800"
     {...props}
