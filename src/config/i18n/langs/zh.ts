@@ -37,7 +37,7 @@ export const zh: II18nSchema = {
 	
 	abouts: {
 		contactUS: {
-			href: '/about/us',
+			href: '/about/contact',
 			name: '联系我们',
 		},
 		

@@ -37,7 +37,7 @@ export const en: II18nSchema = {
 	
 	abouts: {
 		contactUS: {
-			href: '/about/us',
+			href: '/about/contact',
 			name: 'contact US',
 		},
 		jobs: {

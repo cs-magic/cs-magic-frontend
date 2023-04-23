@@ -38,7 +38,7 @@ export const jp: II18nSchema = {
 	
 	abouts: {
 		contactUS: {
-			href: '/about/us',
+			href: '/about/contact',
 			name: '開発者について',
 		},
 		jobs: {
