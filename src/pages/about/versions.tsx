@@ -8,8 +8,7 @@ import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 
 export const VersionsPage = () => {
 	const u = useLang()
-	const { data: content, currentData, isFetching } = useGetVersionsHistoryQuery(undefined, { refetchOnFocus: true })
-	console.log({content, currentData, isFetching})
+	const { data: content } = useGetVersionsHistoryQuery(undefined, { refetchOnFocus: true })
 	
 	return (
 		<RootLayout title={u.routers.about.versions}>
