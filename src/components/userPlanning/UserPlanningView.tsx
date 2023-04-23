@@ -1,9 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import _ from 'lodash'
-import { AspectRatio } from './ui/aspect-ratio'
-import { ContactView } from '@/components/ContactView'
+import { AspectRatio } from '../ui/aspect-ratio'
+import { ContactView } from '@/components/contact/ContactView'
 
 
 export enum UserPlanningCharge {

@@ -3,9 +3,9 @@ import { clsx } from 'clsx'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 import { Switch } from '@/components/ui/switch'
-import { Label } from './ui/label'
+import { Label } from '../ui/label'
 import { useState } from 'react'
-import { UserPlanningView } from '@/components/UserPlanningView'
+import { UserPlanningView } from '@/components/userPlanning/UserPlanningView'
 import { IUserPlanningPurchaseComp } from '@/ds/userPlanning'
 
 

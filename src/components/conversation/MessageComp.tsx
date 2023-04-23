@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { IconBrandOpenai } from '@tabler/icons-react'
-import { UserAvatarView } from '@/components/UserAvatarView'
+import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { useUser } from '@/hooks/use-user'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'

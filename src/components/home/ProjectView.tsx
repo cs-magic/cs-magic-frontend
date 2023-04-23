@@ -30,7 +30,7 @@ export const ProjectView = (
 				</div>
 				
 				<div className="card-actions justify-end flex ">
-					<p>{desc}</p>
+					<p className={'text-gray-500'}>{desc}</p>
 					<Link href={href} className="badge badge-lg badge-accent">Try</Link>
 				</div>
 			</div>

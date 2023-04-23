@@ -4,8 +4,8 @@ import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
-import { FooterView } from '@/components/FooterView'
-import { NavBarView } from '@/components/NavBarView'
+import { FooterView } from '@/components/layouts/footer/FooterView'
+import { NavBarView } from '@/components/layouts/navbar/NavBarView'
 
 export const RootLayout = ({ children, title }: {
 	children: ReactNode
@@ -31,7 +31,7 @@ export const RootLayout = ({ children, title }: {
 				<link rel="icon" href="/logo/logo.ico"/>
 			</Head>
 			
-			<main>
+			<main className={'text-primary'}>
 				<div className={'max-w-[1400px] min-h-screen m-auto flex flex-col'}>
 					{notifications.top && (
 						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { NextPage } from 'next'
 import { getProviders, getSession, signIn } from 'next-auth/react'
-import { TitleLineComp } from '@/components/TitleLineComp'
+import { TitleLineComp } from '@/components/general/TitleLineComp'
 import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
 import { useToast } from '@/hooks/use-toast'
@@ -11,7 +11,7 @@ import axios from 'axios'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { LogoHomeView } from '@/components/LogoHomeView'
+import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	

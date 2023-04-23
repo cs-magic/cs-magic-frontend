@@ -8,7 +8,7 @@ import { toast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useUserId } from '@/hooks/use-user'
-import { WallMessageComp } from '@/components/WallMessageComp'
+import { WallMessageComp } from '@/components/wallMessages/WallMessageComp'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 

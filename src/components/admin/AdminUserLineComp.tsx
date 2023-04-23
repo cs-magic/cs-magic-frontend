@@ -3,7 +3,7 @@ import { IUser, IUserBasic, IUserOpenAI, UserPlanningType, UserRole } from '@/ds
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { UserAvatarView } from '@/components/UserAvatarView'
+import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/api/userApi'
 import { toast } from '@/hooks/use-toast'
 import _ from 'lodash'

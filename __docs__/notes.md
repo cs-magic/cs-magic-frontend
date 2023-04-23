@@ -1,5 +1,9 @@
 # notes
 
+## 在nextjs导入svg的最佳实践：svgr
+
+ref:https://stackoverflow.com/a/65685418/9422455
+
 ## conversation_id null 问题
 
 直接在页面初始化的时候就自动生成一个，然后在组件里直接使用即可

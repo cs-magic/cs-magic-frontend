@@ -1,5 +1,5 @@
 import { CentralLayout } from '@/components/layouts/CentralLayout'
-import { ContactView } from '@/components/ContactView'
+import { ContactView } from '@/components/contact/ContactView'
 
 export const AboutUsPage = () => {
 	return (

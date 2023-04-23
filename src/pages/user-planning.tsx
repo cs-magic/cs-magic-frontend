@@ -1,4 +1,4 @@
-import { UserPlanningPurchaseComp } from '@/components/UserPlanningPurchaseComp'
+import { UserPlanningPurchaseComp } from '@/components/userPlanning/UserPlanningPurchaseComp'
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
