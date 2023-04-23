@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { UserPlanningType } from '@/ds/user'
+import { signOut } from 'next-auth/react'
 
 
 const InputGroup = ({ label, children, extra }: {
@@ -75,8 +76,15 @@ export const UserPage = () => {
 						}}>
 						{user_id}
 					</span>
+					<Button
+						disabled={!self}
+						variant={'secondary'}
+						className={'w-24 shrink-0'}
+						onClick={() => signOut()}>
+						Log Out
+					</Button>
 				</InputGroup>
-
+				
 				
 				<InputGroup label={'Name'}>
 					<Input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
@@ -88,11 +96,13 @@ export const UserPage = () => {
 				<InputGroup label={'Planning'}>
 					<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
 					
-					<Button disabled={!self || targetUser.basic.membership.planning === UserPlanningType.blackVip} className={'w-24 shrink-0'} onClick={() => router.push(routers.userPlanning.href)}>
+					<Button disabled={!self || targetUser.basic.membership.planning === UserPlanningType.blackVip}
+					        className={'w-24 shrink-0'}
+					        onClick={() => router.push(routers.userPlanning.href)}>
 						Upgrade
 					</Button>
 				</InputGroup>
-				
+			
 			
 			</div>
 		
