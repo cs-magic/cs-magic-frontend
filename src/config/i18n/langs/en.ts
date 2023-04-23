@@ -1,15 +1,33 @@
 import { II18nSchema } from '@/config/i18n/schema'
 
 export const en: II18nSchema = {
-	hero: {
-		title: 'Welcome to CS Magic Community!',
-		subtitle: 'A community of Gen Z dedicated to developing friendly, robust, practical, and open-source computer programs that benefit friends around us.',
-		entrance: 'Open up your new world!',
+	routers: {
+		home: '主页',
+		admin: {
+			home: '控制台',
+		},
+		user: {
+			planning: 'MemberShip Planning',
+			wallMessages: 'Messages Wall',
+		},
+		abouts: {
+			contactUS: 'Contact US',
+			jobs: 'Job Opportunities',
+			versions: 'Release Versions',
+		},
+		legals: {
+			termOfUse: 'Term Of Use',
+			CookiePolicy: 'Cookie Policy',
+			privacyPolicy: 'Privacy Policy',
+		},
+		apps: {
+			chat: {
+				chatGPT: 'ChatGPT',
+				dalle: 'Dalle Image',
+			},
+		},
 	},
-	website: {
-		platformName: 'CS Magic Community',
-		avatarPlaceholder: 'Sign In',
-	},
+	
 	projects: {
 		chatGPT: {
 			name: 'ChatGPT Response Generator',
@@ -24,44 +42,6 @@ export const en: II18nSchema = {
 			href: '/apps/chat/dalle',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/dalle2.png',
-		},
-	},
-	
-	
-	user: {
-		planning: {
-			href: '/user-planning',
-			name: '会员计划',
-		},
-	},
-	
-	abouts: {
-		versions: {
-			href: '/about/versions',
-			name: 'Versions',
-		},
-		contactUS: {
-			href: '/about/contact',
-			name: 'Contact US',
-		},
-		jobs: {
-			href: '/about/occupation',
-			name: 'Occupations',
-		},
-	},
-	
-	legals: {
-		termOfUse: {
-			href: '/legal/term-of-use',
-			name: 'Term Of Use',
-		},
-		privacyPolicy: {
-			href: '/legal/privacy-policy',
-			name: 'Privacy Policy',
-		},
-		CookiePolicy: {
-			href: '/legal/cookie-policy',
-			name: 'Cookie Policy',
 		},
 	},
 	
@@ -122,6 +102,16 @@ export const en: II18nSchema = {
 			legal: 'Legal',
 			themes: 'Themes',
 			languages: 'Languages',
+			wallMessages: 'Messages Wall',
+		},
+		hero: {
+			title: 'Welcome to CS Magic Community!',
+			subtitle: 'A community of Gen Z dedicated to developing friendly, robust, practical, and open-source computer programs that benefit friends around us.',
+			entrance: 'Open up your new world!',
+		},
+		website: {
+			platformName: 'CS Magic Community',
+			avatarPlaceholder: 'Sign In',
 		},
 	},
 }

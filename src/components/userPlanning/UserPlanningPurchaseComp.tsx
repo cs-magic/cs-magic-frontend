@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { Button } from '@/components/ui/button'
+import { routers } from '@/config/routers'
 
 
 export const UserPlanningPurchaseComp = (
@@ -109,7 +110,7 @@ export const UserPlanningPurchaseComp = (
 						)
 					}
 					
-					<Link href={u.abouts.contactUS.href} className={'ml-auto'}>
+					<Link href={routers.abouts.contactUS} className={'ml-auto'}>
 						<Button variant={'destructive'} size={null} className={'px-4 py-0'}>Buy</Button>
 					</Link>
 				</div>

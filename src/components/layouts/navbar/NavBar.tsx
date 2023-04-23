@@ -11,6 +11,7 @@ import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
+import { routers } from '@/config/routers'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
@@ -34,17 +35,17 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 				}
 				
 				<NavigationMenuItem>
-					<Link href={u.user.planning.href} legacyBehavior passHref>
+					<Link href={routers.user.planning} legacyBehavior passHref>
 						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							{u.user.planning.name}
+							{u.routers.user.planning}
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>
 				
 				<NavigationMenuItem>
-					<Link href={u.abouts.contactUS.href} legacyBehavior passHref>
+					<Link href={routers.abouts.contactUS} legacyBehavior passHref>
 						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							{u.abouts.contactUS.name}
+							{u.routers.abouts.contactUS}
 						</NavigationMenuLink>
 					</Link>
 				</NavigationMenuItem>

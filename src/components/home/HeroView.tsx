@@ -5,14 +5,15 @@ import Image from 'next/image'
 
 export const HeroView = () => {
 	const u = useAppSelector(selectU)
+	const hero = u.display.hero
 	
 	return (
 		<AspectRatio ratio={16 / 5} className={'relative'}>
 			<Image priority src={'/hero.jpg'} alt={'hero'} fill sizes={'50vw'} style={{ objectFit: 'fill' }} className={'brightness-50'}/>
 			
 			<div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center gap-4">
-				<h1 className="text-3xl font-extrabold gradient-hero">{u.hero.title}</h1>
-				<p className="text-slate-300">{u.hero.subtitle}</p>
+				<h1 className="text-3xl font-extrabold gradient-hero">{hero.title}</h1>
+				<p className="text-slate-300">{hero.subtitle}</p>
 			</div>
 		</AspectRatio>
 		

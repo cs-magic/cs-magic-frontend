@@ -15,7 +15,8 @@ export const ensureSole = (s: string | string[] | undefined): string | null =>
 
 
 export const getTitle = (s?: string, full?: boolean, u?: II18nSchema): string => {
-	const prefix = full && u ? u.website.platformName : ''
+	const website = u?.display.website
+	const prefix = full && website ? website.platformName : ''
 	const suffix = s
 	if (prefix && suffix) return [prefix, suffix].join(' | ')
 	else if (suffix) return suffix

@@ -4,7 +4,6 @@ import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { useToast } from '@/hooks/use-toast'
 import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { useUploadFileMutation } from '@/api/fileApi'
-import { routers } from '@/config/general'
 import _ from 'lodash'
 import { useUser } from '@/hooks/use-user'
 import { RootLayout } from '@/components/layouts/RootLayout'
@@ -14,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { UserPlanningType } from '@/ds/user'
 import { signOut } from 'next-auth/react'
+import { routers } from '@/config/routers'
 
 
 const InputGroup = ({ label, children, extra }: {
@@ -98,7 +98,7 @@ export const UserPage = () => {
 					
 					<Button disabled={!self || targetUser.basic.membership.planning === UserPlanningType.blackVip}
 					        className={'w-24 shrink-0'}
-					        onClick={() => router.push(routers.userPlanning.href)}>
+					        onClick={() => router.push(routers.user.planning)}>
 						Upgrade
 					</Button>
 				</InputGroup>

@@ -1,3 +1,5 @@
+import { IRouters } from '@/config/routers'
+
 export interface ILink {
 	name: string
 	href: string
@@ -10,32 +12,9 @@ export interface IProjectItem extends ILink {
 }
 
 export interface II18nSchema {
-	hero: {
-		title: string
-		subtitle: string
-		entrance: string
-	},
-	website: {
-		platformName: string
-		avatarPlaceholder: string
-	},
-	user: {
-		planning: ILink
-		profile?: ILink // todo: dynamic
-	}
 	projects: {
 		chatGPT: IProjectItem
 		dalle: IProjectItem
-	},
-	abouts: {
-		contactUS: ILink
-		versions:ILink
-		jobs?: ILink
-	},
-	legals: {
-		termOfUse?: ILink
-		privacyPolicy?: ILink
-		CookiePolicy?: ILink
 	},
 	routes: {
 		admin: {
@@ -92,6 +71,17 @@ export interface II18nSchema {
 			legal: string
 			themes: string
 			languages: string
-		}
+			wallMessages: string
+		},
+		hero: {
+			title: string
+			subtitle: string
+			entrance: string
+		},
+		website: {
+			platformName: string
+			avatarPlaceholder: string
+		},
 	}
+	routers: IRouters
 }

@@ -16,11 +16,12 @@ export const BasicUserAvatarView = (
 	} & HTMLAttributes<HTMLDivElement>,
 ) => {
 	const u = useAppSelector(selectU)
+	const website = u.display.website
 	
 	const avatarMain = (
 		<Avatar {...props}>
 			<AvatarImage src={user.avatar || undefined}/>
-			<AvatarFallback>{(user.name || id || u.website.avatarPlaceholder)[0]}</AvatarFallback>
+			<AvatarFallback>{(user.name || id || website.avatarPlaceholder)[0]}</AvatarFallback>
 		</Avatar>
 	)
 	

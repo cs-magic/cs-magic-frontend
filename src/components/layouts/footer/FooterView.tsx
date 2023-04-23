@@ -1,23 +1,14 @@
 import Link from 'next/link'
-import { useAppDispatch, useAppSelector } from '@/hooks/use-redux'
-import { selectLang, selectU } from '@/states/features/i18nSlice'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useAppSelector } from '@/hooks/use-redux'
+import { selectU } from '@/states/features/i18nSlice'
 import { SelectLang } from '@/components/general/SelectLang'
 import { SelectTheme } from '@/components/general/SelectTheme'
+import { routers } from '@/config/routers'
+import _ from 'lodash'
 
 
 export const FooterView = () => {
-	const dispatch = useAppDispatch()
-	const lang = useAppSelector(selectLang)
 	const u = useAppSelector(selectU)
-	
-	const [mounted, setMounted] = useState(false)
-	const { theme, setTheme } = useTheme()
-	
-	useEffect(() => setMounted(true), [])
-	
-	if (!mounted) return <></> // avoid hydration error, ref: https://www.npmjs.com/package/next-themes#avoid-hydration-mismatch
 	
 	return (
 		<>
@@ -25,8 +16,8 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.user}</div>
-					{Object.values(u.user).map((item) => (
-						<Link href={item.href} key={item.name}>{item.name}</Link>
+					{Object.values(routers.user).map((item) => (
+						<Link href={item} key={item}>{_.get(u, item)}</Link>
 					))}
 				</div>
 				
@@ -48,16 +39,16 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.about}</div>
-					{Object.values(u.abouts).map((item) => (
-						<Link href={item.href} key={item.name}>{item.name}</Link>
+					{Object.values(routers.abouts).map((item) => (
+						<Link href={item} key={item}>{_.get(u, item)}</Link>
 					))}
 					{/*<Link href={u.abouts.contactUS.href}>{u.abouts.contactUS.name}</Link>*/}
 				</div>
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.legal}</div>
-					{Object.values(u.legals).map((item) => (
-						<Link href={item.href} key={item.name}>{item.name}</Link>
+					{Object.values(routers.legals).map((item) => (
+						<Link href={item} key={item}>{_.get(u, item)}</Link>
 					))}
 				</div>
 			

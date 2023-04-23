@@ -1,14 +1,31 @@
 import { II18nSchema } from '@/config/i18n/schema'
 
 export const zh: II18nSchema = {
-	hero: {
-		title: '欢迎来到CS魔法社！',
-		subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
-		entrance: '开启您的新世界',
-	},
-	website: {
-		platformName: 'CS魔法社',
-		avatarPlaceholder: '登录',
+	routers: {
+		home: '主页',
+		admin: {
+			home: '控制台',
+		},
+		user: {
+			planning: '会员计划',
+			wallMessages: '留言墙',
+		},
+		abouts: {
+			contactUS: '联系我们',
+			jobs: '加入我们',
+			versions: '版本历史',
+		},
+		legals: {
+			termOfUse: '条款说明',
+			CookiePolicy: 'Cookie政策',
+			privacyPolicy: '隐私政策',
+		},
+		apps: {
+			chat: {
+				chatGPT: 'ChatGPT聊天',
+				dalle: 'Dalle生图',
+			},
+		},
 	},
 	
 	projects: {
@@ -25,43 +42,6 @@ export const zh: II18nSchema = {
 			href: '/apps/chat/dalle',
 			tags: ['NEW', '稳定', '免翻'],
 			cover: '/screenshots/dalle2.png',
-		},
-	},
-	
-	user: {
-		planning: {
-			href: '/user-planning',
-			name: '会员计划',
-		},
-	},
-	
-	abouts: {
-		versions: {
-			href: '/about/versions',
-			name: '版本历史',
-		},
-		contactUS: {
-			href: '/about/contact',
-			name: '联系我们',
-		},
-		jobs: {
-			href: '/about/occupation',
-			name: '加入我们',
-		},
-	},
-	
-	legals: {
-		termOfUse: {
-			href: '/legal/term-of-use',
-			name: '适用条款',
-		},
-		privacyPolicy: {
-			href: '/legal/privacy-policy',
-			name: '隐私政策',
-		},
-		CookiePolicy: {
-			href: '/legal/cookie-policy',
-			name: 'Cookie政策',
 		},
 	},
 	
@@ -122,6 +102,16 @@ export const zh: II18nSchema = {
 			legal: '法律',
 			themes: '主题',
 			languages: '语言',
+			wallMessages: '留言墙',
+		},
+		hero: {
+			title: '欢迎来到CS魔法社！',
+			subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
+			entrance: '开启您的新世界',
+		},
+		website: {
+			platformName: 'CS魔法社',
+			avatarPlaceholder: '登录',
 		},
 	},
 }
