@@ -1,35 +1,30 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { clsx } from 'clsx'
-import { GetServerSideProps } from 'next'
 import { useLang } from '@/hooks/use-lang'
-import axios from 'axios'
 import ReactMarkdown from 'react-markdown'
+import { useGetVersionsHistoryQuery } from '@/api/remoteApi'
+import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 
 
-export const VersionsPage = ({ content }: { content: string }) => {
+export const VersionsPage = () => {
 	const u = useLang()
-	console.log({ content })
+	const { data: content } = useGetVersionsHistoryQuery(undefined, { refetchOnFocus: true })
 	
 	return (
 		<RootLayout title={u.routers.about.versions}>
-			<article className={clsx(
-				'max-w-[720px] mx-auto prose dark:prose-invert',
-			)}>
-				<ReactMarkdown>
-					{content}
-				</ReactMarkdown>
-			</article>
+			{
+				!content ? <CentralLoadingComp/> : (
+					<article className={clsx(
+						'max-w-[720px] mx-auto prose dark:prose-invert',
+					)}>
+						<ReactMarkdown>
+							{content}
+						</ReactMarkdown>
+					</article>
+				)
+			}
 		</RootLayout>
 	)
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const { data: content } = await axios.get('https://raw.githubusercontent.com/cs-magic/cs-magic-frontend/main/versions.md')
-	return {
-		props: {
-			content,
-		},
-	}
 }
 
 
