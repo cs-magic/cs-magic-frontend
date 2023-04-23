@@ -61,6 +61,7 @@
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
     "rehype-highlight": "^6.0.0",
+    "remark-emoji": "^3.1.1",
     "remark-gfm": "^3.0.1",
     "tailwind-merge": "^1.11.0",
     "tailwindcss-animate": "^1.0.5",
