@@ -4,11 +4,14 @@ export const remoteApi = createApi({
 	baseQuery: fetchBaseQuery(),
 	endpoints: (build) => ({
 		getVersionsHistory: build.query<string, void>({
-			query: () => `https://raw.githubusercontent.com/cs-magic/cs-magic-frontend/main/versions.md`
-		})
-	})
+			query: () => ({
+				url: `https://raw.githubusercontent.com/cs-magic/cs-magic-frontend/main/versions.md`,
+				responseHandler: (response) => response.text(), // ref: https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery#parsing-a-response
+			}),
+		}),
+	}),
 })
 
 export const {
-	useGetVersionsHistoryQuery
+	useGetVersionsHistoryQuery,
 } = remoteApi

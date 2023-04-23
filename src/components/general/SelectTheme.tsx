@@ -11,7 +11,6 @@ export const SelectTheme = (props: {
 }) => {
 	const u = useLang()
 	const { theme, themes, setTheme } = useLazyTheme()
-	console.log({themes})
 	
 	return (
 		<BaseSelect label={u.display.navs.themes} v={theme} vs={themes} setV={setTheme} icon={<IconPalette/>} {...props}/>
