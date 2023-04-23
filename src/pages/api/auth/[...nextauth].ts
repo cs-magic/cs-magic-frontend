@@ -4,62 +4,35 @@ import EmailProvider from 'next-auth/providers/email'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from '@/lib/mongodb'
 
-import nodemailer from 'nodemailer'
+import { createTransport } from 'nodemailer'
+import { generateVerificationToken } from '@/lib/utils'
+import { AUTH_DB_NAME, EMAIL_FROM, EMAIL_SERVER } from '@/lib/env'
+import { setTokenCentre } from '@/pages/api/auth/general'
 
-export const tokenCentre: Record<string, string> = {}
-
-export const generateAuthtoken = async (): Promise<string> =>
-	Array.from(Array(4)).map(() => Math.floor(Math.random() * 10)).join('')
 
 export const authOptions: NextAuthOptions = {
-	adapter: MongoDBAdapter(clientPromise, {
-		databaseName: 'auth',
-	}),
+	adapter: MongoDBAdapter(clientPromise, { databaseName: AUTH_DB_NAME }),
 	
 	providers: [
 		EmailProvider({
-			server: process.env.EMAIL_SERVER,
-			from: process.env.EMAIL_FROM,
+			server: EMAIL_SERVER,
+			from: EMAIL_FROM,
 			// maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
-			generateVerificationToken: async () => {
-				const token = await generateAuthtoken()
-				return token
-			},
-			sendVerificationRequest: ({
-				                          identifier: email,
-				                          url,
-				                          token,
-				                          provider,
-				theme,
-				expires
-			                          }) => {
-				return new Promise((resolve, reject) => {
-					const { server, from } = provider
-					// Strip protocol from URL and use domain as site name
-					const site = url // todo: baseUrl
-					
-					nodemailer.createTransport(server).sendMail(
-						{
-							to: email,
-							from,
-							subject: `【CS魔法社】验证码：${token}`,
-							// text: text({ url, site, email, token }),
-							// html: html({ url, site, email, token }),
-						},
-						(error) => {
-							if (error) {
-								console.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
-								return reject(
-									new Error(`SEND_VERIFICATION_EMAIL_ERROR ${error}`),
-								)
-							}
-							
-							tokenCentre[email] = token
-							console.log({tokenCentre})
-							return resolve()
-						},
-					)
+			generateVerificationToken,
+			
+			async sendVerificationRequest(params) {
+				const { identifier, url, provider, theme, token } = params
+				const transport = createTransport(provider.server)
+				const result = await transport.sendMail({
+					to: identifier,
+					from: provider.from,
+					subject: `【CS魔法社】验证码：${token}`,
+					// text: text({ url, host }),
+					// html: html({ url, host, theme }),
 				})
+				setTokenCentre(identifier, token)
+				const failed = result.rejected.concat(result.pending).filter(Boolean)
+				if (failed.length) throw new Error(`Email (${failed.join(', ')}) could not be sent`)
 			},
 		}),
 	],
@@ -69,11 +42,13 @@ export const authOptions: NextAuthOptions = {
 			session.user.id = session.user.email
 			return session // The return type will match the one returned in `useSession()`
 		},
+		
+		// 不要覆写 signIn 函数，否则默认的 verification 就不起作用了 （关键是很难写！）
 	},
 	
 	pages: {
 		signIn: '/auth/signin',
-		error: '/auth/signin',
+		// error: '/auth/signin',
 	},
 }
 

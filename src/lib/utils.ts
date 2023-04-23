@@ -3,7 +3,6 @@ import { twMerge } from 'tailwind-merge'
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
 import { II18nSchema } from '@/config/i18n/schema'
-import _ from 'lodash'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -29,4 +28,5 @@ export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): stri
 }
 
 
-export const getI18NName = (u: II18nSchema, nameKey: string): string => _.get(u, nameKey)
+export const generateVerificationToken = async (): Promise<string> =>
+	Array.from(Array(4)).map(() => Math.floor(Math.random() * 10)).join('')

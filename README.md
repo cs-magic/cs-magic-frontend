@@ -2,6 +2,9 @@
 
 ## todo
 
+- [ ] P1, safari首次登录问题
+- [ ] P1, 黑金头像
+- [ ] P1, nav bar icons 间距与对齐
 - [ ] p1, fix 未登录时无限加载聊天界面
 - [ ] p1, 增加未登录时消息返回的引导
 - [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle), like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
