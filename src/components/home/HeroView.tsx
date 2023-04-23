@@ -8,7 +8,7 @@ export const HeroView = () => {
 	
 	return (
 		<AspectRatio ratio={16 / 5} className={'relative'}>
-			<Image src={'/hero.jpg'} alt={'hero'} fill sizes={'50vw'} style={{ objectFit: 'fill' }} className={'brightness-50'}/>
+			<Image priority src={'/hero.jpg'} alt={'hero'} fill sizes={'50vw'} style={{ objectFit: 'fill' }} className={'brightness-50'}/>
 			
 			<div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center gap-4">
 				<h1 className="text-3xl font-extrabold gradient-hero">{u.hero.title}</h1>
