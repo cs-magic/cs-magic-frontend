@@ -9,14 +9,14 @@ export default function Home() {
 	const u = useAppSelector(selectU)
 	
 	return (
-		<RootLayout title={u.routes.home}>
+		<RootLayout title={u.routers.home}>
 			
 			<div className={'w-full flex flex-col gap-4'}>
 				
 				<HeroView/>
 				
 				<div className={'py-2 w-full grow flex flex-wrap justify-around gap-4'}>
-					{Object.values(u.projects).map((project) => (
+					{Object.values(u.apps).map((project) => (
 						<ProjectView key={project.name} {...project}/>
 					))}
 				</div>

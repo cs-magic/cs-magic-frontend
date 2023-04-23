@@ -68,7 +68,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	
 	return (
-		<AuthLayout title={u.routes.auth.home}>
+		<AuthLayout title={u.routers.auth.signin}>
 			
 			<div className={'flex flex-col gap-2'}>
 				

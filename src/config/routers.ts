@@ -27,6 +27,9 @@ export const routers = {
 		home: '/admin',
 	},
 	home: '/',
+	auth: {
+		signin: '/auth/signin',
+	},
 }
 
 

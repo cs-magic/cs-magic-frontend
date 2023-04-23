@@ -24,7 +24,7 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-semibold'}>{u.display.navs.services}</div>
-					{Object.values(u.projects).map((item) => (
+					{Object.values(u.apps).map((item) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
 				</div>

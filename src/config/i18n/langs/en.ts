@@ -2,10 +2,14 @@ import { II18nSchema } from '@/config/i18n/schema'
 
 export const en: II18nSchema = {
 	routers: {
-		home: '主页',
+		home: 'Home',
 		admin: {
-			home: '控制台',
+			home: 'Console',
 		},
+		auth: {
+			signin: '登录系统',
+		},
+		
 		user: {
 			planning: 'MemberShip Planning',
 			wallMessages: 'Messages Wall',
@@ -28,7 +32,7 @@ export const en: II18nSchema = {
 		},
 	},
 	
-	projects: {
+	apps: {
 		chatGPT: {
 			name: 'ChatGPT Response Generator',
 			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
@@ -42,30 +46,6 @@ export const en: II18nSchema = {
 			href: '/apps/chat/dalle',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/dalle2.png',
-		},
-	},
-	
-	routes: {
-		about: {
-			versions: 'Version History',
-			sponsors: 'Sponsor',
-			us: 'About Us',
-		},
-		admin: {
-			home: 'Console',
-		},
-		home: 'Home',
-		apps: {
-			chat: 'AI Chat',
-			chatGPT: 'ChatGPT Response Generator',
-			dalle: 'Dalle Image Generator',
-		},
-		user: {
-			planning: 'Membership Plan',
-			wall: 'Messages Wall',
-		},
-		auth: {
-			home: 'User System',
 		},
 	},
 	notify: {

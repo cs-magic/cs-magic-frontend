@@ -12,7 +12,7 @@ export const AdminPage = () => {
 	const { data: users = [], isLoading } = useListAllUserQuery(undefined, { skip: !user || user.basic.role !== 'admin' })
 	
 	return (
-		<RootLayout title={u.routes.admin.home}>
+		<RootLayout title={u.routers.admin.home}>
 			{
 				isLoading ? <CentralLoadingComp/> : (
 					<table className={'table table-compact w-full max-h-full overflow-auto'}>

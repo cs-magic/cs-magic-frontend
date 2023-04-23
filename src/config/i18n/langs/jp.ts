@@ -6,6 +6,9 @@ export const jp: II18nSchema = {
 		admin: {
 			home: '控制台',
 		},
+				auth: {
+			signin: '登录系统',
+		},
 		user: {
 			planning: '会员计划',
 			wallMessages: '留言墙',
@@ -28,7 +31,7 @@ export const jp: II18nSchema = {
 		},
 	},
 	
-	projects: {
+	apps: {
 		chatGPT: {
 			name: 'ChatGPT チャット',
 			desc: 'OpenAIをベースにしたChatGPT、AIとの継続的な対話をサポートできます。',
@@ -45,29 +48,6 @@ export const jp: II18nSchema = {
 		},
 	},
 	
-	routes: {
-		about: {
-			versions: 'バージョン履歴',
-			sponsors: 'スポンサー',
-			us: '開発者について',
-		},
-		admin: {
-			home: 'コンソール',
-		},
-		home: '首页',
-		apps: {
-			chat: 'AIとのチャット',
-			chatGPT: 'ChatGPT チャット',
-			dalle: 'Dalle 画像を作成',
-		},
-		user: {
-			planning: '会員制度',
-			wall: 'メッセージウォール',
-		},
-		auth: {
-			home: 'ユーザー',
-		},
-	},
 	notify: {
 		errorUserEmpty: 'ユーザー名を空欄にすることはできません。ご利用の前に、登録とログインをお願いします。',
 		errorSendEmpty: '空メッセージは送信できません。',

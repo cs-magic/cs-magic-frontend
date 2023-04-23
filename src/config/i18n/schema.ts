@@ -12,32 +12,9 @@ export interface IProjectItem extends ILink {
 }
 
 export interface II18nSchema {
-	projects: {
+	apps: {
 		chatGPT: IProjectItem
 		dalle: IProjectItem
-	},
-	routes: {
-		admin: {
-			home: string
-		}
-		home: string
-		apps: {
-			chat: string
-			chatGPT: string
-			dalle: string
-		}
-		user: {
-			planning: string
-			wall: string
-		}
-		about: {
-			versions: string
-			sponsors: string
-			us: string
-		},
-		auth: {
-			home: string
-		}
 	},
 	notify: {
 		errorUserEmpty: string

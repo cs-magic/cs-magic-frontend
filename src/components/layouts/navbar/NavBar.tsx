@@ -23,7 +23,7 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 			<NavigationMenuList>
 				
 				{
-					Object.values(u.projects).map((project, index) => (
+					Object.values(u.apps).map((project, index) => (
 						<NavigationMenuItem key={index}>
 							<Link href={project.href} legacyBehavior passHref>
 								<NavigationMenuLink className={navigationMenuTriggerStyle()}>

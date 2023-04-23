@@ -6,6 +6,9 @@ export const zh: II18nSchema = {
 		admin: {
 			home: '控制台',
 		},
+		auth: {
+			signin: '登录系统',
+		},
 		user: {
 			planning: '会员计划',
 			wallMessages: '留言墙',
@@ -28,7 +31,7 @@ export const zh: II18nSchema = {
 		},
 	},
 	
-	projects: {
+	apps: {
 		chatGPT: {
 			name: 'ChatGPT 聊天',
 			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
@@ -45,29 +48,6 @@ export const zh: II18nSchema = {
 		},
 	},
 	
-	routes: {
-		about: {
-			versions: '版本历史',
-			sponsors: '赞助商',
-			us: '关于我们',
-		},
-		admin: {
-			home: '控制台',
-		},
-		home: '首页',
-		apps: {
-			chat: 'AI陪聊',
-			chatGPT: 'ChatGPT 聊天',
-			dalle: 'Dalle 作图',
-		},
-		user: {
-			planning: '会员计划',
-			wall: '留言墙',
-		},
-		auth: {
-			home: '用户系统',
-		},
-	},
 	notify: {
 		errorUserEmpty: '用户名不能为空！请先注册登录再使用！',
 		errorSendEmpty: '不能发送空消息！',

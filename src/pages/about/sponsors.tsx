@@ -6,7 +6,7 @@ export const SponsorsPage = () => {
 	const u = useAppSelector(selectU)
 	
 	return (
-		<CentralLayout title={u.routes.about.sponsors}>
+		<CentralLayout title={u.routers.about.sponsors}>
 			{/*{users.map((user) => (*/}
 			{/*	<AvatarView className={'w-24 h-24'} user={user.basic} key={user.basic.id}/>*/}
 			{/*))}*/}
