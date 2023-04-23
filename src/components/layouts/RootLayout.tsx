@@ -40,7 +40,7 @@ export const RootLayout = ({ children, title }: {
 					
 					<NavBarResponsive/>
 					
-					<div className={'w-full grow flex flex-col border border-base-300'}>
+					<div className={'w-full grow flex flex-col border border-base-300 p-2'}>
 						{children}
 					</div>
 					
