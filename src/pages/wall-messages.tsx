@@ -32,7 +32,7 @@ export const WallMessagesPage: NextPage = () => {
 	}, [isError, isLoading, isSuccess])
 	
 	return (
-		<RootLayout title={u.routers.user.wall}>
+		<RootLayout title={u.routers.user.wallMessages}>
 			<div className={'flex flex-col gap-2 max-w-[720px] mx-auto mt-8'}>
 				<form
 					className={'flex flex-col gap-4'}
