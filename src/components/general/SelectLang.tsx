@@ -11,12 +11,12 @@ export const SelectLang = ({ withText, disableIcon }: { withText?: boolean, disa
 	
 	return (
 		<Select onValueChange={(v) => dispatch(asyncSetLang(v as LangType))}>
-			<SelectTrigger className={'w-fit'} disableIcon={disableIcon}>
-				<SelectValue defaultValue={lang}>
-					<div className={'inline-flex gap-2 items-center'}>
+			<SelectTrigger className={'h-fit py-0'} disableIcon={disableIcon}>
+				<SelectValue defaultValue={lang} asChild>
+					<span className={'inline-flex gap-2 items-center'}>
 						<IconLanguage/>
 						<span>{withText && 'Languages'}</span>
-					</div>
+					</span>
 				</SelectValue>
 			</SelectTrigger>
 			

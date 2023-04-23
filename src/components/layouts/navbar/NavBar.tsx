@@ -50,11 +50,11 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 				</NavigationMenuItem>
 				
 				<NavigationMenuItem>
-					<SelectTheme/>
+					<SelectTheme disableIcon/>
 				</NavigationMenuItem>
 				
 				<NavigationMenuItem>
-					<SelectLang/>
+					<SelectLang disableIcon/>
 				</NavigationMenuItem>
 			
 			</NavigationMenuList>
