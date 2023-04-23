@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useUser } from '@/hooks/use-user'
-import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
+import { createSkeletonMessage, DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
@@ -41,7 +41,7 @@ const initMessageParams = <T extends PlatformType>(platform_type: T): IMessagePa
 ) as IMessageParams<T>
 
 
-export const ConversationComp = <T extends PlatformType>(
+export const MessagesComp = <T extends PlatformType>(
 	{
 		cid,
 		platform_type,
@@ -154,7 +154,7 @@ export const ConversationComp = <T extends PlatformType>(
 		pushMessage(msg)
 		
 		// 直接处理 client 端错误
-		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail, platform_params: {...messageParams, role: MessageRoleType.assistant} })
+		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail, platform_params: { ...messageParams, role: MessageRoleType.assistant } })
 		
 		if (conversation_id) return await sendMessage(msg)
 		
@@ -214,6 +214,8 @@ export const ConversationComp = <T extends PlatformType>(
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
 				
+				{isLoadingResponse && <MessageComp msg={createSkeletonMessage('system', conversation_id!, platform_type === PlatformType.chatGPT ? MessageType.text : MessageType.image_url, platform_type, { ...messageParams, role: MessageRoleType.assistant })}/>}
+				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>
 			</ScrollArea>
@@ -221,48 +223,36 @@ export const ConversationComp = <T extends PlatformType>(
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
-			
-			{isLoadingResponse && (
-				<div className={'w-full'}>
-					<div className={c}>
-						<div className={'px-2 inline-flex items-center w-full gap-4'}>
-							<p className={'text-sm text-gray-500'}>耐心等待！可能需要十秒！因为OpenAI太忙了！</p>
-							<progress className="progress progress-secondary flex-1"></progress>
-						</div>
-					</div>
-				</div>
-			)}
-			
-				<div className={clsx(c, 'w-full relative ')}>
-					<textarea
-						className={'textarea textarea-bordered mt-2 mb-10 md:mb-2 w-full shadow-xl resize-none'}
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
-								if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
-									onSubmit()
-									event.preventDefault() // prevent enter go down
-								}
+			<div className={clsx(c, 'w-full relative ')}>
+				<Textarea
+					className={'mt-2 mb-10 md:mb-2 w-full shadow-xl resize-none'}
+					onKeyDown={(event) => {
+						if (event.key === 'Enter') {
+							if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
+								onSubmit()
+								event.preventDefault() // prevent enter go down
 							}
-						}}
-						ref={refMessageSend}
-						placeholder={u.ui.general.textarea.placeholder}
-					/>
-					<IconBrandTelegram className={'hidden md:block text-primary absolute right-3 bottom-6 cursor-pointer'} onClick={onSubmit}/>
-				</div>
+						}
+					}}
+					ref={refMessageSend}
+					placeholder={u.ui.general.textarea.placeholder}
+				/>
+				<IconBrandTelegram className={'hidden md:block text-primary absolute right-3 bottom-6 cursor-pointer'} onClick={onSubmit}/>
+			</div>
+			
+			<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
+				<Sheet>
+					<SheetTrigger asChild>
+						<button className={'btn btn-sm rounded-none'}>{u.ui.chat.btn.conversations}</button>
+					</SheetTrigger>
+					<SheetContent className={'w-1/2 p-0'} position={'left'}>
+						{conversationsComp}
+					</SheetContent>
+				</Sheet>
 				
-				<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
-					<Sheet>
-						<SheetTrigger asChild>
-							<button className={'btn btn-sm rounded-none'}>{u.ui.chat.btn.conversations}</button>
-						</SheetTrigger>
-						<SheetContent className={'w-1/2 p-0'} position={'left'}>
-							{conversationsComp}
-						</SheetContent>
-					</Sheet>
-					
-					<button className={'btn btn-sm rounded-none'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
-					{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
-				</div>
+				<button className={'btn btn-sm rounded-none'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
+				{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
+			</div>
 		</div>
 	)
 }

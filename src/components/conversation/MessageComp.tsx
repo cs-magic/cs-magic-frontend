@@ -9,6 +9,7 @@ import { PlatformType } from '@/ds/openai/general'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { routers } from '@/config/general'
+import { Skeleton } from '../ui/skeleton'
 
 
 export const MessageComp = <T extends PlatformType>({ msg }: {
@@ -19,10 +20,11 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 	return (
 		<div className={clsx(
 			'w-full',
-			msg.platform_params.role === MessageRoleType.user
+			!msg.status || msg.status === "OK"
+			? 'bg-base-200'
+				: msg.platform_params.role === MessageRoleType.user
 				? 'bg-base-300'
-				: msg.status && msg.status !== 'OK'
-					? 'bg-error' : 'bg-base-200'
+				:'bg-error'
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
 			<div className="py-1 px-2 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto break-all">
@@ -36,7 +38,11 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 				</div>
 				
 				{
-					msg.type === MessageType.text ? (
+					msg.content === null ? (
+						<Skeleton className={clsx(
+							msg.type === MessageType.text ? 'w-full h-24' : 'w-[256px] h-[256px]'
+						)}/>
+						) : msg.type === MessageType.text ? (
 						<article className={'w-full prose flex items-center gap-4 justify-between'}>
 							
 							<ReactMarkdown

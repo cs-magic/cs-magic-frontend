@@ -40,7 +40,7 @@ export type IMessageParams<T extends PlatformType> =
 
 export interface IMessage<T extends PlatformType> {
 	conversation_id: ID
-	content: string
+	content: string | null
 	
 	type: MessageType
 	platform_type: T
@@ -51,3 +51,18 @@ export interface IMessage<T extends PlatformType> {
 	
 	status?: 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
 }
+
+
+export const createSkeletonMessage = <T extends PlatformType>(sender: ID, conversation_id: ID, message_type: MessageType, platform_type: T, platform_params: IMessageParams<T>): IMessage<T> => ({
+	conversation_id,
+	content: null,
+	
+	type: message_type,
+	platform_type,
+	platform_params,
+	
+	sender, // todo: 未来做群聊需要这个
+	time: Date.now(),
+	
+	status: 'OK',
+})

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { ensureSole } from '@/lib/utils'
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { ConversationsComp } from '@/components/conversation/ConversationsComp'
-import { ConversationComp } from '@/components/conversation/ConversationComp'
+import { MessagesComp } from '@/components/conversation/MessagesComp'
 import { PlatformType } from '@/ds/openai/general'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
@@ -33,7 +33,7 @@ export const ConversationPage = () => {
 				</div>
 				
 				{/* right: current conversation */}
-				<ConversationComp
+				<MessagesComp
 					cid={cid}
 					platform_type={platformType}
 					conversationsComp={conversationsComp}
