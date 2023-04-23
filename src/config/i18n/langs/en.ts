@@ -27,19 +27,19 @@ export const en: II18nSchema = {
 		},
 	},
 	
-	abouts: {
-		aboutUS: {
-			href: '/about/us',
-			name: 'About US',
-		},
-		userPlanning: {
+	
+	user: {
+		planning: {
 			href: '/user-planning',
-			name: 'Premium Planning'
+			name: '会员计划',
 		},
-		// contact: {
-		// 	href: '/about/contact',
-		// 	name: '联系我们',
-		// },
+	},
+	
+	abouts: {
+		contactUS: {
+			href: '/about/us',
+			name: 'contact US',
+		},
 		jobs: {
 			href: '/about/occupation',
 			name: 'Occupations',
@@ -107,6 +107,7 @@ export const en: II18nSchema = {
 	
 	display: {
 		navs: {
+			user: 'User',
 			services: 'Services',
 			settings: {
 				index: 'Settings',

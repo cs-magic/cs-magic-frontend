@@ -28,19 +28,19 @@ export const jp: II18nSchema = {
 		},
 	},
 	
+	
+	user: {
+		planning: {
+			href: '/user-planning',
+			name: '会员计划',
+		},
+	},
+	
 	abouts: {
-		aboutUS: {
+		contactUS: {
 			href: '/about/us',
 			name: '開発者について',
 		},
-		userPlanning: {
-			href: '/user-planning',
-			name: '会員制度'
-		},
-		// contact: {
-		// 	href: '/about/contact',
-		// 	name: 'お問い合わせ先',
-		// },
 		jobs: {
 			href: '/about/occupation',
 			name: '就職希望',
@@ -108,11 +108,12 @@ export const jp: II18nSchema = {
 	
 	display: {
 		navs: {
+			user: '用户',
 			services: 'サービス',
 			settings: {
 				index: '設定',
 				language: '言語',
-				theme: 'テーマ'
+				theme: 'テーマ',
 			},
 			about: 'このサイトについて',
 			legal: '法律',

@@ -19,14 +19,16 @@ export interface II18nSchema {
 		platformName: string
 		avatarPlaceholder: string
 	},
+	user: {
+		planning: ILink
+		profile?: ILink // todo: dynamic
+	}
 	projects: {
 		chatGPT: IProjectItem
 		dalle: IProjectItem
 	},
 	abouts: {
-		aboutUS?: ILink
-		userPlanning: ILink,
-		contact?: ILink
+		contactUS?: ILink
 		jobs?: ILink
 	},
 	legals: {
@@ -78,6 +80,7 @@ export interface II18nSchema {
 	}
 	display: {
 		navs: {
+			user: string
 			services: string
 			settings: {
 				index: string

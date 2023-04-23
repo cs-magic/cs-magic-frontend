@@ -28,19 +28,19 @@ export const zh: II18nSchema = {
 		},
 	},
 	
-	abouts: {
-		aboutUS: {
-			href: '/about/us',
-			name: '关于我们',
-		},
-		userPlanning: {
+	user: {
+		planning: {
 			href: '/user-planning',
-			name: '会员计划'
+			name: '会员计划',
 		},
-		// contact: {
-		// 	href: '/about/contact',
-		// 	name: '联系我们',
-		// },
+	},
+	
+	abouts: {
+		contactUS: {
+			href: '/about/us',
+			name: '联系我们',
+		},
+		
 		jobs: {
 			href: '/about/occupation',
 			name: '职业机会',
@@ -108,11 +108,12 @@ export const zh: II18nSchema = {
 	
 	display: {
 		navs: {
+			user: '用户',
 			services: '服务',
 			settings: {
 				index: '设置',
 				language: '语言',
-				theme: '主题'
+				theme: '主题',
 			},
 			about: '关于',
 			legal: '法律',
