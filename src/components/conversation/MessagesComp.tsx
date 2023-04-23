@@ -17,6 +17,7 @@ import _ from 'lodash'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
+import { Button } from '@/components/ui/button'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -214,7 +215,11 @@ export const MessagesComp = <T extends PlatformType>(
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
 				
-				{isLoadingResponse && <MessageComp msg={createSkeletonMessage('system', conversation_id!, platform_type === PlatformType.chatGPT ? MessageType.text : MessageType.image_url, platform_type, { ...messageParams, role: MessageRoleType.assistant })}/>}
+				{isLoadingResponse &&
+			<MessageComp msg={createSkeletonMessage('system', conversation_id!, platform_type === PlatformType.chatGPT ? MessageType.text : MessageType.image_url, platform_type, {
+							...messageParams,
+							role: MessageRoleType.assistant,
+						})}/>}
 				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>
@@ -243,15 +248,14 @@ export const MessagesComp = <T extends PlatformType>(
 			<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
 				<Sheet>
 					<SheetTrigger asChild>
-						<button className={'btn btn-sm rounded-none'}>{u.ui.chat.btn.conversations}</button>
+						<Button size={'sm'} className={"rounded-none"}>{u.ui.chat.btn.conversations}</Button>
 					</SheetTrigger>
-					<SheetContent className={'w-1/2 p-0'} position={'left'}>
+					<SheetContent className={'w-1/2 p-0 pt-10'} position={'left'}>
 						{conversationsComp}
 					</SheetContent>
 				</Sheet>
 				
-				<button className={'btn btn-sm rounded-none'} onClick={onSubmit}>{u.ui.general.btn.send}</button>
-				{/*<Button size={'sm'} onClick={onSubmit}>{u.ui.general.btn.send}</Button>*/}
+				<Button size={'sm'} className="rounded-none" onClick={onSubmit}>{u.ui.general.btn.send}</Button>
 			</div>
 		</div>
 	)
