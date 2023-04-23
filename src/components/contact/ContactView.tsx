@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { Label } from '../ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 export const ContactView = () => {
 	return (
@@ -10,7 +10,7 @@ export const ContactView = () => {
 		// </div>
 		//
 		<Tabs defaultValue="test" className="w-[400px]">
-			<TabsList>
+			<TabsList className={'w-full justify-around'}>
 				<TabsTrigger value="cmo">联系小助手</TabsTrigger>
 				<TabsTrigger value="test">加入内测群</TabsTrigger>
 				<TabsTrigger value="ceo">申请合作</TabsTrigger>
@@ -18,15 +18,21 @@ export const ContactView = () => {
 			
 			
 			<TabsContent value="test">
-				<Image src={'/qrcodes/group-0.3.jpeg'} alt={'test'} width={320} height={480}/>
+				<AspectRatio ratio={9 / 12}>
+					<Image src={'/qrcodes/group-0.3.jpeg'} alt={'test'} fill style={{objectFit: 'contain'}} sizes={'320px'}/>
+				</AspectRatio>
 			</TabsContent>
 			
 			<TabsContent value="cmo">
-				<Image src={'/qrcodes/wechat-clotho.png'} alt={'CMO'} width={320} height={480}/>
+				<AspectRatio ratio={9 / 12}>
+					<Image src={'/qrcodes/wechat-clotho.png'} alt={'CMO'} fill style={{objectFit: 'contain'}} sizes={'320px'}/>
+				</AspectRatio>
 			</TabsContent>
 			
 			<TabsContent value="ceo">
-				<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'CEO'} width={320} height={480}/>
+				<AspectRatio ratio={9 / 12}>
+					<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'CEO'} fill style={{objectFit: 'contain'}} sizes={'320px'}/>
+				</AspectRatio>
 			</TabsContent>
 		
 		
