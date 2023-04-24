@@ -1,5 +1,22 @@
 # notes
 
+## sse
+
+参考资料如下：
+
+Server-sent events - Web APIs | MDN, https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events
+
+@microsoft/fetch-event-source - npm, https://www.npmjs.com/package/@microsoft/fetch-event-source
+
+Streaming Updates | Redux
+Toolkit, https://redux-toolkit.js.org/rtk-query/usage/streaming-updates#when-to-use-streaming-updates
+
+Custom Response - HTML, Stream, File, others -
+FastAPI, https://fastapi.tiangolo.com/advanced/custom-response/#streamingresponse
+
+How to use server-sent events (SSE) with
+FastAPI?, https://devdojo.com/bobbyiliev/how-to-use-server-sent-events-sse-with-fastapi
+
 ## 在nextjs导入svg的最佳实践：svgr
 
 ref:https://stackoverflow.com/a/65685418/9422455
@@ -14,7 +31,8 @@ ref:https://stackoverflow.com/a/65685418/9422455
 
 rtk query 真地东西好多，有data和currentData之分，这个问题竟然搞了一晚上+一下午才明白……
 
-这个问题trigger的点在于，正常的api设计，会在iSuccess后触发回调，但在rtk query里，isSuccess之时，只是代表数据请求成功，但数据还没返回（其中data会是原先的数据（留存），currentData则为空）。
+这个问题trigger的点在于，正常的api设计，会在iSuccess后触发回调，但在rtk
+query里，isSuccess之时，只是代表数据请求成功，但数据还没返回（其中data会是原先的数据（留存），currentData则为空）。
 
 直到数据完全接收后，data = currentData = 收回的数据，这时候 isSuccess依旧是true。
 
@@ -43,7 +61,8 @@ validation 可以在 client 端完成，但是 verification 需要在 server 端
 validation 用的最多的库是 `isemail` 或者 `mailcheck`（90,129 ），而 verification 则可以用 node 端的 `deep-email-validator`
 （12,164），第三方付费verification则可以参考：
 
-https://geekflare.com/email-verification-api/，例如 [abstractapi](https://app.abstractapi.com/api/email-validation/pricing)，这个每个月
+https://geekflare.com/email-verification-api/，例如 [abstractapi](https://app.abstractapi.com/api/email-validation/pricing)
+，这个每个月
 100 次免费额度，示例如下：
 
 ```javascript

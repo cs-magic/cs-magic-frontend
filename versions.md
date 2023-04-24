@@ -1,8 +1,9 @@
 # Version History
 
-## v0.4.2 (2023-04-24)
+## v0.5.0 (2023-04-24)
 
 - [x] :boom: 实现了 SSE 标准的 chatGPT 回复，将互动体验达到了业内标准水准
+- [x] maintained multi-language schemas
 
 ## v0.4.1 (2023-04-24)
 
