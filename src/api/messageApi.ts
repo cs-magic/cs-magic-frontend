@@ -14,19 +14,21 @@ export const injectOpenAIMessages = <T extends PlatformType>() => baseApi
 	})
 	
 	.injectEndpoints({
-		endpoints: (builder) => ({
-			// 实时聊天就不要一直重置刷新了，主要是涉及到了客户端和服务端双层的信息
-			listMessages: builder.query<IMessage<T>[], { conversation_id: ID, platform_type: T }>({
-				query: (arg) => `/${arg.platform_type}/${arg.conversation_id}/messages`,
+			endpoints: (builder) => ({
+				// 实时聊天就不要一直重置刷新了，主要是涉及到了客户端和服务端双层的信息
+				listMessages: builder.query<IMessage<T>[], { conversation_id: ID, platform_type: T }>({
+					query: (arg) => `/${arg.platform_type}/${arg.conversation_id}/messages`,
+				}),
+				
+				sendMessage: builder.mutation<IMessage<T>, IMessage<T>>({
+					query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat`, method: 'post', body: arg }),
+					invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.sender }],
+				}),
+				
 			}),
-			
-			sendMessage: builder.mutation<IMessage<T>, IMessage<T>>({
-				query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat?stream=true`, method: 'post', body: arg }),
-				invalidatesTags: (result, error, arg, meta) => [{type: TAG_USER, id: arg.sender}]
-			}),
-		}),
-		overrideExisting: true, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
-	})
+			overrideExisting: true, // 这个必须加，否则没hook，ref: https://redux-toolkit.js.org/rtk-query/usage/code-splitting
+		},
+	)
 
 
 

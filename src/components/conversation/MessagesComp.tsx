@@ -18,6 +18,8 @@ import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
+import { fetchEventSource } from '@microsoft/fetch-event-source'
+import { BACKEND_ENDPOINT } from '@/lib/env'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -82,11 +84,9 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
 	
-	console.log('messages', messages)
 	
 	// update conversation id upon prop changes
 	useEffect(() => {
-		console.log({ cid })
 		setConversationId(cid)
 		if (!cid) setMessages([])
 	}, [cid])
@@ -131,6 +131,31 @@ export const MessagesComp = <T extends PlatformType>(
 	// auto scroll
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
+	const fetchSSE = (msg: IMessage<T>) => {
+		fetchEventSource(`${BACKEND_ENDPOINT}/chatGPT/${msg.conversation_id}/chat?stream=true`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(msg),
+			onopen: async () => {
+				console.log('onOpen')
+			},
+			onmessage(msg) {
+				const { data: chunk } = msg
+				console.log('chunk: ', chunk)
+				// console.log('current messages (before): ', messages)
+				setMessages((messages) => {
+					// console.log('current messages (setting): ', messages)
+					const message = messages[messages.length - 1]
+					return [...messages.slice(0, messages.length - 1), { ...message, content: message.content + chunk }]
+				})
+			},
+			onclose: () => {
+				console.log('onClose')
+			},
+		})
+	}
+	
+	
 	const onSubmit = async () => {
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
@@ -152,12 +177,10 @@ export const MessagesComp = <T extends PlatformType>(
 			platform_params: messageParams,
 			sender: user_id || 'Unknown',
 		}
-		pushMessage(msg)
+		await pushMessage(msg)
 		
 		// 直接处理 client 端错误
 		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail, platform_params: { ...messageParams, role: MessageRoleType.assistant } })
-		
-		if (conversation_id) return await sendMessage(msg)
 		
 		const _createConversation = async () => {
 			//// 1.
@@ -188,9 +211,14 @@ export const MessagesComp = <T extends PlatformType>(
 			return await createConversation(createConversationModel).unwrap()
 		}
 		
-		const newConversationID = await _createConversation()
-		setConversationId(newConversationID)
-		await sendMessage({ ...msg, conversation_id: newConversationID })
+		if (!conversation_id) {
+			const newConversationID = await _createConversation()
+			setConversationId(newConversationID)
+			msg.conversation_id = newConversationID
+		}
+		
+		await pushMessage({ ...msg, platform_params: { ...msg.platform_params, role: MessageRoleType.assistant }, content: '', sender: 'system' })
+		fetchSSE(msg)
 	}
 	
 	
@@ -248,7 +276,7 @@ export const MessagesComp = <T extends PlatformType>(
 			<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
 				<Sheet>
 					<SheetTrigger asChild>
-						<Button size={'sm'} className={"rounded-none"}>{u.ui.chat.btn.conversations}</Button>
+						<Button size={'sm'} className={'rounded-none'}>{u.ui.chat.btn.conversations}</Button>
 					</SheetTrigger>
 					<SheetContent className={'w-1/2 p-0 pt-10'} position={'left'}>
 						{conversationsComp}

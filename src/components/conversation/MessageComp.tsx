@@ -38,7 +38,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 				</div>
 				
 				{
-					msg.content === null ? (
+					msg.content === '' ? (
 						<Skeleton className={clsx(
 							msg.type === MessageType.text ? 'w-full h-24' : 'w-[256px] h-[256px]',
 						)}/>

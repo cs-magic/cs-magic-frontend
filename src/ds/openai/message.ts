@@ -40,7 +40,7 @@ export type IMessageParams<T extends PlatformType> =
 
 export interface IMessage<T extends PlatformType> {
 	conversation_id: ID
-	content: string | null
+	content: string
 	
 	type: MessageType
 	platform_type: T
@@ -55,7 +55,7 @@ export interface IMessage<T extends PlatformType> {
 
 export const createSkeletonMessage = <T extends PlatformType>(sender: ID, conversation_id: ID, message_type: MessageType, platform_type: T, platform_params: IMessageParams<T>): IMessage<T> => ({
 	conversation_id,
-	content: null,
+	content: '',
 	
 	type: message_type,
 	platform_type,
