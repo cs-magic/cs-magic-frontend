@@ -1,15 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { baseApi } from '@/api/baseApi'
 
-export const remoteApi = createApi({
-	baseQuery: fetchBaseQuery(),
+export const remoteApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		getVersionsHistory: build.query<string, undefined>({
-			query: () => ({
-				url: `https://raw.githubusercontent.com/cs-magic/cs-magic-frontend/main/versions.md`,
-				responseHandler: (response) => response.text(), // ref: https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery#parsing-a-response
-			}),
+			query: () => `/remote/version_history`,
 		}),
 	}),
+	overrideExisting: true,
 })
 
 export const {

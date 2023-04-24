@@ -17,6 +17,8 @@ export const VersionsPage = () => {
 		getVersionHistory(undefined, false) // false means disable cache, ref: https://stackoverflow.com/a/72926373/9422455
 	}, [])
 	
+	console.log({content})
+	
 	return (
 		<RootLayout title={u.routers.about.versions}>
 			{
