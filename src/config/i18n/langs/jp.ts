@@ -2,30 +2,30 @@ import { II18nSchema } from '@/config/i18n/schema'
 
 export const jp: II18nSchema = {
 	routers: {
-				home: '主页',
+				home: 'ホーム',
 		admin: {
-			home: '控制台',
+			home: 'コンソール',
 		},
 				auth: {
-			signin: '登录系统',
+			signin: 'ログイン',
 		},
 		user: {
-			planning: '会员计划',
-			wallMessages: '留言墙',
+			planning: '会員制度',
+			wallMessages: 'メッセージウォール',
 		},
 		about: {
-			contactUS: '联系我们',
-			jobs: '加入我们',
-			versions: '版本历史',
+			contactUS: 'お問い合わせ先',
+			jobs: '私たちのグループに参加する',
+			versions: 'バージョン履歴',
 		},
 		legals: {
-			termOfUse: '条款说明',
-			privacyPolicy: '隐私政策',
+			termOfUse: '規約と条件の説明',
+			privacyPolicy: '個人情報保護方針',
 		},
 		apps: {
 			chat: {
-				chatGPT: 'ChatGPT聊天',
-				dalle: 'Dalle生图',
+				chatGPT: 'ChatGPT チャット',
+				dalle: 'Dalle 画像を作成',
 			},
 		},
 	},

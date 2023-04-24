@@ -7,7 +7,7 @@ export const en: II18nSchema = {
 			home: 'Console',
 		},
 		auth: {
-			signin: '登录系统',
+			signin: 'Singnin System',
 		},
 		
 		user: {
@@ -34,14 +34,14 @@ export const en: II18nSchema = {
 	apps: {
 		chatGPT: {
 			name: 'ChatGPT Response Generator',
-			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
+			desc: "Based on OpenAI's ChatGPT, supporting continuous conversation with AI.",
 			href: '/apps/chat/chatGPT',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/chatgpt.png',
 		},
 		dalle: {
 			name: 'Dalle Image Generator',
-			desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+			desc: "Based on OpenAI's Dalle, supporting image generation from text.",
 			href: '/apps/chat/dalle',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/dalle2.png',
