@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import { User } from '@/ds/user'
-import { useGetUserQuery } from '@/api/userApi'
+import { IUser, User } from '@/ds/user'
+import { useGetUserQuery, useLazyGetUserQuery } from '@/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { ID } from '@/ds/general'
 
@@ -19,6 +19,21 @@ export const useUser = (): User | null => {
 	}, [userData])
 	
 	return user
+}
+
+
+export const useLazyUser = (): [IUser | undefined, (id: ID) => void] => {
+	const { data: session } = useSession()
+	const id = session?.user.id
+	
+	const [getUser, { data: userData }] = useLazyGetUserQuery()
+	
+	useEffect(() => {
+		if (!id) return
+		getUser(id)
+	}, [id])
+	
+	return [userData, getUser]
 }
 
 export const useUserId = (): ID | null => {

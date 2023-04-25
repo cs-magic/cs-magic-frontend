@@ -58,8 +58,8 @@ export const handleMessage = async (message: MessageInterface, bot: Wechaty) => 
 			const { data } = await backendApi.post(`/chatGPT/${conversation_id}/chat`, msg, { params: { stream: false } })
 			response = data
 		} catch (e) {
-			console.error(e)
-			response = e.data.detail
+			console.error(e.response.data)
+			response = e.response.data.detail
 		}
 		
 		if (room) await room.say(response, sender)

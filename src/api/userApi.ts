@@ -51,6 +51,7 @@ export const userApi = baseApi
 export const {
 	useListAllUserQuery,
 	useGetUserQuery,
+	useLazyGetUserQuery,
 	useUpdateBasicUserMutation,
 	useUpdateOpenAIUserMutation,
 } = userApi

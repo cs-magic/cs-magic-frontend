@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
-import { useUser } from '@/hooks/use-user'
+import { useLazyUser } from '@/hooks/use-user'
 import { createSkeletonMessage, DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/api/conversationApi'
@@ -64,7 +64,7 @@ export const MessagesComp = <T extends PlatformType>(
 		useSendMessageMutation,
 	} = injectOpenAIMessages<T>()
 	
-	const user = useUser()
+	const [user, getUser] = useLazyUser()
 	const user_id = user?.id
 	
 	const u = useAppSelector(selectU)
@@ -151,6 +151,7 @@ export const MessagesComp = <T extends PlatformType>(
 			},
 			onclose: () => {
 				console.log('onClose')
+				if (user) getUser(user.id) // update token
 			},
 		})
 	}
