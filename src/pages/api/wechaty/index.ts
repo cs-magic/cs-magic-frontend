@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { initBot } from '@/pages/api/wechaty/bot'
 import { PuppetType } from '@/pages/api/wechaty/ds'
+import { IBridge } from '@/ds/general'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<IBridge>) {
 	const wxid = req.query.wxid as string | undefined
-	if (!wxid) return res.status(400).send('query of wxid is necessary!')
+	if (!wxid) return res.send({ success: false, content: 'no wxid' })
 	const content = await initBot(wxid, PuppetType.wechat4u)
-	if (typeof content === 'string') res.redirect(content)
-	else res.status(200).send(content)
+	return res.send(content)
 }

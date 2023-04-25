@@ -2,6 +2,10 @@
 
 ## wechaty
 
+### import
+
+要用 `esm` 的导入
+
 ### puppets
 
 ref: https://github.com/wechaty/puppet-wechat

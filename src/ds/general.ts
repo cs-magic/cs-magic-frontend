@@ -8,3 +8,4 @@ export interface IFeature {
 
 export type LangType = 'zh' | 'en' | 'jp'
 export const langs = ['zh', 'en', 'jp'] as LangType[]
+export type IBridge = { success: boolean, content: string }

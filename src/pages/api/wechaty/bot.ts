@@ -3,8 +3,10 @@
  * - prepareBot: https://github.com/wechaty/puppet-padlocal/wiki/API-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3-(TypeScript-JavaScript)#%E5%90%AF%E5%8A%A8%E5%B9%B6%E7%99%BB%E5%BD%95bot
  */
 import { log, ScanStatus, WechatyBuilder } from 'wechaty'
-import { dingDongBot, getMessagePayload, LOGPRE } from './helper'
+import { LOGPRE } from './helper'
 import { PuppetType } from '@/pages/api/wechaty/ds'
+import { handleMessage } from '@/pages/api/wechaty/depends/handleMessage'
+import { IBridge } from '@/ds/general'
 
 /****************************************
  * 去掉注释，可以完全打开调试日志
@@ -14,9 +16,9 @@ import { PuppetType } from '@/pages/api/wechaty/ds'
 export const botManager: Record<string, any> = {}
 
 
-export const initBot = async (wxid: string, pupetType: PuppetType): Promise<string | boolean> => new Promise(async (resolve, reject) => {
+export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBridge> => new Promise(async (resolve, reject) => {
 	// 出口1： 已登录
-	if (botManager[wxid]) return resolve(true)
+	if (botManager[wxid]) return resolve({ success: false, content: 'existed' })
 	
 	log.info(LOGPRE, `init bot(wxid=${wxid})`)
 	const bot = WechatyBuilder.build({
@@ -27,7 +29,7 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<stri
 				if (status === ScanStatus.Waiting && qrcode) {
 					const qrcodeImageUrl = `https://wechaty.js.org/qrcode/${encodeURIComponent(qrcode)}`
 					// 出口2： 扫码登录
-					return resolve(qrcodeImageUrl)
+					return resolve({ success: true, content: qrcodeImageUrl })
 				} else {
 					log.info(LOGPRE, `onScan: ${ScanStatus[status]}(${status})`)
 				}
@@ -41,7 +43,7 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<stri
 			}
 			// await bot.ready() // ref: https://github.com/wechaty/puppet-padlocal/wiki/API-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3-(TypeScript-JavaScript)#%E5%90%AF%E5%8A%A8%E5%B9%B6%E7%99%BB%E5%BD%95bot
 			// log.info(LOGPRE, '=== bot is ready')
-			return resolve(true)
+			return resolve({ success: false, content: 'existed' })
 		})
 		
 		.on('logout', (user, reason) => {
@@ -51,9 +53,11 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<stri
 		.on('message', async (message) => {
 			log.info(LOGPRE, `on message: ${message.toString()}`)
 			
-			await getMessagePayload(message, pupetType)
+			await handleMessage(message)
 			
-			await dingDongBot(message)
+			// await getMessagePayload(message, pupetType)
+			//
+			// await dingDongBot(message)
 		})
 		
 		.on('room-invite', async (roomInvitation) => {
