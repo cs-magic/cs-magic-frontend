@@ -25,10 +25,10 @@ export const ConversationPage = () => {
 	
 	return (
 		<RootLayout title={title}>
-			<div className={'w-full grow flex'}>
+			<div className={'w-full grow flex overflow-auto'}>
 				
 				{/* left: conversations */}
-				<div className={'hidden md:block w-[260px] items-stretch'}>
+				<div className={'hidden md:block w-[260px] items-stretch overflow-auto'}>
 					{conversationsComp}
 				</div>
 				

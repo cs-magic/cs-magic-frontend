@@ -6,7 +6,7 @@ import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID, MessageStatusType } from '@/ds/general'
-import { skipToken } from '@reduxjs/toolkit/query'
+import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
 import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
@@ -14,12 +14,12 @@ import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
+import { useLang } from '@/hooks/use-lang'
+import { useToast } from '@/hooks/use-toast'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -55,19 +55,14 @@ export const MessagesComp = <T extends PlatformType>(
 		conversationsComp: ReactNode
 	}) => {
 	
-	const {
-		useCreateConversationMutation,
-	} = injectOpenAIConversation<T>()
-	
-	const {
-		useListMessagesQuery,
-		useSendMessageMutation,
-	} = injectOpenAIMessages<T>()
+	const { toast } = useToast()
+	const { useCreateConversationMutation } = injectOpenAIConversation<T>()
+	const { useListMessagesQuery, useSendMessageMutation } = injectOpenAIMessages<T>()
 	
 	const [user, getUser] = useLazyUser()
 	const user_id = user?.id
 	
-	const u = useAppSelector(selectU)
+	const u = useLang()
 	
 	const [conversation_id, setConversationId] = useState(cid)
 	const [messages, setMessages] = useState<IMessage<T>[]>([])
@@ -82,14 +77,18 @@ export const MessagesComp = <T extends PlatformType>(
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
 	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
-	const concatMessage = (chunk: string, status: MessageStatusType) => setMessages((messages) => {
-		// console.log('current messages (setting): ', messages)
+	
+	const setLastMessage = (func: (msg: IMessage<T>) => IMessage<T>) => {
 		const message = messages[messages.length - 1]
-		return [...messages.slice(0, messages.length - 1), { ...message, content: message.content + chunk, status }]
-	})
+		setMessages((messages) => [...messages.slice(0, messages.length - 1), func(message)])
+	}
+	
+	const concatMessage = (chunk: string, status: MessageStatusType = 'OK') =>
+		setLastMessage((msg) => ({ ...msg, content: msg.content + chunk, status }))
 	
 	
-	const [isLoadingResponse, setLoadingResponse] = useState(false)
+	const [isLoadingChatgpt, setLoadingChatgpt] = useState(false)
+	const [sendDalleMessage, { isLoading: isLoadingDalle, data: dalleMessage, error: dalleError }] = useSendMessageMutation()
 	
 	// update conversation id upon prop changes
 	useEffect(() => {
@@ -107,6 +106,18 @@ export const MessagesComp = <T extends PlatformType>(
 	useEffect(() => {
 		if (initedMessages) setMessages((messages) => initedMessages)
 	}, [initedMessages])
+	
+	useEffect(() => {
+		if (dalleMessage) setLastMessage(() => dalleMessage)
+	}, [dalleMessage])
+	
+	useEffect(() => {
+		if (dalleError) {
+			console.log('dalle error: ', dalleError)
+			const { status, data } = dalleError as unknown as FetchBaseQueryError as { status: number, data: { detail: string } }
+			setLastMessage((msg) => ({ ...msg, content: data.detail, type: MessageType.text, status: status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR' }))
+		}
+	}, [dalleError])
 	
 	// auto scroll
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length && messages[messages.length - 1].content.length])
@@ -144,23 +155,19 @@ export const MessagesComp = <T extends PlatformType>(
 			},
 		})
 			.catch(console.error)
-			.finally(() => setLoadingResponse(false))
+			.finally(() => setLoadingChatgpt(false))
 	}
 	
 	
 	const onSubmit = async () => {
-		setLoadingResponse(true)
+		// 直接处理 client 端错误，不要直接pushMessage，否则会导致各种失配问题
+		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
+		if (isLoadingDalle || isLoadingChatgpt) return toast({ title: '请耐心等待回复完成！', variant: 'destructive' })
+		
+		if (platform_type === PlatformType.chatGPT) setLoadingChatgpt(true)
+		
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
-		
-		let success = true, detail = ''
-		if (!user_id) {
-			success = false
-			detail = '聊天功能需要先登录再使用！'
-		} else if (isLoadingResponse) {
-			success = false
-			detail = '请耐心等待回复完成'
-		}
 		
 		let msg: IMessage<T> = {
 			conversation_id: conversation_id || '',
@@ -171,9 +178,6 @@ export const MessagesComp = <T extends PlatformType>(
 			sender: user_id || 'Unknown',
 		}
 		await pushMessage(msg)
-		
-		// 直接处理 client 端错误
-		if (!success) return pushMessage({ ...msg, status: 'ERROR', content: detail, platform_params: { ...messageParams, role: MessageRoleType.assistant } })
 		
 		const _createConversation = async () => {
 			//// 1.
@@ -210,8 +214,19 @@ export const MessagesComp = <T extends PlatformType>(
 			msg.conversation_id = newConversationID
 		}
 		
-		await pushMessage({ ...msg, platform_params: { ...msg.platform_params, role: MessageRoleType.assistant }, content: '', sender: 'system' })
-		fetchSSE(msg)
+		await pushMessage({
+			...msg,
+			sender: 'system',
+			platform_params: { ...msg.platform_params, role: MessageRoleType.assistant },
+			type: platform_type === PlatformType.dalle ? MessageType.image_url : MessageType.text, // todo: skeleton for image, but error with text
+			content: '',
+		})
+		
+		if (platform_type === PlatformType.chatGPT) {
+			fetchSSE(msg)
+		} else {
+			sendDalleMessage(msg)
+		}
 	}
 	
 	
@@ -226,7 +241,7 @@ export const MessagesComp = <T extends PlatformType>(
 		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
 			<div className={'w-full rounded-none mb-1 flex justify-center items-center font-semibold'}>
 				<span className={'inline-flex items-center'}>Tokens:
-					<p className={clsx('px-2 text-lg font-bold text-primary', !isLoadingResponse && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
+					<p className={clsx('px-2 text-lg font-bold text-primary', !(isLoadingChatgpt || isLoadingDalle) && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
 					<p>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
 				</span>
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>

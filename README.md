@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P1, 统一 chatgpt, dalle page
 - [ ] P1, safari首次登录问题
 - [ ] P1, 黑金头像
 - [ ] P1, nav bar icons 间距与对齐
