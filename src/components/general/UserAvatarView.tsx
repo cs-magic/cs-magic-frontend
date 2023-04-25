@@ -4,7 +4,6 @@ import { HTMLAttributes } from 'react'
 import { ID } from '@/ds/general'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import Image from 'next/image'
 
 
 export const BasicUserAvatarView = (
@@ -26,7 +25,7 @@ export const BasicUserAvatarView = (
 	)
 	
 	return user.membership.planning !== UserPlanningType.blackVip ? avatarMain : (
-		<div className={'relative w-[72px] h-[72px] flex justify-center items-center'}>
+		<div className={'relative flex justify-center items-center'}>
 			{avatarMain}
 			{/*<Image src={'/avatar-bg/badge-blackVip.png'} alt={'black vip'} fill className={'absolute left-0 top-0'} sizes={"(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"}/>*/}
 		</div>

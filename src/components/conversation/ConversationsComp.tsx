@@ -43,7 +43,7 @@ export const ConversationsComp = <T extends PlatformType>(
 						</Link>
 						
 						<div className={clsx(
-							'w-full flex-1 overflow-y-auto flex',
+							'w-full flex',
 							// 'flex-col',
 							' flex-col-reverse', // 倒序展示
 						)}>
@@ -56,6 +56,8 @@ export const ConversationsComp = <T extends PlatformType>(
 									/>)
 							}
 						</div>
+						
+						<div className={'grow hidden md:block'}/>
 					</>
 				)
 			}

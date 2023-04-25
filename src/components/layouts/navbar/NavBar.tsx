@@ -81,7 +81,7 @@ export const NavBarResponsive = () => {
 	const user = useUser()
 	
 	return (
-		<div className={'inline-flex items-center justify-between px-2'}>
+		<div className={'inline-flex items-center justify-between p-2'}>
 			<LogHomeViewWithDropdownMenus className={'md:hidden'}/>
 			<LogoHomeView className={'hidden md:flex'}/>
 			

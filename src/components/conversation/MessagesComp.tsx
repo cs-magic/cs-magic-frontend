@@ -109,7 +109,7 @@ export const MessagesComp = <T extends PlatformType>(
 	}, [initedMessages])
 	
 	// auto scroll
-	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
+	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length && messages[messages.length - 1].content.length])
 	
 	const fetchSSE = (msg: IMessage<T>) => {
 		class MyError extends Error {}
