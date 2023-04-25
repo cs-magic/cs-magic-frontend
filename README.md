@@ -7,7 +7,8 @@
 - [ ] P1, nav bar icons 间距与对齐
 - [ ] p1, fix 未登录时无限加载聊天界面
 - [ ] p1, 增加未登录时消息返回的引导
-- [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle), like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
+- [ ] P1, 增加默认聊天界面消息提示（chatgpt, dalle),
+  like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
 - [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
 - [ ] p2, 关键词屏蔽机制！
@@ -21,6 +22,7 @@
 - [ ] P2, enable `noreply@cs-magic.com`
 - [ ] P3, 允许密码登录
 - [ ] P3, 浏览器水印指纹库在arc中无法使用
+- [ ] P3, 研究在 template string 中插入 mentions （目前测试，只支持一个个插，否则会转成 <Contact>）
 
 ## finished todo
 
