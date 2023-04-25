@@ -38,6 +38,9 @@ export type IMessageParams<T extends PlatformType> =
 		: IDalleMessageParams
 
 
+export type MessageStatusType = 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
+
+
 export interface IMessage<T extends PlatformType> {
 	conversation_id: ID
 	content: string
@@ -49,7 +52,7 @@ export interface IMessage<T extends PlatformType> {
 	sender: ID // todo: 未来做群聊需要这个
 	time?: number
 	
-	status?: 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
+	status?: MessageStatusType
 }
 
 

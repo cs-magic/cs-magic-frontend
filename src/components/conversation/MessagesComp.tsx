@@ -6,9 +6,9 @@ import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID } from '@/ds/general'
-import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
+import { skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
-import { createSkeletonMessage, DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
+import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageStatusType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/api/conversationApi'
 import { injectOpenAIMessages } from '@/api/messageApi'
@@ -74,7 +74,6 @@ export const MessagesComp = <T extends PlatformType>(
 	const { currentData: initedMessages, isLoading: isFetchingMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
 	
 	const [createConversation] = useCreateConversationMutation()
-	const [sendMessage, { isLoading: isLoadingResponse, error: openAIError, data: openAIResponse }] = useSendMessageMutation()
 	
 	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(initConversationParams<T>(platform_type))
 	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(initMessageParams<T>(platform_type))
@@ -83,7 +82,14 @@ export const MessagesComp = <T extends PlatformType>(
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
 	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
+	const concatMessage = (chunk: string, status: MessageStatusType) => setMessages((messages) => {
+		// console.log('current messages (setting): ', messages)
+		const message = messages[messages.length - 1]
+		return [...messages.slice(0, messages.length - 1), { ...message, content: message.content + chunk, status }]
+	})
 	
+	
+	const [isLoadingResponse, setLoadingResponse] = useState(false)
 	
 	// update conversation id upon prop changes
 	useEffect(() => {
@@ -102,62 +108,48 @@ export const MessagesComp = <T extends PlatformType>(
 		if (initedMessages) setMessages((messages) => initedMessages)
 	}, [initedMessages])
 	
-	// update messages upon receiving response
-	useEffect(() => {
-		if (!openAIResponse) return
-		console.log({ openAIResponse })
-		pushMessage(openAIResponse)
-	}, [openAIResponse])
-	
-	// toast errors
-	useEffect(() => {
-		if (!openAIError) return
-		
-		console.log({ openAIError })
-		// @ts-ignore
-		const { message, type } = (openAIError as FetchBaseQueryError).data.detail
-		const msg: IMessage<T> = {
-			status: type,
-			content: message,
-			conversation_id: conversation_id!,
-			type: MessageType.text,
-			platform_type,
-			platform_params: { ...messageParams, role: MessageRoleType.assistant },
-			sender: user_id || 'Unknown',
-		}
-		pushMessage(msg)
-	}, [openAIError])
-	
 	// auto scroll
 	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length])
 	
 	const fetchSSE = (msg: IMessage<T>) => {
+		class MyError extends Error {}
+		
 		fetchEventSource(`${BACKEND_ENDPOINT}/chatGPT/${msg.conversation_id}/chat?stream=true`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(msg),
-			onopen: async () => {
+			onopen: async (response) => {
 				console.log('onOpen')
+				console.log({ response })
+				if (!response.ok) {
+					const { status } = response
+					const { detail } = await response.json()
+					console.log({ status, detail })
+					concatMessage(detail, status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR')
+					throw new MyError(detail)
+				}
 			},
 			onmessage(msg) {
 				const { data: chunk } = msg
-				console.log('chunk: ', chunk)
-				// console.log('current messages (before): ', messages)
-				setMessages((messages) => {
-					// console.log('current messages (setting): ', messages)
-					const message = messages[messages.length - 1]
-					return [...messages.slice(0, messages.length - 1), { ...message, content: message.content + chunk }]
-				})
+				console.debug('chunk: ', chunk)
+				concatMessage(chunk, 'OK')
 			},
 			onclose: () => {
 				console.log('onClose')
 				if (user) getUser(user.id) // update token
 			},
+			onerror: (error) => {
+				console.log('onError')
+				throw error
+			},
 		})
+			.catch(console.error)
+			.finally(() => setLoadingResponse(false))
 	}
 	
 	
 	const onSubmit = async () => {
+		setLoadingResponse(true)
 		const content = refMessageSend.current!.value
 		refMessageSend.current!.value = ''
 		
@@ -243,12 +235,6 @@ export const MessagesComp = <T extends PlatformType>(
 			<ScrollArea className={'w-full grow overflow-hidden flex flex-col'}>
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
-				
-				{isLoadingResponse &&
-			<MessageComp msg={createSkeletonMessage('system', conversation_id!, platform_type === PlatformType.chatGPT ? MessageType.text : MessageType.image_url, platform_type, {
-							...messageParams,
-							role: MessageRoleType.assistant,
-						})}/>}
 				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>

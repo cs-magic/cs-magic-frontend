@@ -30,7 +30,7 @@ export const ConversationsComp = <T extends PlatformType>(
 	
 	
 	return (
-		<div className={'w-full h-full flex flex-col border-r border-base-300'}>
+		<div className={'w-full h-full flex flex-col border-r border-base-300 overflow-auto'}>
 			
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
@@ -43,8 +43,9 @@ export const ConversationsComp = <T extends PlatformType>(
 						</Link>
 						
 						<div className={clsx(
-							'w-full flex-1 overflow-y-auto',
-							'flex justify-end flex-col-reverse', // 倒序展示
+							'w-full flex-1 overflow-y-auto flex',
+							// 'flex-col',
+							' flex-col-reverse', // 倒序展示
 						)}>
 							{
 								conversations.map((conversation: IConversation<T>) =>

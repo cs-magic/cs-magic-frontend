@@ -21,10 +21,10 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 		<div className={clsx(
 			'w-full',
 			!msg.status || msg.status === 'OK'
-				? 'bg-base-200'
-				: msg.platform_params.role === MessageRoleType.user
-					? 'bg-base-300'
-					: 'bg-error',
+				? 'bg-slate-100 dark:bg-slate-800'
+				// : msg.platform_params.role === MessageRoleType.user
+				: 'bg-slate-200 dark:bg-slate-700',
+			// : 'bg-red-500',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
 			<div className="py-1 px-2 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto break-all">
@@ -56,7 +56,10 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 							</ReactMarkdown>
 							
 							{
-								msg.status === 'ERROR_TOKEN_DRAIN' && <Link href={routers.user.planning}><Button>升级账号</Button></Link>
+								msg.status === 'ERROR_TOKEN_DRAIN' &&
+				  <Link href={routers.user.planning}>
+					  <Button variant={'destructive'} size={'sm'} className={'w-16 inline-flex'}>充值</Button>
+				  </Link>
 							}
 						
 						</article>
