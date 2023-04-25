@@ -1,8 +1,6 @@
 import { log, Message } from 'wechaty'
 import * as PUPPET from 'wechaty-puppet'
-import { PuppetType } from '@/pages/api/wechaty/ds'
-
-export const LOGPRE = '[Wechaty]'
+import { LOGPRE, PuppetType } from '@/pages/api/wechaty/ds'
 
 export async function getMessagePayload(message: Message, puppetType: PuppetType) {
 	switch (message.type()) {

@@ -10,6 +10,8 @@ export const handleMessage = async (message?: MessageInterface) => {
 	
 	console.log({ payload })
 	
+	const text = payload.text
+	
 	
 	const room = await message.room()
 	
@@ -17,6 +19,14 @@ export const handleMessage = async (message?: MessageInterface) => {
 		return
 	}
 	
-	const members = await room.memberAll()
-	console.log('members', members)
+	const owner = await room.owner()
+	console.log({ owner })
+	
+	if (text && text.includes('test')) {
+		const members = await room.memberAll()
+		console.log('members', members)
+		for (const member of members) {
+		
+		}
+	}
 }

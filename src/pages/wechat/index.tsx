@@ -12,10 +12,6 @@ export const WechatPage = () => {
 	const wxid = router.query.wxid as string | undefined
 	const { data } = useGetWechatQrcodeQuery(wxid ? wxid : skipToken)
 	
-	// if (data?.success) {
-	// window.open(data.content)
-	// }
-	
 	return (
 		<CentralLayout>
 			{

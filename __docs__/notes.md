@@ -16,6 +16,10 @@ ref: https://github.com/wechaty/puppet-wechat
 
 ref: https://wechaty.js.org/docs/puppet-providers/wechat4u
 
+### puppet-provider: paimon
+
+我的订单 - chatools平台, http://120.55.60.194/#/order
+
 ## sse
 
 参考资料如下：
