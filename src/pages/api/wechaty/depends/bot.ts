@@ -43,8 +43,9 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBri
 				time: Date.now(),
 			}
 			
-			await promises.writeFile('rooms.json', JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
-			await promises.writeFile('members.json', JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
+			await promises.writeFile(`${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
+			await promises.writeFile(`${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
+			
 			
 			return resolve({ success: false, content: 'existed' })
 		})
@@ -54,9 +55,9 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBri
 		})
 		
 		.on('message', async (message) => {
-			log.info(LOGPRE, `on message: ${message.toString()}`)
+			// log.info(LOGPRE, `on message: ${message.toString()}`)
 			
-			await handleMessage(message)
+			await handleMessage(message, bot)
 			
 			// await getMessagePayload(message, pupetType)
 			//
@@ -127,7 +128,7 @@ export const getBot = async (wxid: string, pupetType: PuppetType): Promise<Wecha
 		.on('message', async (message) => {
 			log.info(LOGPRE, `on message: ${message.toString()}`)
 			
-			await handleMessage(message)
+			await handleMessage(message, bot)
 			
 			// await getMessagePayload(message, pupetType)
 			//
