@@ -1,5 +1,17 @@
 # notes
 
+## wechaty
+
+### puppets
+
+ref: https://github.com/wechaty/puppet-wechat
+
+### puppet-provider: wechaty-puppet-wechat4u
+
+`wechaty-puppet-wechat4u` 这是桌面版微信，不需要token，还行！
+
+ref: https://wechaty.js.org/docs/puppet-providers/wechat4u
+
 ## sse
 
 参考资料如下：
