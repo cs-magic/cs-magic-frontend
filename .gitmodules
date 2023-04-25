@@ -1,3 +1,6 @@
 [submodule "packages/wechaty-puppet-padlocal-demo"]
 	path = packages/wechaty-puppet-padlocal-demo
 	url = ./packages/wechaty-puppet-padlocal-demo
+[submodule "packages/wechaty"]
+	path = packages/wechaty
+	url = ./packages/wechaty

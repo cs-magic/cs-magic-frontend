@@ -41,7 +41,7 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "deep-email-validator": "^0.1.21",
-    "eslint": "8.37.0",
+    "eslint": "^8.39.0",
     "eslint-config-next": "13.2.4",
     "isemail": "^3.2.0",
     "lodash": "^4.17.21",
@@ -92,8 +92,14 @@
     "@types/redux-logger": "^3.0.9",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
+    "eslint-plugin-n": "^15.7.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.0",
     "typescript": "^4.9.5"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
   }
 }

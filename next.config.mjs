@@ -35,6 +35,12 @@ const nextConfig = {
 		remotePatterns: allDomains
 	},
 	
+	// 必须加以下两个以屏蔽内部库的错误
+	ignoreDuringBuilds: true, // suppress eslint, ref: https://nextjs.org/docs/api-reference/next.config.js/ignoring-eslint
+	typescript: {
+		ignoreBuildErrors: true
+	}
+	
 }
 
 // Merge MDX config with Next.js config

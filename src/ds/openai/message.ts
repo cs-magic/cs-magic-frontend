@@ -1,4 +1,4 @@
-import { ID } from '@/ds/general'
+import { ID, MessageStatusType } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
 
 export enum MessageType {
@@ -37,10 +37,6 @@ export type IMessageParams<T extends PlatformType> =
 		? IChatGPTMessageParams
 		: IDalleMessageParams
 
-
-export type MessageStatusType = 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
-
-
 export interface IMessage<T extends PlatformType> {
 	conversation_id: ID
 	content: string
@@ -54,7 +50,6 @@ export interface IMessage<T extends PlatformType> {
 	
 	status?: MessageStatusType
 }
-
 
 export const createSkeletonMessage = <T extends PlatformType>(sender: ID, conversation_id: ID, message_type: MessageType, platform_type: T, platform_params: IMessageParams<T>): IMessage<T> => ({
 	conversation_id,
