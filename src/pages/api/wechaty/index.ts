@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { initBot } from '@/pages/api/wechaty/bot'
+import { initBot } from '@/pages/api/wechaty/depends/bot'
 import { PuppetType } from '@/pages/api/wechaty/ds'
 import { IBridge } from '@/ds/general'
 
