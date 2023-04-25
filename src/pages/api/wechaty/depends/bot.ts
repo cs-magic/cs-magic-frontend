@@ -27,9 +27,10 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBri
 	})
 		.on('scan', (qrcode, status) => {
 				if (status === ScanStatus.Waiting && qrcode) {
-					const qrcodeImageUrl = `https://wechaty.js.org/qrcode/${encodeURIComponent(qrcode)}`
+					// 这是 wechaty 自己搞的qrcode 生成
+					// const qrcodeImageUrl = `https://wechaty.js.org/qrcode/${encodeURIComponent(qrcode)}`
 					// 出口2： 扫码登录
-					return resolve({ success: true, content: qrcodeImageUrl })
+					return resolve({ success: true, content: qrcode })
 				} else {
 					log.info(LOGPRE, `onScan: ${ScanStatus[status]}(${status})`)
 				}

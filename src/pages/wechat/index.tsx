@@ -12,16 +12,22 @@ export const WechatPage = () => {
 	const wxid = router.query.wxid as string | undefined
 	const { data } = useGetWechatQrcodeQuery(wxid ? wxid : skipToken)
 	
+	// if (data?.success) {
+	// window.open(data.content)
+	// }
+	
 	return (
 		<CentralLayout>
 			{
 				!wxid ? <p className={'bg-red-500 text-white'}>wxid is necessary</p>
 					: !data ? <CentralLoadingComp/>
 						: !data.success ? <p className={'bg-red-500 text-white'}>{data.content}</p>
-							: <div className={'flex flex-col gap-2 items-center'}>
-								<Label className={'text-xl'}>CS魔法社管理员登录</Label>
-								<QRCodeCanvas value={data.content} size={256} includeMargin/>
-							</div>
+							: (
+								<div className={'flex flex-col gap-2 items-center'}>
+									<Label className={'text-xl'}>CS魔法社管理员登录</Label>
+									<QRCodeCanvas value={data.content} size={256} includeMargin/>
+								</div>
+							)
 			}
 		</CentralLayout>
 	)
