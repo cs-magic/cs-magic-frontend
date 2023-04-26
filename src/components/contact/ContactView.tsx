@@ -4,16 +4,22 @@ import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 
 export const ContactView = () => {
 	return (
-		<Tabs defaultValue="cmo" className="w-[400px]">
+		<Tabs defaultValue="test" className="w-[400px]">
 			
 			<TabsList className={'w-full justify-around'}>
 				<TabsTrigger value="test">加入内测群</TabsTrigger>
-				<TabsTrigger value="cmo">联系小助手</TabsTrigger>
-				<TabsTrigger value="ceo">技术咨询</TabsTrigger>
+				<TabsTrigger value="marketing">联系小助手</TabsTrigger>
+				<TabsTrigger value="commercial">商务咨询</TabsTrigger>
+				<TabsTrigger value="technology">技术咨询</TabsTrigger>
 			</TabsList>
 			
+			<TabsContent value="test">
+				<AspectRatio ratio={9 / 12}>
+					<Image src={'/qrcodes/group-0.3.jpeg'} alt={'test'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+				</AspectRatio>
+			</TabsContent>
 			
-			<TabsContent value="cmo">
+			<TabsContent value="marketing">
 				<Tabs defaultValue={'east'}>
 					
 					<TabsList className={'w-full flex'}>
@@ -23,13 +29,13 @@ export const ContactView = () => {
 					
 					<TabsContent value={'east'}>
 						<AspectRatio ratio={9 / 12}>
-							<Image src={'/qrcodes/wechat-clotho.png'} alt={'CMO-EAST'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+							<Image src={'/qrcodes/wechat-clotho.png'} alt={'east marketing'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
 						</AspectRatio>
 					</TabsContent>
 					
 					<TabsContent value={'west'}>
 						<AspectRatio ratio={9 / 12}>
-							<Image src={'/qrcodes/wechat-yyq.png'} alt={'CMO-WEST'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+							<Image src={'/qrcodes/wechat-yyq.png'} alt={'west marketing'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
 						</AspectRatio>
 					</TabsContent>
 				
@@ -37,15 +43,15 @@ export const ContactView = () => {
 			
 			</TabsContent>
 			
-			<TabsContent value="test">
+			<TabsContent value="commercial">
 				<AspectRatio ratio={9 / 12}>
-					<Image src={'/qrcodes/group-0.3.jpeg'} alt={'test'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+					<Image src={'/qrcodes/wechat-susan-2.png'} alt={'commercial'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
 				</AspectRatio>
 			</TabsContent>
 			
-			<TabsContent value="ceo">
+			<TabsContent value="technology">
 				<AspectRatio ratio={9 / 12}>
-					<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'CEO'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+					<Image src={'/qrcodes/wechat-mark.jpeg'} alt={'technology'} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
 				</AspectRatio>
 			</TabsContent>
 		
