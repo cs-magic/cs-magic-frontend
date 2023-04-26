@@ -79,8 +79,10 @@ export const MessagesComp = <T extends PlatformType>(
 	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
 	
 	const setLastMessage = (func: (msg: IMessage<T>) => IMessage<T>) => {
-		const message = messages[messages.length - 1]
-		setMessages((messages) => [...messages.slice(0, messages.length - 1), func(message)])
+		setMessages((messages) => {
+			const message = messages[messages.length - 1]
+			return [...messages.slice(0, messages.length - 1), func(message)]
+		})
 	}
 	
 	const concatMessage = (chunk: string, status: MessageStatusType = 'OK') =>
