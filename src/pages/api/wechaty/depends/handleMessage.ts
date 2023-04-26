@@ -20,9 +20,14 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 	const tag = tag_.replace(/#/g, '')
 	const target = room ? room : await message.listener()!
 	
+	// 测试专用！
+	if (/ding/.test(text.toLowerCase())) {
+		await message.say('dong!')
+	}
+	
 	// 私人聊天
 	if (!room) {
-		// todo: tag！
+		// todo: tag文档系统对接书记酱！
 		await message.say('received!')
 		return
 	}

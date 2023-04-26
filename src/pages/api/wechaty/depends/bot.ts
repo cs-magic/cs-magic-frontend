@@ -15,14 +15,21 @@ import { promises } from 'fs'
 
 export const botManager: Record<string, any> = {}
 
+export const CACHE_DIR = 'cache'
+
 
 export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBridge> => new Promise(async (resolve, reject) => {
+	
+	const userDir = `${CACHE_DIR}/${wxid}`
+	await promises.mkdir(userDir, { recursive: true })
+	log.info(`created user directory at ${userDir}`)
+	
 	// 出口1： 已登录
 	if (botManager[wxid]) return resolve({ success: false, content: 'existed' })
 	
 	log.info(LOGPRE, `init bot(wxid=${wxid})`)
 	const bot = WechatyBuilder.build({
-		name: wxid,
+		name: `${userDir}/${wxid}`,
 		puppet: pupetType,
 	})
 		.on('scan', (qrcode, status) => {
@@ -43,9 +50,8 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBri
 				time: Date.now(),
 			}
 			
-			await promises.writeFile(`${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
-			await promises.writeFile(`${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
-			
+			await promises.writeFile(`${userDir}/${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
+			await promises.writeFile(`${userDir}/${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
 			
 			return resolve({ success: false, content: 'existed' })
 		})
@@ -55,7 +61,7 @@ export const initBot = async (wxid: string, pupetType: PuppetType): Promise<IBri
 		})
 		
 		.on('message', async (message) => {
-			// log.info(LOGPRE, `on message: ${message.toString()}`)
+			log.info(LOGPRE, `on message: ${message.toString()}`)
 			
 			await handleMessage(message, bot)
 			
