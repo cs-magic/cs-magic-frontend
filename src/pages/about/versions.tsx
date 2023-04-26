@@ -11,13 +11,13 @@ import { useEffect } from 'react'
 
 export const VersionsPage = () => {
 	const u = useLang()
-	const [getVersionHistory, { data: content }] = useLazyGetVersionsHistoryQuery()
+	const [getVersionHistory, { data: content }] = useLazyGetVersionsHistoryQuery({ pollingInterval: 0 })
 	
 	useEffect(() => {
 		getVersionHistory(undefined, false) // false means disable cache, ref: https://stackoverflow.com/a/72926373/9422455
 	}, [])
 	
-	console.log({content})
+	console.log({ content })
 	
 	return (
 		<RootLayout title={u.routers.about.versions}>
