@@ -9,6 +9,7 @@ import { PlatformType } from '@/ds/openai/general'
 import { Skeleton } from '../ui/skeleton'
 import { Popover, PopoverContent } from '../ui/popover'
 import { PopoverTrigger } from '@radix-ui/react-popover'
+import remarkUnwrapImages from 'remark-unwrap-images'
 
 export const ChargeMessage = ({ content, classNames }: { content: string, classNames?: string }) => {
 	const [_, pre, wechat, suf] = content.match(/(.*)\[(.*)\](.*)/)!
@@ -60,7 +61,7 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 								msg.status === 'ERROR_TOKEN_DRAIN'
 									? <ChargeMessage content={msg.content}/>
 									: <ReactMarkdown
-										remarkPlugins={[]}
+										remarkPlugins={[remarkUnwrapImages]}
 										rehypePlugins={[
 											[rehypeHighlight, { ignoreMissing: true }],
 										]}
