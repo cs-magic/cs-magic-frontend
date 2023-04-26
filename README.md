@@ -12,6 +12,7 @@
   like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
 - [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
+- [ ] P2, 加一个选项以决定用户的会话记录是否支持分享
 - [ ] p2, 关键词屏蔽机制！
 - [ ] p2, radix \ shacdn \ daisyUI \ next-theme 之间主题的混战
 - [ ] p2, 邮箱垃圾机制研究

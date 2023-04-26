@@ -46,9 +46,12 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-bold'}>{u.display.navs.about}</div>
-					{Object.entries(routers.about).map(([key, href]) => (
-						<Link href={href} key={href}>{_.get(u, `routers.about.${key}`)}</Link>
-					))}
+					{Object.entries(routers.about)
+						// todo: better join-us page
+						.filter(([key, href]) => ![routers.about.jobs].includes(href))
+						.map(([key, href]) => (
+							<Link href={href} key={href}>{_.get(u, `routers.about.${key}`)}</Link>
+						))}
 				</div>
 				
 				<Separator className={'md:hidden'}/>
