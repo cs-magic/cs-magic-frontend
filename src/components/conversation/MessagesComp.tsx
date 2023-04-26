@@ -94,6 +94,7 @@ export const MessagesComp = <T extends PlatformType>(
 	const [isLoadingChatgpt, setLoadingChatgpt] = useState(false)
 	const [sendDalleMessage, { isLoading: isLoadingDalle, data: dalleMessage, error: dalleError }] = useSendMessageMutation()
 	
+	
 	// update conversation id upon prop changes
 	useEffect(() => {
 		setConversationId(cid)
@@ -266,9 +267,18 @@ export const MessagesComp = <T extends PlatformType>(
 			<div className={clsx(c, 'w-full relative ')}>
 				<Textarea
 					className={'mt-2 mb-10 md:mb-2 w-full shadow-sm resize-none'}
+					onCompositionStart={(event) => {
+						console.log({ compositionStart: event })
+					}}
+					onCompositionEnd={(event) => {
+						console.log({ compositionEnd: event })
+					}}
 					onKeyDown={(event) => {
 						if (event.key === 'Enter') {
-							if (!event.metaKey && !event.shiftKey && !event.ctrlKey) {
+							if (
+								!event.metaKey && !event.shiftKey && !event.ctrlKey
+								&& !event.nativeEvent.isComposing  // important! 检测是否在输入拼音，ref: (6条消息) js如何判断当前文本的输入状态——中文输入法的那些坑_怎么判断当前输入法是不是中文_小敏哥的博客-CSDN博客, https://blog.csdn.net/handsomexiaominge/article/details/80977402
+							) {
 								onSubmit()
 								event.preventDefault() // prevent enter go down
 							}
