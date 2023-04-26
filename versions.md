@@ -4,7 +4,7 @@
 
 - [x] :boom: 已支持chatgpt会话中基于markdown显示图片（需要合适的引导），具体参考此图：
 
-![chatgpt-image-response.png](/chatgpt-image-response.png)
+![chatgpt-image-response.png](/screenshots/chatgpt-image-response.png)
 
 - [x] fixed chatgpt response problem triggered via `setLastMessage`
 
