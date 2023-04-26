@@ -1,9 +1,7 @@
-import remarkGfm from "remark-gfm";
 import createMDX from "@next/mdx";
-
-const allDomains = [// ref:https://stackoverflow.com/a/73951135/9422455
-	{protocol: "http", hostname: "**"}, {protocol: "https", hostname: "**"},
-]
+import remarkGfm from "remark-gfm";
+import remarkEmoji from "remark-emoji";
+import rehypePrism from 'rehype-prism'
 
 // mdx support, ref: https://nextjs.org/docs/advanced-features/using-mdx
 const withMDX = createMDX({
@@ -13,11 +11,15 @@ const withMDX = createMDX({
 		// as the package is ESM only
 		// https://github.com/remarkjs/remark-gfm#install
 		remarkPlugins: [
-			remarkGfm
+			remarkGfm,
+			remarkEmoji,
+			// [remarkCollapse, {test: 'detail'}], // ref: https://www.npmjs.com/package/remark-collaps
 		],
-		rehypePlugins: [],
+		rehypePlugins: [
+			rehypePrism,
+		],
 		// If you use `MDXProvider`, uncomment the following line.
-		// providerImportSource: "@mdx-js/react",
+		providerImportSource: "@mdx-js/react",
 	},
 })
 
@@ -32,14 +34,17 @@ const nextConfig = {
 	
 	// ref: https://nextjs.org/docs/api-reference/next/image#remote-patterns
 	images: {
-		remotePatterns: allDomains
+		remotePatterns: [// ref:https://stackoverflow.com/a/73951135/9422455
+			{protocol: "http", hostname: "**"},
+			{protocol: "https", hostname: "**"},
+		]
 	},
 	
 	// 必须加以下两个以屏蔽内部库的错误
 	ignoreDuringBuilds: true, // suppress eslint, ref: https://nextjs.org/docs/api-reference/next.config.js/ignoring-eslint
 	typescript: {
 		ignoreBuildErrors: true
-	}
+	},
 	
 }
 
