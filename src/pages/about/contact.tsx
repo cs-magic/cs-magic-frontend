@@ -2,12 +2,13 @@ import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
+import { ComponentProps } from 'react'
 
 export const AboutUsPage = () => {
 	
-	const ConstraintImage = ({ src, alt = 'img' }: { src: string, alt?: string }) => (
+	const ConstraintImage = ({ src, alt = 'img', ...props }: { src: string, alt?: string } & ComponentProps<typeof Image>) => (
 		<AspectRatio ratio={9 / 12}>
-			<Image src={src} alt={alt} fill style={{ objectFit: 'contain' }} sizes={'320px'}/>
+			<Image src={src} alt={alt} fill style={{ objectFit: 'contain' }} sizes={'320px'} {...props}/>
 		</AspectRatio>
 	)
 	
@@ -24,7 +25,7 @@ export const AboutUsPage = () => {
 				</TabsList>
 				
 				<TabsContent value="test">
-					<ConstraintImage src={'/qrcodes/wechat-test-group-0.3.jpeg'} alt={'test'}/>
+					<ConstraintImage src={'/qrcodes/wechat-test-group-0.3.jpeg'} alt={'test'} priority/>
 				</TabsContent>
 				
 				<TabsContent value="marketing">

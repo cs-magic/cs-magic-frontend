@@ -20,6 +20,16 @@ ref: https://wechaty.js.org/docs/puppet-providers/wechat4u
 
 我的订单 - chatools平台, http://120.55.60.194/#/order
 
+## typescript relative
+
+### get component type
+
+```ts
+type ViewProps = React.ComponentProps<typeof View>
+```
+
+ref: https://stackoverflow.com/a/55005902/9422455
+
 ## sse
 
 参考资料如下：
