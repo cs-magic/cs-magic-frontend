@@ -81,7 +81,9 @@ export const MessagesComp = <T extends PlatformType>(
 	const setLastMessage = (func: (msg: IMessage<T>) => IMessage<T>) => {
 		setMessages((messages) => {
 			const message = messages[messages.length - 1]
-			return [...messages.slice(0, messages.length - 1), func(message)]
+			const updated = func(message)
+			console.log('updated: ', updated.content)
+			return [...messages.slice(0, messages.length - 1), updated]
 		})
 	}
 	
@@ -144,8 +146,9 @@ export const MessagesComp = <T extends PlatformType>(
 			},
 			onmessage(msg) {
 				const { data: chunk } = msg
-				console.debug('chunk: ', chunk)
-				concatMessage(chunk, 'OK')
+				console.info({ chunk })
+				// todo: 为空的时候表示换行（后端是正常的，不知道前端这里为啥会变）
+				concatMessage(chunk === '' ? '\n' : chunk, 'OK')
 			},
 			onclose: () => {
 				console.log('onClose')

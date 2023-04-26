@@ -61,7 +61,9 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 								msg.status === 'ERROR_TOKEN_DRAIN'
 									? <ChargeMessage content={msg.content}/>
 									: <ReactMarkdown
-										remarkPlugins={[remarkUnwrapImages]}
+										remarkPlugins={[
+											remarkUnwrapImages, // ![]() --> <img>
+										]}
 										rehypePlugins={[
 											[rehypeHighlight, { ignoreMissing: true }],
 										]}
