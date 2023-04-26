@@ -1,6 +1,14 @@
 # Version History
 
-## v0.5.1 (2023-04-26)
+## v0.5.2 (2023-04-26)
+
+- [x] :boom: 已支持chatgpt会话中基于markdown显示图片（需要合适的引导），具体参考此图：
+
+![chatgpt-image-response.png](/chatgpt-image-response.png)
+
+- [x] fixed chatgpt response problem triggered via `setLastMessage`
+
+## v0.5.1 (2023-04-25)
 
 - [x] :boom: 对后端进行了部分重构，以支持微信终端（即将上线）
 - [x] 修复了由于返回数据结构失配导致的 client side error
