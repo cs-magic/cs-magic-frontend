@@ -34,15 +34,19 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 						</DropdownMenuTrigger>
 						
 						<DropdownMenuContent>
-							<DropdownMenuItem>
-								<Link href={routers.admin.console}>{u.routers.admin.console}</Link>
-							</DropdownMenuItem>
+							<Link href={routers.admin.console}>
+								<DropdownMenuItem>
+									{u.routers.admin.console}
+								</DropdownMenuItem>
+							</Link>
 							
 							<DropdownMenuSeparator/>
 							
-							<DropdownMenuItem>
-								<Link href={`/wechat?wxid=${user.id}`}>{u.routers.admin.wechat}</Link>
-							</DropdownMenuItem>
+							<Link href={`/wechat?wxid=${user.id}`}>
+								<DropdownMenuItem>
+									{u.routers.admin.wechat}
+								</DropdownMenuItem>
+							</Link>
 						
 						</DropdownMenuContent>
 					</DropdownMenu>
