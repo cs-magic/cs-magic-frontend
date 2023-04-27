@@ -1,5 +1,5 @@
 import {RootLayout} from '@/components/layouts/RootLayout'
-import {useLang} from "../../hooks/use-lang";
+import {useU} from "../../hooks/use-u";
 
 # Version History
 
@@ -113,7 +113,7 @@ import {useLang} from "../../hooks/use-lang";
 
 
 export default ({children}) => {
-	const u = useLang()
+	const u = useU()
 	
 	return (
 		<RootLayout title={u.routers.about.versions}>

@@ -2,11 +2,12 @@ import { II18nSchema } from '@/config/i18n/schema'
 
 export const jp: II18nSchema = {
 	routers: {
-				home: 'ホーム',
+		home: 'ホーム',
 		admin: {
-			home: 'コンソール',
+			console: 'コンソール',
+			wechat: '微信机器人',
 		},
-				auth: {
+		auth: {
 			signin: 'ログイン',
 		},
 		user: {

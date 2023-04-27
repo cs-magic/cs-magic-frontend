@@ -4,10 +4,11 @@ export const en: II18nSchema = {
 	routers: {
 		home: 'Home',
 		admin: {
-			home: 'Console',
+			console: 'Console',
+			wechat: 'Wechat Bot',
 		},
 		auth: {
-			signin: 'Singnin System',
+			signin: 'Singn In System',
 		},
 		
 		user: {
@@ -34,14 +35,14 @@ export const en: II18nSchema = {
 	apps: {
 		chatGPT: {
 			name: 'ChatGPT Response Generator',
-			desc: "Based on OpenAI's ChatGPT, supporting continuous conversation with AI.",
+			desc: 'Based on OpenAI\'s ChatGPT, supporting continuous conversation with AI.',
 			href: '/apps/chat/chatGPT',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/chatgpt.png',
 		},
 		dalle: {
 			name: 'Dalle Image Generator',
-			desc: "Based on OpenAI's Dalle, supporting image generation from text.",
+			desc: 'Based on OpenAI\'s Dalle, supporting image generation from text.',
 			href: '/apps/chat/dalle',
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/dalle2.png',

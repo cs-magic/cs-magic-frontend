@@ -5,13 +5,14 @@ import { useUser } from '@/hooks/use-user'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
 import { SelectTheme } from '@/components/general/SelectTheme'
 import { SelectLang } from '@/components/general/SelectLang'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { FooterView } from '@/components/layouts/footer/FooterView'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
 import { routers } from '@/config/routers'
+import { clsx } from 'clsx'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
@@ -23,13 +24,28 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 			<NavigationMenuList>
 				
 				{user?.basic.role === 'admin' && (
-					<NavigationMenuItem>
-						<Link href={routers.admin.home} legacyBehavior passHref>
-							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-								<span className={'text-red-500'}>{u.routers.admin.home}</span>
-							</NavigationMenuLink>
-						</Link>
-					</NavigationMenuItem>
+					<DropdownMenu>
+						<DropdownMenuTrigger>
+							<NavigationMenuItem>
+								<NavigationMenuLink className={clsx(navigationMenuTriggerStyle(), 'font-black text-purple-500')}>
+									Admin
+								</NavigationMenuLink>
+							</NavigationMenuItem>
+						</DropdownMenuTrigger>
+						
+						<DropdownMenuContent>
+							<DropdownMenuItem>
+								<Link href={routers.admin.console}>{u.routers.admin.console}</Link>
+							</DropdownMenuItem>
+							
+							<DropdownMenuSeparator/>
+							
+							<DropdownMenuItem>
+								<Link href={`/wechat?wxid=${user.id}`}>{u.routers.admin.wechat}</Link>
+							</DropdownMenuItem>
+						
+						</DropdownMenuContent>
+					</DropdownMenu>
 				)}
 				
 				{

@@ -18,7 +18,7 @@ import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
-import { useLang } from '@/hooks/use-lang'
+import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
@@ -62,7 +62,7 @@ export const MessagesComp = <T extends PlatformType>(
 	const [user, getUser] = useLazyUser()
 	const user_id = user?.id
 	
-	const u = useLang()
+	const u = useU()
 	
 	const [conversation_id, setConversationId] = useState(cid)
 	const [messages, setMessages] = useState<IMessage<T>[]>([])

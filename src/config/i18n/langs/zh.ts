@@ -4,7 +4,8 @@ export const zh: II18nSchema = {
 	routers: {
 		home: '主页',
 		admin: {
-			home: '管理员控制台',
+			console: '控制台',
+			wechat: '微信机器人',
 		},
 		auth: {
 			signin: '登录系统',

@@ -3,16 +3,15 @@ import { RootLayout } from '@/components/layouts/RootLayout'
 import { useUser } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { useListAllUserQuery } from '@/api/userApi'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
+import { useU } from '@/hooks/use-u'
 
 export const AdminPage = () => {
-	const u = useAppSelector(selectU)
+	const u = useU()
 	const user = useUser()
 	const { data: users = [], isLoading } = useListAllUserQuery(undefined, { skip: !user || user.basic.role !== 'admin' })
 	
 	return (
-		<RootLayout title={u.routers.admin.home}>
+		<RootLayout title={u.routers.admin.console}>
 			{
 				isLoading ? <CentralLoadingComp/> : (
 					<table className={'table table-compact w-full max-h-full overflow-auto'}>

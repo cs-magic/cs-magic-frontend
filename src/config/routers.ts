@@ -23,7 +23,8 @@ export const routers = {
 	},
 	
 	admin: {
-		home: '/admin',
+		console: '/admin',
+		wechat: '/wechat?wxid=${wxid}', // todo: template
 	},
 	home: '/',
 	auth: {

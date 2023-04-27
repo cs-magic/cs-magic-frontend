@@ -2,11 +2,11 @@ import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 import LogoSVG from '@/components/svg/LogoSVG'
 import { clsx } from 'clsx'
-import { useLang } from '@/hooks/use-lang'
+import { useU } from '@/hooks/use-u'
 
 
 export const LogoHomeView = ({ className, ...props }: HTMLAttributes<HTMLAnchorElement>) => {
-	const u = useLang()
+	const u = useU()
 	const website = u.display.website
 	
 	return (
