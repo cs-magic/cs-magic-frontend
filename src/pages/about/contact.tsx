@@ -15,7 +15,7 @@ export const AboutUsPage = () => {
 	return (
 		<CentralLayout>
 			
-			<Tabs defaultValue="test" className="w-[400px]">
+			<Tabs defaultValue="test" className="w-[400px] h-full">
 				
 				<TabsList className={'w-full justify-around'}>
 					<TabsTrigger value="test">加入内测群</TabsTrigger>

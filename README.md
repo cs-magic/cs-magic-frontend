@@ -2,9 +2,9 @@
 
 ## todo
 
+- [ ] P1, wechaty log suppress
+- [ ] P1, wechaty quote 研究
 - [ ] P1, 统一 chatgpt, dalle page
-- [ ] P1, safari首次登录问题
-- [ ] P1, 黑金头像
 - [ ] P1, nav bar icons 间距与对齐
 - [ ] p1, fix 未登录时无限加载聊天界面
 - [ ] p1, 增加未登录时消息返回的引导
@@ -12,6 +12,7 @@
   like ![https://chating.yiweiss.com/](__docs__/imgs/default-prompt.png)
 - [ ] P1, resolve https://cs-magic.com/wall-messages --> http://cs-magic.com/backend/v1/wall-messages/
 - [ ] P1, add bills history
+- [ ] P2, 黑金头像
 - [ ] P2, 加一个选项以决定用户的会话记录是否支持分享
 - [ ] p2, 关键词屏蔽机制！
 - [ ] p2, radix \ shacdn \ daisyUI \ next-theme 之间主题的混战
@@ -28,6 +29,7 @@
 
 ## finished todo
 
+- [x] P1, safari首次登录问题。:x: unknown now
 - [x] P1, fix: `Text content did not match. Server: "" Client: "dark"`。解决方案：使用 `mounted`。
 - [x] P2, 解决验证码设计问题
 - [x] （不明）P1, 上传头像后加载动画并锁定
