@@ -15,7 +15,7 @@ export const BaseSelect = <T extends string | LangType>({ label, vs, v, setV, ic
 	
 	return (
 		<Select onValueChange={setV}>
-			<SelectTrigger className={'h-fit py-2 px-1 hover:bg-accent'} withIconSuffix={withIconSuffix}>
+			<SelectTrigger className={'h-fit py-0 px-1 hover:bg-accent'} withIconSuffix={withIconSuffix}>
 				<SelectValue defaultValue={v || vs[0]} asChild>
 					<span className={'inline-flex gap-2 items-center'}>
 						{withIconPrefix && <span className={'mx-2'}>{icon}</span>}
