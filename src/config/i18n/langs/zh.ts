@@ -4,7 +4,7 @@ export const zh: II18nSchema = {
 	routers: {
 		home: '主页',
 		admin: {
-			home: '控制台',
+			home: '管理员控制台',
 		},
 		auth: {
 			signin: '登录系统',

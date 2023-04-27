@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 import { ComponentProps } from 'react'
+import { clsx } from 'clsx'
 
 export const AboutUsPage = () => {
 	
@@ -15,7 +16,9 @@ export const AboutUsPage = () => {
 	return (
 		<CentralLayout>
 			
-			<Tabs defaultValue="test" className="w-[400px] overflow-auto">
+			<Tabs defaultValue="test" className={clsx('w-[400px]',
+				'overflow-auto', // tab的content自带一个容器，然后内部是box容器，所以要加 overflow-auto
+			)}>
 				
 				<TabsList className={'w-full justify-around'}>
 					<TabsTrigger value="test">加入内测群</TabsTrigger>

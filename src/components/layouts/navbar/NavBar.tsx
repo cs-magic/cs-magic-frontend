@@ -15,11 +15,22 @@ import { routers } from '@/config/routers'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
+	const user = useUser()
 	
 	return (
 		// 它不支持 vertical
 		<NavigationMenu {...props}>
 			<NavigationMenuList>
+				
+				{user?.basic.role === 'admin' && (
+					<NavigationMenuItem>
+						<Link href={routers.admin.home} legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								<span className={'text-red-500'}>{u.routers.admin.home}</span>
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+				)}
 				
 				{
 					Object.values(u.apps).map((project, index) => (
