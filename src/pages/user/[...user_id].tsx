@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { UserPlanningType } from '@/ds/user'
 import { signOut } from 'next-auth/react'
 import { routers } from '@/config/routers'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 
 const InputGroup = ({ label, children, extra }: {
@@ -46,7 +47,8 @@ export const UserPage = () => {
 	
 	const refName = useRef<HTMLInputElement>(null)
 	
-	const self = curUser?.id === targetUser?.id
+	const isAdmin = curUser?.basic.role === 'admin'
+	const isSelf = curUser?.id === targetUser?.id
 	
 	if (!targetUser) return <CentralLayout>User Not Existed!</CentralLayout>
 	
@@ -67,7 +69,13 @@ export const UserPage = () => {
 					}}/>
 				</div>
 				
-				<InputGroup label={'ID'}>
+				<Card>
+					<CardHeader>
+						<CardTitle>Basic</CardTitle>
+					</CardHeader>
+					
+					<CardContent className={'flex flex-col gap-2'}>
+						<InputGroup label={'ID'}>
 					<span
 						className={'grow bg-base-200 text-primary cursor-pointer'}
 						onClick={() => {
@@ -76,32 +84,96 @@ export const UserPage = () => {
 						}}>
 						{user_id}
 					</span>
-					<Button
-						disabled={!self}
-						variant={'secondary'}
-						className={'w-24 shrink-0'}
-						onClick={() => signOut()}>
-						Log Out
-					</Button>
-				</InputGroup>
+							<Button
+								disabled={!isSelf}
+								variant={'secondary'}
+								className={'w-24 shrink-0'}
+								onClick={() => signOut()}>
+								Log Out
+							</Button>
+						</InputGroup>
+						
+						<InputGroup label={'Name'}>
+							<Input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
+							<Button className={'w-24 shrink-0'} onClick={async () => {
+								await updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })
+								toast({ title: 'renamed !' })
+							}}>
+								Rename
+							</Button>
+						</InputGroup>
+						
+						<InputGroup label={'Planning'}>
+							<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
+							
+							<Button disabled={!isSelf || targetUser.basic.membership.planning === UserPlanningType.blackVip}
+							        className={'w-24 shrink-0'}
+							        onClick={() => router.push(routers.user.planning)}>
+								Upgrade
+							</Button>
+						</InputGroup>
+					</CardContent>
+				</Card>
 				
-				
-				<InputGroup label={'Name'}>
-					<Input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
-					<Button className={'w-24 shrink-0'} onClick={() => updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })}>
-						Rename
-					</Button>
-				</InputGroup>
-				
-				<InputGroup label={'Planning'}>
-					<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
+				<Card>
+					<CardHeader>
+						<CardTitle>OpenAI</CardTitle>
+					</CardHeader>
 					
-					<Button disabled={!self || targetUser.basic.membership.planning === UserPlanningType.blackVip}
-					        className={'w-24 shrink-0'}
-					        onClick={() => router.push(routers.user.planning)}>
-						Upgrade
-					</Button>
-				</InputGroup>
+					<CardContent className={'flex flex-col gap-2'}>
+						<InputGroup
+							label={'balance'}
+							extra={(
+								<Button
+									disabled={!isSelf && !isAdmin}
+									variant={'secondary'}
+									className={'w-24 shrink-0'}
+									onClick={() => toast({ title: 'todo' })}
+								
+								>
+									Charge
+								</Button>
+							)}
+						>
+							{curUser?.openai.balance}
+						</InputGroup>
+						
+						<InputGroup
+							label={'consumption'}
+							extra={(
+								<Button
+									disabled={!isSelf && !isAdmin}
+									variant={'secondary'}
+									className={'w-24 shrink-0'}
+									onClick={() => toast({ title: 'todo' })}
+								
+								>
+									Detail
+								</Button>
+							)}
+						>
+							{curUser?.openai.consumption}
+						</InputGroup>
+						
+						<InputGroup
+							label={'conversations count'}
+							extra={(
+								<Button
+									disabled={!isSelf && !isAdmin}
+									variant={'secondary'}
+									className={'w-24 shrink-0'}
+									onClick={() => toast({ title: 'todo' })}
+								>
+									Detail
+								</Button>
+							)}
+						>
+							{curUser?.openai.cnt}
+						</InputGroup>
+					
+					
+					</CardContent>
+				</Card>
 			
 			
 			</div>
