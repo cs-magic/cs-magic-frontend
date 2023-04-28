@@ -95,7 +95,7 @@ export const UserPage = () => {
 						
 						<InputGroup label={'Name'}>
 							<Input className={'grow'} placeholder={'你怎么连个名字都没有！'} defaultValue={targetUser.basic.name || undefined} ref={refName}/>
-							<Button className={'w-24 shrink-0'} onClick={async () => {
+							<Button variant={'secondary'} className={'w-24 shrink-0'} onClick={async () => {
 								await updateBasicUser({ id: targetUser.id, body: { name: refName.current!.value } })
 								toast({ title: 'renamed !' })
 							}}>
@@ -106,7 +106,7 @@ export const UserPage = () => {
 						<InputGroup label={'Planning'}>
 							<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
 							
-							<Button disabled={!isSelf || targetUser.basic.membership.planning === UserPlanningType.blackVip}
+							<Button variant={'secondary'} disabled={!isSelf || targetUser.basic.membership.planning === UserPlanningType.blackVip}
 							        className={'w-24 shrink-0'}
 							        onClick={() => router.push(routers.user.planning)}>
 								Upgrade
