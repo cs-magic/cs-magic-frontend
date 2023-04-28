@@ -2,6 +2,8 @@
 
 ## todo
 
+- [ ] P2, 重新设计 getAllUsersAPI 以减少初始化开销
+- [ ] P2, ts, dot key
 - [ ] P1, wechaty log suppress
 - [ ] P1, wechaty quote 研究
 - [ ] P1, 统一 chatgpt, dalle page

@@ -1,4 +1,4 @@
-import { IUserBasic, User, UserPlanningType } from '@/ds/user'
+import { IUserBasic, User } from '@/ds/user'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HTMLAttributes } from 'react'
 import { ID } from '@/ds/general'
@@ -17,17 +17,13 @@ export const BasicUserAvatarView = (
 	const u = useAppSelector(selectU)
 	const website = u.display.website
 	
-	const avatarMain = (
-		<Avatar {...props}>
-			<AvatarImage src={user.avatar || undefined}/>
-			<AvatarFallback>{(user.name || id || website.avatarPlaceholder)[0]}</AvatarFallback>
-		</Avatar>
-	)
 	
-	return user.membership.planning !== UserPlanningType.blackVip ? avatarMain : (
+	return (
 		<div className={'relative flex justify-center items-center'}>
-			{avatarMain}
-			{/*<Image src={'/avatar-bg/badge-blackVip.png'} alt={'black vip'} fill className={'absolute left-0 top-0'} sizes={"(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"}/>*/}
+			<Avatar {...props}>
+				<AvatarImage src={user.avatar || undefined}/>
+				<AvatarFallback>{(user.name || id || website.avatarPlaceholder)[0]}</AvatarFallback>
+			</Avatar>
 		</div>
 	)
 }

@@ -2,7 +2,9 @@ import { IUser, IUserBasic, IUserOpenAI } from '@/ds/user'
 import { ID } from '@/ds/general'
 import { baseApi } from '@/api/baseApi'
 
-export const TAG_USER = 'user'
+export const TAG_USER = 'user' as const
+
+export const ALL = '*' as const
 
 export const userApi = baseApi
 	.enhanceEndpoints({
@@ -13,7 +15,11 @@ export const userApi = baseApi
 			
 			listAllUser: build.query<IUser[], void>({
 				query: () => `/user`,
-				providesTags: [TAG_USER],
+				// 直接用 tag 应该不行，要生成独立的，否则 mutate 后 query 会被 reject：`Aborted due to condition callback returning false.`
+				providesTags: (result) => [
+					{ type: TAG_USER, id: ALL },
+					...(result || []).map((user) => ({ type: TAG_USER, id: user.id })),
+				],
 			}),
 			
 			getUser: build.query<IUser, ID>({
@@ -22,7 +28,9 @@ export const userApi = baseApi
 			}),
 			
 			updateBasicUser: build.mutation<IUserBasic,
-				{ body: Partial<IUserBasic>, id: ID } // id 一定要有的
+				{
+					body: Partial<IUserBasic>, id: ID
+				} // id 一定要有的
 				>({
 				query: (arg) => ({
 					url: `/user/${arg.id}/basic`,
