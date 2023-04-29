@@ -22,8 +22,7 @@ export const AboutUsPage = () => {
 				
 				<TabsList className={'w-full justify-around'}>
 					<TabsTrigger value="test">加入内测群</TabsTrigger>
-					<TabsTrigger value="marketing">联系小助手</TabsTrigger>
-					<TabsTrigger value="commercial">商务咨询</TabsTrigger>
+					<TabsTrigger value="operation">联系小助手</TabsTrigger>
 					<TabsTrigger value="technology">技术咨询</TabsTrigger>
 				</TabsList>
 				
@@ -31,7 +30,7 @@ export const AboutUsPage = () => {
 					<ConstraintImage src={'/qrcodes/wechat-test-group-0.3.jpeg'} alt={'test'} priority/>
 				</TabsContent>
 				
-				<TabsContent value="marketing">
+				<TabsContent value="operation">
 					<Tabs defaultValue={'east'}>
 						
 						<TabsList className={'w-full flex'}>
@@ -40,7 +39,7 @@ export const AboutUsPage = () => {
 						</TabsList>
 						
 						<TabsContent value={'east'}>
-							<ConstraintImage src={'/qrcodes/wechat-clotho.png'} alt={'east marketing'}/>
+							<ConstraintImage src={'/qrcodes/wechat-susan-2.png'} alt={'east marketing'}/>
 						</TabsContent>
 						
 						<TabsContent value={'west'}>
@@ -49,10 +48,6 @@ export const AboutUsPage = () => {
 					
 					</Tabs>
 				
-				</TabsContent>
-				
-				<TabsContent value="commercial">
-					<ConstraintImage src={'/qrcodes/wechat-susan-2.png'} alt={'commercial'}/>
 				</TabsContent>
 				
 				<TabsContent value="technology">
