@@ -27,7 +27,7 @@ export const AboutUsPage = () => {
 				</TabsList>
 				
 				<TabsContent value="test">
-					<ConstraintImage src={'/qrcodes/wechat-test-group-0.3.jpeg'} alt={'test'} priority/>
+					<ConstraintImage src={'/qrcodes/wechat-test-group-0.5.jpeg'} alt={'test'} priority/>
 				</TabsContent>
 				
 				<TabsContent value="operation">

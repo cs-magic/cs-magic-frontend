@@ -2,6 +2,7 @@
 
 ## todo
 
+- [ ] P2, auto group qrcode via wechaty
 - [ ] P2, 重新设计 getAllUsersAPI 以减少初始化开销
 - [ ] P2, ts, dot key
 - [ ] P1, wechaty log suppress
