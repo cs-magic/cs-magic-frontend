@@ -2,31 +2,31 @@ import { II18nSchema } from '@/config/i18n/schema'
 
 export const zh: II18nSchema = {
 	routers: {
-		home: '主页',
+		home: '主頁',
 		admin: {
-			console: '控制台',
-			wechat: '微信机器人',
+			console: '控製颱',
+			wechat: '微信機器人',
 		},
 		auth: {
-			signin: '登录系统',
+			signin: '登錄繫統',
 		},
 		user: {
-			planning: '会员计划',
-			wallMessages: '留言墙',
+			planning: '會員計劃',
+			wallMessages: '留言牆',
 		},
 		about: {
-			contactUS: '联系我们',
-			jobs: '加入我们',
-			versions: '版本历史',
+			contactUS: '聯繫我們',
+			jobs: '加入我們',
+			versions: '版本曆史',
 		},
 		legals: {
-			termOfUse: '条款说明',
-			privacyPolicy: '隐私政策',
+			termOfUse: '隱私政策',
+			privacyPolicy: '隱私政策',
 		},
 		apps: {
 			chat: {
 				chatGPT: 'ChatGPT聊天',
-				dalle: 'Dalle生图',
+				dalle: 'Dalle生圖',
 			},
 		},
 	},
@@ -34,64 +34,64 @@ export const zh: II18nSchema = {
 	apps: {
 		chatGPT: {
 			name: 'ChatGPT 聊天',
-			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
+			desc: '基於OpenAI的ChatGPT，支持與AI連續對話,
 			href: '/apps/chat/chatGPT',
-			tags: ['NEW', '稳定', '免翻'],
+			tags: ['NEW', '穩定', '免翻'],
 			cover: '/screenshots/chatgpt.png',
 		},
 		dalle: {
-			name: 'Dalle 作图',
-			desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+			name: 'Dalle 作圖',
+			desc: '基於OpenAI的Dalle，支持根據文本生成圖片',
 			href: '/apps/chat/dalle',
-			tags: ['NEW', '稳定', '免翻'],
+			tags: ['NEW', '穩定', '免翻'],
 			cover: '/screenshots/dalle2.png',
 		},
 	},
 	
 	notify: {
-		errorUserEmpty: '用户名不能为空！请先注册登录再使用！',
-		errorSendEmpty: '不能发送空消息！',
+		errorUserEmpty: ' 用戶名不能爲空！請先注冊登錄再使用！',
+		errorSendEmpty: '不能髮送空消息！',
 	},
 	
 	ui: {
 		general: {
 			btn: {
-				send: '发送',
+				send: '髮送',
 			},
 			textarea: {
-				placeholder: '在此处儿输入~',
+				placeholder: '在此處兒輸入~',
 			},
 		},
 		chat: {
 			btn: {
-				conversations: '会话历史',
+				conversations: '會話曆史',
 			},
 		},
 	},
 	
 	display: {
 		navs: {
-			user: '用户',
-			services: '服务',
+			user: '用戶',
+			services: '服務',
 			settings: {
-				index: '设置',
-				language: '语言',
-				theme: '主题',
+				index: '設置',
+				language: '語言',
+				theme: '主題',
 			},
-			about: '关于',
+			about: '關於',
 			legal: '法律',
-			themes: '主题',
-			languages: '语言',
-			wallMessages: '留言墙',
+			themes: '主題',
+			languages: '語言',
+			wallMessages: '留言牆',
 		},
 		hero: {
-			title: '欢迎来到CS魔法社！',
-			subtitle: '基于计算机技术的一些研究、分享，包括基于OpenAI的chatGPT、Dalle模型等',
-			entrance: '开启您的新世界',
+			title: ' 歡迎來到CS魔法社！',
+			subtitle: '基於計算機技術的一些研究、分享，包括基於OpenAI的chatGPT、Dalle模型等',
+			entrance: '開啟您的新世界',
 		},
 		website: {
 			platformName: 'CS魔法社',
-			avatarPlaceholder: '登录',
+			avatarPlaceholder: '登錄',
 		},
 	},
 }
