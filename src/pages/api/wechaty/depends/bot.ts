@@ -42,7 +42,7 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 			},
 		)
 		.on('login', async (user) => {
-			log.info(`${user} login`)
+			log.debug(`${user} login`)
 			// 出口3： 缓存登录
 			await promises.writeFile(`${userDir}/${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
 			await promises.writeFile(`${userDir}/${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
@@ -55,7 +55,7 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 		})
 		
 		.on('message', async (message) => {
-			log.info(`on message: ${message.toString()}`)
+			log.debug(`on message: ${message.toString()}`)
 			
 			await handleMessage(message, bot)
 			
@@ -85,7 +85,7 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 		})
 		
 		.on('error', (error) => {
-			log.error(`on error: ${error}`)
+			log.info(`on error: ${error}`)
 			return reject(false)
 		})
 	

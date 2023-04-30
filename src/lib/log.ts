@@ -10,14 +10,25 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 	return `${timestamp} [${label}] ${level}: ${message}`
 })
 
+winston.addColors({
+	silly: 'magenta',
+	debug: 'blue',
+	verbose: 'cyan',
+	info: 'green',
+	warn: 'yellow',
+	error: 'red',
+})
+
+
 export const log = winston.createLogger({
-	level: 'info',
+	level: 'debug',
 	format: combine(
 		timestamp(),
 		myFormat,
 	),
 	defaultMeta: { module: 'default' },
 	transports: [
+		
 		//
 		// - Write all logs with importance level of `error` or less to `error.log`
 		// - Write all logs with importance level of `info` or less to `combined.log`
@@ -33,6 +44,10 @@ export const log = winston.createLogger({
 //
 if (process.env.NODE_ENV !== 'production') {
 	log.add(new winston.transports.Console({
-		format: winston.format.simple(),
+		level: 'info',
+		format: combine(
+			winston.format.colorize(), // colorize 要在前面！
+			winston.format.simple(),
+		),
 	}))
 }

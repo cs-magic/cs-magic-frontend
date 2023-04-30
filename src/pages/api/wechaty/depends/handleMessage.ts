@@ -3,6 +3,7 @@ import { Wechaty } from 'wechaty'
 import backendApi from '@/lib/api'
 import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
+import { log } from '@/lib/log'
 
 
 export const handleMessage = async (message: MessageInterface, bot?: Wechaty) => {
@@ -45,15 +46,13 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 		target_id: target.id,
 		tag,
 	})
-	console.log({ conversation_id, text, tag, content })
+	log.info('generated conversation: ', { conversation_id, text, tag, content })
 	
 	const msg: IMessage<PlatformType.chatGPT> = {
 		content,
 		conversation_id,
 		sender: sender.id,
-		platform_params: {
-			role: MessageRoleType.user,
-		},
+		platform_params: { role: MessageRoleType.user },
 		type: MessageType.text,
 		status: 'OK',
 		time: Date.now(),
@@ -65,7 +64,7 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 		const { data } = await backendApi.post(`/chatGPT/${conversation_id}/chat`, msg, { params: { stream: false } })
 		response = data
 	} catch (e) {
-		console.error(e.response.data)
+		log.error(e.response.data)
 		response = e.response.data.detail
 	}
 	

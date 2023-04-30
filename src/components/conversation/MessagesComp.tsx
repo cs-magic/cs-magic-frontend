@@ -20,6 +20,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
+import { log } from '@/lib/log'
 
 const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
 
@@ -118,7 +119,7 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	useEffect(() => {
 		if (dalleError) {
-			console.log('dalle error: ', dalleError)
+			log.error(dalleError)
 			const { status, data } = dalleError as unknown as FetchBaseQueryError as { status: number, data: { detail: string } }
 			setLastMessage((msg) => ({ ...msg, content: data.detail, type: MessageType.text, status: status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR' }))
 		}
