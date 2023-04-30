@@ -4,7 +4,7 @@ import { LangType } from '@/ds/general'
 
 export const BaseSelect = <T extends string | LangType>({ label, vs, v, setV, icon, withText, withIconSuffix, withIconPrefix }: {
 	label: string
-	vs: T[]
+	vs: readonly T[]
 	v?: T
 	setV: (v: T) => void
 	icon: ReactNode

@@ -34,7 +34,7 @@ export const tc: II18nSchema = {
 	apps: {
 		chatGPT: {
 			name: 'ChatGPT 聊天',
-			desc: '基於OpenAI的ChatGPT，支持與AI連續對話,
+			desc: '基於OpenAI的ChatGPT，支持與AI連續對話',
 			href: '/apps/chat/chatGPT',
 			tags: ['NEW', '穩定', '免翻'],
 			cover: '/screenshots/chatgpt.png',

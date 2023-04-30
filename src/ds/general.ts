@@ -8,8 +8,9 @@ export interface IFeature {
 	status: TaskStatus
 }
 
-export type LangType = 'zh' | 'en' | 'jp'
-export const langs = ['zh', 'en', 'jp'] as LangType[]
+
+export const langs = ['en', 'sc', 'tc', 'jp'] as const
+export type LangType = typeof langs[number]
 export type IBridge = { success: boolean, content: string, bot?: WechatyInterface | undefined }
 export type MessageStatusType = 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
 
