@@ -23,7 +23,7 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 	const userDir = `${CACHE_DIR}/${wxid}`
 	const memoryPath = `${userDir}/${wxid}`
 	await promises.mkdir(userDir, { recursive: true })
-	log.info(`init bot(wxid=${wxid})`)
+	log.info(`init bot(wxid=${wxid})`, { label: wxid })
 	
 	const bot = WechatyBuilder.build({
 		name: memoryPath,
@@ -37,12 +37,12 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 					// 出口2： 扫码登录
 					return resolve({ success: true, content: qrcode })
 				} else {
-					log.info(`onScan: ${ScanStatus[status]}(${status})`)
+					log.info(`onScan: ${ScanStatus[status]}(${status})`, { label: wxid })
 				}
 			},
 		)
 		.on('login', async (user) => {
-			log.debug(`${user} login`)
+			log.debug(`${user} login`, { label: wxid })
 			// 出口3： 缓存登录
 			await promises.writeFile(`${userDir}/${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
 			await promises.writeFile(`${userDir}/${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
@@ -51,11 +51,11 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 		})
 		
 		.on('logout', (user, reason) => {
-			log.info(`${user} logout, reason: ${reason}`)
+			log.info(`${user} logout, reason: ${reason}`, { label: wxid })
 		})
 		
 		.on('message', async (message) => {
-			log.debug(`on message: ${message.toString()}`)
+			log.debug(`on message: ${message.toString()}`, { label: wxid })
 			
 			await handleMessage(message, bot)
 			
@@ -65,31 +65,31 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 		})
 		
 		.on('room-invite', async (roomInvitation) => {
-			log.info(`on room-invite: ${roomInvitation}`)
+			log.info(`on room-invite: ${roomInvitation}`, { label: wxid })
 		})
 		
 		.on('room-join', (room, inviteeList, inviter, date) => {
-			log.info(`on room-join, room:${room}, inviteeList:${inviteeList}, inviter:${inviter}, date:${date}`)
+			log.info(`on room-join, room:${room}, inviteeList:${inviteeList}, inviter:${inviter}, date:${date}`, { label: wxid })
 		})
 		
 		.on('room-leave', (room, leaverList, remover, date) => {
-			log.info(`on room-leave, room:${room}, leaverList:${leaverList}, remover:${remover}, date:${date}`)
+			log.info(`on room-leave, room:${room}, leaverList:${leaverList}, remover:${remover}, date:${date}`, { label: wxid })
 		})
 		
 		.on('room-topic', (room, newTopic, oldTopic, changer, date) => {
-			log.info(`on room-topic, room:${room}, newTopic:${newTopic}, oldTopic:${oldTopic}, changer:${changer}, date:${date}`)
+			log.info(`on room-topic, room:${room}, newTopic:${newTopic}, oldTopic:${oldTopic}, changer:${changer}, date:${date}`, { label: wxid })
 		})
 		
 		.on('friendship', (friendship) => {
-			log.info(`on friendship: ${friendship}`)
+			log.info(`on friendship: ${friendship}`, { label: wxid })
 		})
 		
 		.on('error', (error) => {
-			log.info(`on error: ${error}`)
+			log.info(`on error: ${error}`, { label: wxid })
 			return reject(false)
 		})
 	
-	log.info('=== bot is starting')
+	log.info('=== bot is starting', { label: wxid })
 	await bot.start()
 })
 

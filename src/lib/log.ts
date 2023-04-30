@@ -26,7 +26,7 @@ export const log = winston.createLogger({
 		timestamp(),
 		myFormat,
 	),
-	defaultMeta: { module: 'default' },
+	defaultMeta: { label: 'default' },
 	transports: [
 		
 		//

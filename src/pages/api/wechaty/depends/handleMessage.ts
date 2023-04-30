@@ -68,5 +68,9 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 		response = e.response.data.detail
 	}
 	
-	await room.say(response, sender)
+	try {
+		await room.say(response, sender)
+	} catch (e) {
+		log.info('sending message error:', e)
+	}
 }
