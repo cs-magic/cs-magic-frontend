@@ -1,6 +1,6 @@
 import { IConversation, ICreateConversation } from '@/ds/openai/conversation'
 import { ID } from '@/ds/general'
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 import { PlatformType } from '@/ds/openai/general'
 
 export const TAG_CONVERSATION = 'conversation'

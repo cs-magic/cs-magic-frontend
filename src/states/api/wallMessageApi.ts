@@ -1,5 +1,5 @@
 import { IWallMessage, IWallMessageCreate, IWallMessageVote } from '@/ds/wall-messages'
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 
 export const TAG_WALL_MESSAGE = 'wall-message'
 

@@ -1,4 +1,4 @@
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 
 export const TAG_FILE = 'file'
 

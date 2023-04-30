@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { IWallMessage } from '@/ds/wall-messages'
-import { useVoteWallMessageMutation } from '@/api/wallMessageApi'
+import { useVoteWallMessageMutation } from '@/states/api/wallMessageApi'
 import { useToast } from '@/hooks/use-toast'
 import { useUserId } from '@/hooks/use-user'
 import { BasicUserAvatarView } from '@/components/general/UserAvatarView'
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { IconDotsVertical, IconThumbDown, IconThumbUp } from '@tabler/icons-react'
 import { clsx } from 'clsx'
 
-export const WallMessageComp: FC<IWallMessage> = ({poster_id, poster, time, voters_up, voters_down, id, title, content}) => {
+export const WallMessageComp: FC<IWallMessage> = ({ poster_id, poster, time, voters_up, voters_down, id, title, content }) => {
 	
 	const [voteWallMessage, result] = useVoteWallMessageMutation()
 	

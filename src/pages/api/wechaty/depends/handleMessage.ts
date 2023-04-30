@@ -28,7 +28,7 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 	// 私人聊天
 	if (!room) {
 		// todo: tag文档系统对接书记酱！
-		await message.say('received!')
+		// await message.say('received!')
 		return
 	}
 	

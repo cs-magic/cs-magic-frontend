@@ -10,8 +10,8 @@ import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
 import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
-import { injectOpenAIConversation } from '@/api/conversationApi'
-import { injectOpenAIMessages } from '@/api/messageApi'
+import { injectOpenAIConversation } from '@/states/api/conversationApi'
+import { injectOpenAIMessages } from '@/states/api/messageApi'
 import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
@@ -82,7 +82,7 @@ export const MessagesComp = <T extends PlatformType>(
 		setMessages((messages) => {
 			const message = messages[messages.length - 1]
 			const updated = func(message)
-			console.log('updated: ', updated.content)
+			// console.log('updated: ', updated.content)
 			return [...messages.slice(0, messages.length - 1), updated]
 		})
 	}
@@ -147,7 +147,7 @@ export const MessagesComp = <T extends PlatformType>(
 			},
 			onmessage(msg) {
 				const { data: chunk } = msg
-				console.info({ chunk })
+				// console.info({ chunk })
 				// todo: 为空的时候表示换行（后端是正常的，不知道前端这里为啥会变）
 				concatMessage(chunk === '' ? '\n' : chunk, 'OK')
 			},

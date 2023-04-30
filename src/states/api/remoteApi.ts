@@ -1,4 +1,4 @@
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 
 export const remoteApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -9,7 +9,7 @@ export const remoteApi = baseApi.injectEndpoints({
 			}),
 		}),
 	}),
-	overrideExisting: true
+	overrideExisting: true,
 })
 
 export const {

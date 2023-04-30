@@ -1,0 +1,82 @@
+{"level":"info","message":"created user directory at cache/markshawn2022","service":"user-service"}
+{"level":"info","message":"init bot(wxid=markshawn2022)","service":"user-service"}
+{"level":"info","message":"=== bot is starting","service":"user-service"}
+{"label":"right meow!","level":"info","message":"created user directory at cache/markshawn2022","service":"user-service","timestamp":"2023-04-30T10:30:22.957Z"}
+{"label":"right meow!","level":"info","message":"init bot(wxid=markshawn2022)","service":"user-service","timestamp":"2023-04-30T10:30:22.958Z"}
+{"label":"right meow!","level":"info","message":"=== bot is starting","service":"user-service","timestamp":"2023-04-30T10:30:22.958Z"}
+2023-04-30T10:31:24.293Z [right meow!] info: created user directory at cache/markshawn2022
+2023-04-30T10:31:24.294Z [right meow!] info: init bot(wxid=markshawn2022)
+2023-04-30T10:31:24.295Z [right meow!] info: === bot is starting
+{"level":"error","message":"on error: AssertionError: 400 != 400","service":"user-service"}
+2023-04-30T10:34:05.551Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T10:34:05.553Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T10:34:05.554Z [undefined] info: === bot is starting
+2023-04-30T10:34:43.411Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T10:34:43.412Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T10:34:43.412Z [undefined] info: === bot is starting
+2023-04-30T10:35:41.577Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T10:35:41.578Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T10:35:41.578Z [undefined] info: === bot is starting
+2023-04-30T10:39:10.012Z [undefined] error: on error: AssertionError: 400 != 400
+2023-04-30T10:39:47.705Z [undefined] error: on error: AssertionError: 400 != 400
+2023-04-30T10:40:45.595Z [undefined] error: on error: AssertionError: 400 != 400
+2023-04-30T12:39:21.593Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T12:39:21.595Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T12:39:21.597Z [undefined] info: === bot is starting
+2023-04-30T12:39:34.141Z [undefined] info: onScan: Scanned(3)
+2023-04-30T12:39:59.668Z [undefined] info: Contact<我的文件助手> login
+2023-04-30T12:40:00.738Z [undefined] info: on message: Message#Unknown[🗣Contact<我的文件助手>]	
+2023-04-30T12:40:00.739Z [undefined] info: on message: Message#Unknown[🗣Contact<我的文件助手>]	
+2023-04-30T12:40:00.743Z [undefined] info: on message: Message#Text[🗣Contact<@5f68cc3a938c931df75147fb6179dee90e0ba6b26e1ecba82cfc536a8e7833a1>@👥Room<吃鱼技能培训中心>]	扩大鱼塘
+2023-04-30T12:40:00.760Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]	@Renarde 扩大鱼塘成功！消耗了12736080鱼币，鱼塘规模扩大到了63680400
+2023-04-30T12:40:00.989Z [undefined] info: on message: Message#Text[🗣Contact<@5f68cc3a938c931df75147fb6179dee90e0ba6b26e1ecba82cfc536a8e7833a1>@👥Room<吃鱼技能培训中心>]	扩大鱼塘
+2023-04-30T12:40:02.038Z [undefined] info: on message: Message#Unknown[🗣Contact<我的文件助手>]	
+2023-04-30T12:40:02.039Z [undefined] info: on message: Message#Text[🗣Contact<@5f68cc3a938c931df75147fb6179dee90e0ba6b26e1ecba82cfc536a8e7833a1>@👥Room<吃鱼技能培训中心>]	扩大鱼塘
+2023-04-30T12:40:02.041Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]	@Renarde 扩大鱼塘成功！消耗了12768020鱼币，鱼塘规模扩大到了63840100
+2023-04-30T12:40:02.947Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]	@Renarde 需要鱼塘的历史捕鱼数达到10201647980，现在只有10187898121！
+2023-04-30T12:40:25.954Z [undefined] info: on message: Message#Image[🗣Contact<@e947305594e57f3bbddec319a63709a2ba18c21bf516b0b88fa63bef87cc15d4>@👥Room<潮人破洞2.0>]
+2023-04-30T12:40:40.816Z [undefined] info: on message: Message#Text[🗣Contact<@e947305594e57f3bbddec319a63709a2ba18c21bf516b0b88fa63bef87cc15d4>@👥Room<潮人破洞2.0>]	汉堡王新品还真可以
+2023-04-30T12:40:43.602Z [undefined] info: on message: Message#Text[🗣Contact<@078539618837a7db00bb5979fe228562202d7f7ee7b9e950e1f84a0a5a80f96b>@👥Room<CS魔法社 | 测试组>]	ding
+2023-04-30T12:41:30.106Z [undefined] info: on message: Message#Text[🗣Contact<@078539618837a7db00bb5979fe228562202d7f7ee7b9e950e1f84a0a5a80f96b>@👥Room<CS魔法社 | 测试组>]	ding
+2023-04-30T12:41:40.518Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T12:41:40.519Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T12:41:40.519Z [undefined] info: === bot is starting
+2023-04-30T12:41:41.970Z [undefined] info: Contact<我的文件助手> login
+2023-04-30T12:41:42.991Z [undefined] info: on message: Message#Unknown[🗣Contact<我的文件助手>]	
+2023-04-30T12:41:43.104Z [undefined] info: on message: Message#Unknown[🗣Contact<我的文件助手>]	
+2023-04-30T12:42:35.049Z [undefined] info: on message: Message#Text[🗣Contact<福睿斯特>@👥Room<吃鱼技能培训中心>]	捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 
+2023-04-30T12:42:35.051Z [undefined] info: on message: Message#Text[🗣Contact<@8cad1368206f4348dc162c58ede1da5a4763ed560c565552deb29148c5ba4ece>@👥Room<吃鱼技能培训中心>]	捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 捞鱼 
+2023-04-30T12:42:37.214Z [undefined] info: on message: Message#Text[🗣Contact<YH>@👥Room<吃鱼技能培训中心>]	@福睿斯特 福睿斯特下海捞鱼了！
+--------
+第1次捞了367971条鱼
+第2次捞了363930条鱼
+第3次捞了359933条鱼
+第4
+2023-04-30T12:42:37.287Z [undefined] info: on message: Message#Text[🗣Contact<YH>@👥Room<吃鱼技能培训中心>]	@福睿斯特 福睿斯特下海捞鱼了！
+--------
+第1次捞了367971条鱼
+第2次捞了363930条鱼
+第3次捞了359933条鱼
+第4
+2023-04-30T12:43:01.974Z [undefined] info: created user directory at cache/markshawn2022
+2023-04-30T12:43:01.976Z [undefined] info: init bot(wxid=markshawn2022)
+2023-04-30T12:43:01.977Z [undefined] info: === bot is starting
+2023-04-30T12:43:03.724Z [undefined] info: Contact<我的文件助手> login
+2023-04-30T12:43:04.594Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]	@福睿斯特 消息过长无法直接显示，请见以下文件：
+8bcdd131-e754-11ed-bb01-5254005edf2a.txt
+2023-04-30T12:43:04.595Z [undefined] info: on message: Message#Attachment[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]
+2023-04-30T12:43:08.304Z [undefined] info: on message: Message#Text[🗣Contact<@8cad1368206f4348dc162c58ede1da5a4763ed560c565552deb29148c5ba4ece>@👥Room<吃鱼技能培训中心>]	我的鱼塘
+2023-04-30T12:43:09.452Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<吃鱼技能培训中心>]	@福睿斯特 海王姓名：【福睿斯特】
+拥有鱼币 $1925854049
+累计捕鱼 11503919744 条
+鱼塘：【forrest】
+塘主：
+2023-04-30T12:44:56.370Z [undefined] info: on message: Message#Text[🗣Contact<@6e30bffa5ee9a4f9e231a0a49605d20fb4cfa5de2bc29c67f93bcc4e4de769b1>@👥Room<谁被语音刷屏了吱一声>]	【新问题提醒】
+编号：4643
+时间：2023-04-30 20:44:57
+提问：橘千场
+群号：19109987179@chatroom
+
+2023-04-30T12:45:05.818Z [undefined] info: on message: Message#Text[🗣Contact<打铁>@👥Room<老年大学编程班（炒股/养生/育儿）>]	「91摸先生：[该消息类型暂不能展示]」
+- - - - - - - - - - - - - - -
+还需要拷打

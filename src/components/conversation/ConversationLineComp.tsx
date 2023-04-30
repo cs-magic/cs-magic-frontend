@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { getChatUrl } from '@/lib/utils'
 import Link from 'next/link'
 import { PlatformType } from '@/ds/openai/general'
-import { injectOpenAIConversation } from '@/api/conversationApi'
+import { injectOpenAIConversation } from '@/states/api/conversationApi'
 
 export const ConversationLineComp = <T extends PlatformType>({ conversation, isHighlight }: {
 	conversation: IConversation<T>

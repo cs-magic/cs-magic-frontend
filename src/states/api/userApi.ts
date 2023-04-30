@@ -1,6 +1,6 @@
 import { IUser, IUserBasic, IUserOpenAI } from '@/ds/user'
 import { ID } from '@/ds/general'
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 
 export const TAG_USER = 'user' as const
 

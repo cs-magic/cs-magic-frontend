@@ -8,7 +8,7 @@ import { getChatUrl } from '@/lib/utils'
 import { PlatformType } from '@/ds/openai/general'
 import { IConversation } from '@/ds/openai/conversation'
 import Link from 'next/link'
-import { injectOpenAIConversation } from '@/api/conversationApi'
+import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { ConversationLineComp } from './ConversationLineComp'
 import { Button } from '@/components/ui/button'
 

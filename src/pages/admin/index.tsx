@@ -1,7 +1,7 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { useUser } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
-import { useListAllUserQuery, useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/api/userApi'
+import { useListAllUserQuery, useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/states/api/userApi'
 import { useU } from '@/hooks/use-u'
 import React from 'react'
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'

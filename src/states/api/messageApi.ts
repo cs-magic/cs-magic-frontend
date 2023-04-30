@@ -1,8 +1,8 @@
 import { ID } from '@/ds/general'
 import { IMessage } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
-import { baseApi } from '@/api/baseApi'
-import { TAG_USER } from '@/api/userApi'
+import { baseApi } from '@/states/api/baseApi'
+import { TAG_USER } from '@/states/api/userApi'
 
 export const TAG_MESSAGE = 'message'
 

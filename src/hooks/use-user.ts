@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { IUser, User } from '@/ds/user'
-import { useGetUserQuery, useLazyGetUserQuery } from '@/api/userApi'
+import { useGetUserQuery, useLazyGetUserQuery } from '@/states/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { ID } from '@/ds/general'
 

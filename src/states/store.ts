@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import notificationSlice from '@/states/features/notificationSlice'
-import { baseApi } from '@/api/baseApi'
+import { baseApi } from '@/states/api/baseApi'
 import { createLogger } from 'redux-logger'
 import { i18nSlice } from '@/states/features/i18nSlice'
-import { remoteApi } from '@/api/remoteApi'
-import { backApi } from '@/api/backApi'
+import { remoteApi } from '@/states/api/remoteApi'
+import { backApi } from '@/states/api/backApi'
 
 
 const logger = createLogger({
