@@ -20,7 +20,7 @@ export const tc: II18nSchema = {
 			versions: '版本曆史',
 		},
 		legals: {
-			termOfUse: '隱私政策',
+			termOfUse: '使用條款',
 			privacyPolicy: '隱私政策',
 		},
 		apps: {
