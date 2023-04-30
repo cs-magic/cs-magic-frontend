@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.321.1",
     "@fingerprintjs/fingerprintjs-pro-react": "^2.3.1",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",

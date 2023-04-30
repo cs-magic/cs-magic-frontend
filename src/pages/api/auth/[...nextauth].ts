@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
 				const result = await transport.sendMail({
 					to: identifier,
 					from: provider.from,
-					subject: `【CS魔法社】验证码：${token}`,
+					subject: `[CS Magic] Your Activation Code：${token}`,
 					// text: text({ url, host }),
 					// html: html({ url, host, theme }),
 				})
