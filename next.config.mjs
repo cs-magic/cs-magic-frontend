@@ -30,6 +30,8 @@ const nextConfig = {
 	// Optionally, add any other Next.js config below
 	reactStrictMode: false,
 	
+	// output: 'export', // ref: https://nextjs.org/docs/advanced-features/static-html-export
+	
 	distDir: '.' + (process.env.ENV || 'next'),
 	
 	// ref: https://nextjs.org/docs/api-reference/next/image#remote-patterns

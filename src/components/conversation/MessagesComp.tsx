@@ -4,7 +4,6 @@ import { MessageComp } from '@/components/conversation/MessageComp'
 import { Textarea } from '@/components/ui/textarea'
 import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { ID, MessageStatusType } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
@@ -254,13 +253,13 @@ export const MessagesComp = <T extends PlatformType>(
 				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
 			</div>
 			
-			<ScrollArea className={'w-full grow overflow-hidden flex flex-col'}>
+			<div className={'w-full grow overflow-auto flex flex-col'}>
 				{/* messages */}
 				{messages.map((msg, index) => <MessageComp msg={msg} key={index}/>)}
 				
 				{/* for scroll */}
 				<div ref={refMessageEnd} className={'w-full'}/>
-			</ScrollArea>
+			</div>
 			
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
