@@ -185,37 +185,12 @@ export const MessagesComp = <T extends PlatformType>(
 		}
 		await pushMessage(msg)
 		
-		const _createConversation = async () => {
-			//// 1.
-			// const initCreateConversationModel = (user_id: ID): ICreateConversation<T> => ({
-			// 		user_id,
-			// 		platform_type,
-			// 		platform_params: platform_type === PlatformType.chatGPT ? {
-			// 			model: ChatgptModelType.gpt35,
-			// 			selected: [],
-			// 		} : {}
-			// 	} as ICreateConversation<T>)
-			// const conversationModel: ICreateConversation<T> = initCreateConversationModel(user_id)
-			
-			//// 2.
-			const createConversationModel: ICreateConversation<T> = { user_id: user_id!, platform_type, platform_params: conversationParams }
-			
-			//// 3.
-			//  failed: Type 'PlatformType.dalle' is not assignable to type 'PlatformType.chatGPT'.
-			// let createConversationModel: ICreateConversation<PlatformType.chatGPT> = {
-			// 	user_id,
-			// 	platform_type: PlatformType.chatGPT,
-			// 	platform_params: {
-			// 		model: ChatgptModelType.gpt35,
-			// 		selected: [],
-			// 	},
-			// } as unknown as ICreateConversation<T>
-			
-			return await createConversation(createConversationModel).unwrap()
-		}
-		
 		if (!conversation_id) {
-			const newConversationID = await _createConversation()
+			
+			const createConversationModel: ICreateConversation<T> =
+				{ user_id, platform_type, platform_params: conversationParams }
+			const newConversationID = await createConversation(createConversationModel).unwrap()
+			
 			setConversationId(newConversationID)
 			msg.conversation_id = newConversationID
 		}
