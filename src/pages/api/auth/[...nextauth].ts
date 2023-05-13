@@ -5,13 +5,13 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from '@/lib/mongodb'
 
 import { createTransport } from 'nodemailer'
-import { generateVerificationToken } from '@/lib/utils'
-import { AUTH_DB_NAME, EMAIL_FROM, EMAIL_SERVER } from '@/lib/env'
+import { DATABASE_AUTH_DB_NAME, EMAIL_FROM, EMAIL_SERVER } from '@/lib/env'
 import { setTokenCentre } from '@/pages/api/auth/general'
+import { generateVerificationToken } from '@/lib/auth'
 
 
 export const authOptions: NextAuthOptions = {
-	adapter: MongoDBAdapter(clientPromise, { databaseName: AUTH_DB_NAME }),
+	adapter: MongoDBAdapter(clientPromise, { databaseName: DATABASE_AUTH_DB_NAME }),
 	
 	providers: [
 		EmailProvider({

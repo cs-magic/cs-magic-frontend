@@ -28,5 +28,3 @@ export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): stri
 }
 
 
-export const generateVerificationToken = async (): Promise<string> =>
-	Array.from(Array(4)).map(() => Math.floor(Math.random() * 10)).join('')
