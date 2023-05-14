@@ -8,6 +8,7 @@ import { handleMessage } from '@/pages/api/wechaty/depends/handleMessage'
 import { IBridge } from '@/ds/general'
 import { promises } from 'fs'
 import { log } from '@/lib/log'
+import { postLogin } from '@/pages/api/wechaty/depends/post-login'
 
 /****************************************
  * 去掉注释，可以完全打开调试日志
@@ -47,6 +48,7 @@ export const initBot = async (wxid: string, puppetType: PuppetType): Promise<IBr
 			await promises.writeFile(`${userDir}/${wxid}.rooms.json`, JSON.stringify((await bot.Room.findAll()).map((item) => item.payload), null, 2))
 			await promises.writeFile(`${userDir}/${wxid}.members.json`, JSON.stringify((await bot.Contact.findAll()).map((item) => item.payload), null, 2))
 			
+			await postLogin(bot)
 			return resolve({ success: false, content: 'existed' })
 		})
 		

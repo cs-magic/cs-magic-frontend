@@ -1,4 +1,4 @@
-import { Wechaty } from 'wechaty'
+import { Room, Wechaty } from 'wechaty'
 
 export const csmAdmin = async (bot: Wechaty) => {
 	const CSM_room_marketing = await bot.Room.find({ topic: /CS魔法社.*运营/ })
@@ -8,3 +8,6 @@ export const csmAdmin = async (bot: Wechaty) => {
 	console.log({ CSM_room_marketing, CSM_admin_marketing_susan, CSM_admin_marketing_clotho, CSM_admin_marketing_yyq })
 	
 }
+
+export const getCsmTestRoom = async (bot: Wechaty): Promise<Room> =>
+	(await bot.Room.find({ topic: /CS魔法社.*内测/ }))!

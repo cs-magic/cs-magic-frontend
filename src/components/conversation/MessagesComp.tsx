@@ -100,7 +100,6 @@ export const MessagesComp = <T extends PlatformType>(
 		setConversationId(cid)
 		if (!cid) setMessages([])
 	}, [cid])
-	
 	/**
 	 * update messages upon inited messages changed
 	 *
@@ -242,12 +241,6 @@ export const MessagesComp = <T extends PlatformType>(
 			<div className={clsx(c, 'w-full relative ')}>
 				<Textarea
 					className={'mt-2 mb-10 md:mb-2 w-full shadow-sm resize-none'}
-					onCompositionStart={(event) => {
-						console.log({ compositionStart: event })
-					}}
-					onCompositionEnd={(event) => {
-						console.log({ compositionEnd: event })
-					}}
 					onKeyDown={(event) => {
 						if (event.key === 'Enter') {
 							if (

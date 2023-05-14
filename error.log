@@ -1,6 +1,0 @@
-{"level":"error","message":"on error: AssertionError: 400 != 400","service":"user-service"}
-2023-04-30T10:39:10.012Z [undefined] error: on error: AssertionError: 400 != 400
-2023-04-30T10:39:47.705Z [undefined] error: on error: AssertionError: 400 != 400
-2023-04-30T10:40:45.595Z [undefined] error: on error: AssertionError: 400 != 400
-2023-04-30T13:15:55.120Z [undefined] error: on error: AxiosError: Request failed with status code 502
-2023-04-30T13:16:51.210Z [undefined] error: on error: AxiosError: Request failed with status code 502
