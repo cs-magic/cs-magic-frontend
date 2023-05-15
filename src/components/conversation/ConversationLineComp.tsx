@@ -5,7 +5,7 @@ import { useToast } from '@/hooks/use-toast'
 import { clsx } from 'clsx'
 import { IconMessageCircle, IconPencil, IconSquareRoundedX } from '@tabler/icons-react'
 import { Input } from '@/components/ui/input'
-import { getChatUrl } from '@/lib/utils'
+import { getChatLink } from '@/lib/utils'
 import Link from 'next/link'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
@@ -78,7 +78,7 @@ export const ConversationLineComp = <T extends PlatformType>({ conversation, isH
 								toast({ title: '已删除一个会话' })
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (isHighlight)
-									router.push(getChatUrl({ platform_type }))
+									router.push(getChatLink({ platform_type }))
 							}}/>
 					</div>
 				)
@@ -88,6 +88,6 @@ export const ConversationLineComp = <T extends PlatformType>({ conversation, isH
 	)
 	
 	return isEditing ? view : (
-		<Link href={getChatUrl({ id, platform_type })}>{view}</Link>
+		<Link href={getChatLink({ id, platform_type })}>{view}</Link>
 	)
 }

@@ -4,7 +4,7 @@ import { ID } from '@/ds/general'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
-import { getChatUrl } from '@/lib/utils'
+import { getChatLink } from '@/lib/utils'
 import { PlatformType } from '@/ds/openai/general'
 import { IConversation } from '@/ds/openai/conversation'
 import Link from 'next/link'
@@ -35,7 +35,7 @@ export const ConversationsComp = <T extends PlatformType>(
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
 					<>
-						<Link href={getChatUrl({ platform_type: platform_type })}>
+						<Link href={getChatLink({ platform_type: platform_type })}>
 							<Button className={'w-full rounded-none'} size={'sm'} variant={'outline'}>
 								<IconPlus size={16}/>
 								<p>New Chat</p>

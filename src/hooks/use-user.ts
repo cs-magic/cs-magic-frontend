@@ -40,3 +40,9 @@ export const useUserId = (): ID | null => {
 	const user = useUser()
 	return user ? user.id : null
 }
+
+
+export const useAdmin = (): boolean => {
+	const user = useUser()
+	return user?.basic.role === 'admin'
+}

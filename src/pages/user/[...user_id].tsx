@@ -117,7 +117,7 @@ export const UserPage = () => {
 				
 				<Card>
 					<CardHeader>
-						<CardTitle>OpenAI</CardTitle>
+						<CardTitle>Bills</CardTitle>
 					</CardHeader>
 					
 					<CardContent className={'flex flex-col gap-2'}>

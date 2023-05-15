@@ -22,9 +22,10 @@ export const getTitle = (s?: string, full?: boolean, u?: II18nSchema): string =>
 	else return prefix
 }
 
-export const getChatUrl = (data: { id?: ID, platform_type: PlatformType }): string => {
+export const getChatLink = (data: { id?: ID, platform_type: PlatformType }): string => {
 	const baseUrl = `/apps/chat/${data.platform_type}/`
 	return data.id ? baseUrl + data.id : baseUrl
 }
 
 
+export const getUserLink = (userId: string) => `/user/${userId}`
