@@ -31,17 +31,20 @@ export const RootLayout = ({ children, title }: {
 			</Head>
 			
 			<main>
-				<div className={'max-w-[1400px] h-screen  m-auto flex flex-col'}>
-					{notifications.top && (
-						<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
-							{notifications.top}
+				<div className={'max-w-[1400px] min-h-screen m-auto flex flex-col'}>
+					
+					<div className={'w-full grow max-h-screen flex flex-col overflow-auto'}>
+						{notifications.top && (
+							<div className={'bg-red-800 text-white p-4 flex justify-center items-center'}>
+								{notifications.top}
+							</div>
+						)}
+						
+						<NavBarResponsive/>
+						
+						<div className={'w-full grow overflow-auto flex flex-col border border-base-300 p-2'}>
+							{children}
 						</div>
-					)}
-					
-					<NavBarResponsive/>
-					
-					<div className={'w-full grow overflow-auto flex flex-col border border-base-300 p-2'}>
-						{children}
 					</div>
 					
 					<div className={'hidden md:block'}>

@@ -124,7 +124,10 @@ export const MessagesComp = <T extends PlatformType>(
 	}, [dalleError])
 	
 	// auto scroll
-	useEffect(() => refMessageEnd.current?.scrollIntoView({ behavior: 'smooth' }), [messages.length && messages[messages.length - 1].content.length])
+	useEffect(() => refMessageEnd.current?.scrollIntoView({
+		behavior: 'smooth',
+		block: 'nearest', // inner specific div
+	}), [messages.length && messages[messages.length - 1].content.length])
 	
 	const fetchSSE = (msg: IMessage<T>) => {
 		class MyError extends Error {}
