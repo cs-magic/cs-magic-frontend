@@ -34,6 +34,7 @@ main {
     height: calc(var(--vh, 1vh) * 100);
 }
 
+
 @layer base {
     :root {
         --background: 0 0% 100%;

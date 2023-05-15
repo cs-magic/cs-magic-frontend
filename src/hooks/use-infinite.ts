@@ -5,17 +5,22 @@ import { IApiListRes } from '@/ds/api'
 import { IUser } from '@/ds/user'
 import { useLazyGetUserQuery, useLazyListUserIdsQuery } from '@/states/api/userApi'
 
-export const fetchSize = 10
+export const fetchSize = 20
 
 
 export const useInfinite = ({ sorting }: { sorting: SortingState }) => {
+	console.log('useInfinite', { sorting })
+	
 	const [listUsers] = useLazyListUserIdsQuery()
 	const [getUser] = useLazyGetUserQuery()
 	
 	//react-query has an useInfiniteQuery hook just for this situation!
 	const { data, fetchNextPage, isFetching, isLoading } =
 		useInfiniteQuery<IApiListRes<IUser>>(
-			['users', sorting], //adding sorting state as key causes table to reset and fetch from new beginning upon sort
+			[
+				'users',
+				sorting, //adding sorting state as key causes table to reset and fetch from new beginning upon sort
+			],
 			async ({ pageParam = 0 }) => {
 				const start = pageParam * fetchSize
 				const apiUserIds = await listUsers({ skip: start, limit: fetchSize }).unwrap() //pretend api call

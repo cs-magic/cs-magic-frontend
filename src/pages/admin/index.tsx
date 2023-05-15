@@ -17,7 +17,6 @@ export const AdminPage = () => {
 	
 	const ref = useRef<HTMLDivElement>(null)
 	
-	
 	const [sorting, setSorting] = useState<SortingState>([])
 	
 	const { flatData, total, isLoading, isFetching, fetched, fetchNextPage } = useInfinite({ sorting })
@@ -32,6 +31,7 @@ export const AdminPage = () => {
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		debugTable: true,
 	})
 	
 	const { rows } = table.getRowModel()
@@ -102,26 +102,30 @@ export const AdminPage = () => {
 			>
 				
 				<table className={'w-full border border-collapse border-spacing-2'}>
-					<thead>
+					<thead className={'sticky top-0'}>
 					{table.getHeaderGroups().map(headerGroup => (
 						<tr key={headerGroup.id}>
 							{headerGroup.headers.map(header => (
-								<th
-									key={header.id}
-									colSpan={header.colSpan}
-									className={header.column.getCanSort()
-										? 'cursor-pointer select-none'
-										: ''}
-									onClick={header.column.getToggleSortingHandler()}
-								>
-									{header.isPlaceholder
-										? null
-										: flexRender(header.column.columnDef.header, header.getContext())
-									}
-									{{
-										asc: ' 🔼',
-										desc: ' 🔽',
-									}[header.column.getIsSorted() as string] ?? null}
+								<th key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
+									{header.isPlaceholder ? null : (
+										<div
+											{...{
+												className: header.column.getCanSort()
+													? 'cursor-pointer select-none'
+													: '',
+												onClick: header.column.getToggleSortingHandler(),
+											}}
+										>
+											{flexRender(
+												header.column.columnDef.header,
+												header.getContext(),
+											)}
+											{{
+												asc: ' 🔼',
+												desc: ' 🔽',
+											}[header.column.getIsSorted() as string] ?? null}
+										</div>
+									)}
 								</th>
 							))}
 						</tr>
