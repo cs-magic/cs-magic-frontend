@@ -5,3 +5,8 @@ export interface IApiListRes<T extends any> {
 		// finished: boolean
 	}
 }
+
+export interface IQuery {
+	skip: number
+	limit: number
+}

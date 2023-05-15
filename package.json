@@ -63,7 +63,6 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.6",
     "react-redux": "^8.0.5",
-    "react-table": "^7.8.0",
     "react-type-animation": "^3.0.1",
     "react-typing-effect": "^2.0.5",
     "react-typist": "^2.0.5",

@@ -1,4 +1,3 @@
-import { createColumnHelper } from '@tanstack/react-table'
 import { IUser, UserPlanningType, UserRole } from '@/ds/user'
 import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/states/api/userApi'
 import { UserAvatarView } from '@/components/general/UserAvatarView'
@@ -6,9 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from '@/hooks/use-toast'
 import _ from 'lodash'
 import { Input } from '@/components/ui/input'
-import React from 'react'
+import React, { useMemo } from 'react'
 import Link from 'next/link'
 import { getUserLink } from '@/lib/utils'
+import { createColumnHelper } from '@tanstack/table-core'
 
 export const useUserColumns = () => {
 	const columnHelper = createColumnHelper<IUser>()
@@ -119,5 +119,5 @@ export const useUserColumns = () => {
 		// }),
 	]
 	
-	return columns
+	return useMemo(() => columns, [])
 }
