@@ -15,3 +15,5 @@ export type IBridge = { success: boolean, content: string, bot?: WechatyInterfac
 export type MessageStatusType = 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
 
 
+export const TAG_USER = 'user' as const
+export const TAG_ALL = '*' as const

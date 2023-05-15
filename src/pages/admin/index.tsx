@@ -1,7 +1,7 @@
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { useAdmin } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
-import { useListAllUserQuery } from '@/states/api/userApi'
+import { useListUsersQuery } from '@/states/api/userApi'
 import { useU } from '@/hooks/use-u'
 import React from 'react'
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
@@ -15,11 +15,11 @@ export const AdminPage = () => {
 	const u = useU()
 	const isAdmin = useAdmin()
 	
-	const { data = [], isLoading } = useListAllUserQuery(undefined, { skip: !isAdmin })
+	const { data: listUsersRes, isLoading } = useListUsersQuery(undefined, { skip: !isAdmin })
 	const columns = useUserColumns()
 	
 	const table = useReactTable({
-		data,
+		data: listUsersRes?.data || [],
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 	})
@@ -79,6 +79,10 @@ export const AdminPage = () => {
 					</table>
 				)
 			}
+			
+			<div>
+				total: {listUsersRes?.meta.total}
+			</div>
 		</RootLayout>
 	)
 }

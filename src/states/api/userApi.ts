@@ -1,10 +1,7 @@
 import { IUser, IUserBasic, IUserOpenAI } from '@/ds/user'
-import { ID } from '@/ds/general'
+import { ID, TAG_ALL, TAG_USER } from '@/ds/general'
 import { baseApi } from '@/states/api/baseApi'
-
-export const TAG_USER = 'user' as const
-
-export const ALL = '*' as const
+import { IApiListRes } from '@/ds/api'
 
 export const userApi = baseApi
 	.enhanceEndpoints({
@@ -13,12 +10,12 @@ export const userApi = baseApi
 	.injectEndpoints({
 		endpoints: (build) => ({
 			
-			listAllUser: build.query<IUser[], void>({
+			listUsers: build.query<IApiListRes<IUser>, void>({
 				query: () => `/user`,
 				// 直接用 tag 应该不行，要生成独立的，否则 mutate 后 query 会被 reject：`Aborted due to condition callback returning false.`
 				providesTags: (result) => [
-					{ type: TAG_USER, id: ALL },
-					...(result || []).map((user) => ({ type: TAG_USER, id: user.id })),
+					{ type: TAG_USER, id: TAG_ALL },
+					...(result?.data || []).map((user) => ({ type: TAG_USER, id: user.id })),
 				],
 			}),
 			
@@ -57,7 +54,7 @@ export const userApi = baseApi
 
 
 export const {
-	useListAllUserQuery,
+	useListUsersQuery,
 	useGetUserQuery,
 	useLazyGetUserQuery,
 	useUpdateBasicUserMutation,
