@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { SortingState } from '@tanstack/react-table'
 import { IApiListRes } from '@/ds/api'
 import { IUser } from '@/ds/user'
-import { useLazyGetUserQuery, useLazyListUserIdsQuery } from '@/states/api/userApi'
+import { useLazyGetUserQuery, useLazyListUserIdsQuery, useLazyListUsersQuery } from '@/states/api/userApi'
 
 export const fetchSize = 20
 
@@ -11,7 +11,8 @@ export const fetchSize = 20
 export const useInfinite = ({ sorting }: { sorting: SortingState }) => {
 	console.log('useInfinite', { sorting })
 	
-	const [listUsers] = useLazyListUserIdsQuery()
+	const [listUserIds] = useLazyListUserIdsQuery()
+	const [listUsers] = useLazyListUsersQuery()
 	const [getUser] = useLazyGetUserQuery()
 	
 	//react-query has an useInfiniteQuery hook just for this situation!
@@ -23,11 +24,13 @@ export const useInfinite = ({ sorting }: { sorting: SortingState }) => {
 			],
 			async ({ pageParam = 0 }) => {
 				const start = pageParam * fetchSize
-				const apiUserIds = await listUsers({ skip: start, limit: fetchSize }).unwrap() //pretend api call
-				return {
-					data: await Promise.all(apiUserIds.data.map(async (id) => await getUser(id).unwrap())),
-					meta: apiUserIds.meta,
-				}
+				
+				const { data, meta } = await listUsers({ skip: start, limit: fetchSize }).unwrap() //pretend api call
+				
+				// const { data: userIds, meta } = await listUsers({ skip: start, limit: fetchSize }).unwrap() //pretend api call
+				// const data = await Promise.all(userIds.map(async (id) => await getUser(id).unwrap()))
+				
+				return { data, meta }
 			},
 			{
 				getNextPageParam: (_lastGroup, groups) => groups.length,

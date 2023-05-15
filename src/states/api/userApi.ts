@@ -23,6 +23,20 @@ export const userApi = baseApi
 				],
 			}),
 			
+			listUsers: build.query<IApiListRes<IUser>, IQuery>({
+				query: (arg) => ({
+					url: `/user/all`,
+					params: arg,
+				}),
+				// 直接用 tag 应该不行，要生成独立的，否则 mutate 后 query 会被 reject：`Aborted due to condition callback returning false.`
+				providesTags: (result) => [
+					{ type: TAG_USER, id: TAG_ALL },
+					// 不需要更新每个user
+					// ...(result?.data || []).map((user) => ({ type: TAG_USER, id: user })),
+				],
+			}),
+			
+			
 			getUser: build.query<IUser, ID>({
 				query: (arg) => `/user/${arg}`,
 				providesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg }],
@@ -60,6 +74,8 @@ export const userApi = baseApi
 export const {
 	useListUserIdsQuery,
 	useLazyListUserIdsQuery,
+	useListUsersQuery,
+	useLazyListUsersQuery,
 	useGetUserQuery,
 	useLazyGetUserQuery,
 	useUpdateBasicUserMutation,

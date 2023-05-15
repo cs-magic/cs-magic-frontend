@@ -91,7 +91,7 @@ export const AdminPage = () => {
 	}, [fetchMoreOnBottomReached])
 	
 	return (
-		<RootLayout title={u.routers.admin.console}>
+		<RootLayout title={u.routers.admin.console} className={'p-0'}>
 			<div
 				className={clsx(
 					'max-h-[900px]', // important
@@ -102,7 +102,7 @@ export const AdminPage = () => {
 			>
 				
 				<table className={'w-full border border-collapse border-spacing-2'}>
-					<thead className={'sticky top-0'}>
+					<thead className={'sticky top-0 z-10 bg-white'}>
 					{table.getHeaderGroups().map(headerGroup => (
 						<tr key={headerGroup.id}>
 							{headerGroup.headers.map(header => (

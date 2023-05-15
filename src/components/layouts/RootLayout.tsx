@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ReactNode, useEffect } from 'react'
+import { HTMLAttributes, ReactNode, useEffect } from 'react'
 import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
@@ -7,10 +7,10 @@ import { useAppSelector } from '@/hooks/use-redux'
 import { FooterView } from '@/components/layouts/footer/FooterView'
 import { NavBarResponsive } from '@/components/layouts/navbar/NavBar'
 
-export const RootLayout = ({ children, title }: {
+export const RootLayout = ({ children, title, ...props }: {
 	children: ReactNode
 	title?: string
-}) => {
+} & HTMLAttributes<HTMLDivElement>) => {
 	const notifications = useAppSelector(selectNotifications)
 	
 	useEffect(() => {
@@ -42,7 +42,7 @@ export const RootLayout = ({ children, title }: {
 						
 						<NavBarResponsive/>
 						
-						<div className={'w-full grow overflow-auto flex flex-col border border-base-300 p-2'}>
+						<div className={'w-full grow overflow-auto flex flex-col border border-base-300 p-2'} {...props}>
 							{children}
 						</div>
 					</div>
