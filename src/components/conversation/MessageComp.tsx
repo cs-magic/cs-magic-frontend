@@ -41,30 +41,22 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 			// : 'bg-red-500',
 		)}>
 			{/*// 这里直接copy的chatgpt居中的css*/}
-			<div className="py-4 px-2 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto overflow-auto">
+			<div className="py-4 pl-2 pr-12 md:pr-0 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto overflow-auto">
 				
-				<div className={'w-16 shrink-0 flex justify-center'}>
-					
-					
+				<div className={'w-10 shrink-0 '}>
 					<Avatar>
 						<AvatarImage src={user?.basic.avatar ?? undefined}/>
 						<AvatarFallback>{msg.sender === 'openai' ? <IconBrandOpenai/> : user?.id.slice(0, 2) ?? <IconUser/>}</AvatarFallback>
 					</Avatar>
-					{/*{*/}
-					{/*	*/}
-					{/*	msg.platform_params.role === MessageRoleType.user*/}
-					{/*		? <UserAvatarView user={user} className={'shrink-0'}/>*/}
-					{/*		: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8'}/>*/}
-					{/*}*/}
 				</div>
 				
 				{
 					msg.content === '' ? (
 						<Skeleton className={clsx(
-							msg.type === MessageType.text ? 'w-full h-24' : 'w-[256px] h-[256px]',
+							msg.type === MessageType.text ? 'grow h-24' : 'w-[256px] h-[256px]',
 						)}/>
 					) : msg.type === MessageType.text ? (
-						<article className={'prose dark:prose-invert break-words overflow-auto text-justify'}>
+						<article className={'grow prose dark:prose-invert break-words overflow-auto text-justify'}>
 							{
 								msg.status === 'ERROR_TOKEN_DRAIN'
 									? <ChargeMessage content={msg.content}/>
