@@ -1,15 +1,16 @@
 import { clsx } from 'clsx'
-import { IconBrandOpenai } from '@tabler/icons-react'
-import { UserAvatarView } from '@/components/general/UserAvatarView'
-import { useUser } from '@/hooks/use-user'
+import { IconBrandOpenai, IconUser } from '@tabler/icons-react'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-import { IMessage, MessageRoleType, MessageType } from '@/ds/openai/message'
+import { IMessage, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { Skeleton } from '../ui/skeleton'
 import { Popover, PopoverContent } from '../ui/popover'
 import { PopoverTrigger } from '@radix-ui/react-popover'
 import remarkUnwrapImages from 'remark-unwrap-images'
+import { useGetUserQuery } from '@/states/api/userApi'
+import { skipToken } from '@reduxjs/toolkit/query'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export const ChargeMessage = ({ content, classNames }: { content: string, classNames?: string }) => {
 	const [_, pre, wechat, suf] = content.match(/(.*)\[(.*)\](.*)/)!
@@ -28,7 +29,7 @@ export const ChargeMessage = ({ content, classNames }: { content: string, classN
 export const MessageComp = <T extends PlatformType>({ msg }: {
 	msg: IMessage<T>
 }) => {
-	const user = useUser()!
+	const { currentData: user } = useGetUserQuery(msg.sender !== 'openai' ? msg.sender : skipToken)
 	
 	return (
 		<div className={clsx(
@@ -43,11 +44,18 @@ export const MessageComp = <T extends PlatformType>({ msg }: {
 			<div className="py-4 px-2 flex gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl m-auto overflow-auto">
 				
 				<div className={'w-16 shrink-0 flex justify-center'}>
-					{
-						msg.platform_params.role === MessageRoleType.user
-							? <UserAvatarView user={user} className={'shrink-0'}/>
-							: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8'}/>
-					}
+					
+					
+					<Avatar>
+						<AvatarImage src={user?.basic.avatar ?? undefined}/>
+						<AvatarFallback>{msg.sender === 'openai' ? <IconBrandOpenai/> : user?.id.slice(0, 2) ?? <IconUser/>}</AvatarFallback>
+					</Avatar>
+					{/*{*/}
+					{/*	*/}
+					{/*	msg.platform_params.role === MessageRoleType.user*/}
+					{/*		? <UserAvatarView user={user} className={'shrink-0'}/>*/}
+					{/*		: <IconBrandOpenai size={24} className={'shrink-0 w-8 h-8'}/>*/}
+					{/*}*/}
 				</div>
 				
 				{

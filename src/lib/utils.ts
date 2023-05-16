@@ -3,6 +3,8 @@ import { twMerge } from 'tailwind-merge'
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
 import { II18nSchema } from '@/config/i18n/schema'
+import { DalleDimensionType, IMessageParams, MessageRoleType } from '@/ds/openai/message'
+import { ChatgptModelType, IConversationParams } from '@/ds/openai/conversation'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -29,3 +31,23 @@ export const getChatLink = (data: { id?: ID, platform_type: PlatformType }): str
 
 
 export const getUserLink = (userId: string) => `/user/${userId}`
+
+export const initConversationParams = <T extends PlatformType>(platform_type: T): IConversationParams<T> => (
+	platform_type === PlatformType.chatGPT
+		? {
+			model: ChatgptModelType.gpt35,
+			selected: [],
+		} as IConversationParams<PlatformType.chatGPT>
+		: {} as IConversationParams<PlatformType.dalle>
+) as IConversationParams<T>
+
+export const initMessageParams = <T extends PlatformType>(platform_type: T): IMessageParams<T> => (
+	platform_type === PlatformType.chatGPT
+		? {
+			role: MessageRoleType.user,
+		} as IMessageParams<PlatformType.chatGPT>
+		: {
+			role: MessageRoleType.user,
+			dimension: DalleDimensionType.sm,
+		} as IMessageParams<PlatformType.dalle>
+) as IMessageParams<T>

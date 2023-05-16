@@ -9,7 +9,7 @@ export const fetchSize = 20
 
 
 export const useInfinite = ({ sorting }: { sorting: SortingState }) => {
-	console.log('useInfinite', { sorting })
+	// console.log('useInfinite', { sorting })
 	
 	const [listUserIds] = useLazyListUserIdsQuery()
 	const [listUsers] = useLazyListUsersQuery()

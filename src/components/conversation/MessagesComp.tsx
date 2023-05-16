@@ -7,11 +7,11 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ID, MessageStatusType } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
-import { DalleDimensionType, IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
+import { IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
-import { ChatgptModelType, IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
+import { IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
 import _ from 'lodash'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
@@ -19,28 +19,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
-
-const c = 'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all'
-
-const initConversationParams = <T extends PlatformType>(platform_type: T): IConversationParams<T> => (
-	platform_type === PlatformType.chatGPT
-		? {
-			model: ChatgptModelType.gpt35,
-			selected: [],
-		} as IConversationParams<PlatformType.chatGPT>
-		: {} as IConversationParams<PlatformType.dalle>
-) as IConversationParams<T>
-
-const initMessageParams = <T extends PlatformType>(platform_type: T): IMessageParams<T> => (
-	platform_type === PlatformType.chatGPT
-		? {
-			role: MessageRoleType.user,
-		} as IMessageParams<PlatformType.chatGPT>
-		: {
-			role: MessageRoleType.user,
-			dimension: DalleDimensionType.sm,
-		} as IMessageParams<PlatformType.dalle>
-) as IMessageParams<T>
+import { initConversationParams, initMessageParams } from '@/lib/utils'
 
 
 export const MessagesComp = <T extends PlatformType>(
@@ -183,7 +162,7 @@ export const MessagesComp = <T extends PlatformType>(
 			type: MessageType.text,
 			platform_type,
 			platform_params: messageParams,
-			sender: user_id || 'Unknown',
+			sender: user_id,
 		}
 		await pushMessage(msg)
 		
@@ -199,7 +178,7 @@ export const MessagesComp = <T extends PlatformType>(
 		
 		await pushMessage({
 			...msg,
-			sender: 'system',
+			sender: 'openai',
 			platform_params: { ...msg.platform_params, role: MessageRoleType.assistant },
 			type: platform_type === PlatformType.dalle ? MessageType.image_url : MessageType.text, // todo: skeleton for image, but error with text
 			content: '',
@@ -241,7 +220,9 @@ export const MessagesComp = <T extends PlatformType>(
 			
 			{/* for stretch, since flex-end cannot combine with overflow-auto */}
 			<div className={'hidden md:block grow'}/>
-			<div className={clsx(c, 'w-full relative ')}>
+			<div className={clsx(
+				'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all',
+				'w-full relative ')}>
 				<Textarea
 					className={'mt-2 mb-10 md:mb-2 w-full shadow-sm resize-none'}
 					onKeyDown={(event) => {
