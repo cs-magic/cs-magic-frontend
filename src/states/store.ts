@@ -4,6 +4,7 @@ import notificationSlice from '@/states/features/notificationSlice'
 import { baseApi } from '@/states/api/baseApi'
 import { createLogger } from 'redux-logger'
 import { i18nSlice } from '@/states/features/i18nSlice'
+import { backApi } from './api/backApi'
 
 
 const logger = createLogger({
@@ -21,15 +22,13 @@ const store = configureStore({
 		i18n: i18nSlice.reducer,
 		notification: notificationSlice.reducer,
 		[baseApi.reducerPath]: baseApi.reducer,
-		// [remoteApi.reducerPath]: remoteApi.reducer,
-		// [backApi.reducerPath]: backApi.reducer,
+		[backApi.reducerPath]: backApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 		.concat([
 			baseApi.middleware,
-			// remoteApi.middleware,
-			// backApi.middleware,
-			// logger,
+			backApi.middleware,
+			logger,
 		]),
 })
 
