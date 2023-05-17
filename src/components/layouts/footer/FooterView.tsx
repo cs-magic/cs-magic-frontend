@@ -16,19 +16,18 @@ export const FooterView = () => {
 			<footer className="flex flex-wrap justify-around p-4 text-sm flex-col md:flex-row gap-4">
 				
 				<div className={'flex flex-col gap-2'}>
-					<div className={'text-slate-500 font-bold'}>{u.display.navs.user}</div>
-					{Object.entries(routers.user).map(([key, href]) => (
-						<Link href={href} key={href}>{_.get(u, `routers.user.${key}`)}</Link>
+					<div className={'text-slate-500 font-bold'}>{u.display.navs.services}</div>
+					{Object.values(u.apps).map((item) => (
+						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
 				</div>
 				
 				<Separator className={'md:hidden'}/>
 				
-				
 				<div className={'flex flex-col gap-2'}>
-					<div className={'text-slate-500 font-bold'}>{u.display.navs.services}</div>
-					{Object.values(u.apps).map((item) => (
-						<Link href={item.href} key={item.name}>{item.name}</Link>
+					<div className={'text-slate-500 font-bold'}>{u.display.navs.user}</div>
+					{Object.entries(routers.user).map(([key, href]) => (
+						<Link href={href} key={href}>{_.get(u, `routers.user.${key}`)}</Link>
 					))}
 				</div>
 				

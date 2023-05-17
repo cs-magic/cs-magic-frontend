@@ -1,5 +1,7 @@
 import { ID, MessageStatusType } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
+import { IChatgptMessageParams } from '@/ds/openai/chatgpt'
+import { IDalleMessageParams } from '@/ds/openai/dalle'
 
 export enum MessageType {
 	text = 'text',
@@ -7,34 +9,9 @@ export enum MessageType {
 	
 }
 
-export enum MessageRoleType {
-	system = 'system',
-	user = 'user',
-	assistant = 'assistant'
-}
-
-export type ChatGPTMessageRoleTYpe = MessageRoleType
-
-export enum DalleDimensionType {
-	sm = '256x256',
-	md = '512x512',
-	lg = '1024x1024'
-}
-
-export interface IChatGPTMessageParams {
-	role: MessageRoleType
-}
-
-/**
- * todo: 目前Dalle的消息可以复用ChatGPT的数据结构（role）
- */
-export interface IDalleMessageParams extends IChatGPTMessageParams {
-	dimension: DalleDimensionType
-}
-
 export type IMessageParams<T extends PlatformType> =
 	T extends PlatformType.chatGPT
-		? IChatGPTMessageParams
+		? IChatgptMessageParams
 		: IDalleMessageParams
 
 export interface IMessage<T extends PlatformType> {

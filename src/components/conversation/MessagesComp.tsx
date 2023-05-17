@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ID, MessageStatusType } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
-import { IMessage, IMessageParams, MessageRoleType, MessageType } from '@/ds/openai/message'
+import { IMessage, IMessageParams, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
@@ -20,6 +20,7 @@ import { BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
 import { initConversationParams, initMessageParams } from '@/lib/utils'
+import { ChatgptRoleType } from '@/ds/openai/chatgpt'
 
 
 export const MessagesComp = <T extends PlatformType>(
@@ -179,7 +180,7 @@ export const MessagesComp = <T extends PlatformType>(
 		await pushMessage({
 			...msg,
 			sender: 'openai',
-			platform_params: { ...msg.platform_params, role: MessageRoleType.assistant },
+			platform_params: { ...msg.platform_params, role: ChatgptRoleType.assistant },
 			type: platform_type === PlatformType.dalle ? MessageType.image_url : MessageType.text, // todo: skeleton for image, but error with text
 			content: '',
 		})
