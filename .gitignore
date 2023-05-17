@@ -1,3 +1,7 @@
+.dev
+.env.production
+.env.development
+
 *.log
 
 **.bak
