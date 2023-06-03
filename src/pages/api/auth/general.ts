@@ -1,11 +1,12 @@
-const tokenCentre: Record<string, string> = {}
+const tokenCentre: Map<string, string> = new Map()
 
 export const setTokenCentre = (key: string, val: string) => {
-	tokenCentre[key] = val
-	console.log('token centre set, cur:', tokenCentre)
+	console.log(`setting token: {${key}: ${val}}`)
+	tokenCentre.set(key, val)
 }
 
 export const getTokenCenter = (key: string): string | undefined => {
-	console.log('current token centre: ', tokenCentre)
-	return tokenCentre[key]
+	const val = tokenCentre.get(key)
+	console.log(`got token: {${key}: ${val}}`)
+	return val
 }

@@ -5,10 +5,9 @@ export const baseApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: BACKEND_ENDPOINT,
 		credentials: 'include', // ref: https://github.com/reduxjs/redux-toolkit/issues/2095
+		
 	}),
 	reducerPath: 'baseApi',
-	
-	
 	// refetchOnMountOrArgChange: true, // ref: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior#encouraging-re-fetching-with-refetchonmountorargchange
 	
 	endpoints: () => ({}),
