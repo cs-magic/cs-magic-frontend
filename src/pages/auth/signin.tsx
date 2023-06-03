@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { signIn } from 'next-auth/react'
-import { TitleLineComp } from '@/components/general/TitleLineComp'
+import TitleLineComp from '@/components/general/TitleLineComp'
 import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
 import { useToast } from '@/hooks/use-toast'
@@ -82,6 +82,8 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 		}
 	}
 	
+	console.log({ step })
+	
 	return (
 		<AuthLayout title={u.routers.auth.signin}>
 			
@@ -89,7 +91,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 				
 				<LogoHomeView/>
 				
-				{step >= 5 && <TitleLineComp content={'Enter your email'} onTypingDone={() => step === 5 && setStep(step + 1)}/>}
+				{step >= 5 && <TitleLineComp content={<p>Enter your email</p>} onTypingDone={() => step === 5 && setStep(step + 1)}/>}
 				
 				{
 					step >= 6 && (
