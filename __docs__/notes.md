@@ -1,4 +1,13 @@
-# notes
+## typewriter-effect
+
+ref: https://github.com/topics/typewriter-effect
+
+### typeit
+
+- ref: https://github.com/alexmacarthur/typeit/tree/master
+- 缺点：
+    - react的封装没有提供 直接 hide cursor after completion 的功能
+    - 代码写的不够好，比如`typeit/src/types/CursorOptions`内有些类显示没有
 
 ## wechaty
 
