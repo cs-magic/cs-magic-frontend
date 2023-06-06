@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { signIn } from 'next-auth/react'
-import TitleLineComp from '@/components/general/TitleLineComp'
 import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
 import { useToast } from '@/hooks/use-toast'
@@ -12,6 +11,8 @@ import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 import axios from 'axios'
+import TypeIt from 'typeit-react'
+import { useWindupString } from 'windups'
 
 const getToken = async (email: string): Promise<string> =>
 	(await axios.get('/api/auth/token?email=' + email)).data.toString()
@@ -84,14 +85,35 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	console.log({ step })
 	
+	const Typer = ({ content, start }: { content: string, start: number }) => {
+		
+		if (step < start) return null
+		
+		return <TypeIt options={{
+			speed: 20,
+			afterComplete: (instance: any) => {
+				if (step !== start) return
+				setStep(step + 1)
+				const c = instance
+				console.log({ c })
+			},
+		}}>{content}</TypeIt>
+	}
+	
+	const [promptLineEmail] = useWindupString('Enter your email', {
+		onFinished: () => step === 5 && setStep(step + 1),
+		
+	})
+	
 	return (
 		<AuthLayout title={u.routers.auth.signin}>
 			
-			<div className={'flex flex-col gap-2'}>
+			<div className={'flex flex-col gap-2 text-[#02CEC7] font-bold'}>
 				
 				<LogoHomeView/>
 				
-				{step >= 5 && <TitleLineComp content={<p>Enter your email</p>} onTypingDone={() => step === 5 && setStep(step + 1)}/>}
+				{step >= 5 && promptLineEmail}
+				{/*<Typer content={'Enter your email'} start={5}/>*/}
 				
 				{
 					step >= 6 && (
@@ -109,9 +131,10 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 						/>
 					)
 				}
+				
 				{step == 6 && !loading && <Button variant={'outline'} onClick={onConfirmEmail}>Confirm Email</Button>}
 				
-				{step >= 7 && <TitleLineComp content={'Input your magic code'} onTypingDone={() => step == 7 && setStep(step + 1)}/>}
+				<Typer content={'Enter the activation code'} start={7}/>
 				
 				{step >= 8 && (
 					<Input
