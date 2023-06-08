@@ -1,3 +1,11 @@
+## 域名
+
+### forwarding
+
+forwarding 需要保证 `'X-Frame-Options'` 设置正确。
+
+![img.png](forward with masking.png)
+
 ## typewriter-effect
 
 ref: https://github.com/topics/typewriter-effect
