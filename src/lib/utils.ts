@@ -7,6 +7,7 @@ import { IMessageParams } from '@/ds/openai/message'
 import { IConversationParams } from '@/ds/openai/conversation'
 import { ChatgptModelType, ChatgptRoleType } from '@/ds/openai/chatgpt'
 import { DalleDimensionType } from '@/ds/openai/dalle'
+import axios from 'axios'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -53,3 +54,6 @@ export const initMessageParams = <T extends PlatformType>(platform_type: T): IMe
 			dimension: DalleDimensionType.sm,
 		} as IMessageParams<PlatformType.dalle>
 ) as IMessageParams<T>
+
+export const getToken = async (email: string): Promise<string> =>
+	(await axios.get('/api/auth/token?email=' + email)).data.toString()

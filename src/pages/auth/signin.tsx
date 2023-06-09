@@ -10,12 +10,8 @@ import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
-import axios from 'axios'
-import TypeIt from 'typeit-react'
-import { useWindupString } from 'windups'
-
-const getToken = async (email: string): Promise<string> =>
-	(await axios.get('/api/auth/token?email=' + email)).data.toString()
+import { TyperMemo } from '@/components/general/Typer'
+import { getToken } from '@/lib/utils'
 
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
@@ -30,7 +26,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	const u = useAppSelector(selectU)
 	
 	useEffect(() => {
-		getToken('').catch() // activate the router
+		getToken('').catch() // todo: avoid the step of activating the router
 	}, [])
 	
 	const onConfirmEmail = async () => {
@@ -85,26 +81,6 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	console.log({ step })
 	
-	const Typer = ({ content, start }: { content: string, start: number }) => {
-		
-		if (step < start) return null
-		
-		return <TypeIt options={{
-			speed: 20,
-			afterComplete: (instance: any) => {
-				if (step !== start) return
-				setStep(step + 1)
-				const c = instance
-				console.log({ c })
-			},
-		}}>{content}</TypeIt>
-	}
-	
-	const [promptLineEmail] = useWindupString('Enter your email', {
-		onFinished: () => step === 5 && setStep(step + 1),
-		
-	})
-	
 	return (
 		<AuthLayout title={u.routers.auth.signin}>
 			
@@ -112,8 +88,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 				
 				<LogoHomeView/>
 				
-				{step >= 5 && promptLineEmail}
-				{/*<Typer content={'Enter your email'} start={5}/>*/}
+				<TyperMemo content={'Enter your email'} start={step >= 5} onFinished={() => {setStep(step + 1)}}/>
 				
 				{
 					step >= 6 && (
@@ -134,7 +109,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 				
 				{step == 6 && !loading && <Button variant={'outline'} onClick={onConfirmEmail}>Confirm Email</Button>}
 				
-				<Typer content={'Enter the activation code'} start={7}/>
+				<TyperMemo content={'Enter your activation code'} start={step >= 7} onFinished={() => {setStep(step + 1)}}/>
 				
 				{step >= 8 && (
 					<Input

@@ -1,3 +1,11 @@
+## react relative
+
+### react memo / useMemo
+
+- memo should be used outside functional component:
+
+ref: https://stackoverflow.com/a/65986590/9422455
+
 ## 域名
 
 ### forwarding
@@ -12,10 +20,15 @@ ref: https://github.com/topics/typewriter-effect
 
 ### typeit
 
-- ref: https://github.com/alexmacarthur/typeit/tree/master
+- repo: https://github.com/alexmacarthur/typeit/tree/master
 - 缺点：
     - react的封装没有提供 直接 hide cursor after completion 的功能
     - 代码写的不够好，比如`typeit/src/types/CursorOptions`内有些类显示没有
+
+### windups
+
+- repo: https://github.com/sgwilym/windups
+-
 
 ## wechaty
 
