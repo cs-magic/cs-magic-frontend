@@ -12,7 +12,7 @@ ref: https://stackoverflow.com/a/65986590/9422455
 
 forwarding 需要保证 `'X-Frame-Options'` 设置正确。
 
-![img.png](forward with masking.png)
+![img.png](imgs/forward with masking.png)
 
 ## typewriter-effect
 
@@ -28,7 +28,8 @@ ref: https://github.com/topics/typewriter-effect
 ### windups
 
 - repo: https://github.com/sgwilym/windups
--
+- 添加光标：
+    - 参考：Is there a way to add cursor? · Issue #35 · sgwilym/windups, https://github.com/sgwilym/windups/issues/35
 
 ## wechaty
 
