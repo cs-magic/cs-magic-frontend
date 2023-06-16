@@ -1,6 +1,3 @@
-import {RootLayout} from '@/components/layouts/RootLayout'
-import {useU} from "../../hooks/use-u";
-
 # Version History
 
 ## 0.5.11 (2023-05-19)
@@ -145,17 +142,3 @@ import {useU} from "../../hooks/use-u";
 - :x: 优化移动端固定高度（这个并不一定要做，因为会导致屏幕更挤一些，但确实实现了）
 - 优化登陆按钮提示（这个中午就做完了）
 - 支持version history（基于 mdx 实现了，ref: [using-mdx](https://nextjs.org/docs/advanced-features/using-mdx)）
-
-
-
-export default ({children}) => {
-	const u = useU()
-	
-	return (
-		<RootLayout title={u.routers.about.versions}>
-			<article className="max-w-[720px] mx-auto prose dark:prose-invert">
-				{children}
-			</article>
-		</RootLayout>
-	)
-}

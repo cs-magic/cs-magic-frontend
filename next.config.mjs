@@ -2,6 +2,7 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkEmoji from "remark-emoji";
 import rehypePrism from 'rehype-prism'
+import nextra from 'nextra'
 
 // mdx support, ref: https://nextjs.org/docs/advanced-features/using-mdx
 const withMDX = createMDX({
@@ -50,5 +51,14 @@ const nextConfig = {
 	
 }
 
+const withNextra = nextra({
+	theme: 'nextra-theme-docs',
+	themeConfig: './theme.config.jsx'
+})
+
 // Merge MDX config with Next.js config
-export default withMDX(nextConfig)
+export default withNextra(
+	// withMDX(
+	nextConfig
+	// )
+)
