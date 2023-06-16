@@ -81,6 +81,14 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 				</NavigationMenuItem>
 				
 				<NavigationMenuItem>
+					<Link href={'/docs'} legacyBehavior passHref>
+						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							{'文档'}
+						</NavigationMenuLink>
+					</Link>
+				</NavigationMenuItem>
+				
+				<NavigationMenuItem>
 					<SelectTheme withIconPrefix/>
 				</NavigationMenuItem>
 				
