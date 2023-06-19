@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { HTMLAttributes } from 'react'
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
@@ -88,9 +89,9 @@ const scenarios: { title: string; href: string; description: string }[] = [
 	},
 ]
 
-export function NavigationMenuDemo() {
+export function NavigationMenuDemo(props: HTMLAttributes<HTMLDivElement>) {
 	return (
-		<NavigationMenu>
+		<NavigationMenu {...props}>
 			<NavigationMenuList>
 				
 				<NavigationMenuItem>
