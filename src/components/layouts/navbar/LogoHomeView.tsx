@@ -15,7 +15,7 @@ export const LogoHomeView = ({ className, ...props }: HTMLAttributes<HTMLAnchorE
 			<LogoSVG className={'w-8 h-8'}/>
 			
 			{/* website name */}
-			<span className="text-2xl font-extrabold gradient-logo">{website.platformName}</span>
+			<span className="text-xl font-extrabold gradient-logo">{website.platformName}</span>
 		
 		</Link>
 	)

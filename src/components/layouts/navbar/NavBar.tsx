@@ -13,6 +13,7 @@ import { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
 import { routers } from '@/config/routers'
 import { clsx } from 'clsx'
+import { NavigationMenuDemo } from '@/components/layouts/navbar/Custom'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
@@ -124,7 +125,8 @@ export const NavBarResponsive = () => {
 			<LogHomeViewWithDropdownMenus className={'md:hidden'}/>
 			<LogoHomeView className={'hidden md:flex'}/>
 			
-			<HorizontalMenus className={'hidden md:flex'}/>
+			{/*<HorizontalMenus className={'hidden md:flex'}/>*/}
+			<NavigationMenuDemo className={'hidden md:flex'}/>
 			
 			<Link href={user ? `/user/${user.id}` : `/auth/signin`} className={'cursor-pointer'}>
 				<UserAvatarView user={user}/>
