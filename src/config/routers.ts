@@ -1,3 +1,5 @@
+import { AUTH_WAY, AuthWay } from '@/config/settings'
+
 export const routers = {
 	apps: {
 		chat: {
@@ -28,7 +30,7 @@ export const routers = {
 	},
 	home: '/',
 	auth: {
-		signin: '/auth/signin',
+		signin: AUTH_WAY === AuthWay.byBackend ? '/auth/signinViaBackend' : '/auth/signinViaNextAuth',
 	},
 }
 

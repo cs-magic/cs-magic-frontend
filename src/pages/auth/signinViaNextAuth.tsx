@@ -13,6 +13,7 @@ import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 import { TyperMemo } from '@/components/general/Typer'
 import { getToken } from '@/lib/utils'
 
+
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	const { toast } = useToast()
@@ -51,6 +52,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 			// ref: https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
 			callbackUrl: baseUrl,
 		})
+		
 		console.log('sign in res: ', res)
 		if (res!.error) {
 			setLoading(false)
