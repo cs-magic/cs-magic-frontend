@@ -16,7 +16,7 @@ export const ProjectView = (
 	
 	return (
 		<Link href={href}>
-			<Card className="card w-full md:w-[540px]">
+			<Card className="card w-full md:w-[540px] hover:shadow-indigo-500 hover:shadow-md">
 				
 				<CardHeader>
 					<CardTitle className={'inline-flex items-center justify-between'}>
