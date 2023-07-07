@@ -70,6 +70,15 @@ export const jp: II18nSchema = {
 	},
 	
 	display: {
+		auth: {
+			enterEmail: 'Enter Your Email Address',
+			enterVerificationCode: 'Enter the Verification Code',
+			enterUsername: 'Enter Your Username',
+			enterPassword: 'Enter Your Password',
+			confirmPassword: 'Confirm Your Password',
+			ok: 'OK',
+			finishedAuth: 'Start Your Journey',
+		},
 		navs: {
 			user: '用户',
 			services: 'サービス',

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useRef, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
-import { Input } from '@/components/ui/input'
+import { Input, InputProps } from '@/components/ui/input'
 import { validate } from 'isemail'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
@@ -8,121 +8,123 @@ import { AuthLayout } from '@/components/layouts/AuthLayout'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
 import { TyperMemo } from '@/components/general/Typer'
-import { getToken } from '@/lib/utils'
-import { useSendEmailVerificationCodeMutation } from '@/states/api/authApi'
+import { useCheckUsernameMutation, useSendEmailVerificationCodeMutation, useVerifyEmailMutation } from '@/states/api/authApi'
+import { isFastapiError } from '@/ds/error'
 
+
+const NextInput = forwardRef<HTMLInputElement, InputProps & { next: Function }>(({ next, ...props }, ref) => {
+	return (
+		<Input
+			ref={ref}
+			{...props}
+			autoFocus
+			onKeyDown={async (event) => {
+				if (
+					// !loading &&
+					['Enter', 'Tab'].includes(event.key)) {
+					event.preventDefault() // suppress built-in validation
+					next()
+				}
+			}}
+		/>
+	)
+})
+
+NextInput.displayName = 'NextInput'
 
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	const { toast } = useToast()
 	const [loading, setLoading] = useState(false)
-	const [step, setStep] = useState(5)
+	const [step, setStep] = useState(1)
 	const [email, setEmail] = useState('')
-	const refEmailInput = useRef<HTMLInputElement>(null)
-	const refTokenInput = useRef<HTMLInputElement>(null)
+	const refInputEmail = useRef<HTMLInputElement>(null)
+	const refInputCode = useRef<HTMLInputElement>(null)
+	const refInputUsername = useRef<HTMLInputElement>(null)
+	const refInputPassword = useRef<HTMLInputElement>(null)
+	const refInputPasswordAgain = useRef<HTMLInputElement>(null)
 	
 	const router = useRouter()
 	const u = useAppSelector(selectU)
 	
-	const [sendEmailVerificationCode, { error }] = useSendEmailVerificationCodeMutation()
+	const [sendEmailVerificationCode, { error: errorSendVerificationCode }] = useSendEmailVerificationCodeMutation()
+	const [verifyEmail, { error: errorVerifyEmail }] = useVerifyEmailMutation()
+	const [checkUsername, { error: errorCheckUsername }] = useCheckUsernameMutation()
 	
-	useEffect(() => {
-		getToken('').catch() // todo: avoid the step of activating the router
-	}, [])
 	
-	const onConfirmEmail = async () => {
-		if (loading) {
-			toast({ title: 'duplicated send', variant: 'destructive' })
-			return
-		}
-		
-		const email = refEmailInput.current!.value
-		console.log({ email })
-		
-		if (!validate(email)) return toast({ variant: 'destructive', title: 'failed to validate your email' })
-		
+	const onNextStep = async () => {
 		setLoading(true)
-		setEmail(email)
-		toast({ title: 'sending magic code to ' + email })
+		let error
 		
-		const res = await sendEmailVerificationCode(email)
-		console.log('sign in res: ', res)
+		switch (step) {
+			case 2:
+				// input email
+				const _email = refInputEmail.current!.value
+				console.log({ email: _email })
+				if (!validate(_email)) return toast({ variant: 'destructive', title: 'failed to validate your email' })
+				setEmail(_email)
+				toast({ title: 'sending magic code to ' + _email })
+				const res = await sendEmailVerificationCode(_email)
+				console.log('sign in res: ', res)
+				error = errorSendVerificationCode
+				break
+			
+			case 4:
+				// verify email
+				const inputCode = refInputCode.current!.value
+				await verifyEmail({ email, code: inputCode })
+				error = errorVerifyEmail
+				break
+			
+			case 6:
+				// check username
+				await checkUsername(refInputUsername.current!.value)
+				error = errorCheckUsername
+				break
+			
+			default:
+				break
+		}
+		
 		if (error) {
-			setLoading(false)
-			toast({ title: '发送失败！可能该邮箱并不存在！', variant: 'destructive' })
-			return
-		}
-		
-		console.log({ tokensAfter: await getToken(email) })
-		setLoading(false)
-		if (step === 6) setStep(7)
-		
-	}
-	
-	const onConfirmToken = async () => {
-		const inputToken = refTokenInput.current!.value
-		const targetToken = await getToken(email)
-		console.log({ inputToken, targetToken }) // 不能在前端打印这个
-		if (inputToken !== targetToken) {
-			// 直接前端验证！
-			toast({ title: '验证码不对或者已失效！', variant: 'destructive' })
+			if (isFastapiError(error))
+				toast({ title: error.data.detail, variant: 'destructive' })
 		} else {
-			// 必须走一下这个next-auth的流程，以获得一些数据
-			router.push(
-				`/api/auth/callback/email?email=${encodeURIComponent(email)}&token=${inputToken}`, // &callbackUrl=${baseUrl}`,
-			)
+			setStep(step + 1)
 		}
+		
+		setLoading(false)
 	}
-	
 	console.log({ step })
+	
 	
 	return (
 		<AuthLayout title={u.routers.auth.signin}>
 			
 			<div className={'flex flex-col gap-2 text-[#02CEC7] font-bold'}>
 				
-				<LogoHomeView/>
+				<TyperMemo content={u.display.auth.enterEmail} start={step >= 1} onFinished={() => {setStep(2)}}/>
 				
-				<TyperMemo content={'Enter your email'} start={step >= 5} onFinished={() => {setStep(step + 1)}}/>
+				{step >= 2 && <NextInput ref={refInputEmail} type="email" name="email" next={onNextStep}/>}
 				
-				{
-					step >= 6 && (
-						<Input
-							ref={refEmailInput}
-							type="email"
-							name="email"
-							autoFocus
-							onKeyDown={async (event) => {
-								if (!loading && ['Enter', 'Tab'].includes(event.key)) {
-									event.preventDefault() // suppress built-in validation
-									onConfirmEmail()
-								}
-							}}
-						/>
-					)
-				}
+				<TyperMemo content={u.display.auth.enterVerificationCode} start={step >= 3} onFinished={() => {setStep(4)}}/>
 				
-				{step == 6 && !loading && <Button variant={'outline'} onClick={onConfirmEmail}>Confirm Email</Button>}
+				{step >= 4 && <NextInput ref={refInputCode} name={'code'} next={onNextStep}/>}
 				
-				<TyperMemo content={'Enter your activation code'} start={step >= 7} onFinished={() => {setStep(step + 1)}}/>
+				<TyperMemo content={u.display.auth.enterUsername} start={step >= 5} onFinished={() => {setStep(6)}}/>
 				
-				{step >= 8 && (
-					<Input
-						ref={refTokenInput}
-						name={'code'}
-						autoFocus
-						onKeyDown={async (event) => {
-							if (event.key === 'Enter') {
-								event.preventDefault()
-								onConfirmToken()
-							}
-						}}
-					/>
-				)}
+				{step >= 6 && <NextInput ref={refInputUsername} name={'username'} type={'username'} next={onNextStep}/>}
 				
-				{step == 8 && <Button variant={'outline'} onClick={onConfirmToken}>Start Your Journey</Button>}
+				<TyperMemo content={u.display.auth.enterPassword} start={step >= 7} onFinished={() => {setStep(8)}}/>
+				
+				{step >= 8 && <NextInput ref={refInputPassword} name={'password'} type={'password'} next={onNextStep}/>}
+				
+				<TyperMemo content={u.display.auth.confirmPassword} start={step >= 9} onFinished={() => {setStep(10)}}/>
+				
+				{step >= 10 && <NextInput ref={refInputPasswordAgain} name={'passwordAgain'} type={'password'} next={onNextStep}/>}
+				
+				{step % 2 === 0 && <Button variant={'outline'} onClick={onNextStep}>{u.display.auth.ok}</Button>}
 			
 			</div>
 		</AuthLayout>

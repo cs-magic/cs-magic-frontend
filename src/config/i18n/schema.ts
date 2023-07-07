@@ -36,6 +36,15 @@ export interface II18nSchema {
 		}
 	}
 	display: {
+		auth: {
+			enterEmail: string
+			enterVerificationCode: string
+			enterUsername: string
+			enterPassword: string
+			confirmPassword: string
+			ok: string
+			finishedAuth: string
+		}
 		navs: {
 			user: string
 			services: string

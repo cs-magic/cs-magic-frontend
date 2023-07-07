@@ -70,6 +70,15 @@ export const sc: II18nSchema = {
 	},
 	
 	display: {
+		auth: {
+			enterEmail: '请输入邮箱',
+			enterVerificationCode: '请输入验证码',
+			enterUsername: '请输入用户名',
+			enterPassword: '请输入密码',
+			confirmPassword: '确认密码',
+			ok: 'OK',
+			finishedAuth: '即刻开启您的旅程',
+		},
 		navs: {
 			user: '用户',
 			services: '服务',

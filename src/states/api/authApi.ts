@@ -16,7 +16,27 @@ export const authApi = baseApi
 						method: 'post',
 					}
 				},
+				
 			}),
+			
+			verifyEmail: builder.mutation<string, { email: string, code: string }>({
+				query: (arg) => {
+					return {
+						url: `/auth/verify-email?email=${arg.email}&code=${arg.code}`,
+						method: 'post',
+					}
+				},
+			}),
+			
+			checkUsername: builder.mutation<string, string>({
+				query: (arg) => {
+					return {
+						url: `/auth/check-username?username=${arg}`,
+						method: 'post',
+					}
+				},
+			}),
+			
 			
 		}),
 	})
@@ -24,5 +44,7 @@ export const authApi = baseApi
 
 export const {
 	useSendEmailVerificationCodeMutation,
+	useVerifyEmailMutation,
+	useCheckUsernameMutation,
 } = authApi
 
