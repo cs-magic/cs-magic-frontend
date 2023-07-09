@@ -1,129 +1,78 @@
-@import "typography.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-
-html,
-body {
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-
-    /*background-color: var(--bg-base);*/
-    /*color: var(--label-base);*/
-
-    font-family: 'Inter', ui-sans-serif, -apple-system, Arial, Helvetica,
-    'Apple Color Emoji', sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
-    scrollbar-width: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-main {
-    width: 100vw;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-}
-
-
+ 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 47.4% 11.2%;
-
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 47.4% 11.2%;
-
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 47.4% 11.2%;
-
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
-
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-
-        --destructive: 0 100% 50%;
-        --destructive-foreground: 210 40% 98%;
-
-        --ring: 215 20.2% 65.1%;
-
-        --radius: 0.5rem;
-    }
-
-
-    /**
-    默认是 data-theme，使用 attribute="class" 后可以统一 theme color 和 component-level color
-     */
-    [class="dark"] {
-        --background: 224 71% 4%;
-        --foreground: 213 31% 91%;
-
-        --muted: 223 47% 11%;
-        --muted-foreground: 215.4 16.3% 56.9%;
-
-        --popover: 224 71% 4%;
-        --popover-foreground: 215 20.2% 65.1%;
-
-        --card: 224 71% 4%;
-        --card-foreground: 213 31% 91%;
-
-        --border: 216 34% 17%;
-        --input: 216 34% 17%;
-
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 1.2%;
-
-        --secondary: 222.2 47.4% 11.2%;
-        --secondary-foreground: 210 40% 98%;
-
-        --accent: 216 34% 17%;
-        --accent-foreground: 210 40% 98%;
-
-        --destructive: 0 63% 31%;
-        --destructive-foreground: 210 40% 98%;
-
-        --ring: 216 34% 17%;
-
-        --radius: 0.5rem;
-    }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 215 20.2% 65.1%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+ 
+    --ring: 217.2 32.6% 17.5%;
+  }
 }
-
+ 
 @layer base {
-    * {
-        @apply border-border;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-        font-feature-settings: "rlig" 1, "calt" 1;
-    }
-
-    .gradient-logo {
-        @apply text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
-    }
-
-    .gradient-hero {
-        @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-gray-200 to-red-500;
-    }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
-
-

@@ -39,6 +39,16 @@ export const userApi = baseApi
 			
 			getUser: build.query<IUser, ID>({
 				query: (arg) => `/user/${arg}`,
+				transformResponse: (response: IUserBasic & { id: ID }): IUser => ({
+					id: response.id,
+					basic: response,
+					// todo: openai
+					openai: {
+						balance: 0,
+						cnt: 0,
+						consumption: 0,
+					},
+				}),
 				providesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg }],
 			}),
 			

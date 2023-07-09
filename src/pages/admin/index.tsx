@@ -8,7 +8,7 @@ import { useInfinite } from '@/hooks/use-infinite'
 import { useVirtual } from 'react-virtual'
 import { IUser } from '@/ds/user'
 import { clsx } from 'clsx'
-import { Loading } from '@/components/general/CentralLoadingComp'
+import { Loading } from '@/components/general/CentralLoading'
 
 
 export const AdminPage = () => {

@@ -2,7 +2,7 @@ import { RootLayout } from '@/components/layouts/RootLayout'
 import { useCallChatgptMutation } from '@/states/api/testApi'
 import { Button } from '@/components/ui/button'
 import { ChatgptModelType, ChatgptRoleType, ICallChatgpt } from '@/ds/openai/chatgpt'
-import { Loading } from '@/components/general/CentralLoadingComp'
+import { Loading } from '@/components/general/CentralLoading'
 
 export const TestPage = () => {
 	const [callChatgpt, { data: response, isLoading }] = useCallChatgptMutation()

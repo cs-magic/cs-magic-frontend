@@ -8,12 +8,12 @@ import { SelectLang } from '@/components/general/SelectLang'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { FooterView } from '@/components/layouts/footer/FooterView'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
-import { UserAvatarView } from '@/components/general/UserAvatarView'
 import { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
 import { routers } from '@/config/routers'
 import { clsx } from 'clsx'
 import { NavigationMenuDemo } from '@/components/layouts/navbar/Custom'
+import { User } from '@/components/user/User'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
 	const u = useAppSelector(selectU)
@@ -118,7 +118,6 @@ export const LogHomeViewWithDropdownMenus = (props: HTMLAttributes<HTMLElement>)
 )
 
 export const NavBarResponsive = () => {
-	const user = useUser()
 	
 	return (
 		<div className={'inline-flex items-center justify-between p-2'}>
@@ -128,9 +127,7 @@ export const NavBarResponsive = () => {
 			{/*<HorizontalMenus className={'hidden md:flex'}/>*/}
 			<NavigationMenuDemo className={'hidden md:flex'}/>
 			
-			<Link href={user ? `/user/${user.id}` : routers.auth.signin} className={'cursor-pointer'}>
-				<UserAvatarView user={user}/>
-			</Link>
+			<User/>
 		
 		</div>
 	)

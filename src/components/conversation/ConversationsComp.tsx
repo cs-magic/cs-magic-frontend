@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import { ID } from '@/ds/general'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
-import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
+import { CentralLoading } from '@/components/general/CentralLoading'
 import { getChatLink } from '@/lib/utils'
 import { PlatformType } from '@/ds/openai/general'
 import { IConversation } from '@/ds/openai/conversation'
@@ -33,7 +33,7 @@ export const ConversationsComp = <T extends PlatformType>(
 		<div className={'w-full h-full flex flex-col border-r border-base-300 overflow-auto'}>
 			
 			{
-				isLoadingConversations ? <CentralLoadingComp/> : (
+				isLoadingConversations ? <CentralLoading/> : (
 					<>
 						<Link href={getChatLink({ platform_type: platform_type })}>
 							<Button className={'w-full rounded-none'} size={'sm'} variant={'outline'}>

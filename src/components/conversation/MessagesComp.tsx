@@ -6,14 +6,12 @@ import { IconBrandTelegram } from '@tabler/icons-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ID, MessageStatusType } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
-import { useLazyUser } from '@/hooks/use-user'
 import { IMessage, IMessageParams, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
 import { IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
-import _ from 'lodash'
-import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
+import { CentralLoading } from '@/components/general/CentralLoading'
 import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
@@ -21,6 +19,7 @@ import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
 import { initConversationParams, initMessageParams } from '@/lib/utils'
 import { ChatgptRoleType } from '@/ds/openai/chatgpt'
+import { useUserId } from '@/hooks/use-user'
 
 
 export const MessagesComp = <T extends PlatformType>(
@@ -38,8 +37,8 @@ export const MessagesComp = <T extends PlatformType>(
 	const { useCreateConversationMutation } = injectOpenAIConversation<T>()
 	const { useListMessagesQuery, useSendMessageMutation } = injectOpenAIMessages<T>()
 	
-	const [user, getUser] = useLazyUser()
-	const user_id = user?.id
+	// const [user, getUser] = useLazyUser()
+	const user_id = useUserId()
 	
 	
 	const u = useU()
@@ -50,7 +49,7 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	const [createConversation] = useCreateConversationMutation()
 	
-	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(initConversationParams<T>(platform_type))
+	const [conversationParams, setConversationParams] = useState<IConversationParams>(initConversationParams<T>(platform_type))
 	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(initMessageParams<T>(platform_type))
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
@@ -135,7 +134,7 @@ export const MessagesComp = <T extends PlatformType>(
 			},
 			onclose: () => {
 				console.log('onClose')
-				if (user) getUser(user.id) // update token
+				// todo: if (user) getUser(user.id) // update token
 			},
 			onerror: (error) => {
 				console.log('onError')
@@ -197,17 +196,22 @@ export const MessagesComp = <T extends PlatformType>(
 	// 但是不加的话，在网速差的时候就存在点了没反应的问题
 	// 但转念一想，除了用于调试，谁会频繁地切换conversation呢？
 	// 所以还是加上吧！
-	if (isFetchingMessages) return <CentralLoadingComp/>
+	if (isFetchingMessages) return <CentralLoading/>
 	
 	
 	return (
 		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
 			<div className={'w-full rounded-none mb-1 flex justify-center items-center font-semibold'}>
-				<span className={'inline-flex items-center'}>Tokens:
-					<p className={clsx('px-2 text-lg font-bold text-primary', !(isLoadingChatgpt || isLoadingDalle) && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
-					<p>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
-				</span>
-				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
+				{/*<span className={'inline-flex items-center'}>Tokens:*/}
+				{/*	<p className={clsx('px-2 text-lg font-bold text-primary', !(isLoadingChatgpt || isLoadingDalle) && 'animate-bounce-start')}>*/}
+				{/*		/!*{user ? user.openai.balance : '请登录后查看！'}*!/*/}
+				{/*	</p>*/}
+				{/*	<p>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>*/}
+				{/*</span>*/}
+				{/*<span className={'hidden'}>, Detail: */}
+				{/*{JSON.stringify(conversationParams)}*/}
+				{/*</span>*/}
+				Model: {conversationParams.model!}
 			</div>
 			
 			<div className={'w-full grow overflow-auto flex flex-col'}>

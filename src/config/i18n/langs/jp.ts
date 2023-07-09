@@ -9,6 +9,7 @@ export const jp: II18nSchema = {
 		},
 		auth: {
 			signin: 'ログイン',
+			register: 'Sign Up',
 		},
 		user: {
 			planning: '会員制度',
@@ -71,12 +72,15 @@ export const jp: II18nSchema = {
 	
 	display: {
 		auth: {
+			username: 'Username',
+			password: 'Password',
 			enterEmail: 'Enter Your Email Address',
 			enterVerificationCode: 'Enter the Verification Code',
 			enterUsername: 'Enter Your Username',
 			enterPassword: 'Enter Your Password',
 			confirmPassword: 'Confirm Your Password',
 			ok: 'OK',
+			askForInvitationCode: 'Enter your Invitation Code (if you have it)',
 			finishedAuth: 'Start Your Journey',
 		},
 		navs: {

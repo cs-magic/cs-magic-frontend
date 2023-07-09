@@ -104,9 +104,9 @@ export const UserPage = () => {
 						</InputGroup>
 						
 						<InputGroup label={'Planning'}>
-							<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.membership.planning)}</span>
+							<span id={'planning'} className={'grow text-lg font-semibold'}>{_.upperCase(targetUser.basic.planning_type)}</span>
 							
-							<Button variant={'secondary'} disabled={!isSelf || targetUser.basic.membership.planning === UserPlanningType.blackVip}
+							<Button variant={'secondary'} disabled={!isSelf || targetUser.basic.planning_type === UserPlanningType.blackVip}
 							        className={'w-24 shrink-0'}
 							        onClick={() => router.push(routers.user.planning)}>
 								Upgrade

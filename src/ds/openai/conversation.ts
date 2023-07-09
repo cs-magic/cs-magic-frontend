@@ -1,7 +1,6 @@
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
 import { IChatGPTConversationParams } from '@/ds/openai/chatgpt'
-import { IDalleConversationParams } from '@/ds/openai/dalle'
 
 export interface IBaseCreateConversation<T extends PlatformType, P extends {}> {
 	user_id: ID
@@ -15,12 +14,10 @@ export interface IBaseConversation<T extends PlatformType, P extends {}> extends
 	time?: string
 }
 
-export type IConversationParams<T extends PlatformType> = T extends PlatformType.chatGPT
-	? IChatGPTConversationParams
-	: IDalleConversationParams
+export type IConversationParams = IChatGPTConversationParams
 
 
-export type IConversation<T extends PlatformType> = IBaseConversation<T, IConversationParams<T>>
-export type ICreateConversation<T extends PlatformType> = IBaseCreateConversation<T, IConversationParams<T>>
+export type IConversation<T extends PlatformType> = IBaseConversation<T, IConversationParams>
+export type ICreateConversation<T extends PlatformType> = IBaseCreateConversation<T, IConversationParams>
 
 

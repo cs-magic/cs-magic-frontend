@@ -4,7 +4,6 @@ import * as React from 'react'
 import { HTMLAttributes } from 'react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -15,6 +14,7 @@ import {
 	navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
+import { cn } from '@/lib/utils_shadcn'
 
 const services: { title: string; href: string; description: string }[] = [
 	{

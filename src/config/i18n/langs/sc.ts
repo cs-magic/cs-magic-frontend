@@ -9,6 +9,7 @@ export const sc: II18nSchema = {
 		},
 		auth: {
 			signin: '登录系统',
+			register: '注册系统',
 		},
 		user: {
 			planning: '会员计划',
@@ -71,12 +72,15 @@ export const sc: II18nSchema = {
 	
 	display: {
 		auth: {
+			username: '用户名',
+			password: '密码',
 			enterEmail: '请输入邮箱',
 			enterVerificationCode: '请输入验证码',
 			enterUsername: '请输入用户名',
 			enterPassword: '请输入密码',
 			confirmPassword: '确认密码',
 			ok: 'OK',
+			askForInvitationCode: '请输入邀请码（如有）',
 			finishedAuth: '即刻开启您的旅程',
 		},
 		navs: {

@@ -11,7 +11,7 @@ export interface II18nSlice {
 }
 
 const initialState: II18nSlice = {
-	lang: 'zh',
+	lang: 'sc',
 	u: sc,
 }
 

@@ -16,10 +16,8 @@ export enum UserRole {
 export interface IUserBasic {
 	name: string | null
 	email: string | null
-	membership: {
-		planning: UserPlanningType
-		expire: string | null
-	}
+	planning_type: UserPlanningType
+	planning_expire: string | null
 	role: UserRole
 	avatar: string | null
 	note: string | null

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useGetWechatQrcodeQuery } from '@/states/api/backApi'
 import { CentralLayout } from '@/components/layouts/CentralLayout'
-import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
+import { CentralLoading } from '@/components/general/CentralLoading'
 import { QRCodeCanvas } from 'qrcode.react'
 import { Label } from '@/components/ui/label'
 import { skipToken } from '@reduxjs/toolkit/query'
@@ -16,7 +16,7 @@ export const WechatPage = () => {
 		<CentralLayout>
 			{
 				!wxid ? <p className={'bg-red-500 text-white'}>wxid is necessary</p>
-					: !data ? <CentralLoadingComp/>
+					: !data ? <CentralLoading/>
 						: !data.success ? <p className={'bg-red-500 text-white'}>{data.content}</p>
 							: (
 								<div className={'flex flex-col gap-2 items-center'}>

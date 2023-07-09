@@ -1,5 +1,5 @@
 import { WindupChildren } from 'windups'
-import React, { memo } from 'react'
+import React from 'react'
 
 
 export const Typer = (props: { content: string, start: boolean, onFinished: any }) => {
@@ -10,4 +10,4 @@ export const Typer = (props: { content: string, start: boolean, onFinished: any 
 		</WindupChildren>
 	)
 }
-export const TyperMemo = memo(Typer)
+export const TyperMemo = Typer //memo(Typer)

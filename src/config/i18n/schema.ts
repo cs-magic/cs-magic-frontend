@@ -37,11 +37,14 @@ export interface II18nSchema {
 	}
 	display: {
 		auth: {
+			username: string
+			password: string
 			enterEmail: string
 			enterVerificationCode: string
 			enterUsername: string
 			enterPassword: string
 			confirmPassword: string
+			askForInvitationCode: string
 			ok: string
 			finishedAuth: string
 		}

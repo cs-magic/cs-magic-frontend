@@ -5,6 +5,9 @@ import { baseApi } from '@/states/api/baseApi'
 import { createLogger } from 'redux-logger'
 import { i18nSlice } from '@/states/features/i18nSlice'
 import { backApi } from './api/backApi'
+import { rtkQueryErrorLogger } from '@/states/middlewares/rtkQueryErrorLogger'
+import { authSlice } from '@/states/features/authSlice'
+import { userSlice } from '@/states/features/userSlice'
 
 
 const logger = createLogger({
@@ -19,6 +22,8 @@ const logger = createLogger({
 
 const store = configureStore({
 	reducer: {
+		auth: authSlice.reducer,
+		user: userSlice.reducer,
 		i18n: i18nSlice.reducer,
 		notification: notificationSlice.reducer,
 		[baseApi.reducerPath]: baseApi.reducer,
@@ -28,6 +33,7 @@ const store = configureStore({
 		.concat([
 			baseApi.middleware,
 			backApi.middleware,
+			rtkQueryErrorLogger,
 			logger,
 		]),
 })

@@ -8,7 +8,8 @@ export const en: II18nSchema = {
 			wechat: 'Wechat Bot',
 		},
 		auth: {
-			signin: 'Singn In System',
+			signin: 'Sign In',
+			register: 'Sign Up',
 		},
 		
 		user: {
@@ -71,11 +72,14 @@ export const en: II18nSchema = {
 	
 	display: {
 		auth: {
+			username: 'Username',
+			password: 'Password',
 			enterEmail: 'Enter Your Email Address',
 			enterVerificationCode: 'Enter the Verification Code',
 			enterUsername: 'Enter Your Username',
 			enterPassword: 'Enter Your Password',
 			confirmPassword: 'Confirm Your Password',
+			askForInvitationCode: 'Enter your Invitation Code (if you have it)',
 			ok: 'OK',
 			finishedAuth: 'Start Your Journey',
 		},

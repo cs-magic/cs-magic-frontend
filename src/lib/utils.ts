@@ -1,5 +1,3 @@
-import { ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
 import { ID } from '@/ds/general'
 import { PlatformType } from '@/ds/openai/general'
 import { II18nSchema } from '@/config/i18n/schema'
@@ -8,10 +6,6 @@ import { IConversationParams } from '@/ds/openai/conversation'
 import { ChatgptModelType, ChatgptRoleType } from '@/ds/openai/chatgpt'
 import { DalleDimensionType } from '@/ds/openai/dalle'
 import axios from 'axios'
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs))
-}
 
 
 export const ensureSole = (s: string | string[] | undefined): string | null =>
