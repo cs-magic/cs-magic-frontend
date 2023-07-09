@@ -1,5 +1,3 @@
-import { ID } from '@/ds/general'
-
 export enum ChatgptRoleType {
 	system = 'system',
 	user = 'user',
@@ -27,7 +25,7 @@ export enum ChatgptModelType {
 
 export interface IChatGPTConversationParams {
 	model: ChatgptModelType,
-	selected: ID[]
+	// selected: ID[]
 }
 
 

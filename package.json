@@ -81,12 +81,10 @@
     "tailwind-merge": "^1.11.0",
     "tailwindcss-animate": "^1.0.5",
     "three": "^0.151.3",
-    "typeit-react": "^2.6.4",
     "typewriter-effect": "^2.19.0",
     "uuid": "^9.0.0",
     "wechaty": "^1.20.2",
     "wechaty-puppet-wechat4u": "^1.14.1",
-    "windups": "^1.2.1",
     "winston": "^3.8.2",
     "winston-react": "^1.0.0-RC.0"
   },

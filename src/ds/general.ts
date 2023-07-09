@@ -9,8 +9,6 @@ export interface IFeature {
 }
 
 
-export const langs = ['en', 'sc', 'tc', 'jp'] as const
-export type LangType = typeof langs[number]
 export type IBridge = { success: boolean, content: string, bot?: WechatyInterface | undefined }
 export type MessageStatusType = 'OK' | 'ERROR' | 'ERROR_TOKEN_DRAIN'
 

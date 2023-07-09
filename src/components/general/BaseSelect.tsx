@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ReactNode } from 'react'
-import { LangType } from '@/ds/general'
+import { LangType } from '@/config/i18n/langs'
 
 export const BaseSelect = <T extends string | LangType>({ label, vs, v, setV, icon, withText, withIconSuffix, withIconPrefix }: {
 	label: string

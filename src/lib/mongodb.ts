@@ -1,8 +1,8 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 import { MongoClient } from 'mongodb'
-import { DATABASE_MONGODB_URI } from '@/lib/env'
+import { DATABASE_MONGO_URI } from '@/lib/env'
 
-if (!DATABASE_MONGODB_URI) {
+if (!DATABASE_MONGO_URI) {
 	throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
 }
 
@@ -16,13 +16,13 @@ if (process.env.NODE_ENV === 'development') {
 	// In development mode, use a global variable so that the value
 	// is preserved across module reloads caused by HMR (Hot Module Replacement).
 	if (!global._mongoClientPromise) {
-		client = new MongoClient(DATABASE_MONGODB_URI, options)
+		client = new MongoClient(DATABASE_MONGO_URI, options)
 		global._mongoClientPromise = client.connect()
 	}
 	clientPromise = global._mongoClientPromise
 } else {
 	// In production mode, it's best to not use a global variable.
-	client = new MongoClient(DATABASE_MONGODB_URI, options)
+	client = new MongoClient(DATABASE_MONGO_URI, options)
 	clientPromise = client.connect()
 }
 

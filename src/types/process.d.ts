@@ -11,7 +11,7 @@ declare namespace NodeJS {
 		EMAIL_SERVER: string
 		EMAIL_FROM: string
 		
-		DATABASE_MONGODB_URI: string
+		DATABASE_MONGO_URI: string
 		DATABASE_AUTH_DB_NAME: string
 	}
 }

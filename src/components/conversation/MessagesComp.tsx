@@ -12,7 +12,6 @@ import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
 import { IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
-import _ from 'lodash'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
@@ -203,11 +202,8 @@ export const MessagesComp = <T extends PlatformType>(
 	return (
 		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
 			<div className={'w-full rounded-none mb-1 flex justify-center items-center font-semibold'}>
-				<span className={'inline-flex items-center'}>Tokens:
-					<p className={clsx('px-2 text-lg font-bold text-primary', !(isLoadingChatgpt || isLoadingDalle) && 'animate-bounce-start')}>{user ? user.openai.balance : '请登录后查看！'}</p>
-					<p>, Platform: <span className={'font-bold'}>{_.upperCase(platform_type)}</span></p>
-				</span>
-				<span className={'hidden'}>, Detail: {JSON.stringify(conversationParams)}</span>
+				{JSON.stringify(conversationParams)}
+				{/*Model: {conversationParams.}*/}
 			</div>
 			
 			<div className={'w-full grow overflow-auto flex flex-col'}>

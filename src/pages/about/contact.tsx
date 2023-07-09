@@ -27,7 +27,7 @@ export const AboutUsPage = () => {
 				</TabsList>
 				
 				<TabsContent value="test">
-					<ConstraintImage src={'/qrcodes/wechat-test-group-0.5.jpeg'} alt={'test'} priority/>
+					<ConstraintImage src={'/qrcodes/wechat-test-group-0709.png'} alt={'test'} priority/>
 				</TabsContent>
 				
 				<TabsContent value="operation">
@@ -39,7 +39,7 @@ export const AboutUsPage = () => {
 						</TabsList>
 						
 						<TabsContent value={'east'}>
-							<ConstraintImage src={'/qrcodes/wechat-susan-2.png'} alt={'east marketing'}/>
+							<ConstraintImage src={'/qrcodes/wechat-susan-3.png'} alt={'east marketing'}/>
 						</TabsContent>
 						
 						<TabsContent value={'west'}>
@@ -51,7 +51,7 @@ export const AboutUsPage = () => {
 				</TabsContent>
 				
 				<TabsContent value="technology">
-					<ConstraintImage src={'/qrcodes/wechat-mark.jpeg'} alt={'technology'}/>
+					<ConstraintImage src={'/qrcodes/wechat-mark-2-pink.png'} alt={'technology'}/>
 				</TabsContent>
 			
 			</Tabs>
