@@ -1,5 +1,3 @@
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
 import Link from 'next/link'
 import { useUser } from '@/hooks/use-user'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
@@ -13,9 +11,12 @@ import { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
 import { routers } from '@/config/routers'
 import { clsx } from 'clsx'
+import { useApps } from '@/hooks/use-apps'
+import { useU } from '@/hooks/use-u'
 
 export const HorizontalMenus = (props: NavigationMenuProps) => {
-	const u = useAppSelector(selectU)
+	const u = useU()
+	const apps = useApps()
 	const user = useUser()
 	
 	return (
@@ -53,32 +54,34 @@ export const HorizontalMenus = (props: NavigationMenuProps) => {
 				)}
 				
 				{
-					Object.values(u.apps).map((project, index) => (
-						<NavigationMenuItem key={index}>
-							<Link href={project.href} legacyBehavior passHref>
-								<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-									{project.name}
-								</NavigationMenuLink>
-							</Link>
-						</NavigationMenuItem>
-					))
+					apps
+						.map(([projectName, project], index) => (
+							<NavigationMenuItem key={index}>
+								<Link href={project.href} legacyBehavior passHref>
+									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+										{project.name}
+									</NavigationMenuLink>
+								</Link>
+							</NavigationMenuItem>
+						))
 				}
 				
-				<NavigationMenuItem>
-					<Link href={routers.user.planning} legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							{u.routers.user.planning}
-						</NavigationMenuLink>
-					</Link>
-				</NavigationMenuItem>
+				{/*<NavigationMenuItem>*/}
+				{/*	<Link href={routers.user.planning} legacyBehavior passHref>*/}
+				{/*		<NavigationMenuLink className={navigationMenuTriggerStyle()}>*/}
+				{/*			{u.routers.user.planning}*/}
+				{/*		</NavigationMenuLink>*/}
+				{/*	</Link>*/}
+				{/*</NavigationMenuItem>*/}
 				
-				<NavigationMenuItem>
-					<Link href={routers.about.contactUS} legacyBehavior passHref>
-						<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-							{u.routers.about.contactUS}
-						</NavigationMenuLink>
-					</Link>
-				</NavigationMenuItem>
+				{/* todo: contact via floating button */}
+				{/*<NavigationMenuItem>*/}
+				{/*	<Link href={routers.about.contactUS} legacyBehavior passHref>*/}
+				{/*		<NavigationMenuLink className={navigationMenuTriggerStyle()}>*/}
+				{/*			{u.routers.about.contactUS}*/}
+				{/*		</NavigationMenuLink>*/}
+				{/*	</Link>*/}
+				{/*</NavigationMenuItem>*/}
 				
 				<NavigationMenuItem>
 					<SelectTheme withIconPrefix/>

@@ -1,15 +1,16 @@
 import Link from 'next/link'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
 import { SelectLang } from '@/components/general/SelectLang'
 import { SelectTheme } from '@/components/general/SelectTheme'
 import { routers } from '@/config/routers'
 import _ from 'lodash'
 import { Separator } from '@/components/ui/separator'
+import { useApps } from '@/hooks/use-apps'
+import { useU } from '@/hooks/use-u'
 
 
 export const FooterView = () => {
-	const u = useAppSelector(selectU)
+	const u = useU()
+	const apps = useApps()
 	
 	return (
 		<>
@@ -17,7 +18,7 @@ export const FooterView = () => {
 				
 				<div className={'flex flex-col gap-2'}>
 					<div className={'text-slate-500 font-bold'}>{u.display.navs.services}</div>
-					{Object.values(u.apps).map((item) => (
+					{apps.map(([name, item]) => (
 						<Link href={item.href} key={item.name}>{item.name}</Link>
 					))}
 				</div>

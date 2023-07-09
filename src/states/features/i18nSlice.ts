@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { II18nSchema } from '@/config/i18n/schema'
 import { RootState } from '@/states/store'
-import { LangType } from '@/ds/general'
 import { sc } from '@/config/i18n/langs/sc'
+import { LangType } from '@/config/i18n/langs'
 
 
 export interface II18nSlice {
@@ -11,7 +11,7 @@ export interface II18nSlice {
 }
 
 const initialState: II18nSlice = {
-	lang: 'zh',
+	lang: 'sc',
 	u: sc,
 }
 
