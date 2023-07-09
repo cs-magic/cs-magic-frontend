@@ -38,7 +38,7 @@ export const initConversationParams = <T extends PlatformType>(platform_type: T)
 	platform_type === PlatformType.chatGPT
 		? {
 			model: ChatgptModelType.gpt35,
-			selected: [],
+			// selected: [],
 		} as IConversationParams<PlatformType.chatGPT>
 		: {} as IConversationParams<PlatformType.dalle>
 ) as IConversationParams<T>
