@@ -11,16 +11,16 @@ import { IMessage, IMessageParams, MessageType } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
-import { IConversationParams, ICreateConversation } from '@/ds/openai/conversation'
+import { ICreateConversation } from '@/ds/openai/conversation'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
-import { initConversationParams, initMessageParams } from '@/lib/utils'
-import { ChatgptRoleType } from '@/ds/openai/chatgpt'
-
+import { initMessageParams } from '@/lib/utils'
+import { ChatgptModelType, ChatgptRoleType } from '@/ds/openai/chatgpt'
+import { CHATGPT_ROLE_PROMPT_DEFAULT } from '@/settings'
 
 export const MessagesComp = <T extends PlatformType>(
 	{
@@ -35,7 +35,7 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	const { toast } = useToast()
 	const { useCreateConversationMutation } = injectOpenAIConversation<T>()
-	const { useListMessagesQuery, useSendMessageMutation } = injectOpenAIMessages<T>()
+	const { useListMessagesQuery, useSendMessageMutation, useGetConversationParamsQuery } = injectOpenAIMessages<T>()
 	
 	const [user, getUser] = useLazyUser()
 	const user_id = user?.id
@@ -49,7 +49,7 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	const [createConversation] = useCreateConversationMutation()
 	
-	const [conversationParams, setConversationParams] = useState<IConversationParams<T>>(initConversationParams<T>(platform_type))
+	const { currentData: conversationParams } = useGetConversationParamsQuery(conversation_id ?? skipToken)
 	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(initMessageParams<T>(platform_type))
 	
 	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
@@ -169,7 +169,12 @@ export const MessagesComp = <T extends PlatformType>(
 		if (!conversation_id) {
 			
 			const createConversationModel: ICreateConversation<T> =
-				{ user_id, platform_type, platform_params: conversationParams }
+				{
+					user_id, platform_type, platform_params: {
+						model: ChatgptModelType.gpt35,
+						system_prompt: conversationParams?.system_prompt || CHATGPT_ROLE_PROMPT_DEFAULT,
+					},
+				}
 			const newConversationID = await createConversation(createConversationModel).unwrap()
 			
 			setConversationId(newConversationID)

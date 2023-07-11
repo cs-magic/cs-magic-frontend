@@ -2,6 +2,7 @@ import { ID, TAG_USER } from '@/ds/general'
 import { IMessage } from '@/ds/openai/message'
 import { PlatformType } from '@/ds/openai/general'
 import { baseApi } from '@/states/api/baseApi'
+import { IChatGPTConversationParams } from '@/ds/openai/chatgpt'
 
 export const TAG_MESSAGE = 'message'
 
@@ -14,6 +15,12 @@ export const injectOpenAIMessages = <T extends PlatformType>() => baseApi
 	
 	.injectEndpoints({
 			endpoints: (builder) => ({
+				getConversationParams: builder.query<IChatGPTConversationParams, ID>({
+					query: (arg) => ({
+						url: `/chatGPT/${arg}`,
+					}),
+				}),
+				
 				// 实时聊天就不要一直重置刷新了，主要是涉及到了客户端和服务端双层的信息
 				listMessages: builder.query<IMessage<T>[], { conversation_id: ID, platform_type: T }>({
 					query: (arg) => `/${arg.platform_type}/${arg.conversation_id}/messages`,

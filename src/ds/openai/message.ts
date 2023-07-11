@@ -6,7 +6,6 @@ import { IDalleMessageParams } from '@/ds/openai/dalle'
 export enum MessageType {
 	text = 'text',
 	image_url = 'image_url',
-	
 }
 
 export type IMessageParams<T extends PlatformType> =

@@ -4,15 +4,13 @@ import { RootLayout } from '@/components/layouts/RootLayout'
 import { ConversationsComp } from '@/components/conversation/ConversationsComp'
 import { MessagesComp } from '@/components/conversation/MessagesComp'
 import { PlatformType } from '@/ds/openai/general'
-import { useAppSelector } from '@/hooks/use-redux'
-import { selectU } from '@/states/features/i18nSlice'
+import { useU } from '@/hooks/use-u'
 
 export const ConversationPage = () => {
-	const u = useAppSelector(selectU)
+	const u = useU()
 	
 	// customize
 	const platformType: PlatformType = PlatformType.chatGPT
-	const title = u.routers.apps.chat.chatGPT
 	
 	// preserve
 	const router = useRouter()
@@ -25,11 +23,11 @@ export const ConversationPage = () => {
 	
 	
 	return (
-		<RootLayout title={title}>
+		<RootLayout title={u.routers.apps.chat.chatGPT}>
 			<div className={'w-full grow flex overflow-auto'}>
 				
 				{/* left: conversations */}
-				<div className={'hidden md:block w-[260px] items-stretch overflow-auto'}>
+				<div className={'hidden md:block w-[260px] items-stretch overflow-auto shrink-0'}>
 					{conversationsComp}
 				</div>
 				
