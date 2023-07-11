@@ -6,11 +6,11 @@ import { Input } from '@/components/ui/input'
 import { validate } from 'isemail'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/router'
-import { AuthLayout } from '@/components/layouts/AuthLayout'
+import { AuthLayout } from '@/layouts/AuthLayout'
 import { Button } from '@/components/ui/button'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
-import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
+import { LogoHomeView } from '@/layouts/navbar/LogoHomeView'
 import axios from 'axios'
 
 const getToken = async (email: string): Promise<string> =>

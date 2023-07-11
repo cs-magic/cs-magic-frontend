@@ -2,8 +2,6 @@ import { clsx } from 'clsx'
 import { IconBrandOpenai, IconUser } from '@tabler/icons-react'
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
-import { IMessage, MessageType } from '@/ds/openai/message'
-import { PlatformType } from '@/ds/openai/general'
 import { Skeleton } from '../ui/skeleton'
 import { Popover, PopoverContent } from '../ui/popover'
 import { PopoverTrigger } from '@radix-ui/react-popover'
@@ -11,6 +9,8 @@ import remarkUnwrapImages from 'remark-unwrap-images'
 import { useGetUserQuery } from '@/states/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { IChatgptMessage } from '@/ds/openai/chatgpt'
+import { MessageType } from '@/ds/general'
 
 export const ChargeMessage = ({ content, classNames }: { content: string, classNames?: string }) => {
 	const [_, pre, wechat, suf] = content.match(/(.*)\[(.*)\](.*)/)!
@@ -26,9 +26,7 @@ export const ChargeMessage = ({ content, classNames }: { content: string, classN
 	)
 }
 
-export const MessageComp = <T extends PlatformType>({ msg }: {
-	msg: IMessage<T>
-}) => {
+export const MessageComp = ({ msg }: { msg: IChatgptMessage }) => {
 	const { currentData: user } = useGetUserQuery(msg.sender !== 'openai' ? msg.sender : skipToken)
 	
 	return (

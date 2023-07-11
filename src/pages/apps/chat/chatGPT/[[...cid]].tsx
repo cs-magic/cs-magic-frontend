@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import { ensureSole } from '@/lib/utils'
-import { RootLayout } from '@/components/layouts/RootLayout'
-import { ConversationsComp } from '@/components/conversation/ConversationsComp'
-import { MessagesComp } from '@/components/conversation/MessagesComp'
-import { PlatformType } from '@/ds/openai/general'
+import { RootLayout } from '@/layouts/RootLayout'
+import { ConversationsComp } from '@/components/chatgpt/ConversationsComp'
+import { MessagesComp } from '@/components/chatgpt/MessagesComp'
 import { useU } from '@/hooks/use-u'
+import { PlatformType } from '@/ds/openai'
 
 export const ConversationPage = () => {
 	const u = useU()

@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef } from 'react'

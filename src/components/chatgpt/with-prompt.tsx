@@ -1,24 +1,24 @@
 import { useU } from '@/hooks/use-u'
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SendInput } from '@/components/chatgpt/send-input'
 import { RefObject, useEffect, useState } from 'react'
-import { ChatgptRoleType, IChatgptPromptWeb } from '@/ds/openai/chatgpt'
+import { ChatgptRoleType, IChatgptConversation, IChatgptMessage } from '@/ds/openai/chatgpt'
 import { useUser } from '@/hooks/use-user'
 import { useListChatgptMessagesQuery } from '@/states/api/chatgptApi'
-import { PlatformType } from '@/ds/openai/general'
-import { IChatgptMessage, MessageType } from '@/ds/openai/message'
 import { toast } from '@/hooks/use-toast'
 import { io, Socket } from 'socket.io-client'
 import { IClientSocketMessage, IServerSocketMessage, SocketActionType } from '@/ds/socket'
 import { ChatMessage, ContentStatus, RichContentType } from '@/components/chatgpt/ChatMessage'
 import { NEXT_PUBLIC_SOCKET_SERVER } from '@/lib/env'
 import { USER_OPENAI } from '@/settings'
+import { PlatformType } from '@/ds/openai'
+import { MessageType } from '@/ds/general'
 
 let socket: Socket
 
 
-export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => {
+export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) => {
 	const u = useU()
 	const user = useUser()
 	
@@ -100,11 +100,11 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 				
 				<Card>
 					<CardHeader>
-						<CardTitle>{prompt.act}</CardTitle>
+						<CardTitle>{prompt.name}</CardTitle>
 					</CardHeader>
 					
 					<CardContent>
-						{prompt.prompt}
+						{prompt.platform_params.system_prompt}
 					</CardContent>
 				</Card>
 				

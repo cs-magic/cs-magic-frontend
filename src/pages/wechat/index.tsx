@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useGetWechatQrcodeQuery } from '@/states/api/backApi'
-import { CentralLayout } from '@/components/layouts/CentralLayout'
+import { CentralLayout } from '@/layouts/CentralLayout'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { QRCodeCanvas } from 'qrcode.react'
 import { Label } from '@/components/ui/label'

@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { useCallChatgptMutation } from '@/states/api/testApi'
 import { Button } from '@/components/ui/button'
 import { ChatgptModelType, ChatgptRoleType, ICallChatgpt } from '@/ds/openai/chatgpt'
@@ -8,7 +8,7 @@ export const TestPage = () => {
 	const [callChatgpt, { data: response, isLoading }] = useCallChatgptMutation()
 	
 	const msg: ICallChatgpt = {
-		model: ChatgptModelType.gpt35,
+		model: ChatgptModelType.gpt_35,
 		prompts: [
 			{ role: ChatgptRoleType.user, content: 'hello' },
 		],

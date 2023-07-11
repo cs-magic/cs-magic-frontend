@@ -1,10 +1,10 @@
 import { MessageInterface } from 'wechaty/dist/esm/src/user-modules/message'
 import { Wechaty } from 'wechaty'
 import backendApi from '@/lib/api'
-import { IMessage, MessageType } from '@/ds/openai/message'
-import { PlatformType } from '@/ds/openai/general'
 import { log } from '@/lib/log'
-import { ChatgptRoleType } from '@/ds/openai/chatgpt'
+import { ChatgptRoleType, IChatgptMessage } from '@/ds/openai/chatgpt'
+import { PlatformType } from '@/ds/openai'
+import { MessageType } from '@/ds/general'
 
 
 export const handleMessage = async (message: MessageInterface, bot?: Wechaty) => {
@@ -49,14 +49,14 @@ export const handleMessage = async (message: MessageInterface, bot?: Wechaty) =>
 	})
 	log.info('generated conversation: ', { conversation_id, text, tag, content })
 	
-	const msg: IMessage<PlatformType.chatGPT> = {
+	const msg: IChatgptMessage = {
 		content,
 		conversation_id,
 		sender: sender.id,
 		platform_params: { role: ChatgptRoleType.user },
 		type: MessageType.text,
 		status: 'OK',
-		time: Date.now(),
+		time: new Date(),
 		platform_type: PlatformType.chatGPT,
 	}
 	

@@ -5,29 +5,19 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { useUserId } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { getChatLink } from '@/lib/utils'
-import { PlatformType } from '@/ds/openai/general'
-import { IConversation } from '@/ds/openai/conversation'
 import Link from 'next/link'
-import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { ConversationLineComp } from './ConversationLineComp'
 import { Button } from '@/components/ui/button'
+import { useListConversationsQuery } from '@/states/api/chatgptApi'
+import { PlatformType } from '@/ds/openai'
+import { IChatgptConversation } from '@/ds/openai/chatgpt'
 
-export const ConversationsComp = <T extends PlatformType>(
-	{
-		cid,
-		platform_type,
-	}: {
-		cid: ID | null
-		platform_type: T
-	}) => {
+export const ConversationsComp = ({ cid }: { cid: ID | null }) => {
 	
 	const user_id = useUserId()
 	
-	const { useListConversationsQuery } = injectOpenAIConversation<T>()
-	
 	const { data: conversations = [], isLoading: isLoadingConversations } =
-		useListConversationsQuery(user_id ? { user_id, platform_type } : skipToken)
-	
+		useListConversationsQuery(user_id ? { user_id, platform_type: PlatformType.chatGPT } : skipToken)
 	
 	return (
 		<div className={'w-full h-full flex flex-col border-r border-base-300 overflow-auto'}>
@@ -35,7 +25,7 @@ export const ConversationsComp = <T extends PlatformType>(
 			{
 				isLoadingConversations ? <CentralLoadingComp/> : (
 					<>
-						<Link href={getChatLink({ platform_type: platform_type })}>
+						<Link href={getChatLink({ platform_type: PlatformType.chatGPT })}>
 							<Button className={'w-full rounded-none'} size={'sm'} variant={'outline'}>
 								<IconPlus size={16}/>
 								<p>New Chat</p>
@@ -48,7 +38,7 @@ export const ConversationsComp = <T extends PlatformType>(
 							' flex-col-reverse', // 倒序展示
 						)}>
 							{
-								conversations.map((conversation: IConversation<T>) =>
+								conversations.map((conversation: IChatgptConversation) =>
 									<ConversationLineComp
 										key={conversation.id}
 										conversation={conversation}

@@ -1,61 +1,42 @@
 import { ReactNode, RefObject, useEffect, useRef, useState } from 'react'
-import { MessageComp } from '@/components/conversation/MessageComp'
-import { ID, MessageStatusType } from '@/ds/general'
-import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
+import { MessageComp } from '@/components/chatgpt/MessageComp'
+import { ID, MessageStatusType, MessageType } from '@/ds/general'
+import { skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
-import { IMessage, IMessageParams, MessageType } from '@/ds/openai/message'
-import { PlatformType } from '@/ds/openai/general'
-import { injectOpenAIConversation } from '@/states/api/conversationApi'
-import { injectOpenAIMessages } from '@/states/api/messageApi'
-import { ICreateConversation } from '@/ds/openai/conversation'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { NEXT_PUBLIC_BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
-import { initMessageParams } from '@/lib/utils'
-import { ChatgptModelType, ChatgptRoleType } from '@/ds/openai/chatgpt'
+import { ChatgptModelType, ChatgptRoleType, IChatgptConversationCreate, IChatgptMessage, IChatgptMessageParams } from '@/ds/openai/chatgpt'
 import { CHATGPT_ROLE_PROMPT_DEFAULT } from '@/settings'
 import { SendInput } from '@/components/chatgpt/send-input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { useCreateConversationMutation, useGetConversationQuery, useListChatgptMessagesQuery } from '@/states/api/chatgptApi'
+import { PlatformType } from '@/ds/openai'
 
-export const MessagesComp = <T extends PlatformType>(
-	{
-		cid,
-		platform_type,
-		conversationsComp,
-	}: {
-		cid: ID | null
-		platform_type: T
-		conversationsComp: ReactNode
-	}) => {
-	
+export const MessagesComp = ({ cid, conversationsComp }: { cid: ID | null, conversationsComp: ReactNode }) => {
 	const { toast } = useToast()
-	const { useCreateConversationMutation } = injectOpenAIConversation<T>()
-	const { useListMessagesQuery, useSendMessageMutation, useGetConversationParamsQuery } = injectOpenAIMessages<T>()
 	
 	const [user, getUser] = useLazyUser()
 	const user_id = user?.id
-	
-	
 	const u = useU()
 	
 	const [conversation_id, setConversationId] = useState(cid)
-	const [messages, setMessages] = useState<IMessage<T>[]>([])
-	const { currentData: initedMessages, isLoading: isFetchingMessages } = useListMessagesQuery(cid ? { conversation_id: cid, platform_type } : skipToken)
+	const [messages, setMessages] = useState<IChatgptMessage[]>([])
+	const { currentData: initedMessages = [], isLoading: isFetchingMessages } = useListChatgptMessagesQuery(cid ?? skipToken)
 	
 	const [createConversation] = useCreateConversationMutation()
 	
-	const { currentData: conversationParams } = useGetConversationParamsQuery(conversation_id ?? skipToken)
-	const [messageParams, setMessageParams] = useState<IMessageParams<T>>(initMessageParams<T>(platform_type))
+	const { currentData: conversation } = useGetConversationQuery(conversation_id ?? skipToken)
+	const [messageParams, setMessageParams] = useState<IChatgptMessageParams>({ role: ChatgptRoleType.user })
 	
-	const refMessageSend = useRef<HTMLTextAreaElement | null>(null)
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
-	const pushMessage = (message: IMessage<T>) => setMessages((messages) => [...messages, message])
+	const pushMessage = (message: IChatgptMessage) => setMessages((messages) => [...messages, message])
 	
-	const setLastMessage = (func: (msg: IMessage<T>) => IMessage<T>) => {
+	const setLastMessage = (func: (msg: IChatgptMessage) => IChatgptMessage) => {
 		setMessages((messages) => {
 			const message = messages[messages.length - 1]
 			const updated = func(message)
@@ -69,7 +50,6 @@ export const MessagesComp = <T extends PlatformType>(
 	
 	
 	const [isLoadingChatgpt, setLoadingChatgpt] = useState(false)
-	const [sendDalleMessage, { isLoading: isLoadingDalle, data: dalleMessage, error: dalleError }] = useSendMessageMutation()
 	
 	
 	// update conversation id upon prop changes
@@ -88,17 +68,6 @@ export const MessagesComp = <T extends PlatformType>(
 		if (initedMessages) setMessages((messages) => initedMessages)
 	}, [initedMessages])
 	
-	useEffect(() => {
-		if (dalleMessage) setLastMessage(() => dalleMessage)
-	}, [dalleMessage])
-	
-	useEffect(() => {
-		if (dalleError) {
-			console.error(dalleError)
-			const { status, data } = dalleError as unknown as FetchBaseQueryError as { status: number, data: { detail: string } }
-			setLastMessage((msg) => ({ ...msg, content: data.detail, type: MessageType.text, status: status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR' }))
-		}
-	}, [dalleError])
 	
 	// auto scroll
 	useEffect(() => refMessageEnd.current?.scrollIntoView({
@@ -106,7 +75,7 @@ export const MessagesComp = <T extends PlatformType>(
 		block: 'nearest', // inner specific div
 	}), [messages.length && messages[messages.length - 1].content.length])
 	
-	const fetchSSE = (msg: IMessage<T>) => {
+	const fetchSSE = (msg: IChatgptMessage) => {
 		console.log(`[fetching SSE] msg: ${msg}`)
 		
 		class MyError extends Error {}
@@ -149,30 +118,29 @@ export const MessagesComp = <T extends PlatformType>(
 	const onSubmit = async (refInput: RefObject<HTMLTextAreaElement>) => {
 		// 直接处理 client 端错误，不要直接pushMessage，否则会导致各种失配问题
 		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
-		if (isLoadingDalle || isLoadingChatgpt) return toast({ title: '请耐心等待回复完成！', variant: 'destructive' })
-		
-		if (platform_type === PlatformType.chatGPT) setLoadingChatgpt(true)
+		if (isLoadingChatgpt) return toast({ title: '请耐心等待回复完成！', variant: 'destructive' })
 		
 		const content = refInput.current!.value
 		refInput.current!.value = ''
 		
-		let msg: IMessage<T> = {
+		let msg: IChatgptMessage = {
 			conversation_id: conversation_id || '',
 			content,
 			type: MessageType.text,
-			platform_type,
+			platform_type: PlatformType.chatGPT,
 			platform_params: messageParams,
 			sender: user_id,
+			time: new Date(),
 		}
 		await pushMessage(msg)
 		
 		if (!conversation_id) {
 			
-			const createConversationModel: ICreateConversation<T> =
+			const createConversationModel: IChatgptConversationCreate =
 				{
-					user_id, platform_type, platform_params: {
-						model: ChatgptModelType.gpt35,
-						system_prompt: conversationParams?.system_prompt || CHATGPT_ROLE_PROMPT_DEFAULT,
+					user_id, platform_type: PlatformType.chatGPT, platform_params: {
+						model: ChatgptModelType.gpt_35,
+						system_prompt: conversation?.platform_params.system_prompt || CHATGPT_ROLE_PROMPT_DEFAULT,
 					},
 				}
 			const { id: newConversationID } = await createConversation(createConversationModel).unwrap()
@@ -185,15 +153,11 @@ export const MessagesComp = <T extends PlatformType>(
 			...msg,
 			sender: 'openai',
 			platform_params: { ...msg.platform_params, role: ChatgptRoleType.assistant },
-			type: platform_type === PlatformType.dalle ? MessageType.image_url : MessageType.text, // todo: skeleton for image, but error with text
+			type: MessageType.text,
 			content: '',
 		})
 		
-		if (platform_type === PlatformType.chatGPT) {
-			fetchSSE(msg)
-		} else {
-			sendDalleMessage(msg)
-		}
+		fetchSSE(msg)
 	}
 	
 	
@@ -207,7 +171,7 @@ export const MessagesComp = <T extends PlatformType>(
 	return (
 		<div className={'grow items-stretch overflow-hidden flex flex-col'}>
 			<div className={'w-full rounded-none mb-1 flex justify-center items-center font-semibold'}>
-				{JSON.stringify(conversationParams)}
+				{JSON.stringify(conversation)}
 				{/*Model: {conversationParams.}*/}
 			</div>
 			

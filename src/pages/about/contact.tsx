@@ -1,4 +1,4 @@
-import { CentralLayout } from '@/components/layouts/CentralLayout'
+import { CentralLayout } from '@/layouts/CentralLayout'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'

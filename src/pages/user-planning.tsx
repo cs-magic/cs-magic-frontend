@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 import { userPlanningPurchaseList } from '@/config/userPlanning'

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
 import { Canvas, ThreeElements, useFrame } from '@react-three/fiber'
-import { AuthLayout } from '@/components/layouts/AuthLayout'
+import { AuthLayout } from '@/layouts/AuthLayout'
 
 function Box(props: ThreeElements['mesh']) {
 	const ref = useRef<THREE.Mesh>(null!)

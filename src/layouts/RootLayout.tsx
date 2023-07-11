@@ -4,8 +4,8 @@ import { selectNotifications } from '@/states/features/notificationSlice'
 import { getProviders, getSession } from 'next-auth/react'
 import { getTitle } from '@/lib/utils'
 import { useAppSelector } from '@/hooks/use-redux'
-import { FooterView } from '@/components/layouts/footer/FooterView'
-import { NavBarResponsive } from '@/components/layouts/navbar/NavBar'
+import { FooterView } from '@/layouts/footer/FooterView'
+import { NavBarResponsive } from '@/layouts/navbar/NavBar'
 
 export const RootLayout = ({ children, title, ...props }: {
 	children: ReactNode

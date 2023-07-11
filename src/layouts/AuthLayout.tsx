@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { FC, ReactNode } from 'react'
 
 export const AuthLayout: FC<{ children: ReactNode, title?: string }> = (props) => {

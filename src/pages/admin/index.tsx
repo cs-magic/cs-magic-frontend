@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { useAdmin } from '@/hooks/use-user'
 import { useU } from '@/hooks/use-u'
 import React, { useCallback, useEffect, useRef, useState } from 'react'

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { IConversation } from '@/ds/openai/conversation'
 import { useRouter } from 'next/router'
 import { useToast } from '@/hooks/use-toast'
 import { clsx } from 'clsx'
@@ -7,22 +6,18 @@ import { IconMessageCircle, IconPencil, IconSquareRoundedX } from '@tabler/icons
 import { Input } from '@/components/ui/input'
 import { getChatLink } from '@/lib/utils'
 import Link from 'next/link'
-import { PlatformType } from '@/ds/openai/general'
-import { injectOpenAIConversation } from '@/states/api/conversationApi'
+import { useDeleteConversationMutation, useUpdateConversationMutation } from '@/states/api/chatgptApi'
+import { PlatformType } from '@/ds/openai'
+import { IChatgptConversation } from '@/ds/openai/chatgpt'
 
-export const ConversationLineComp = <T extends PlatformType>({ conversation, isHighlight }: {
-	conversation: IConversation<T>
+export const ConversationLineComp = ({ conversation, isHighlight }: {
+	conversation: IChatgptConversation
 	isHighlight?: boolean
 }) => {
 	const router = useRouter()
 	
 	const [isEditing, setEditing] = useState(false)
 	const refInput = useRef<HTMLInputElement>(null)
-	
-	const {
-		useUpdateConversationMutation,
-		useDeleteConversationMutation,
-	} = injectOpenAIConversation<T>()
 	
 	const [updateConversation] = useUpdateConversationMutation()
 	const [deleteConversation] = useDeleteConversationMutation()
@@ -51,7 +46,7 @@ export const ConversationLineComp = <T extends PlatformType>({ conversation, isH
 						onKeyDown={async (event) => {
 							if (event.key === 'Enter') {
 								setEditing(false)
-								await updateConversation({ id, name: event.currentTarget.value, platform_type })
+								await updateConversation({ id, name: event.currentTarget.value, platform_type: PlatformType.chatGPT })
 								toast({ title: '已重命名会话' })
 							}
 						}}
@@ -74,7 +69,7 @@ export const ConversationLineComp = <T extends PlatformType>({ conversation, isH
 							className={'text-red-500'}
 							onClick={async (e) => {
 								e.preventDefault()
-								await deleteConversation({ id, platform_type })
+								await deleteConversation({ id, platform_type: PlatformType.chatGPT })
 								toast({ title: '已删除一个会话' })
 								// 当且仅当被删除conversation是当前conversation的时候才需要重定向
 								if (isHighlight)

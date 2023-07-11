@@ -1,4 +1,6 @@
-import { ID } from '@/ds/general'
+import { ID, MessageStatusType, MessageType } from '@/ds/general'
+import { PlatformType } from '@/ds/openai/index'
+import { ISocial } from '@/ds/social'
 
 export enum ChatgptRoleType {
 	system = 'system',
@@ -17,8 +19,12 @@ export interface IChatgptMessageParams {
  * 但后续也可以降级为message级别哦~
  */
 export enum ChatgptModelType {
-	gpt35 = 'gpt-3.5-turbo',
-	gpt4 = 'gpt-4',
+	gpt_35 = 'gpt-3.5-turbo',
+	gpt_35_0301 = 'gpt-3.5-turbo-0301',
+	gpt_35_0613 = 'gpt-3.5-turbo-0613',
+	gpt_4 = 'gpt-4',
+	gpt_4_0314 = 'gpt-4-0314',
+	gpt_4_0613 = 'gpt-4-0613',
 }
 
 export interface IChatGPTConversationParams {
@@ -36,30 +42,31 @@ export interface ICallChatgpt {
 	}[]
 }
 
-export interface IComment {
-	id: ID
-	user_id: ID
-	comment: string
+
+export type IChatgptMessage = {
+	conversation_id: ID
+	content: string
+	
+	type: MessageType
+	platform_type: PlatformType.chatGPT
+	platform_params: IChatgptMessageParams
+	
+	sender: ID // todo: 未来做群聊需要这个
 	time: Date
 	
-	deleted: boolean
-	quote: ID
+	status?: MessageStatusType
 }
 
-export interface IChatgptPromptWeb {
+export type IChatgptConversationCreate = {
+	user_id: ID
+	platform_type: PlatformType.chatGPT
+	platform_params: IChatGPTConversationParams
+}
+
+export interface IChatgptConversation extends IChatgptConversationCreate {
 	id: ID
+	name?: string
+	time?: string
 	
-	act: string
-	prompt: string
-	
-	user: string
-	version: string
-	
-	category: string
-	
-	social: {
-		stars: number
-		forks: number
-		comments: IComment[]
-	}
+	social: ISocial
 }

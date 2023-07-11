@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/layouts/RootLayout'
+import { RootLayout } from '@/layouts/RootLayout'
 import { HeroView } from '@/components/home/HeroView'
 import { useU } from '@/hooks/use-u'
 
