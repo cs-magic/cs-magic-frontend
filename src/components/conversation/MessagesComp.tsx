@@ -10,7 +10,7 @@ import { injectOpenAIMessages } from '@/states/api/messageApi'
 import { ICreateConversation } from '@/ds/openai/conversation'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
-import { BACKEND_ENDPOINT } from '@/lib/env'
+import { NEXT_PUBLIC_BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
 import { useToast } from '@/hooks/use-toast'
 import { initMessageParams } from '@/lib/utils'
@@ -111,7 +111,7 @@ export const MessagesComp = <T extends PlatformType>(
 		
 		class MyError extends Error {}
 		
-		fetchEventSource(`${BACKEND_ENDPOINT}/chatGPT/chat?stream=true`, {
+		fetchEventSource(`${NEXT_PUBLIC_BACKEND_ENDPOINT}/chatGPT/chat?stream=true`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(msg),

@@ -27,7 +27,7 @@ export const en: II18nSchema = {
 		apps: {
 			chat: {
 				chatGPT: 'ChatGPT',
-				dalle: 'Dalle Image',
+				// dalle: 'Dalle Image',
 			},
 		},
 	},

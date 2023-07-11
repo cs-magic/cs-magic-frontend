@@ -1,6 +1,6 @@
 import { II18nSchema } from '@/config/i18n/schema'
 
-export const sc: II18nSchema = {
+export const zhCn: II18nSchema = {
 	routers: {
 		home: '主页',
 		admin: {
@@ -96,4 +96,4 @@ export const sc: II18nSchema = {
 	},
 }
 
-export default sc
+export default zhCn

@@ -1,11 +1,15 @@
-export const BACKEND_ENDPOINT = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
+export const {
+	// NEXT_PUBLIC_BACKEND_ENDPOINT,
+	DATABASE_AUTH_DB_NAME,
+	DATABASE_MONGO_URI,
+	EMAIL_SERVER,
+	EMAIL_FROM,
+} = process.env
 
+// can't use destruction, ref: javascript - Why are destructured environment variables undefined in Next.js? - Stack Overflow, https://stackoverflow.com/questions/67566552/why-are-destructured-environment-variables-undefined-in-next-js
+export const NEXT_PUBLIC_BACKEND_ENDPOINT = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
+export const NEXT_PUBLIC_SOCKET_SERVER = process.env.NEXT_PUBLIC_SOCKET_SERVER
 
-export const DATABASE_AUTH_DB_NAME = process.env.DATABASE_AUTH_DB_NAME
-export const DATABASE_MONGO_URI = process.env.DATABASE_MONGO_URI
-
-export const EMAIL_SERVER = process.env.EMAIL_SERVER
-export const EMAIL_FROM = process.env.EMAIL_FROM
 // callback url 直接设置成 / 不知道行不行
 // export const NEXTAUTH_CALLBACK_URL = process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL
 // process.env.ENV === 'prod'

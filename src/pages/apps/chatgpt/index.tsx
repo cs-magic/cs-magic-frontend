@@ -10,6 +10,8 @@ export const ChatgptPromptPage = () => {
 	const id = router.query.id as ID | undefined
 	const { data: prompts } = useListChatgptPromptsQuery(id)
 	
+	console.log({ id, prompts })
+	
 	if (prompts === undefined) return <CentralLoadingComp/>
 	
 	if (!id) return <ChatgptWithoutPrompt/>

@@ -7,10 +7,18 @@ export enum SocketActionType {
 	call_midjourney = 'call_midjourney',
 }
 
-export interface ISocketMessage {
+export interface IClientSocketMessage {
 	user_id?: ID // 在没有登陆账号时，理应也能看到别人的消息
 	
 	room_id: ID
 	action: SocketActionType
 	args: object
+}
+
+
+export type ServerSocketMessageType = 'notification' | 'response'
+
+export interface IServerSocketMessage {
+	msg: string
+	type: ServerSocketMessageType
 }

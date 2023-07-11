@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { BACKEND_ENDPOINT } from '@/lib/env'
+import { NEXT_PUBLIC_BACKEND_ENDPOINT } from '@/lib/env'
 
 
 const instance = axios.create({
-	baseURL: BACKEND_ENDPOINT,
+	baseURL: NEXT_PUBLIC_BACKEND_ENDPOINT,
 })
 
 instance.defaults.headers.post['Content-Type'] = 'application/json'

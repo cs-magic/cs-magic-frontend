@@ -13,7 +13,9 @@ export const SelectLang = (props: {
 }) => {
 	const u = useU()
 	const dispatch = useAppDispatch()
-	const setV = (lang: LangType) => dispatch(asyncSetLang(lang))
+	const setV = async (lang: LangType) => {
+		dispatch(asyncSetLang(lang))
+	}
 	
 	return (
 		<BaseSelect label={u.display.navs.languages} vs={langs} setV={setV} icon={<IconLanguage/>} {...props}/>

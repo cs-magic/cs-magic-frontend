@@ -14,7 +14,6 @@ export const SelectTheme = ({ withText, withIconSuffix, withIconPrefix, ...props
 	const u = useU()
 	const { theme, themes, setTheme } = useLazyTheme()
 	
-	console.log({ theme })
 	
 	return (
 		<BaseSelect

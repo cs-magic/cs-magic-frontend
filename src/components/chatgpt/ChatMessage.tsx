@@ -1,9 +1,11 @@
 import { ID } from '@/ds/general'
-import { AVATAR_SAMPLE_URI } from '@/settings'
 import { clsx } from 'clsx'
 import { useGetUserQuery } from '@/states/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Skeleton } from '../ui/skeleton'
+import { USER_OPENAI } from '@/settings'
+import { useMoment } from '@/hooks/use-moment'
+
 
 export interface IUser {
 	id: ID
@@ -45,6 +47,8 @@ export interface IChatMessage extends Omit<IChatMessageBase, 'user'> {
 }
 
 export const ChatMessageBase = (props: IChatMessageBase) => {
+	const m = useMoment()
+	
 	return (
 		<div className={clsx('chat', props.side === 'left' ? 'chat-start' : 'chat-end')}>
 			<div className="chat-image avatar">
@@ -52,7 +56,7 @@ export const ChatMessageBase = (props: IChatMessageBase) => {
 					props.user.avatar
 						? (
 							<div className="w-10 rounded-full">
-								<img src={AVATAR_SAMPLE_URI} alt={'avatar'}/>
+								<img src={props.user.avatar} alt={'avatar'}/>
 							</div>
 						)
 						: (
@@ -60,13 +64,13 @@ export const ChatMessageBase = (props: IChatMessageBase) => {
 						)
 				}
 			</div>
-			<div className="chat-header">
+			<div className=" chat-header text-xs opacity-50 flex gap-1">
 				{props.user.name}
-				<time className="text-xs opacity-50">12:45</time>
+				<time className="">{m(props.time).fromNow()}</time>
 			</div>
 			
 			{props.richContent.type === RichContentType.text && (
-				<div className="chat-bubble">{props.richContent.content}</div>
+				<div className={clsx('chat-bubble', props.side === 'right' ? 'bg-[#29B560] text-black' : 'bg-gray-500 text-white')}>{props.richContent.content}</div>
 			)}
 			{/*todo: other types*/}
 			
@@ -80,8 +84,8 @@ export const ChatMessageBase = (props: IChatMessageBase) => {
 }
 
 export const ChatMessage = ({ userId, ...props }: IChatMessage) => {
-	const { data } = useGetUserQuery(userId ?? skipToken)
-	const user: IUser = {
+	const { data } = useGetUserQuery(userId && userId !== USER_OPENAI.id ? userId : skipToken)
+	const user: IUser = userId === USER_OPENAI.id ? USER_OPENAI : {
 		id: userId,
 		name: data?.basic.name ?? userId,
 		avatar: data?.basic.avatar ?? null,

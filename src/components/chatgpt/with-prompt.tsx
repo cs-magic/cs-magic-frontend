@@ -10,8 +10,10 @@ import { PlatformType } from '@/ds/openai/general'
 import { IChatgptMessage, MessageType } from '@/ds/openai/message'
 import { toast } from '@/hooks/use-toast'
 import { io, Socket } from 'socket.io-client'
-import { ISocketMessage, SocketActionType } from '@/ds/socket'
+import { IClientSocketMessage, IServerSocketMessage, SocketActionType } from '@/ds/socket'
 import { ChatMessage, ContentStatus, RichContentType } from '@/components/chatgpt/ChatMessage'
+import { NEXT_PUBLIC_SOCKET_SERVER } from '@/lib/env'
+import { USER_OPENAI } from '@/settings'
 
 let socket: Socket
 
@@ -21,21 +23,39 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 	const user = useUser()
 	
 	const { data: initMessages = [] } = useListChatgptMessagesQuery(prompt.id)
-	const [messages, setMessages] = useState(initMessages)
+	const [messages, setMessages] = useState<IChatgptMessage[]>(initMessages)
 	
 	console.log({ messages })
 	
 	useEffect(() => {
 		
-		socket = io(process.env.SOCKET_SERVER, {
-			path: '/ws/socket.io/',
+		socket = io(NEXT_PUBLIC_SOCKET_SERVER as string, {
+			path: '/ws/socket.io/', // warn: 这里不能变，否则服务器就要变，以及nginx等
 			transports: ['websocket', 'polling'],
 		})
 		
 		socket.on('connect', () => { console.log('Connected: ', socket.id) })
-		socket.on('message', data => { console.log('REC: ', data) })
+		socket.on('message', (data: IServerSocketMessage) => {
+			console.log('REC: ', data)
+			if (data.type === 'response') {
+				setMessages((messages) => [...messages, {
+					content: data.msg,
+					
+					sender: 'openai',
+					platform_params: {
+						role: ChatgptRoleType.assistant,
+					},
+					
+					type: MessageType.text,
+					platform_type: PlatformType.chatGPT,
+					time: new Date(),
+					status: 'OK',
+					conversation_id: prompt.id,
+				}])
+			}
+		})
 		
-		const msg: ISocketMessage = {
+		const msg: IClientSocketMessage = {
 			action: SocketActionType.join_room,
 			args: {},
 			room_id: prompt.id,
@@ -59,7 +79,7 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 			sender: user.id,
 			time: new Date(),
 		}
-		const socketMessage: ISocketMessage = {
+		const socketMessage: IClientSocketMessage = {
 			action: SocketActionType.call_chatgpt,
 			args: {
 				content,
@@ -87,6 +107,17 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 						{prompt.prompt}
 					</CardContent>
 				</Card>
+				
+				<ChatMessage
+					side={'left'}
+					userId={USER_OPENAI.id}
+					richContent={{
+						type: RichContentType.text,
+						content: 'test',
+					}}
+					status={ContentStatus.delivered}
+					time={new Date()}
+				/>
 				
 				<div id={'messages'} className={'w-full grow flex flex-col gap-2'}>
 					{messages.map((message, index) => {
