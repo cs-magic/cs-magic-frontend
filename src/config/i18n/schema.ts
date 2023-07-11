@@ -14,7 +14,7 @@ export interface IProjectItem extends ILink {
 export interface II18nSchema {
 	apps: {
 		chatGPT: IProjectItem
-		dalle: IProjectItem
+		// dalle: IProjectItem
 	},
 	notify: {
 		errorUserEmpty: string

@@ -26,7 +26,7 @@ export const sc: II18nSchema = {
 		apps: {
 			chat: {
 				chatGPT: 'ChatGPT聊天',
-				dalle: 'Dalle生图',
+				// dalle: 'Dalle生图',
 			},
 		},
 	},
@@ -36,16 +36,16 @@ export const sc: II18nSchema = {
 			name: 'ChatGPT',
 			desc: '基于OpenAI的ChatGPT，支持与AI连续对话',
 			href: '/apps/chat/chatGPT',
-			tags: ['NEW', '稳定', '免翻'],
+			tags: ['稳定', '免翻'],
 			cover: '/screenshots/chatgpt.png',
 		},
-		dalle: {
-			name: 'Dalle 作图',
-			desc: '基于OpenAI的Dalle，支持根据文本生成图片',
-			href: '/apps/chat/dalle',
-			tags: ['NEW', '稳定', '免翻'],
-			cover: '/screenshots/dalle2.png',
-		},
+		// dalle: {
+		// 	name: 'Dalle 作图',
+		// 	desc: '基于OpenAI的Dalle，支持根据文本生成图片',
+		// 	href: '/apps/chat/dalle',
+		// 	tags: ['稳定', '免翻'],
+		// 	cover: '/screenshots/dalle2.png',
+		// },
 	},
 	
 	notify: {

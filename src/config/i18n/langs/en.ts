@@ -40,13 +40,13 @@ export const en: II18nSchema = {
 			tags: ['NEW', 'Stable', 'Mirror'],
 			cover: '/screenshots/chatgpt.png',
 		},
-		dalle: {
-			name: 'Dalle Image Generator',
-			desc: 'Based on OpenAI\'s Dalle, supporting image generation from text.',
-			href: '/apps/chat/dalle',
-			tags: ['NEW', 'Stable', 'Mirror'],
-			cover: '/screenshots/dalle2.png',
-		},
+		// dalle: {
+		// 	name: 'Dalle Image Generator',
+		// 	desc: 'Based on OpenAI\'s Dalle, supporting image generation from text.',
+		// 	href: '/apps/chat/dalle',
+		// 	tags: ['NEW', 'Stable', 'Mirror'],
+		// 	cover: '/screenshots/dalle2.png',
+		// },
 	},
 	notify: {
 		errorUserEmpty: 'Username cannot be empty! Please register and log in before using!',

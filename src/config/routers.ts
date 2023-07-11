@@ -2,7 +2,7 @@ export const routers = {
 	apps: {
 		chat: {
 			chatGPT: '/apps/chat/chatGPT',
-			dalle: '/apps/chat/dalle',
+			// dalle: '/apps/chat/dalle',
 		},
 	},
 	

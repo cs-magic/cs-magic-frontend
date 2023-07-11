@@ -77,17 +77,18 @@ export const UserPage = () => {
 					
 					<CardContent className={'flex flex-col gap-2'}>
 						<InputGroup label={'ID'}>
-						
-						<span
-							className={'grow cursor-pointer'}
-							onClick={() => {
-								navigator.clipboard.writeText(user_id)
-								toast({ title: 'copied your user_id' })
-							}}>
-							{user_id}
-						</span>
 							
-							<IconCopy/>
+							<span
+								className={'grow cursor-pointer inline-flex gap-2'}
+								onClick={() => {
+									navigator.clipboard.writeText(user_id)
+									toast({ title: 'copied your user_id' })
+								}}>
+								{user_id}
+								
+								<IconCopy/>
+							</span>
+							
 							
 							<Button
 								disabled={!isSelf}
