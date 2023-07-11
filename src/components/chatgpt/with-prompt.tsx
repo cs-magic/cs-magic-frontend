@@ -2,15 +2,17 @@ import { useU } from '@/hooks/use-u'
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SendInput } from '@/components/chatgpt/send-input'
-import { RefObject, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 import { ChatgptRoleType, IChatgptPromptWeb } from '@/ds/openai/chatgpt'
 import { useUserId } from '@/hooks/use-user'
 import { useListChatgptMessagesQuery, useSendMessageMutation } from '@/states/api/chatgptApi'
 import { PlatformType } from '@/ds/openai/general'
 import { IChatgptMessage, MessageType } from '@/ds/openai/message'
 import { toast } from '@/hooks/use-toast'
+import { io } from 'socket.io-client'
 
 export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => {
+	
 	
 	const u = useU()
 	const userId = useUserId()
@@ -38,6 +40,20 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 		
 		ref.current!.value = ''
 	}
+	
+	useEffect(() => {
+		const socket = io('ws://localhost:2001', {
+			path: '/ws/socket.io/',
+			transports: ['websocket', 'polling'],
+		})
+		
+		socket.on('connect', () => { console.log('Connected', socket.id) })
+		socket.on('response', () => { console.log('Response', socket.id) })
+		socket.on('message', data => { console.log(data) })
+		
+		socket.send({ room_id: prompt.id, action: 'ping' })
+		socket.send({ room_id: prompt.id, action: 'again' })
+	}, [])
 	
 	return (
 		<RootLayout title={u.routers.apps.chat.chatGPT}>
