@@ -25,12 +25,12 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 	console.log({ messages })
 	
 	useEffect(() => {
-		socket = io('ws://localhost:2001', {
+		socket = io(process.env.SOCKET_SERVER, {
 			path: '/ws/socket.io/',
 			transports: ['websocket', 'polling'],
 		})
 		
-		socket.on('connect', () => { console.log('Connected', socket.id) })
+		socket.on('connect', () => { console.log('Connected: ', socket.id) })
 		socket.on('message', data => { console.log('REC: ', data) })
 		
 		const msg: ISocketMessage = {

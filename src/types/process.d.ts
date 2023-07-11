@@ -13,5 +13,7 @@ declare namespace NodeJS {
 		
 		DATABASE_MONGO_URI: string
 		DATABASE_AUTH_DB_NAME: string
+		
+		SOCKET_SERVER: string
 	}
 }
