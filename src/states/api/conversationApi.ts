@@ -24,7 +24,7 @@ export const injectOpenAIConversation = <T extends PlatformType>() => {
 						providesTags: (result, error, arg) => (result ?? []).map((item) => ({ type: TAG_CONVERSATION, id: item.id })),
 					}),
 					
-					createConversation: builder.mutation<ID, ICreateConversation<T>>({
+					createConversation: builder.mutation<IConversation<T>, ICreateConversation<T>>({
 						query: (arg) => ({
 							url: `/${arg.platform_type}`,
 							method: 'post',

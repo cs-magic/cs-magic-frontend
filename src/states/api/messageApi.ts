@@ -27,7 +27,7 @@ export const injectOpenAIMessages = <T extends PlatformType>() => baseApi
 				}),
 				
 				sendMessage: builder.mutation<IMessage<T>, IMessage<T>>({
-					query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat`, method: 'post', body: arg }),
+					query: (arg) => ({ url: `/${arg.platform_type}/chat`, method: 'post', body: arg }),
 					invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.sender }],
 				}),
 				

@@ -107,9 +107,11 @@ export const MessagesComp = <T extends PlatformType>(
 	}), [messages.length && messages[messages.length - 1].content.length])
 	
 	const fetchSSE = (msg: IMessage<T>) => {
+		console.log(`[fetching SSE] msg: ${msg}`)
+		
 		class MyError extends Error {}
 		
-		fetchEventSource(`${BACKEND_ENDPOINT}/chatGPT/${msg.conversation_id}/chat?stream=true`, {
+		fetchEventSource(`${BACKEND_ENDPOINT}/chatGPT/chat?stream=true`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(msg),
@@ -173,7 +175,7 @@ export const MessagesComp = <T extends PlatformType>(
 						system_prompt: conversationParams?.system_prompt || CHATGPT_ROLE_PROMPT_DEFAULT,
 					},
 				}
-			const newConversationID = await createConversation(createConversationModel).unwrap()
+			const { id: newConversationID } = await createConversation(createConversationModel).unwrap()
 			
 			setConversationId(newConversationID)
 			msg.conversation_id = newConversationID

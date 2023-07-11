@@ -23,7 +23,7 @@ export enum ChatgptModelType {
 
 export interface IChatGPTConversationParams {
 	model: ChatgptModelType,
-	system_prompt: string
+	system_prompt?: string
 	// selected: ID[]
 }
 

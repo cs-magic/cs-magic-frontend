@@ -25,7 +25,7 @@ export const chatgptApi = baseApi
 			}),
 			
 			sendMessage: builder.mutation<IChatgptMessage, IChatgptMessage>({
-				query: (arg) => ({ url: `/${arg.platform_type}/${arg.conversation_id}/chat`, method: 'post', body: arg }),
+				query: (arg) => ({ url: `/${arg.platform_type}/chat`, method: 'post', body: arg }),
 				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_CHATGPT, id: arg.sender }], // todo: socket update ? token update ?
 			}),
 		}),
