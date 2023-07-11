@@ -6,7 +6,7 @@ import { useAppSelector } from '@/hooks/use-redux'
 import { selectU } from '@/states/features/i18nSlice'
 
 
-export const BasicUserAvatarView = (
+export const BasicUserAvatar = (
 	{
 		id, user, ...props
 	}: {
@@ -29,7 +29,7 @@ export const BasicUserAvatarView = (
 }
 
 
-export const UserAvatarView = ({ user, ...props }: { user: User } & HTMLAttributes<HTMLDivElement>) =>
+export const UserAvatar = ({ user, ...props }: { user: User } & HTMLAttributes<HTMLDivElement>) =>
 	user
-		? <BasicUserAvatarView id={user.id} user={user.basic} {...props}/>
+		? <BasicUserAvatar id={user.id} user={user.basic} {...props}/>
 		: <Avatar {...props}><AvatarFallback>{'登录'}</AvatarFallback></Avatar>

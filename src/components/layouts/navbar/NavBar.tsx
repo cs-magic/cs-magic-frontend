@@ -14,7 +14,7 @@ import { SelectLang } from '@/components/general/SelectLang'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { FooterView } from '@/components/layouts/footer/FooterView'
 import { LogoHomeView } from '@/components/layouts/navbar/LogoHomeView'
-import { UserAvatarView } from '@/components/general/UserAvatarView'
+import { UserAvatar } from '@/components/user/UserAvatar'
 import React, { HTMLAttributes } from 'react'
 import { NavigationMenuProps } from '@radix-ui/react-navigation-menu'
 import { routers } from '@/config/routers'
@@ -158,7 +158,7 @@ export const NavBarResponsive = () => {
 			<HorizontalMenus className={'hidden md:flex'}/>
 			
 			<Link href={user ? `/user/${user.id}` : `/auth/signin`} className={'cursor-pointer'}>
-				<UserAvatarView user={user}/>
+				<UserAvatar user={user}/>
 			</Link>
 		
 		</div>

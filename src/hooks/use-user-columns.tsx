@@ -1,6 +1,6 @@
 import { IUser, UserPlanningType, UserRole } from '@/ds/user'
 import { useUpdateBasicUserMutation, useUpdateOpenAIUserMutation } from '@/states/api/userApi'
-import { UserAvatarView } from '@/components/general/UserAvatarView'
+import { UserAvatar } from '@/components/user/UserAvatar'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { toast } from '@/hooks/use-toast'
 import _ from 'lodash'
@@ -36,7 +36,7 @@ export const useUserColumns = () => {
 				}),
 				columnHelper.accessor('basic.avatar', {
 					header: 'Avatar',
-					cell: ({ row }) => <UserAvatarView user={row.original}/>,
+					cell: ({ row }) => <UserAvatar user={row.original}/>,
 				}),
 				columnHelper.accessor('basic.role', {
 					header: 'Role',

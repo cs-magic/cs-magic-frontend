@@ -3,7 +3,7 @@ import { IWallMessage } from '@/ds/wall-messages'
 import { useVoteWallMessageMutation } from '@/states/api/wallMessageApi'
 import { useToast } from '@/hooks/use-toast'
 import { useUserId } from '@/hooks/use-user'
-import { BasicUserAvatarView } from '@/components/general/UserAvatarView'
+import { BasicUserAvatar } from '@/components/user/UserAvatar'
 import { Button } from '@/components/ui/button'
 import { IconDotsVertical, IconThumbDown, IconThumbUp } from '@tabler/icons-react'
 import { clsx } from 'clsx'
@@ -30,7 +30,7 @@ export const WallMessageComp: FC<IWallMessage> = ({ poster_id, poster, time, vot
 		<div className={'p-4 rounded-md shadow-xl border border-gray-500 w-full flex flex-col gap-2'}>
 			
 			<div className={'wm-user flex items-center gap-4'}>
-				<BasicUserAvatarView user={poster} id={poster_id}/>
+				<BasicUserAvatar user={poster} id={poster_id}/>
 				<div className={'grow'}>
 					<p>{poster.name}</p>
 					<p className={'text-gray-500 text-sm'}>{new Date(time / 1000000).toLocaleString()}</p>

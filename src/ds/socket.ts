@@ -8,8 +8,9 @@ export enum SocketActionType {
 }
 
 export interface ISocketMessage {
+	user_id?: ID // 在没有登陆账号时，理应也能看到别人的消息
+	
 	room_id: ID
-	user_id: ID
 	action: SocketActionType
 	args: object
 }

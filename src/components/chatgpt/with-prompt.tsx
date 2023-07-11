@@ -4,20 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SendInput } from '@/components/chatgpt/send-input'
 import { RefObject, useEffect, useState } from 'react'
 import { ChatgptRoleType, IChatgptPromptWeb } from '@/ds/openai/chatgpt'
-import { useUserId } from '@/hooks/use-user'
+import { useUser } from '@/hooks/use-user'
 import { useListChatgptMessagesQuery } from '@/states/api/chatgptApi'
 import { PlatformType } from '@/ds/openai/general'
 import { IChatgptMessage, MessageType } from '@/ds/openai/message'
 import { toast } from '@/hooks/use-toast'
 import { io, Socket } from 'socket.io-client'
 import { ISocketMessage, SocketActionType } from '@/ds/socket'
+import { ChatMessage, ContentStatus, RichContentType } from '@/components/chatgpt/ChatMessage'
 
 let socket: Socket
 
 
 export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => {
 	const u = useU()
-	const userId = useUserId()
+	const user = useUser()
 	
 	const { data: initMessages = [] } = useListChatgptMessagesQuery(prompt.id)
 	const [messages, setMessages] = useState(initMessages)
@@ -25,6 +26,7 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 	console.log({ messages })
 	
 	useEffect(() => {
+		
 		socket = io(process.env.SOCKET_SERVER, {
 			path: '/ws/socket.io/',
 			transports: ['websocket', 'polling'],
@@ -37,14 +39,14 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 			action: SocketActionType.join_room,
 			args: {},
 			room_id: prompt.id,
-			user_id: userId!,
+			user_id: user?.id,
 		}
 		socket.send(msg)
 	}, [])
 	
 	const onSubmit = async (ref: RefObject<HTMLTextAreaElement>) => {
 		const content = ref.current!.value
-		if (!userId) return toast({ title: '需要先登录才能发送消息哦~', variant: 'destructive' })
+		if (!user?.id) return toast({ title: '需要先登录才能发送消息哦~', variant: 'destructive' })
 		if (!socket) return toast({ title: '聊天服务器尚未初始化~', variant: 'destructive' })
 		
 		// todo: 合并两类message
@@ -54,7 +56,8 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 			type: MessageType.text,
 			platform_type: PlatformType.chatGPT,
 			platform_params: { role: ChatgptRoleType.user },
-			sender: userId,
+			sender: user.id,
+			time: new Date(),
 		}
 		const socketMessage: ISocketMessage = {
 			action: SocketActionType.call_chatgpt,
@@ -62,7 +65,7 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 				content,
 			},
 			room_id: prompt.id,
-			user_id: userId!,
+			user_id: user.id,
 		}
 		await socket.send(socketMessage)
 		setMessages([...messages, msg])
@@ -88,9 +91,17 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptPromptWeb }) => 
 				<div id={'messages'} className={'w-full grow flex flex-col gap-2'}>
 					{messages.map((message, index) => {
 						return (
-							<div key={index}>
-								{message.content}
-							</div>
+							<ChatMessage
+								key={index}
+								side={message.sender === user?.id ? 'right' : 'left'}
+								userId={message.sender}
+								richContent={{
+									type: RichContentType.text,
+									content: message.content,
+								}}
+								status={ContentStatus.delivered}
+								time={message.time}
+							/>
 						)
 					})}
 				</div>

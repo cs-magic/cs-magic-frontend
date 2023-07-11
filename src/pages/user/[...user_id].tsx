@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useGetUserQuery, useUpdateBasicUserMutation } from '@/states/api/userApi'
 import { CentralLayout } from '@/components/layouts/CentralLayout'
 import { useToast } from '@/hooks/use-toast'
-import { UserAvatarView } from '@/components/general/UserAvatarView'
+import { UserAvatar } from '@/components/user/UserAvatar'
 import { useUploadFileMutation } from '@/states/api/fileApi'
 import _ from 'lodash'
 import { useUser } from '@/hooks/use-user'
@@ -15,6 +15,7 @@ import { UserPlanningType } from '@/ds/user'
 import { signOut } from 'next-auth/react'
 import { routers } from '@/config/routers'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { IconCopy } from '@tabler/icons-react'
 
 
 const InputGroup = ({ label, children, extra }: {
@@ -57,7 +58,7 @@ export const UserPage = () => {
 			<div className={'m-auto w-full md:w-[480px] flex flex-col gap-4'}>
 				
 				<div className={'w-full inline-flex items-center gap-4'}>
-					<UserAvatarView user={targetUser} className={'w-20 h-20 '}/>
+					<UserAvatar user={targetUser} className={'w-20 h-20 '}/>
 					{/* todo: admin privilege */}
 					<Label htmlFor={'upload-avatar'} className={'text-gray-500 bg-transparent text-sm cursor-pointer'}> (Click to Replace)</Label>
 					<input id={'upload-avatar'} hidden type={'file'} accept={'image/*'} onChange={async (event) => {
@@ -76,14 +77,18 @@ export const UserPage = () => {
 					
 					<CardContent className={'flex flex-col gap-2'}>
 						<InputGroup label={'ID'}>
-					<span
-						className={'grow bg-base-200 text-primary cursor-pointer'}
-						onClick={() => {
-							navigator.clipboard.writeText(user_id)
-							toast({ title: 'copied your user_id' })
-						}}>
-						{user_id}
-					</span>
+						
+						<span
+							className={'grow cursor-pointer'}
+							onClick={() => {
+								navigator.clipboard.writeText(user_id)
+								toast({ title: 'copied your user_id' })
+							}}>
+							{user_id}
+						</span>
+							
+							<IconCopy/>
+							
 							<Button
 								disabled={!isSelf}
 								variant={'secondary'}
