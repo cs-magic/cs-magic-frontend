@@ -11,10 +11,6 @@ export interface IChatgptMessageParams {
 	role: ChatgptRoleType
 }
 
-export interface IChatgptMessage {
-	role: ChatgptRoleType
-	content: string
-}
 
 /**
  * 目前model是属于conversation级别的
@@ -34,12 +30,10 @@ export interface IChatGPTConversationParams {
 
 export interface ICallChatgpt {
 	model: ChatgptModelType
-	prompts: IChatgptMessage[]
-}
-
-export interface IChatgptRole {
-	act: string
-	prompt: string
+	prompts: {
+		role: ChatgptRoleType
+		content: string
+	}[]
 }
 
 export interface IComment {

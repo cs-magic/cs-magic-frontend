@@ -27,6 +27,8 @@ export interface IMessage<T extends PlatformType> {
 	status?: MessageStatusType
 }
 
+export type IChatgptMessage = IMessage<PlatformType.chatGPT>
+
 export const createSkeletonMessage = <T extends PlatformType>(sender: ID, conversation_id: ID, message_type: MessageType, platform_type: T, platform_params: IMessageParams<T>): IMessage<T> => ({
 	conversation_id,
 	content: '',

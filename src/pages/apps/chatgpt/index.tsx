@@ -1,5 +1,5 @@
-import ChatgptWithoutPrompt from '@/components/chatgpt/role-index'
-import ChatgptWithPrompt from '@/components/chatgpt/role'
+import ChatgptWithoutPrompt from '@/components/chatgpt/without-prompt'
+import ChatgptWithPrompt from '@/components/chatgpt/with-prompt'
 import { ID } from '@/ds/general'
 import { useRouter } from 'next/router'
 import { useListChatgptPromptsQuery } from '@/states/api/chatgptApi'
