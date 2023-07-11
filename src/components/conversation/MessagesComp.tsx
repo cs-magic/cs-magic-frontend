@@ -1,9 +1,5 @@
-import { clsx } from 'clsx'
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, RefObject, useEffect, useRef, useState } from 'react'
 import { MessageComp } from '@/components/conversation/MessageComp'
-import { Textarea } from '@/components/ui/textarea'
-import { IconBrandTelegram } from '@tabler/icons-react'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { ID, MessageStatusType } from '@/ds/general'
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query'
 import { useLazyUser } from '@/hooks/use-user'
@@ -13,7 +9,6 @@ import { injectOpenAIConversation } from '@/states/api/conversationApi'
 import { injectOpenAIMessages } from '@/states/api/messageApi'
 import { ICreateConversation } from '@/ds/openai/conversation'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
-import { Button } from '@/components/ui/button'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { BACKEND_ENDPOINT } from '@/lib/env'
 import { useU } from '@/hooks/use-u'
@@ -21,6 +16,9 @@ import { useToast } from '@/hooks/use-toast'
 import { initMessageParams } from '@/lib/utils'
 import { ChatgptModelType, ChatgptRoleType } from '@/ds/openai/chatgpt'
 import { CHATGPT_ROLE_PROMPT_DEFAULT } from '@/settings'
+import { SendInput } from '@/components/chatgpt/send-input'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
 
 export const MessagesComp = <T extends PlatformType>(
 	{
@@ -146,15 +144,15 @@ export const MessagesComp = <T extends PlatformType>(
 	}
 	
 	
-	const onSubmit = async () => {
+	const onSubmit = async (refInput: RefObject<HTMLTextAreaElement>) => {
 		// 直接处理 client 端错误，不要直接pushMessage，否则会导致各种失配问题
 		if (!user_id) return toast({ title: '聊天功能需要先登录再使用！', variant: 'destructive' })
 		if (isLoadingDalle || isLoadingChatgpt) return toast({ title: '请耐心等待回复完成！', variant: 'destructive' })
 		
 		if (platform_type === PlatformType.chatGPT) setLoadingChatgpt(true)
 		
-		const content = refMessageSend.current!.value
-		refMessageSend.current!.value = ''
+		const content = refInput.current!.value
+		refInput.current!.value = ''
 		
 		let msg: IMessage<T> = {
 			conversation_id: conversation_id || '',
@@ -219,32 +217,7 @@ export const MessagesComp = <T extends PlatformType>(
 				<div ref={refMessageEnd} className={'w-full'}/>
 			</div>
 			
-			
-			{/* for stretch, since flex-end cannot combine with overflow-auto */}
-			<div className={'hidden md:block grow'}/>
-			<div className={clsx(
-				'text-base gap-4 md:gap-6 md:max-w-2xl lg:max-w-xl xl:max-w-3xl flex m-auto break-all',
-				'w-full relative ')}>
-				<Textarea
-					className={'mt-2 mb-10 md:mb-2 w-full shadow-sm resize-none'}
-					onKeyDown={(event) => {
-						if (event.key === 'Enter') {
-							if (
-								!event.metaKey && !event.shiftKey && !event.ctrlKey
-								&& !event.nativeEvent.isComposing  // important! 检测是否在输入拼音，ref: (6条消息) js如何判断当前文本的输入状态——中文输入法的那些坑_怎么判断当前输入法是不是中文_小敏哥的博客-CSDN博客, https://blog.csdn.net/handsomexiaominge/article/details/80977402
-							) {
-								onSubmit()
-								event.preventDefault() // prevent enter go down
-							}
-						}
-					}}
-					ref={refMessageSend}
-					placeholder={u.ui.general.textarea.placeholder}
-				/>
-				<IconBrandTelegram className={'hidden md:block text-primary absolute right-3 bottom-6 cursor-pointer'} onClick={onSubmit}/>
-			</div>
-			
-			<div className={'md:hidden fixed bottom-0 left-0 w-full grid grid-cols-2 divide-x divide-y-0 divide-slate-500'}>
+			<SendInput handleSubmit={onSubmit} extraButtonsOnMobile={(
 				<Sheet>
 					<SheetTrigger asChild>
 						<Button size={'sm'} className={'rounded-none'}>{u.ui.chat.btn.conversations}</Button>
@@ -253,9 +226,8 @@ export const MessagesComp = <T extends PlatformType>(
 						{conversationsComp}
 					</SheetContent>
 				</Sheet>
-				
-				<Button size={'sm'} className="rounded-none" onClick={onSubmit}>{u.ui.general.btn.send}</Button>
-			</div>
+			)}/>
+		
 		</div>
 	)
 }

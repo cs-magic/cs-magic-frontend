@@ -1,26 +1,17 @@
 import { useU } from '@/hooks/use-u'
 import { useState } from 'react'
-import { IChatgptRole } from '@/ds/openai/chatgpt'
-import { CHATGPT_ROLE_ACT_DEFAULT, CHATGPT_ROLE_PROMPT_DEFAULT } from '@/settings'
-import systemRoles from '@/data/openai/chatgpt/prompts.json'
 import { RootLayout } from '@/components/layouts/RootLayout'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+import { useListChatgptPromptsQuery } from '@/states/api/chatgptApi'
 
 export const ChatgptNoRole = () => {
 	
 	const u = useU()
 	const [search, setSearch] = useState('')
-	const [role, setRole] = useState<IChatgptRole>({
-		act: CHATGPT_ROLE_ACT_DEFAULT,
-		prompt: CHATGPT_ROLE_PROMPT_DEFAULT,
-	})
-	const roles = systemRoles.filter((role) => {
-		// if (!search) return true
-		if (role.act.includes(search) || role.prompt.includes(search)) return true
-		return false
-	})
+	const { data: prompts = [] } = useListChatgptPromptsQuery(undefined)
+	const filteredPrompts = prompts.filter((prompt) => !search || (prompt.act + prompt.prompt).includes(search))
 	
 	return (
 		<RootLayout title={u.routers.apps.chat.chatGPT}>
@@ -48,29 +39,25 @@ export const ChatgptNoRole = () => {
 					</CardHeader>
 					
 					<CardContent className={'w-full min-h-[320px] max-h-[360px] overflow-auto'}>
-						{
-							role.act === CHATGPT_ROLE_ACT_DEFAULT && (
-								<div className={'flex flex-wrap gap-8 justify-between '}>
-									{
-										roles.map((role) => {
-											return (
-												<Link href={`?act=${role.act}`} key={role.act}>
-													<Card key={role.act} className={'w-[320px] cursor-pointer hover:shadow-md hover:shadow-indigo-500'}>
-														<CardHeader>
-															<CardTitle>{role.act}</CardTitle>
-														</CardHeader>
-														
-														<CardContent className={'h-[80px] overflow-auto'}>
-															{role.prompt}
-														</CardContent>
-													</Card>
-												</Link>
-											)
-										})
-									}
-								</div>
-							)
-						}
+						<div className={'grid grid-cols md:grid-cols-2 lg:grid-cols-3 gap-8'}>
+							{
+								filteredPrompts.map((prompt) => {
+									return (
+										<Link href={`?id=${prompt.id}`} key={prompt.act}>
+											<Card key={prompt.act} className={'w-[320px] cursor-pointer hover:shadow-md hover:shadow-indigo-500'}>
+												<CardHeader>
+													<CardTitle>{prompt.act}</CardTitle>
+												</CardHeader>
+												
+												<CardContent className={'h-[80px] overflow-auto'}>
+													{prompt.prompt}
+												</CardContent>
+											</Card>
+										</Link>
+									)
+								})
+							}
+						</div>
 					</CardContent>
 				</Card>
 			</div>

@@ -1,3 +1,5 @@
+import { ID } from '@/ds/general'
+
 export enum ChatgptRoleType {
 	system = 'system',
 	user = 'user',
@@ -9,7 +11,7 @@ export interface IChatgptMessageParams {
 	role: ChatgptRoleType
 }
 
-export interface IChatgptPrompt {
+export interface IChatgptMessage {
 	role: ChatgptRoleType
 	content: string
 }
@@ -32,7 +34,7 @@ export interface IChatGPTConversationParams {
 
 export interface ICallChatgpt {
 	model: ChatgptModelType
-	prompts: IChatgptPrompt[]
+	prompts: IChatgptMessage[]
 }
 
 export interface IChatgptRole {
@@ -40,8 +42,30 @@ export interface IChatgptRole {
 	prompt: string
 }
 
-export interface IChatgptRolePage {
-	act: string | null
-	u: string | null
-	v: string
+export interface IComment {
+	id: ID
+	user_id: ID
+	comment: string
+	time: Date
+	
+	deleted: boolean
+	quote: ID
+}
+
+export interface IChatgptPromptWeb {
+	id: ID
+	
+	act: string
+	prompt: string
+	
+	user: string
+	version: string
+	
+	category: string
+	
+	social: {
+		stars: number
+		forks: number
+		comments: IComment[]
+	}
 }
