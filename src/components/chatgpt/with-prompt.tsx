@@ -11,7 +11,6 @@ import { io, Socket } from 'socket.io-client'
 import { IClientSocketMessage, IServerSocketMessage, SocketActionType } from '@/ds/socket'
 import { ChatMessage, ContentStatus, RichContentType } from '@/components/chatgpt/ChatMessage'
 import { NEXT_PUBLIC_SOCKET_SERVER } from '@/lib/env'
-import { USER_OPENAI } from '@/settings'
 import { PlatformType } from '@/ds/openai'
 import { MessageType } from '@/ds/general'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -112,19 +111,19 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 				
 				
 				<div id={'messages'} className={'w-full grow overflow-auto flex flex-col gap-2'}>
-					{[...Array(10)].map((value, index, array) => (
-						<ChatMessage
-							key={index}
-							side={'left'}
-							userId={USER_OPENAI.id}
-							richContent={{
-								type: RichContentType.text,
-								content: 'test',
-							}}
-							status={ContentStatus.delivered}
-							time={new Date()}
-						/>
-					))}
+					{/*{[...Array(10)].map((value, index, array) => (*/}
+					{/*	<ChatMessage*/}
+					{/*		key={index}*/}
+					{/*		side={'left'}*/}
+					{/*		userId={USER_OPENAI.id}*/}
+					{/*		richContent={{*/}
+					{/*			type: RichContentType.text,*/}
+					{/*			content: 'test',*/}
+					{/*		}}*/}
+					{/*		status={ContentStatus.delivered}*/}
+					{/*		time={new Date()}*/}
+					{/*	/>*/}
+					{/*))}*/}
 					
 					{messages.map((message, index) => {
 						return (
