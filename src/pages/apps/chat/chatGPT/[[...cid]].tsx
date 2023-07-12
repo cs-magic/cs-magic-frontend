@@ -4,23 +4,13 @@ import { RootLayout } from '@/layouts/RootLayout'
 import { ConversationsComp } from '@/components/chatgpt/ConversationsComp'
 import { MessagesComp } from '@/components/chatgpt/MessagesComp'
 import { useU } from '@/hooks/use-u'
-import { PlatformType } from '@/ds/openai'
 
 export const ConversationPage = () => {
 	const u = useU()
-	
-	// customize
-	const platformType: PlatformType = PlatformType.chatGPT
-	
-	// preserve
 	const router = useRouter()
 	const cid = ensureSole(router.query.cid) // router id or null
 	
-	const conversationsComp = <ConversationsComp
-		cid={cid}
-		platform_type={platformType}
-	/>
-	
+	const conversationsComp = <ConversationsComp cid={cid}/>
 	
 	return (
 		<RootLayout title={u.routers.apps.chat.chatGPT}>
@@ -32,11 +22,7 @@ export const ConversationPage = () => {
 				</div>
 				
 				{/* right: current conversation */}
-				<MessagesComp
-					cid={cid}
-					platform_type={platformType}
-					conversationsComp={conversationsComp}
-				/>
+				<MessagesComp cid={cid} conversationsComp={conversationsComp}/>
 			
 			</div>
 		</RootLayout>

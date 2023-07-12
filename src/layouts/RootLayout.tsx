@@ -31,7 +31,7 @@ export const RootLayout = ({ children, title, ...props }: {
 			</Head>
 			
 			<main>
-				<div className={'max-w-[1400px] min-h-screen m-auto flex flex-col'}>
+				<div className={'max-w-[1080px] min-h-screen m-auto flex flex-col'}>
 					
 					<div className={'w-full grow max-h-screen flex flex-col overflow-auto'}>
 						{notifications.top && (

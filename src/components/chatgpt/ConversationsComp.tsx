@@ -16,14 +16,15 @@ export const ConversationsComp = ({ cid }: { cid: ID | null }) => {
 	
 	const user_id = useUserId()
 	
-	const { data: conversations = [], isLoading: isLoadingConversations } =
+	const { data: conversations = [], isLoading } =
 		useListConversationsQuery(user_id ? { user_id, platform_type: PlatformType.chatGPT } : skipToken)
+	
 	
 	return (
 		<div className={'w-full h-full flex flex-col border-r border-base-300 overflow-auto'}>
 			
 			{
-				isLoadingConversations ? <CentralLoadingComp/> : (
+				isLoading ? <CentralLoadingComp/> : (
 					<>
 						<Link href={getChatLink({ platform_type: PlatformType.chatGPT })}>
 							<Button className={'w-full rounded-none'} size={'sm'} variant={'outline'}>

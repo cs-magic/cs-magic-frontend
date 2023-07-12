@@ -1,8 +1,7 @@
 import { ReactNode, RefObject, useEffect, useRef, useState } from 'react'
 import { MessageComp } from '@/components/chatgpt/MessageComp'
-import { ID, MessageStatusType, MessageType } from '@/ds/general'
+import { MessageStatusType, MessageType } from '@/ds/general'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useLazyUser } from '@/hooks/use-user'
 import { CentralLoadingComp } from '@/components/general/CentralLoadingComp'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { NEXT_PUBLIC_BACKEND_ENDPOINT } from '@/lib/env'
@@ -16,11 +15,10 @@ import { Button } from '@/components/ui/button'
 import { useCreateConversationMutation, useGetConversationQuery, useListChatgptMessagesQuery } from '@/states/api/chatgptApi'
 import { PlatformType } from '@/ds/openai'
 
-export const MessagesComp = ({ cid, conversationsComp }: { cid: ID | null, conversationsComp: ReactNode }) => {
+export const MessagesWithoutCid = ({ cid, conversationsComp }: { cid: null, conversationsComp: ReactNode }) => {
 	const { toast } = useToast()
 	
-	const [user, getUser] = useLazyUser()
-	const user_id = user?.id
+	const user = useU()
 	const u = useU()
 	
 	const [conversation_id, setConversationId] = useState(cid)

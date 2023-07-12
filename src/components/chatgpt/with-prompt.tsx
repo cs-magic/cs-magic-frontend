@@ -14,6 +14,8 @@ import { NEXT_PUBLIC_SOCKET_SERVER } from '@/lib/env'
 import { USER_OPENAI } from '@/settings'
 import { PlatformType } from '@/ds/openai'
 import { MessageType } from '@/ds/general'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
 
 let socket: Socket
 
@@ -108,18 +110,22 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 					</CardContent>
 				</Card>
 				
-				<ChatMessage
-					side={'left'}
-					userId={USER_OPENAI.id}
-					richContent={{
-						type: RichContentType.text,
-						content: 'test',
-					}}
-					status={ContentStatus.delivered}
-					time={new Date()}
-				/>
 				
-				<div id={'messages'} className={'w-full grow flex flex-col gap-2'}>
+				<div id={'messages'} className={'w-full grow overflow-auto flex flex-col gap-2'}>
+					{[...Array(10)].map((value, index, array) => (
+						<ChatMessage
+							key={index}
+							side={'left'}
+							userId={USER_OPENAI.id}
+							richContent={{
+								type: RichContentType.text,
+								content: 'test',
+							}}
+							status={ContentStatus.delivered}
+							time={new Date()}
+						/>
+					))}
+					
 					{messages.map((message, index) => {
 						return (
 							<ChatMessage
@@ -137,7 +143,16 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 					})}
 				</div>
 				
-				<SendInput handleSubmit={onSubmit}/>
+				<SendInput handleSubmit={onSubmit} extraButtonsOnMobile={(
+					<Sheet>
+						<SheetTrigger asChild>
+							<Button size={'sm'} className={'rounded-none'}>{u.ui.chat.btn.conversations}</Button>
+						</SheetTrigger>
+						<SheetContent className={'w-1/2 p-0 pt-10'} position={'left'}>
+							{/*{conversationsComp}*/}
+						</SheetContent>
+					</Sheet>
+				)}/>
 			
 			
 			</div>
