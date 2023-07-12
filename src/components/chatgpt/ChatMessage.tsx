@@ -1,50 +1,11 @@
-import { ID } from '@/ds/general'
 import { clsx } from 'clsx'
 import { useGetUserQuery } from '@/states/api/userApi'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Skeleton } from '../ui/skeleton'
 import { USER_OPENAI } from '@/settings'
 import { useMoment } from '@/hooks/use-moment'
+import { IChatMessage, IChatMessageBase, IUser, RichContentType } from '@/ds/chat'
 
-
-export interface IUser {
-	id: ID
-	name: string
-	avatar: string | null
-}
-
-export enum RichContentType {
-	text = 'text',
-	image = 'image',
-	audio = 'audio',
-	video = 'video',
-	map = 'map',
-}
-
-export interface IRichContent {
-	content: string
-	type: RichContentType
-}
-
-export enum ContentStatus {
-	delivering = 'delivering',
-	delivered = 'delivered',
-	read = 'read',
-}
-
-export type ChatMessageSide = 'left' | 'right'
-
-export interface IChatMessageBase {
-	side: ChatMessageSide
-	user: IUser
-	richContent: IRichContent
-	status: ContentStatus
-	time: Date
-}
-
-export interface IChatMessage extends Omit<IChatMessageBase, 'user'> {
-	userId: ID
-}
 
 export const ChatMessageBase = (props: IChatMessageBase) => {
 	const m = useMoment()

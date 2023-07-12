@@ -45,14 +45,14 @@ export interface ICallChatgpt {
 
 export type IChatgptMessage = {
 	conversation_id: ID
+	sender: ID // todo: 未来做群聊需要这个
 	content: string
 	
 	type: MessageType
 	platform_type: PlatformType.chatGPT
 	platform_params: IChatgptMessageParams
 	
-	sender: ID // todo: 未来做群聊需要这个
-	time: Date
+	time: number
 	
 	status?: MessageStatusType
 }

@@ -1,4 +1,5 @@
 import { ID } from '@/ds/general'
+import { IChatgptMessage } from '@/ds/openai/chatgpt'
 
 export enum SocketActionType {
 	join_room = 'join_room',
@@ -16,9 +17,7 @@ export interface IClientSocketMessage {
 }
 
 
-export type ServerSocketMessageType = 'notification' | 'response'
-
-export interface IServerSocketMessage {
-	msg: string
-	type: ServerSocketMessageType
+export interface IServerSocketMessageChatgpt {
+	msg: IChatgptMessage
+	type: SocketActionType
 }

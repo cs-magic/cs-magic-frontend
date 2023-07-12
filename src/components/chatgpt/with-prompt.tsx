@@ -8,13 +8,14 @@ import { useUser } from '@/hooks/use-user'
 import { useListChatgptMessagesQuery } from '@/states/api/chatgptApi'
 import { toast } from '@/hooks/use-toast'
 import { io, Socket } from 'socket.io-client'
-import { IClientSocketMessage, IServerSocketMessage, SocketActionType } from '@/ds/socket'
-import { ChatMessage, ContentStatus, RichContentType } from '@/components/chatgpt/ChatMessage'
+import { IClientSocketMessage, IServerSocketMessageChatgpt, SocketActionType } from '@/ds/socket'
+import { ChatMessage } from '@/components/chatgpt/ChatMessage'
 import { NEXT_PUBLIC_SOCKET_SERVER } from '@/lib/env'
 import { PlatformType } from '@/ds/openai'
 import { MessageType } from '@/ds/general'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { ContentStatus, RichContentType } from '@/ds/chat'
 
 let socket: Socket
 
@@ -26,34 +27,20 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 	const { data: initMessages = [] } = useListChatgptMessagesQuery(prompt.id)
 	const [messages, setMessages] = useState<IChatgptMessage[]>(initMessages)
 	
+	console.log({ userId: user?.id })
 	console.log({ messages })
+	const isSelf = (i: string) => {
+		console.log({ i, userId: user?.id })
+		return i === user?.id
+	}
 	
 	useEffect(() => {
+		if (socket)
+			socket.disconnect() // todo: better user id
 		
 		socket = io(NEXT_PUBLIC_SOCKET_SERVER as string, {
 			path: '/ws/socket.io/', // warn: 这里不能变，否则服务器就要变，以及nginx等
 			transports: ['websocket', 'polling'],
-		})
-		
-		socket.on('connect', () => { console.log('Connected: ', socket.id) })
-		socket.on('message', (data: IServerSocketMessage) => {
-			console.log('REC: ', data)
-			if (data.type === 'response') {
-				setMessages((messages) => [...messages, {
-					content: data.msg,
-					
-					sender: 'openai',
-					platform_params: {
-						role: ChatgptRoleType.assistant,
-					},
-					
-					type: MessageType.text,
-					platform_type: PlatformType.chatGPT,
-					time: new Date(),
-					status: 'OK',
-					conversation_id: prompt.id,
-				}])
-			}
 		})
 		
 		const msg: IClientSocketMessage = {
@@ -63,7 +50,23 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 			user_id: user?.id,
 		}
 		socket.send(msg)
-	}, [])
+		
+		const onMessage = (data: IServerSocketMessageChatgpt) => {
+			console.log('REC: ', data)
+			if (data.type === SocketActionType.call_chatgpt) {
+				// console.log({ 'msgSender': data.msg.sender, 'user': user?.id })
+				if (!isSelf(data.msg.sender)) {
+					setMessages((messages) => [...messages, data.msg])
+				} else {
+					// todo: 更新状态
+				}
+			}
+		}
+		
+		
+		socket.on('connect', () => { console.log('Connected: ', socket.id) })
+		socket.on('message', onMessage)
+	}, [user?.id])
 	
 	const onSubmit = async (ref: RefObject<HTMLTextAreaElement>) => {
 		const content = ref.current!.value
@@ -78,7 +81,7 @@ export const ChatgptWithPrompt = ({ prompt }: { prompt: IChatgptConversation }) 
 			platform_type: PlatformType.chatGPT,
 			platform_params: { role: ChatgptRoleType.user },
 			sender: user.id,
-			time: new Date(),
+			time: Date.now(),
 		}
 		const socketMessage: IClientSocketMessage = {
 			action: SocketActionType.call_chatgpt,
