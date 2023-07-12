@@ -130,7 +130,7 @@ export const MessagesComp = ({ cid, conversationsComp }: { cid: ID | null, conve
 			platform_type: PlatformType.chatGPT,
 			platform_params: { role: ChatgptRoleType.user },
 			sender: user_id,
-			time: new Date(),
+			time: Date.now(),
 		}
 		await pushMessage(msg)
 		
