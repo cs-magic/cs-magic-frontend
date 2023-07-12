@@ -29,7 +29,13 @@ export const MessagesComp = ({ cid, conversationsComp }: { cid: ID | null, conve
 	
 	const [createConversation] = useCreateConversationMutation()
 	
-	const { currentData: conversation } = useGetConversationQuery(conversation_id ?? skipToken)
+	const {
+		currentData: conversation = {
+			platform_params: {
+				system_prompt: CHATGPT_ROLE_PROMPT_DEFAULT,
+			},
+		},
+	} = useGetConversationQuery(conversation_id ?? skipToken)
 	
 	const refMessageEnd = useRef<HTMLDivElement | null>(null)
 	
@@ -60,54 +66,54 @@ export const MessagesComp = ({ cid, conversationsComp }: { cid: ID | null, conve
 	 * 2. inited messages changed out of auto fetch messages
 	 * 3. set messages
 	 */
-		// useEffect(() => {
-		// 	if (initedMessages) setMessages((messages) => initedMessages)
-		// }, [initedMessages])
-		
-		
-		// todo: better auto scroll
-		// useEffect(() => refMessageEnd.current?.scrollIntoView({
-		// 	behavior: 'smooth',
-		// 	block: 'nearest', // inner specific div
-		// }), [messages.length && messages[messages.length - 1].content.length])
+	useEffect(() => {
+		if (initedMessages) setMessages((messages) => initedMessages)
+	}, [initedMessages.length])
+	
+	
+	// todo: better auto scroll
+	// useEffect(() => refMessageEnd.current?.scrollIntoView({
+	// 	behavior: 'smooth',
+	// 	block: 'nearest', // inner specific div
+	// }), [messages.length && messages[messages.length - 1].content.length])
 	
 	const fetchSSE = (msg: IChatgptMessage) => {
-			console.log(`[fetching SSE] msg: ${msg}`)
-			
-			class MyError extends Error {}
-			
-			fetchEventSource(`${NEXT_PUBLIC_BACKEND_ENDPOINT}/chatGPT/chat?stream=true`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(msg),
-				onopen: async (response) => {
-					console.log('onOpen')
-					console.log({ response })
-					if (!response.ok) {
-						const { status } = response
-						const { detail } = await response.json()
-						console.log({ status, detail })
-						concatMessage(detail, status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR')
-						throw new MyError(detail)
-					}
-				},
-				onmessage(msg) {
-					const { data: chunk } = msg
-					// console.info({ chunk })
-					// todo: 为空的时候表示换行（后端是正常的，不知道前端这里为啥会变）
-					concatMessage(chunk === '' ? '\n' : chunk, 'OK')
-				},
-				onclose: () => {
-					console.log('onClose')
-					if (user) getUser(user.id) // update token
-				},
-				onerror: (error) => {
-					console.log('onError')
-					throw error
-				},
-			})
-				.catch(console.error)
-		}
+		console.log(`[fetching SSE] msg: ${msg}`)
+		
+		class MyError extends Error {}
+		
+		fetchEventSource(`${NEXT_PUBLIC_BACKEND_ENDPOINT}/chatGPT/chat?stream=true`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(msg),
+			onopen: async (response) => {
+				console.log('onOpen')
+				console.log({ response })
+				if (!response.ok) {
+					const { status } = response
+					const { detail } = await response.json()
+					console.log({ status, detail })
+					concatMessage(detail, status === 402 ? 'ERROR_TOKEN_DRAIN' : 'ERROR')
+					throw new MyError(detail)
+				}
+			},
+			onmessage(msg) {
+				const { data: chunk } = msg
+				// console.info({ chunk })
+				// todo: 为空的时候表示换行（后端是正常的，不知道前端这里为啥会变）
+				concatMessage(chunk === '' ? '\n' : chunk, 'OK')
+			},
+			onclose: () => {
+				console.log('onClose')
+				if (user) getUser(user.id) // update token
+			},
+			onerror: (error) => {
+				console.log('onError')
+				throw error
+			},
+		})
+			.catch(console.error)
+	}
 	
 	
 	const onSubmit = async (refInput: RefObject<HTMLTextAreaElement>) => {
